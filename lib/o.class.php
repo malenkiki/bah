@@ -3,7 +3,7 @@
 class o
 {
 
-    protected $value = null;
+    public $value = null;
     
     public function __toString()
     {
