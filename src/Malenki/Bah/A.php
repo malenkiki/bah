@@ -2,7 +2,7 @@
 
 namespace Malenki\Bah;
 
-class A implements Iterator
+class A implements \Iterator
 {
     private $count = 0;
     private $position = null;

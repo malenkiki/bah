@@ -2,10 +2,11 @@
 
 namespace Malenki\Bah;
 
-include('o.class.php');
-include('n.class.php');
-include('a.class.php');
-include('s.class.php');
+/*
+ * TODO: http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters
+ * http://en.wikipedia.org/wiki/Basic_Multilingual_Plane#Basic_Multilingual_Plane
+ * http://www.unicode.org/roadmaps/
+ */
 class C extends O
 {
     const ENCODING = 'UTF-8';
@@ -92,24 +93,3 @@ class C extends O
     }
 }
 
-/*
- * TODO: http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters
- * http://en.wikipedia.org/wiki/Basic_Multilingual_Plane#Basic_Multilingual_Plane
- * http://www.unicode.org/roadmaps/
- */
-$s = new S('C’est cool !');
-$c = new C("€");
-//print($s->chars()->last());
-while($c->bytes()->valid())
-{
-    echo $c->bytes()->current()->b()->upper()->n();
-    $c->bytes()->next();
-}
-
-$greek = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
-echo $greek->n();
-echo $greek->upper()->n();
-echo $greek->lower()->n();
-echo $greek->title()->n();
-echo $greek->length()->s()->n();
-echo $greek->sub(4)->n();
