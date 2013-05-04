@@ -1,6 +1,8 @@
 <?php
 
-class n
+namespace Malenki\Bah;
+
+class N
 {
     public function __construct($num = 0)
     {
@@ -156,17 +158,17 @@ class n
 
     public function hex()
     {
-        return new s(dechex($this->value));
+        return new S(dechex($this->value));
     }
 
     public function oct()
     {
-        return new s(decoct($this->value));
+        return new S(decoct($this->value));
     }
 
     public function bin()
     {
-        return new s(decbin($this->value));
+        return new S(decbin($this->value));
     }
 
     public function h()
@@ -186,7 +188,7 @@ class n
 
     public function s()
     {
-        return new s($this->__toString());
+        return new S($this->__toString());
     }
 
     public function __toString()

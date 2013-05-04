@@ -1,6 +1,8 @@
 <?php
 
-class o
+namespace Malenki\Bah;
+
+class O
 {
 
     public $value = null;

@@ -1,9 +1,12 @@
 <?php
+
+namespace Malenki\Bah;
+
 include('o.class.php');
 include('n.class.php');
 include('a.class.php');
 include('s.class.php');
-class c extends o
+class C extends O
 {
     const ENCODING = 'UTF-8';
 
@@ -27,7 +30,7 @@ class c extends o
 
     public static function encodings()
     {
-        return new a(mb_list_encodings());
+        return new A(mb_list_encodings());
     }
 
     public function bytes()
@@ -35,11 +38,11 @@ class c extends o
         if(!isset($this->bytes))
         {
             $i = 0;
-            $a = new a();
+            $a = new A();
 
             while($i < strlen($this))
             {
-                $a->add(new n(ord($this->value{$i})));
+                $a->add(new N(ord($this->value{$i})));
                 $i++;
             }
             $this->bytes = $a;
@@ -50,13 +53,13 @@ class c extends o
 
     public function upper()
     {
-        return new self(mb_convert_case($this, MB_CASE_UPPER, c::ENCODING));
+        return new self(mb_convert_case($this, MB_CASE_UPPER, C::ENCODING));
         // return new self(mb_strtoupper($this, c::ENCODING));
     }
     
     public function lower()
     {
-        return new self(mb_convert_case($this, MB_CASE_LOWER, c::ENCODING));
+        return new self(mb_convert_case($this, MB_CASE_LOWER, C::ENCODING));
         //return new self(mb_strtolower($this, c::ENCODING));
     }
 
@@ -94,8 +97,8 @@ class c extends o
  * http://en.wikipedia.org/wiki/Basic_Multilingual_Plane#Basic_Multilingual_Plane
  * http://www.unicode.org/roadmaps/
  */
-$s = new s('C’est cool !');
-$c = new c("€");
+$s = new S('C’est cool !');
+$c = new C("€");
 //print($s->chars()->last());
 while($c->bytes()->valid())
 {
@@ -103,7 +106,7 @@ while($c->bytes()->valid())
     $c->bytes()->next();
 }
 
-$greek = new s('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
+$greek = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
 echo $greek->n();
 echo $greek->upper()->n();
 echo $greek->lower()->n();

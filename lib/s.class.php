@@ -1,6 +1,8 @@
 <?php
 
-class s extends o
+namespace Malenki\Bah;
+
+class S extends O
 {
     public function __construct($str = '')
     {
@@ -11,8 +13,8 @@ class s extends o
     {
         if(!isset($this->chars))
         {
-            $a = new a();
-            $i = new n(0);
+            $a = new A();
+            $i = new N(0);
 
             while($i->less($this->length()))
             {
@@ -29,7 +31,7 @@ class s extends o
     {
         if(!isset($this->bytes))
         {
-            $a = new a();
+            $a = new A();
 
             while($this->chars()->valid())
             {
@@ -51,35 +53,32 @@ class s extends o
 
     public function sub($offset = 0, $limit = 1)
     {
-        return new s(mb_substr($this->value, $offset, $limit, c::ENCODING));
+        return new S(mb_substr($this->value, $offset, $limit, C::ENCODING));
     }
 
     public function charAt($idx)
     {
-        return new c(mb_substr($this->value, $idx, 1, c::ENCODING));
+        return new C(mb_substr($this->value, $idx, 1, C::ENCODING));
     }
 
     public function length()
     {
-        return new n(mb_strlen($this, c::ENCODING));
+        return new N(mb_strlen($this, C::ENCODING));
     }
     
     public function upper()
     {
-        return new self(mb_convert_case($this, MB_CASE_UPPER, c::ENCODING));
-        //return new self(mb_strtoupper($this, c::ENCODING));
+        return new self(mb_convert_case($this, MB_CASE_UPPER, C::ENCODING));
     }
     
     public function lower()
     {
-        return new self(mb_convert_case($this, MB_CASE_LOWER, c::ENCODING));
-        //return new self(mb_strtolower($this, c::ENCODING));
+        return new self(mb_convert_case($this, MB_CASE_LOWER, C::ENCODING));
     }
     
     public function title()
     {
-        return new self(mb_convert_case($this, MB_CASE_TITLE, c::ENCODING));
-        //return new self(mb_strtolower($this, c::ENCODING));
+        return new self(mb_convert_case($this, MB_CASE_TITLE, C::ENCODING));
     }
 
     public function times($n = 1)

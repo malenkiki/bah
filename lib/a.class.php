@@ -1,6 +1,8 @@
 <?php
 
-class a implements Iterator
+namespace Malenki\Bah;
+
+class A implements Iterator
 {
     private $count = 0;
     private $position = null;
@@ -35,7 +37,7 @@ class a implements Iterator
 
     public function length()
     {
-        return new n($this->count);
+        return new N($this->count);
     }
 
     public function take($idx)
@@ -68,7 +70,7 @@ class a implements Iterator
     public function implode($sep = '')
     {
         // TODO test if each object has toString method or is simple string
-        return new s(implode($sep, $this->value));
+        return new S(implode($sep, $this->value));
     }
 
     public function __toString()
