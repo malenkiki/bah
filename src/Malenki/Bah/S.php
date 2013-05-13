@@ -27,51 +27,60 @@ namespace Malenki\Bah;
 
 class S extends O
 {
+    protected $chars = null;
+    protected $bytes = null;
+
     public function __construct($str = '')
     {
         $this->value = $str;
     }
 
-    public function chars()
+    public function __get($name)
     {
-        if(!isset($this->chars))
+        if(in_array($name, array('chars', 'bytes')))
         {
-            $a = new A();
-            $i = new N(0);
-
-            while($i->less($this->length()))
+            if($name == 'chars')
             {
-                $a->add($this->sub($i->value));
-                $i->incr();
+                if(is_null($this->chars))
+                {
+                    $a = new A();
+                    $i = new N(0);
+
+                    while($i->less($this->length()))
+                    {
+                        $a->add(new C($this->sub($i->value)->value));
+                        $i->incr();
+                    }
+
+                    $this->chars = $a;
+                }
+                return $this->chars;
             }
 
-            $this->chars = $a;
-        }
-        return $this->chars;
-    }
-
-    public function bytes()
-    {
-        if(!isset($this->bytes))
-        {
-            $a = new A();
-
-            while($this->chars()->valid())
+            if($name == 'bytes')
             {
-                $bytes = $this->chars()->current()->bytes();
-
-                while($bytes->valid())
+                if(is_null($this->bytes))
                 {
-                    $a->add($bytes->current());
-                    $bytes->next();
+                    $a = new A();
+
+                    while($this->chars->valid())
+                    {
+                        //$bytes = $this->chars->current()->bytes;
+
+                        while($this->chars->current()->bytes->valid())
+                        {
+                            $a->add($this->chars->current()->bytes->current());
+                            $this->chars->current()->bytes->next();
+                        }
+
+                        $this->chars->next();
+                    }
+                    $this->bytes = $a;
                 }
 
-                $this->chars()->next();
+                return $this->bytes;
             }
-            $this->bytes = $a;
         }
-
-        return $this->bytes;
     }
 
     public function sub($offset = 0, $limit = 1)

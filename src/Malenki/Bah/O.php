@@ -28,7 +28,12 @@ namespace Malenki\Bah;
 class O
 {
 
-    public $value = null;
+    protected $value = null;
+
+    public function __get($name)
+    {
+        return $this->value;
+    }
     
     public function __toString()
     {
