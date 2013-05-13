@@ -51,5 +51,6 @@ echo $greek->title()->n();
 echo $greek->length()->s()->n();
 echo $greek->sub(4)->n();
 
-$a = new A(array('un', 'deux', 'trois'));
+$a = new A(array('un', 'deux', 'trois', 'quatre'));
 var_dump(count($a));
+var_dump($a->lastButOne());

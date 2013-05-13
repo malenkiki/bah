@@ -72,7 +72,15 @@ class A implements \Iterator, \Countable
         return $this->value[$idx];
     }
 
-    //TODO: add method lastButOne()
+    public function lastButOne()
+    {
+        if($this->count < 2)
+        {
+            throw new \Exception(_('This collection is too small to have last but one value.'));
+        }
+        return $this->value[$this->count - 2];
+    }
+
     public function last()
     {
         return $this->value[$this->length()->p()->value];
