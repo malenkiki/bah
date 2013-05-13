@@ -37,10 +37,10 @@ use Malenki\Bah\C;
 $s = new S('C’est cool !');
 $c = new C("€");
 //print($s->chars()->last());
-while($c->bytes()->valid())
+while($c->bytes->valid())
 {
-    echo $c->bytes()->current()->b()->upper()->n();
-    $c->bytes()->next();
+    echo $c->bytes->current()->b()->upper()->n();
+    $c->bytes->next();
 }
 
 $greek = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');

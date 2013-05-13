@@ -34,10 +34,36 @@ class C extends O
 {
     const ENCODING = 'UTF-8';
 
+    protected $bytes = null;
+
     public function __construct($char = '')
     {
         // TODO: test if it is really a char.
         $this->value = $char;
+    }
+    
+    
+    
+    public function __get($name)
+    {
+        if($name == 'bytes')
+        {
+            if(is_null($this->bytes))
+            {
+                $i = 0;
+                $a = new A();
+
+                while($i < strlen($this))
+                {
+                    $a->add(new N(ord($this->value{$i})));
+                    $i++;
+                }
+
+                $this->bytes = $a;
+            }
+
+            return $this->bytes;
+        }
     }
 
     public static function createFromCode($char, $encoding = c::ENCODING)
@@ -57,23 +83,6 @@ class C extends O
         return new A(mb_list_encodings());
     }
 
-    public function bytes()
-    {
-        if(!isset($this->bytes))
-        {
-            $i = 0;
-            $a = new A();
-
-            while($i < strlen($this))
-            {
-                $a->add(new N(ord($this->value{$i})));
-                $i++;
-            }
-            $this->bytes = $a;
-        }
-
-        return $this->bytes;
-    }
 
     public function upper()
     {
