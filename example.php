@@ -50,3 +50,6 @@ echo $greek->lower()->n();
 echo $greek->title()->n();
 echo $greek->length()->s()->n();
 echo $greek->sub(4)->n();
+
+$a = new A(array('un', 'deux', 'trois'));
+var_dump(count($a));

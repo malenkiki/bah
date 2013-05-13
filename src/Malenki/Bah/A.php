@@ -24,7 +24,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Malenki\Bah;
 
-class A implements \Iterator
+class A implements \Iterator, \Countable
 {
     private $count = 0;
     private $position = null;
@@ -60,6 +60,11 @@ class A implements \Iterator
     public function length()
     {
         return new N($this->count);
+    }
+
+    public function count()
+    {
+        return $this->count;
     }
 
     public function take($idx)
