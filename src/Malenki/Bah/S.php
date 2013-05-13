@@ -29,6 +29,7 @@ class S extends O
 {
     protected $chars = null;
     protected $bytes = null;
+    protected $length = null;
 
     public function __construct($str = '')
     {
@@ -37,8 +38,18 @@ class S extends O
 
     public function __get($name)
     {
-        if(in_array($name, array('chars', 'bytes')))
+        if(in_array($name, array('chars', 'bytes', 'length')))
         {
+            if($name == 'length')
+            {
+                if(is_null($this->length))
+                {
+                    $this->length = new N(mb_strlen($this, C::ENCODING));
+                }
+
+                return $this->length;
+            }
+
             if($name == 'chars')
             {
                 if(is_null($this->chars))
@@ -46,7 +57,7 @@ class S extends O
                     $a = new A();
                     $i = new N(0);
 
-                    while($i->less($this->length()))
+                    while($i->less($this->length))
                     {
                         $a->add(new C($this->sub($i->value)->value));
                         $i->incr();
@@ -93,9 +104,10 @@ class S extends O
         return new C(mb_substr($this->value, $idx, 1, C::ENCODING));
     }
 
-    public function length()
+
+    public function count()
     {
-        return new N(mb_strlen($this, C::ENCODING));
+        return $this->length->value;
     }
     
     public function upper()

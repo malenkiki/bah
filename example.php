@@ -48,7 +48,7 @@ echo $greek->n();
 echo $greek->upper()->n();
 echo $greek->lower()->n();
 echo $greek->title()->n();
-echo $greek->length()->s()->n();
+echo $greek->length->s()->n();
 echo $greek->sub(4)->n();
 echo $greek->chars->length()->s()->n();
 echo $greek->bytes->length()->s()->n();
