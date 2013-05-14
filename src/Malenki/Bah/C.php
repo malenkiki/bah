@@ -25,10 +25,14 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Malenki\Bah;
 
-/*
- * TODO: http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters
- * http://en.wikipedia.org/wiki/Basic_Multilingual_Plane#Basic_Multilingual_Plane
- * http://www.unicode.org/roadmaps/
+/**
+ * @package Malenki\Bah
+ * @license MIT
+ * @property-read Malenki\Bah\A $bytes A collection of Malenki\Bah\N objects
+ *
+ * @todo http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters
+ * @todo http://en.wikipedia.org/wiki/Basic_Multilingual_Plane#Basic_Multilingual_Plane
+ * @todo http://www.unicode.org/roadmaps/
  */
 class C extends O
 {

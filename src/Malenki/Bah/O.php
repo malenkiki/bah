@@ -25,9 +25,18 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Malenki\Bah;
 
+/**
+ * Base object, mother of all classes of this package.
+ *
+ * @package Malenki\Bah
+ * @license MIT
+ */
 class O
 {
 
+	/**
+	 * @var mixed Primitive value
+	 */
     protected $value = null;
 
     public function __get($name)

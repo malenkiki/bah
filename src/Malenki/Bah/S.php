@@ -25,10 +25,36 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Malenki\Bah;
 
-class S extends O
+/**
+ * String class.
+ *
+ * @package Malenki\Bah
+ * @property-read Malenki\Bah\A $chars A collection of Malenki\Bah\C objects
+ * @property-read Malenki\Bah\A $bytes A collection of Malenki\bah\N objects
+ * @property-read Malenki\Bah\N $length The strings length
+ * @license MIT
+ */
+class S extends O implements \Countable
 {
+	/**
+	 * Stocks characters when a call is done for that.
+	 *
+	 * @var Malenki\Bah\A
+	 */
     protected $chars = null;
-    protected $bytes = null;
+
+	/**
+	 * Stocks string's bytes.
+	 *
+	 * @var Malenki\Bah\A
+	 */
+	protected $bytes = null;
+
+	/**
+	 * Stocks string's length.
+	 *
+	 * @var Malenki\Bah\N
+	 */
     protected $length = null;
 
     public function __construct($str = '')
@@ -36,6 +62,9 @@ class S extends O
         $this->value = $str;
     }
 
+	/**
+	 * @params string $name
+	 */
     public function __get($name)
     {
         if(in_array($name, array('chars', 'bytes', 'length')))
@@ -94,42 +123,98 @@ class S extends O
         }
     }
 
+	/**
+	 * Get substring from the original string.
+	 *
+	 * By default, returns the first character as a substring.
+	 *
+	 * @param integer $offset Where to start the substring, 0 by default
+	 * @param integer $limit Size of the substring, 1 by default
+	 *
+	 * @return Malenki\Bah\S
+	 */
     public function sub($offset = 0, $limit = 1)
     {
         return new S(mb_substr($this->value, $offset, $limit, C::ENCODING));
     }
 
+	/**
+	 * Get character at the given position.
+	 *
+	 * @param integer $idx The index where the cahracter is.
+	 *
+	 * @return Malenki\Bah\C
+	 */
     public function charAt($idx)
     {
         return new C(mb_substr($this->value, $idx, 1, C::ENCODING));
     }
 
 
+	/**
+	 * Implements Countable interface.
+	 *
+	 * @see \Countable
+	 */
     public function count()
     {
         return $this->length->value;
     }
-    
+
+
+
+	/**
+	 * Returns new string object converted to uppercase.
+	 *
+	 * @return Malenki\Bah\S
+	 */
     public function upper()
     {
         return new self(mb_convert_case($this, MB_CASE_UPPER, C::ENCODING));
     }
     
+	
+	
+	/**
+	 * Returns new string object converted to lowercase.
+	 *
+	 * @return Malenki\Bah\S
+	 */
     public function lower()
     {
         return new self(mb_convert_case($this, MB_CASE_LOWER, C::ENCODING));
     }
-    
+
+
+
+	/**
+	 * Returns new String object with capital letters
+	 *
+	 * @return Malenki\Bah\S
+	 */
     public function title()
     {
         return new self(mb_convert_case($this, MB_CASE_TITLE, C::ENCODING));
     }
 
+
+	/**
+	 * Returns current string as an new string object repeated N times.
+	 *
+	 * @param integer $n
+	 * @return Malenki\Bah\S
+	 */
     public function times($n = 1)
     {
         return new self(str_repeat($this, $n));
     }
 
+
+	/**
+	 *
+	 * @param boolean $after
+	 * @return Malenki\Bah\S
+	 */
     public function n($after = true)
     {
         if($after)

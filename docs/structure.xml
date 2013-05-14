@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project version="2.0.0a12" title="">
+  <file path="src/Malenki/Bah/C.php" hash="997b83cdf4ab351671f66afe02e12de6" package="Default">
+    <class final="false" abstract="false" namespace="Malenki\Bah" line="37" package="Malenki\Bah">
+      <extends>\Malenki\Bah\O</extends>
+      <name>C</name>
+      <full_name>\Malenki\Bah\C</full_name>
+      <docblock line="28">
+        <description/>
+        <long-description/>
+        <tag line="28" name="package" description="Malenki\Bah"/>
+        <tag line="28" name="license" description="MIT"/>
+        <tag line="28" name="property-read" description="A collection of Malenki\Bah\N objects" type="\Malenki\Bah\Malenki\Bah\A" variable="$bytes">
+          <type by_reference="false">\Malenki\Bah\Malenki\Bah\A</type>
+        </tag>
+        <tag line="28" name="todo" description="http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters"/>
+        <tag line="28" name="todo" description="http://en.wikipedia.org/wiki/Basic_Multilingual_Plane#Basic_Multilingual_Plane"/>
+        <tag line="28" name="todo" description="http://www.unicode.org/roadmaps/"/>
+      </docblock>
+      <constant namespace="Malenki\Bah" line="39" package="Malenki\Bah">
+        <name>ENCODING</name>
+        <full_name>ENCODING</full_name>
+        <value>'UTF-8'</value>
+      </constant>
+      <property final="false" static="false" visibility="protected" line="41" namespace="Malenki\Bah" package="Default">
+        <name>$bytes</name>
+        <default>null</default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="43" package="Malenki\Bah">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="43">
+          <name>$char</name>
+          <default>''</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="51" package="Malenki\Bah">
+        <name>__get</name>
+        <full_name>__get</full_name>
+        <argument line="51">
+          <name>$name</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="Malenki\Bah" line="73" package="Malenki\Bah">
+        <name>createFromCode</name>
+        <full_name>createFromCode</full_name>
+        <argument line="73">
+          <name>$char</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="73">
+          <name>$encoding</name>
+          <default>\Malenki\Bah\c::ENCODING</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="Malenki\Bah" line="77" package="Malenki\Bah">
+        <name>createFromEntity</name>
+        <full_name>createFromEntity</full_name>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="Malenki\Bah" line="81" package="Malenki\Bah">
+        <name>createFromLatex</name>
+        <full_name>createFromLatex</full_name>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="Malenki\Bah" line="85" package="Malenki\Bah">
+        <name>encodings</name>
+        <full_name>encodings</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="91" package="Malenki\Bah">
+        <name>upper</name>
+        <full_name>upper</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="97" package="Malenki\Bah">
+        <name>lower</name>
+        <full_name>lower</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="103" package="Malenki\Bah">
+        <name>isLetter</name>
+        <full_name>isLetter</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="107" package="Malenki\Bah">
+        <name>isDigit</name>
+        <full_name>isDigit</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="111" package="Malenki\Bah">
+        <name>isWhitespace</name>
+        <full_name>isWhitespace</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="115" package="Malenki\Bah">
+        <name>isLowerCase</name>
+        <full_name>isLowerCase</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="119" package="Malenki\Bah">
+        <name>directionality</name>
+        <full_name>directionality</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="123" package="Malenki\Bah">
+        <name>isMirrored</name>
+        <full_name>isMirrored</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="127" package="Malenki\Bah">
+        <name>translit</name>
+        <full_name>translit</full_name>
+      </method>
+    </class>
+    <markers>
+      <todo line="45">test if it is really a char.</todo>
+    </markers>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file src/Malenki/Bah/C.php</error>
+      <critical line="28" code="50005">No short description for class \Malenki\Bah\C</critical>
+      <error line="41" code="50018">No DocBlock was found for property $bytes</error>
+      <error line="43" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="51" code="50010">No DocBlock was found for method __get()</error>
+      <error line="73" code="50010">No DocBlock was found for method createFromCode()</error>
+      <error line="77" code="50010">No DocBlock was found for method createFromEntity()</error>
+      <error line="81" code="50010">No DocBlock was found for method createFromLatex()</error>
+      <error line="85" code="50010">No DocBlock was found for method encodings()</error>
+      <error line="91" code="50010">No DocBlock was found for method upper()</error>
+      <error line="97" code="50010">No DocBlock was found for method lower()</error>
+      <error line="103" code="50010">No DocBlock was found for method isLetter()</error>
+      <error line="107" code="50010">No DocBlock was found for method isDigit()</error>
+      <error line="111" code="50010">No DocBlock was found for method isWhitespace()</error>
+      <error line="115" code="50010">No DocBlock was found for method isLowerCase()</error>
+      <error line="119" code="50010">No DocBlock was found for method directionality()</error>
+      <error line="123" code="50010">No DocBlock was found for method isMirrored()</error>
+      <error line="127" code="50010">No DocBlock was found for method translit()</error>
+    </parse_markers>
+  </file>
+  <file path="src/Malenki/Bah/A.php" hash="393a0844d3d8aa8ebce4d0fcb86a6b56" package="Default">
+    <class final="false" abstract="false" namespace="Malenki\Bah" line="27" package="Default">
+      <extends/>
+      <implements>\Iterator</implements>
+      <implements>\Countable</implements>
+      <name>A</name>
+      <full_name>\Malenki\Bah\A</full_name>
+      <property final="false" static="false" visibility="private" line="29" namespace="Malenki\Bah" package="Default">
+        <name>$count</name>
+        <default>0</default>
+      </property>
+      <property final="false" static="false" visibility="private" line="30" namespace="Malenki\Bah" package="Default">
+        <name>$position</name>
+        <default>null</default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="32" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="32">
+          <name>$arr</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="39" package="Default">
+        <name>current</name>
+        <full_name>current</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="43" package="Default">
+        <name>key</name>
+        <full_name>key</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="47" package="Default">
+        <name>next</name>
+        <full_name>next</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="51" package="Default">
+        <name>rewind</name>
+        <full_name>rewind</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="55" package="Default">
+        <name>valid</name>
+        <full_name>valid</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="60" package="Default">
+        <name>length</name>
+        <full_name>length</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="65" package="Default">
+        <name>count</name>
+        <full_name>count</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="70" package="Default">
+        <name>take</name>
+        <full_name>take</full_name>
+        <argument line="70">
+          <name>$idx</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="75" package="Default">
+        <name>lastButOne</name>
+        <full_name>lastButOne</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="84" package="Default">
+        <name>last</name>
+        <full_name>last</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="89" package="Default">
+        <name>first</name>
+        <full_name>first</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="94" package="Default">
+        <name>has</name>
+        <full_name>has</full_name>
+        <argument line="94">
+          <name>$thing</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="99" package="Default">
+        <name>add</name>
+        <full_name>add</full_name>
+        <argument line="99">
+          <name>$thing</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="105" package="Default">
+        <name>implode</name>
+        <full_name>implode</full_name>
+        <argument line="105">
+          <name>$sep</name>
+          <default>''</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="111" package="Default">
+        <name>__toString</name>
+        <full_name>__toString</full_name>
+      </method>
+    </class>
+    <markers>
+      <todo line="107">test if each object has toString method or is simple string</todo>
+    </markers>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file src/Malenki/Bah/A.php</error>
+      <error line="27" code="50000">No DocBlock was found for \Malenki\Bah\A</error>
+      <error line="29" code="50018">No DocBlock was found for property $count</error>
+      <error line="30" code="50018">No DocBlock was found for property $position</error>
+      <error line="32" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="39" code="50010">No DocBlock was found for method current()</error>
+      <error line="43" code="50010">No DocBlock was found for method key()</error>
+      <error line="47" code="50010">No DocBlock was found for method next()</error>
+      <error line="51" code="50010">No DocBlock was found for method rewind()</error>
+      <error line="55" code="50010">No DocBlock was found for method valid()</error>
+      <error line="60" code="50010">No DocBlock was found for method length()</error>
+      <error line="65" code="50010">No DocBlock was found for method count()</error>
+      <error line="70" code="50010">No DocBlock was found for method take()</error>
+      <error line="75" code="50010">No DocBlock was found for method lastButOne()</error>
+      <error line="84" code="50010">No DocBlock was found for method last()</error>
+      <error line="89" code="50010">No DocBlock was found for method first()</error>
+      <error line="94" code="50010">No DocBlock was found for method has()</error>
+      <error line="99" code="50010">No DocBlock was found for method add()</error>
+      <error line="105" code="50010">No DocBlock was found for method implode()</error>
+      <error line="111" code="50010">No DocBlock was found for method __toString()</error>
+    </parse_markers>
+  </file>
+  <file path="src/Malenki/Bah/O.php" hash="aabcdbb344e443f7c194c3d4984dede4" package="Default">
+    <class final="false" abstract="false" namespace="Malenki\Bah" line="34" package="Malenki\Bah">
+      <extends/>
+      <name>O</name>
+      <full_name>\Malenki\Bah\O</full_name>
+      <docblock line="28">
+        <description>Base object, mother of all classes of this package.</description>
+        <long-description/>
+        <tag line="28" name="package" description="Malenki\Bah"/>
+        <tag line="28" name="license" description="MIT"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="40" namespace="Malenki\Bah" package="Default">
+        <name>$value</name>
+        <default>null</default>
+        <docblock line="37">
+          <description/>
+          <long-description/>
+          <tag line="37" name="var" description="Primitive value" type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="42" package="Malenki\Bah">
+        <name>__get</name>
+        <full_name>__get</full_name>
+        <argument line="42">
+          <name>$name</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="47" package="Malenki\Bah">
+        <name>__toString</name>
+        <full_name>__toString</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file src/Malenki/Bah/O.php</error>
+      <error line="42" code="50010">No DocBlock was found for method __get()</error>
+      <error line="47" code="50010">No DocBlock was found for method __toString()</error>
+    </parse_markers>
+  </file>
+  <file path="src/Malenki/Bah/N.php" hash="9c1c7caa7123b7a54f0da8c6bed8618b" package="Default">
+    <class final="false" abstract="false" namespace="Malenki\Bah" line="28" package="Default">
+      <extends/>
+      <name>N</name>
+      <full_name>\Malenki\Bah\N</full_name>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="30" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="30">
+          <name>$num</name>
+          <default>0</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="35" package="Default">
+        <name>incr</name>
+        <full_name>incr</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="40" package="Default">
+        <name>decr</name>
+        <full_name>decr</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="45" package="Default">
+        <name>n</name>
+        <full_name>n</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="50" package="Default">
+        <name>p</name>
+        <full_name>p</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="55" package="Default">
+        <name>less</name>
+        <full_name>less</full_name>
+        <argument line="55">
+          <name>$num</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="69" package="Default">
+        <name>greater</name>
+        <full_name>greater</full_name>
+        <argument line="69">
+          <name>$num</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="83" package="Default">
+        <name>equal</name>
+        <full_name>equal</full_name>
+        <argument line="83">
+          <name>$num</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="97" package="Default">
+        <name>plus</name>
+        <full_name>plus</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="101" package="Default">
+        <name>minus</name>
+        <full_name>minus</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="105" package="Default">
+        <name>divide</name>
+        <full_name>divide</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="109" package="Default">
+        <name>roman</name>
+        <full_name>roman</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="125" package="Default">
+        <name>greek</name>
+        <full_name>greek</full_name>
+        <docblock line="113">
+          <description>greek</description>
+          <long-description>&lt;p&gt;If digamma is false, use stigma instead.&lt;/p&gt;
+
+&lt;p&gt;Max number: 9999.&lt;/p&gt;</long-description>
+          <tag line="113" name="todo" description="add myriad to have more number after 9999."/>
+          <tag line="113" name="param" description="" type="boolean" variable="$digamma">
+            <type by_reference="false">boolean</type>
+          </tag>
+          <tag line="113" name="access" description="public"/>
+          <tag line="113" name="return" description="object" type="\Malenki\Bah\s">
+            <type by_reference="false">\Malenki\Bah\s</type>
+          </tag>
+        </docblock>
+        <argument line="125">
+          <name>$digamma</name>
+          <default>true</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="174" package="Default">
+        <name>arabian</name>
+        <full_name>arabian</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="178" package="Default">
+        <name>hebrew</name>
+        <full_name>hebrew</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="182" package="Default">
+        <name>hex</name>
+        <full_name>hex</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="187" package="Default">
+        <name>oct</name>
+        <full_name>oct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="192" package="Default">
+        <name>bin</name>
+        <full_name>bin</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="197" package="Default">
+        <name>h</name>
+        <full_name>h</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="202" package="Default">
+        <name>o</name>
+        <full_name>o</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="207" package="Default">
+        <name>b</name>
+        <full_name>b</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="212" package="Default">
+        <name>s</name>
+        <full_name>s</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="217" package="Default">
+        <name>__toString</name>
+        <full_name>__toString</full_name>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file src/Malenki/Bah/N.php</error>
+      <error line="28" code="50000">No DocBlock was found for \Malenki\Bah\N</error>
+      <error line="30" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="35" code="50010">No DocBlock was found for method incr()</error>
+      <error line="40" code="50010">No DocBlock was found for method decr()</error>
+      <error line="45" code="50010">No DocBlock was found for method n()</error>
+      <error line="50" code="50010">No DocBlock was found for method p()</error>
+      <error line="55" code="50010">No DocBlock was found for method less()</error>
+      <error line="69" code="50010">No DocBlock was found for method greater()</error>
+      <error line="83" code="50010">No DocBlock was found for method equal()</error>
+      <error line="97" code="50010">No DocBlock was found for method plus()</error>
+      <error line="101" code="50010">No DocBlock was found for method minus()</error>
+      <error line="105" code="50010">No DocBlock was found for method divide()</error>
+      <error line="109" code="50010">No DocBlock was found for method roman()</error>
+      <error line="174" code="50010">No DocBlock was found for method arabian()</error>
+      <error line="178" code="50010">No DocBlock was found for method hebrew()</error>
+      <error line="182" code="50010">No DocBlock was found for method hex()</error>
+      <error line="187" code="50010">No DocBlock was found for method oct()</error>
+      <error line="192" code="50010">No DocBlock was found for method bin()</error>
+      <error line="197" code="50010">No DocBlock was found for method h()</error>
+      <error line="202" code="50010">No DocBlock was found for method o()</error>
+      <error line="207" code="50010">No DocBlock was found for method b()</error>
+      <error line="212" code="50010">No DocBlock was found for method s()</error>
+      <error line="217" code="50010">No DocBlock was found for method __toString()</error>
+    </parse_markers>
+  </file>
+  <file path="src/Malenki/Bah/S.php" hash="a27487eea2c0ca265febc7c53b14d9a5" package="Default">
+    <class final="false" abstract="false" namespace="Malenki\Bah" line="37" package="Malenki\Bah">
+      <extends>\Malenki\Bah\O</extends>
+      <implements>\Countable</implements>
+      <name>S</name>
+      <full_name>\Malenki\Bah\S</full_name>
+      <docblock line="28">
+        <description>String class.</description>
+        <long-description></long-description>
+        <tag line="28" name="package" description="Malenki\Bah"/>
+        <tag line="28" name="property-read" description="A collection of Malenki\Bah\C objects" type="\Malenki\Bah\Malenki\Bah\A" variable="$chars">
+          <type by_reference="false">\Malenki\Bah\Malenki\Bah\A</type>
+        </tag>
+        <tag line="28" name="property-read" description="A collection of Malenki\bah\N objects" type="\Malenki\Bah\Malenki\Bah\A" variable="$bytes">
+          <type by_reference="false">\Malenki\Bah\Malenki\Bah\A</type>
+        </tag>
+        <tag line="28" name="property-read" description="The strings length" type="\Malenki\Bah\Malenki\Bah\N" variable="$length">
+          <type by_reference="false">\Malenki\Bah\Malenki\Bah\N</type>
+        </tag>
+        <tag line="28" name="license" description="MIT"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="44" namespace="Malenki\Bah" package="Default">
+        <name>$chars</name>
+        <default>null</default>
+        <docblock line="39">
+          <description>Stocks characters when a call is done for that.</description>
+          <long-description></long-description>
+          <tag line="39" name="var" description="" type="\Malenki\Bah\Malenki\Bah\A">
+            <type by_reference="false">\Malenki\Bah\Malenki\Bah\A</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="51" namespace="Malenki\Bah" package="Default">
+        <name>$bytes</name>
+        <default>null</default>
+        <docblock line="46">
+          <description>Stocks string's bytes.</description>
+          <long-description></long-description>
+          <tag line="46" name="var" description="" type="\Malenki\Bah\Malenki\Bah\A">
+            <type by_reference="false">\Malenki\Bah\Malenki\Bah\A</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="58" namespace="Malenki\Bah" package="Default">
+        <name>$length</name>
+        <default>null</default>
+        <docblock line="53">
+          <description>Stocks string's length.</description>
+          <long-description></long-description>
+          <tag line="53" name="var" description="" type="\Malenki\Bah\Malenki\Bah\N">
+            <type by_reference="false">\Malenki\Bah\Malenki\Bah\N</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="60" package="Malenki\Bah">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="60">
+          <name>$str</name>
+          <default>''</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="65" package="Malenki\Bah">
+        <name>__get</name>
+        <full_name>__get</full_name>
+        <argument line="65">
+          <name>$name</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="133" package="Malenki\Bah">
+        <name>sub</name>
+        <full_name>sub</full_name>
+        <docblock line="123">
+          <description>Get substring from the original string.</description>
+          <long-description>&lt;p&gt;By default, returns the first character as a substring.&lt;/p&gt;</long-description>
+          <tag line="123" name="param" description="Where to start the substring, 0 by default" type="integer" variable="$offset">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="123" name="param" description="Size of the substring, 1 by default" type="integer" variable="$limit">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="123" name="return" description="" type="\Malenki\Bah\Malenki\Bah\S">
+            <type by_reference="false">\Malenki\Bah\Malenki\Bah\S</type>
+          </tag>
+        </docblock>
+        <argument line="133">
+          <name>$offset</name>
+          <default>0</default>
+          <type/>
+        </argument>
+        <argument line="133">
+          <name>$limit</name>
+          <default>1</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="145" package="Malenki\Bah">
+        <name>charAt</name>
+        <full_name>charAt</full_name>
+        <docblock line="138">
+          <description>Get character at the given position.</description>
+          <long-description></long-description>
+          <tag line="138" name="param" description="The index where the cahracter is." type="integer" variable="$idx">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="138" name="return" description="" type="\Malenki\Bah\Malenki\Bah\C">
+            <type by_reference="false">\Malenki\Bah\Malenki\Bah\C</type>
+          </tag>
+        </docblock>
+        <argument line="145">
+          <name>$idx</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="156" package="Malenki\Bah">
+        <name>count</name>
+        <full_name>count</full_name>
+        <docblock line="151">
+          <description>Implements Countable interface.</description>
+          <long-description></long-description>
+          <tag line="151" name="see" description="\Countable" refers="\Countable"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="168" package="Malenki\Bah">
+        <name>upper</name>
+        <full_name>upper</full_name>
+        <docblock line="163">
+          <description>Returns new string object converted to uppercase.</description>
+          <long-description></long-description>
+          <tag line="163" name="return" description="" type="\Malenki\Bah\Malenki\Bah\S">
+            <type by_reference="false">\Malenki\Bah\Malenki\Bah\S</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="180" package="Malenki\Bah">
+        <name>lower</name>
+        <full_name>lower</full_name>
+        <docblock line="175">
+          <description>Returns new string object converted to lowercase.</description>
+          <long-description></long-description>
+          <tag line="175" name="return" description="" type="\Malenki\Bah\Malenki\Bah\S">
+            <type by_reference="false">\Malenki\Bah\Malenki\Bah\S</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="192" package="Malenki\Bah">
+        <name>title</name>
+        <full_name>title</full_name>
+        <docblock line="187">
+          <description>Returns new String object with capital letters</description>
+          <long-description></long-description>
+          <tag line="187" name="return" description="" type="\Malenki\Bah\Malenki\Bah\S">
+            <type by_reference="false">\Malenki\Bah\Malenki\Bah\S</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="204" package="Malenki\Bah">
+        <name>times</name>
+        <full_name>times</full_name>
+        <docblock line="198">
+          <description>Returns current string as an new string object repeated N times.</description>
+          <long-description></long-description>
+          <tag line="198" name="param" description="" type="integer" variable="$n">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="198" name="return" description="" type="\Malenki\Bah\Malenki\Bah\S">
+            <type by_reference="false">\Malenki\Bah\Malenki\Bah\S</type>
+          </tag>
+        </docblock>
+        <argument line="204">
+          <name>$n</name>
+          <default>1</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="215" package="Malenki\Bah">
+        <name>n</name>
+        <full_name>n</full_name>
+        <docblock line="210">
+          <description></description>
+          <long-description></long-description>
+          <tag line="210" name="param" description="" type="boolean" variable="$after">
+            <type by_reference="false">boolean</type>
+          </tag>
+          <tag line="210" name="return" description="" type="\Malenki\Bah\Malenki\Bah\S">
+            <type by_reference="false">\Malenki\Bah\Malenki\Bah\S</type>
+          </tag>
+        </docblock>
+        <argument line="215">
+          <name>$after</name>
+          <default>true</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Malenki\Bah" line="227" package="Malenki\Bah">
+        <name>r</name>
+        <full_name>r</full_name>
+        <argument line="227">
+          <name>$after</name>
+          <default>true</default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file src/Malenki/Bah/S.php</error>
+      <error line="60" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="65" code="50010">No DocBlock was found for method __get()</error>
+      <error line="210" code="50012">No short description for method n()</error>
+      <error line="227" code="50010">No DocBlock was found for method r()</error>
+    </parse_markers>
+  </file>
+  <file path="example.php" hash="95c92fe06716915b90db53490a0635d7" package="Default">
+    <include line="25" type="Include" package="Default">
+      <name>src/Malenki/Bah/O.php</name>
+    </include>
+    <include line="26" type="Include" package="Default">
+      <name>src/Malenki/Bah/N.php</name>
+    </include>
+    <include line="27" type="Include" package="Default">
+      <name>src/Malenki/Bah/A.php</name>
+    </include>
+    <include line="28" type="Include" package="Default">
+      <name>src/Malenki/Bah/S.php</name>
+    </include>
+    <include line="29" type="Include" package="Default">
+      <name>src/Malenki/Bah/C.php</name>
+    </include>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file example.php</error>
+    </parse_markers>
+  </file>
+  <package name="Default" full_name="Default"/>
+  <package name="Malenki" full_name="Malenki">
+    <package name="Bah" full_name="Malenki\Bah"/>
+  </package>
+  <namespace name="Malenki" full_name="Malenki">
+    <namespace name="Bah" full_name="Malenki\Bah"/>
+  </namespace>
+  <marker count="6">todo</marker>
+  <marker count="0">fixme</marker>
+  <deprecated count="0"/>
+</project>
