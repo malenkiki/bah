@@ -20,7 +20,7 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ */
 
 
 namespace Malenki\Bah;
@@ -45,9 +45,9 @@ class C extends O
         // TODO: test if it is really a char.
         $this->value = $char;
     }
-    
-    
-    
+
+
+
     public function __get($name)
     {
         if($name == 'bytes')
@@ -93,7 +93,7 @@ class C extends O
         return new self(mb_convert_case($this, MB_CASE_UPPER, C::ENCODING));
         // return new self(mb_strtoupper($this, c::ENCODING));
     }
-    
+
     public function lower()
     {
         return new self(mb_convert_case($this, MB_CASE_LOWER, C::ENCODING));

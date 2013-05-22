@@ -20,7 +20,7 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ */
 
 
 namespace Malenki\Bah;
@@ -34,16 +34,16 @@ namespace Malenki\Bah;
 class O
 {
 
-	/**
-	 * @var mixed Primitive value
-	 */
+    /**
+     * @var mixed Primitive value
+     */
     protected $value = null;
 
     public function __get($name)
     {
         return $this->value;
     }
-    
+
     public function __toString()
     {
         return $this->value;

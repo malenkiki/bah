@@ -20,7 +20,7 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ */
 
 
 namespace Malenki\Bah;
@@ -36,7 +36,7 @@ class N
     {
         $this->value++;
     }
-    
+
     public function decr()
     {
         $this->value--;
@@ -62,10 +62,10 @@ class N
         {
             $n = $num;
         }
-        
+
         return $this->value < $n->value;
     }
-    
+
     public function greater($num)
     {
         if(is_numeric($num))
@@ -76,10 +76,10 @@ class N
         {
             $n = $num;
         }
-        
+
         return $this->value > $n->value;
     }
-    
+
     public function equal($num)
     {
         if(is_numeric($num))
@@ -90,7 +90,7 @@ class N
         {
             $n = $num;
         }
-        
+
         return $this->value == $n->value;
     }
 
@@ -163,7 +163,7 @@ class N
             7000 => '͵ζ',
             8000 => '͵η',
             9000 => '͵θ'
-            );
+        );
 
         if(!$digamma)
         {
