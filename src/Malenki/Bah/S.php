@@ -57,6 +57,76 @@ class S extends O implements \Countable
 	 */
     protected $length = null;
 
+    protected function _chars()
+    {
+        $a = new A();
+        $i = new N(0);
+
+        while($i->less($this->length))
+        {
+            $a->add(new C($this->sub($i->value)->value));
+            $i->incr();
+        }
+
+        $this->chars = $a;
+
+        return $this->chars;
+    }
+
+    protected function _bytes()
+    {
+        $a = new A();
+
+        $this->_chars();
+
+        while($this->chars->valid())
+        {
+            //$bytes = $this->chars->current()->bytes;
+
+            while($this->chars->current()->bytes->valid())
+            {
+                $a->add($this->chars->current()->bytes->current());
+                $this->chars->current()->bytes->next();
+            }
+
+            $this->chars->next();
+        }
+        $this->bytes = $a;
+
+        return $this->bytes;
+    }
+
+    protected function _length()
+    {
+        $this->length = new N(mb_strlen($this, C::ENCODING));
+        return $this->length;
+    }
+
+    public static function concat()
+    {
+        $args = func_get_args();
+        
+        $str_out = '';
+
+        foreach($args as $s)
+        {
+            if($s instanceof \Malenki\Bah\S)
+            {
+                $str_out .= $s->__toString();
+            }
+            elseif(is_string($s))
+            {
+                $str_out .= $s;
+            }
+            else
+            {
+                throw new \Exception('All args must be string or Malenki\Bah\S instance!');
+            }
+        }
+
+        return new self($str_out);
+    }
+
     public function __construct($str = '')
     {
         $this->value = $str;
@@ -73,7 +143,7 @@ class S extends O implements \Countable
             {
                 if(is_null($this->length))
                 {
-                    $this->length = new N(mb_strlen($this, C::ENCODING));
+                    $this->_length();
                 }
 
                 return $this->length;
@@ -83,16 +153,7 @@ class S extends O implements \Countable
             {
                 if(is_null($this->chars))
                 {
-                    $a = new A();
-                    $i = new N(0);
-
-                    while($i->less($this->length))
-                    {
-                        $a->add(new C($this->sub($i->value)->value));
-                        $i->incr();
-                    }
-
-                    $this->chars = $a;
+                    $this->_chars();
                 }
                 return $this->chars;
             }
@@ -101,21 +162,7 @@ class S extends O implements \Countable
             {
                 if(is_null($this->bytes))
                 {
-                    $a = new A();
-
-                    while($this->chars->valid())
-                    {
-                        //$bytes = $this->chars->current()->bytes;
-
-                        while($this->chars->current()->bytes->valid())
-                        {
-                            $a->add($this->chars->current()->bytes->current());
-                            $this->chars->current()->bytes->next();
-                        }
-
-                        $this->chars->next();
-                    }
-                    $this->bytes = $a;
+                    $this->_bytes();
                 }
 
                 return $this->bytes;
@@ -136,6 +183,46 @@ class S extends O implements \Countable
     public function sub($offset = 0, $limit = 1)
     {
         return new S(mb_substr($this->value, $offset, $limit, C::ENCODING));
+    }
+
+    public function first()
+    {
+        return $this->sub();
+    }
+
+    public function last()
+    {
+        return $this->sub($this->_length()->value - 1, 1);
+    }
+
+    public function startsWith($str)
+    {
+    }
+
+    public function endsWith($str)
+    {
+    }
+
+    public function match($expr)
+    {
+        return preg_match($expr, $this->value);
+    }
+
+
+    public function upperCaseWords()
+    {
+    }
+
+    public function upperCaseFirst()
+    {
+        if(!$this->isVoid())
+        {
+            $first_char = $this->first()->upper();
+            $other_chars = $this->sub(1, $this->length->value);
+            return self::concat($first_char, $other_chars);
+        }
+
+        return $this;
     }
 
 	/**
@@ -159,6 +246,11 @@ class S extends O implements \Countable
     public function count()
     {
         return $this->length->value;
+    }
+
+    public function isVoid()
+    {
+        return $this->length->value == 0;
     }
 
 

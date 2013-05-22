@@ -56,3 +56,8 @@ echo $greek->bytes->length()->s()->n();
 $a = new A(array('un', 'deux', 'trois', 'quatre'));
 var_dump(count($a));
 var_dump($a->lastButOne());
+
+$abc = new S('abcdefghijklmnopqrstuvwxyz');
+echo $abc->first()->n();
+echo $abc->last()->n();
+echo $abc->upperCaseFirst()->n();
