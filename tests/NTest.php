@@ -39,7 +39,13 @@ class N extends PHPUnit_Framework_TestCase
         $this->assertEquals('ι', $ten->greek());
         
         $hundred = new Malenki\Bah\N(100);
-        $this->assertEquals('ι', $hundred->greek());
+        $this->assertEquals('ρ', $hundred->greek());
+        
+        $thousand = new Malenki\Bah\N(1000);
+        $this->assertEquals('ͺα', $thousand->greek());
+
+        $number269 = new Malenki\Bah\N(269);
+        $this->assertEquals('σξθ', $number269->greek());
     }
 
 }
