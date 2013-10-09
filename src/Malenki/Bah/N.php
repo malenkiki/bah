@@ -124,6 +124,14 @@ class N
      */
     public function greek($digamma = true)
     {
+
+        if($this->value > 9999)
+        {
+            throw new \InvalidArgumentException(
+                'Numbers over 9999 are not yet available for greek format.'
+            );
+        }
+
         $keraia = 'ʹ';
 
         $arr_greek = array(
@@ -154,21 +162,35 @@ class N
             700 => 'ψ',
             800 => 'ω',
             900 => 'ϡ',
-            1000 => '͵α',
-            2000 => '͵β',
-            3000 => '͵γ',
-            4000 => '͵δ',
-            5000 => '͵ε',
-            6000 => '͵ϛ',
-            7000 => '͵ζ',
-            8000 => '͵η',
-            9000 => '͵θ'
+            1000 => 'ͺα',
+            2000 => 'ͺβ',
+            3000 => 'ͺγ',
+            4000 => 'ͺδ',
+            5000 => 'ͺε',
+            6000 => 'ͺϛ',
+            7000 => 'ͺζ',
+            8000 => 'ͺη',
+            9000 => 'ͺθ'
         );
 
         if(!$digamma)
         {
             $arr_greek[6] = 'ϛ';
         }
+
+        $str_value = strrev((string) $this->value);
+
+        $arr_out = array();
+
+        for($i = 0; $i < strlen($str_value); $i++)
+        {
+            if($str_value[$i] > 0)
+            {
+                $arr_out[] = $arr_greek[pow(10, $i) * $str_value[$i]];
+            }
+        }
+
+        return implode('', array_reverse($arr_out));
     }
 
     public function arabian()
