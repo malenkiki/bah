@@ -112,9 +112,46 @@ class C extends O
     {
     }
 
+
+
+    /**
+     * Tests whether current character is in lower case. 
+     * 
+     * @access public
+     * @return boolean
+     */
     public function isLowerCase()
     {
+        return mb_strtolower($this->value, C::ENCODING) === $this->value;
     }
+
+
+
+    /**
+     * Tests whether current character is in upper case. 
+     * 
+     * @access public
+     * @return boolean
+     */
+    public function isUpperCase()
+    {
+        return mb_strtoupper($this->value, C::ENCODING) === $this->value;
+    }
+
+
+
+    /**
+     * Tests whether the current character has other cases or not. 
+     * 
+     * @access public
+     * @return boolean
+     */
+    public function hasCase()
+    {
+        return !($this->isLowerCase() && $this->isUpperCase());
+    }
+
+
 
     public function directionality()
     {
