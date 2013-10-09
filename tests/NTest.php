@@ -48,4 +48,42 @@ class N extends PHPUnit_Framework_TestCase
         $this->assertEquals('σξθ', $number269->greek());
     }
 
+    public function testRomanNumerals()
+    {
+        $one = new Malenki\Bah\N(1);
+        $this->assertEquals('i', $one->roman());
+        
+        $two = new Malenki\Bah\N(2);
+        $this->assertEquals('ii', $two->roman());
+        
+        $three = new Malenki\Bah\N(3);
+        $this->assertEquals('iii', $three->roman());
+        
+        $four = new Malenki\Bah\N(4);
+        $this->assertEquals('iv', $four->roman());
+        
+        $five = new Malenki\Bah\N(5);
+        $this->assertEquals('v', $five->roman());
+        
+        $six = new Malenki\Bah\N(6);
+        $this->assertEquals('vi', $six->roman());
+        
+        $seven = new Malenki\Bah\N(7);
+        $this->assertEquals('vii', $seven->roman());
+        
+        $eight = new Malenki\Bah\N(8);
+        $this->assertEquals('viii', $eight->roman());
+        
+        $nine = new Malenki\Bah\N(9);
+        $this->assertEquals('ix', $nine->roman());
+
+        $ten = new Malenki\Bah\N(10);
+        $this->assertEquals('x', $ten->roman());
+        
+        $number269 = new Malenki\Bah\N(269);
+        $this->assertEquals('cclxix', $number269->roman());
+        
+        $number1978 = new Malenki\Bah\N(1978);
+        $this->assertEquals('mcmlxxviii', $number1978->roman());
+    }
 }

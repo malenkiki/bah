@@ -108,7 +108,80 @@ class N
 
     public function roman()
     {
+        $arr_numerals = array(
+            (object) array(
+                'integer' => 1000,
+                'roman' => 'm'
+            ),
+            (object) array(
+                'integer' => 900,
+                'roman' => 'cm'
+            ),
+            (object) array(
+                'integer' => 500,
+                'roman' => 'd'
+            ),
+            (object) array(
+                'integer' => 400,
+                'roman' => 'cd'
+            ),
+            (object) array(
+                'integer' => 100,
+                'roman' => 'c'
+            ),
+            (object) array(
+                'integer' => 90,
+                'roman' => 'xc'
+            ),
+            (object) array(
+                'integer' => 50,
+                'roman' => 'l'
+            ),
+            (object) array(
+                'integer' => 40,
+                'roman' => 'xl'
+            ),
+            (object) array(
+                'integer' => 10,
+                'roman' => 'x'
+            ),
+            (object) array(
+                'integer' => 9,
+                'roman' => 'ix'
+            ),
+            (object) array(
+                'integer' => 5,
+                'roman' => 'v'
+            ),
+            (object) array(
+                'integer' => 4,
+                'roman' => 'iv'
+            ),
+            (object) array(
+                'integer' => 1,
+                'roman' => 'i'
+            )
+        );
+        
+        $int_number  = $this->value;
+        $str_numeral = '';
+        $str_least   = '';
+
+        $int_count_numerals = count($arr_numerals);
+
+        for($i = 0; $i < $int_count_numerals; $i++)
+        {
+            while($int_number >= $arr_numerals[$i]->integer)
+            {
+                $str_least .= $arr_numerals[$i]->roman;
+                $int_number  -= $arr_numerals[$i]->integer;
+            }
+        }
+
+        return $str_numeral . $str_least;
     }
+
+
 
     /**
      * greek 
