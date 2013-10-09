@@ -29,6 +29,9 @@ include_once('C.php');
 
 class C extends PHPUnit_Framework_TestCase
 {
+
+
+
     public function testCaseDetection()
     {
         $c = new Malenki\Bah\C('a');
@@ -72,4 +75,20 @@ class C extends PHPUnit_Framework_TestCase
         $this->assertTrue($c->isUpperCase());
     }
 
+
+
+    public function testDigitDetection()
+    {
+        $c = new Malenki\Bah\C('0');
+        $this->assertTrue($c->isDigit());
+        
+        $c = new Malenki\Bah\C('a');
+        $this->assertFalse($c->isDigit());
+        
+        $c = new Malenki\Bah\C(' ');
+        $this->assertFalse($c->isDigit());
+        
+        $c = new Malenki\Bah\C(',');
+        $this->assertFalse($c->isDigit());
+    }
 }

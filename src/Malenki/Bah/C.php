@@ -104,9 +104,14 @@ class C extends O
     {
     }
 
+
+
     public function isDigit()
     {
+        return is_numeric($this->value);
     }
+
+
 
     public function isWhitespace()
     {
