@@ -158,6 +158,56 @@ class C extends O
 
 
 
+    /**
+     * Get unicode code point for the current character. 
+     * 
+     * @access public
+     * @return N
+     */
+    public function unicode()
+    {
+        $str_unicode = '';
+        $k = 0;
+
+        $this->__get('bytes');
+        while ($this->bytes->valid())
+        {
+            $src = $this->bytes->current();
+
+            if(is_string($src))
+            {
+                $str_bin = (string) decbin(hexdec($src));
+            }
+            else
+            {
+                $str_bin = (string) decbin($src->value);
+            }
+
+            if(count($this->bytes) > 1)
+            {
+                if($k == 0)
+                {
+                    $str_unicode .= substr($str_bin, count($this->bytes) + 1);
+                }
+                else
+                {
+                    $str_unicode .= substr($str_bin, 2);
+                }
+            }
+            else
+            {
+                $str_unicode .= substr($str_bin, 1);
+            }
+
+            $k++;
+            $this->bytes->next();
+        }
+    
+        return new N(bindec($str_unicode));
+    }
+
+
+
     public function directionality()
     {
     }
