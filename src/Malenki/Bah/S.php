@@ -302,6 +302,83 @@ class S extends O implements \Countable
     }
 
 
+
+    public function wrap($width, $cut = "\n")
+    {
+        $arr_lines = array();
+
+        if(strlen($this->value) === mb_strlen($this->value, 'UTF-8'))
+        {
+            $arr_lines = explode(
+                $cut,
+                wordwrap(
+                    $this->value, 
+                    $width, 
+                    $cut
+                )
+            );
+        }
+        else
+        {
+            //Thanks to: http://www.php.net/manual/fr/function.wordwrap.php#104811
+            $str_prov = $this->value;
+            $int_length = mb_strlen($str_prov, 'UTF-8');
+            $int_width = $width;
+
+            if ($int_length <= $int_width)
+            {
+                return new self($str_prov);
+            }
+
+            $int_last_space = 0;
+            $i = 0;
+
+            do
+            {
+                if (mb_substr($str_prov, $i, 1, 'UTF-8') == ' ')
+                {
+                    $int_last_space = $i;
+                }
+
+                if ($i > $int_width)
+                {
+                    if($int_last_space == 0)
+                    {
+                        $int_last_space = $int_width;
+                    }
+
+                    $arr_lines[] = trim(
+                        mb_substr(
+                            $str_prov,
+                            0,
+                            $int_last_space,
+                            'UTF-8')
+                        );
+
+                    $str_prov = mb_substr(
+                        $str_prov,
+                        $int_last_space,
+                        $int_length,
+                        'UTF-8'
+                    );
+
+                    $int_length = mb_strlen($str_prov, 'UTF-8');
+
+                    $i = 0;
+                }
+
+                $i++;
+            }
+            while ($i < $int_length);
+
+            $arr_lines[] = trim($str_prov);
+        }
+
+        return new self(implode($cut, $arr_lines));
+    }
+
+
+
     /**
      *
      * @param boolean $after
