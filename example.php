@@ -72,4 +72,16 @@ echo $long->wrap(20)->n()->n();
 echo $long->wrap(40)->n()->n();
 echo $long->wrap(80)->n()->n();
 echo $long->wrap(80)->upperCaseWords()->n()->n();
-echo $long->wrap(40)->margin(10, 0, 3)->n()->n();
+echo 'First: ';
+echo $long->wrap(40)->margin(10, 0, -7)->n()->n();
+
+$c = new C("Œ");
+$all = $c->allCharsOfItsBlock();
+
+while($all->valid())
+{
+    echo $all->current();
+    echo ' ';
+    $all->next();
+}
+echo $c->block()->n();

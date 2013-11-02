@@ -38,7 +38,7 @@ class C extends O
 {
     const ENCODING = 'UTF-8';
 
-    protected $arr_blocks = array(
+    protected static $arr_blocks = array(
         array('start' => 0x0000, 'end' => 0x007F, 'name' => 'Basic Latin'),
         array('start' => 0x0080, 'end' => 0x00FF, 'name' => 'Latin-1 Supplement'),
         array('start' => 0x0100, 'end' => 0x017F, 'name' => 'Latin Extended-A'),
@@ -370,6 +370,53 @@ class C extends O
 
 
 
+    public function block()
+    {
+        $int_code = $this->unicode()->value;
+
+        foreach(self::$arr_blocks as $b)
+        {
+            if($int_code >= $b['start'] && $int_code <= $b['end'])
+            {
+                return new S($b['name']);
+            }
+        }
+
+        throw new \Exception('Invalid character, it is unavailable in any unicode block.');
+    }
+
+
+
+    public function allCharsOfItsBlock()
+    {
+        $arr = array();
+        $int_code = $this->unicode()->value;
+
+        foreach(self::$arr_blocks as $b)
+        {
+            if($int_code >= $b['start'] && $int_code <= $b['end'])
+            {
+                $arr = range($b['start'], $b['end']);
+                
+                foreach($arr as $k => $v)
+                {
+                    $arr[$k] = new self(html_entity_decode('&#'.$v.';', ENT_XML1, 'UTF-8'));
+                }
+
+                break;
+            }
+        }
+
+        if(count($arr))
+        {
+            return new A($arr);
+        }
+
+        throw new \Exception('Invalid character, it is unavailable in any unicode block.');
+    }
+
+
+
     /**
      * Get unicode code point for the current character. 
      * 
@@ -382,6 +429,7 @@ class C extends O
         $k = 0;
 
         $this->__get('bytes');
+        $this->bytes->rewind();
         while ($this->bytes->valid())
         {
             $src = $this->bytes->current();
