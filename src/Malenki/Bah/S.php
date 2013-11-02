@@ -211,7 +211,48 @@ class S extends O implements \Countable
 
     public function upperCaseWords()
     {
+        $str_prov = mb_convert_case(
+            mb_strtolower(
+                mb_strtolower($this->value, 'UTF-8'),
+                'UTF-8'
+            ),
+            MB_CASE_TITLE,
+            'UTF-8'
+        );
+
+        $str_out  = $str_prov;
+        $int_length  = mb_strlen($str_prov, 'UTF-8');
+
+        $prev_idx = null;
+        $arr_to_change = array();
+
+
+        for($i = 0; $i < $int_length; $i++)
+        {
+            $letter = mb_substr($str_prov, $i, 1, 'UTF-8');
+
+            if($letter == "'"){
+                $prev_idx = $i;
+            }
+
+            if(!is_null($prev_idx) && ($i == $prev_idx + 1)){
+                $arr_to_change[$i] = $letter;
+            }
+        }
+
+        foreach($arr_to_change as $idx => $letter)
+        {
+            $str_tmp  = mb_substr($str_out, 0, $idx, 'UTF-8'); // On prend ce qu’il y a avant le caractère sans modification
+            $str_tmp .= mb_strtoupper($letter, 'UTF-8'); // On met en majuscule la lettre
+            $str_tmp .= mb_substr($str_out, $idx + 1, $int_length, 'UTF-8'); // On prend le reste de la chaîne…
+
+            $str_out = $str_tmp;
+        }
+
+        return new self($str_out);
     }
+
+
 
     public function upperCaseFirst()
     {
@@ -299,6 +340,110 @@ class S extends O implements \Countable
     public function times($n = 1)
     {
         return new self(str_repeat($this, $n));
+    }
+
+
+
+    public function wrap($width, $cut = "\n")
+    {
+        $arr_lines = array();
+
+        if(strlen($this->value) === mb_strlen($this->value, 'UTF-8'))
+        {
+            $arr_lines = explode(
+                $cut,
+                wordwrap(
+                    $this->value, 
+                    $width, 
+                    $cut
+                )
+            );
+        }
+        else
+        {
+            //Thanks to: http://www.php.net/manual/fr/function.wordwrap.php#104811
+            $str_prov = $this->value;
+            $int_length = mb_strlen($str_prov, 'UTF-8');
+            $int_width = $width;
+
+            if ($int_length <= $int_width)
+            {
+                return new self($str_prov);
+            }
+
+            $int_last_space = 0;
+            $i = 0;
+
+            do
+            {
+                if (mb_substr($str_prov, $i, 1, 'UTF-8') == ' ')
+                {
+                    $int_last_space = $i;
+                }
+
+                if ($i > $int_width)
+                {
+                    if($int_last_space == 0)
+                    {
+                        $int_last_space = $int_width;
+                    }
+
+                    $arr_lines[] = trim(
+                        mb_substr(
+                            $str_prov,
+                            0,
+                            $int_last_space,
+                            'UTF-8')
+                        );
+
+                    $str_prov = mb_substr(
+                        $str_prov,
+                        $int_last_space,
+                        $int_length,
+                        'UTF-8'
+                    );
+
+                    $int_length = mb_strlen($str_prov, 'UTF-8');
+
+                    $i = 0;
+                }
+
+                $i++;
+            }
+            while ($i < $int_length);
+
+            $arr_lines[] = trim($str_prov);
+        }
+
+        return new self(implode($cut, $arr_lines));
+    }
+
+
+
+    public function margin($int_left = 5, $int_right = 0, $int_alinea = 0)
+    {
+        $arr = explode("\n", $this->value);
+        
+        foreach($arr as $k => $v)
+        {
+            $int_margin_left = $int_left;
+            $int_margin_right = $int_right;
+
+            if($k == 0)
+            {
+                $int_margin_left = $int_left + $int_alinea;
+
+                if($int_margin_left < 0)
+                {
+                    $int_margin_left = 0;
+                }
+            }
+
+            $arr[$k] = str_repeat(' ', $int_margin_left);
+            $arr[$k] .= $v . str_repeat(' ', $int_margin_right);
+        }
+
+        return new self(implode("\n", $arr));
     }
 
 
