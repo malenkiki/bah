@@ -476,8 +476,5 @@ class C extends O
     {
     }
 
-    public function translit()
-    {
-    }
 }
 
