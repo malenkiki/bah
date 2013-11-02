@@ -24,6 +24,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 include_once('O.php');
+include_once('A.php');
 include_once('C.php');
 
 
@@ -90,5 +91,22 @@ class C extends PHPUnit_Framework_TestCase
         
         $c = new Malenki\Bah\C(',');
         $this->assertFalse($c->isDigit());
+    }
+
+
+
+    public function testUnicodeCodePoint()
+    {
+        $c = new Malenki\Bah\C('é');
+        $n = new Malenki\Bah\N(233);
+        $this->assertEquals($n, $c->unicode());
+        
+        $c = new Malenki\Bah\C('€');
+        $n = new Malenki\Bah\N(8364);
+        $this->assertEquals($n, $c->unicode());
+        
+        $c = new Malenki\Bah\C('æ');
+        $n = new Malenki\Bah\N(230);
+        $this->assertEquals($n, $c->unicode());
     }
 }
