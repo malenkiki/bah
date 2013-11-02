@@ -71,3 +71,5 @@ $long = new S('Tous les êtres humains naissent libres et égaux en dignité et 
 echo $long->wrap(20)->n()->n();
 echo $long->wrap(40)->n()->n();
 echo $long->wrap(80)->n()->n();
+echo $long->wrap(80)->upperCaseWords()->n()->n();
+echo $long->wrap(40)->margin(10, 0, 3)->n()->n();
