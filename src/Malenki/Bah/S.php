@@ -286,11 +286,13 @@ class S extends O implements \Countable
      */
     public function count()
     {
+        $this->__get('length');
         return $this->length->value;
     }
 
     public function isVoid()
     {
+        $this->__get('length');
         return $this->length->value == 0;
     }
 

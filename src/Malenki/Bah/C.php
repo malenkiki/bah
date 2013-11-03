@@ -373,13 +373,20 @@ class C extends O
     public function block()
     {
         $int_code = $this->unicode()->value;
+        $out = null;
 
         foreach(self::$arr_blocks as $b)
         {
             if($int_code >= $b['start'] && $int_code <= $b['end'])
             {
-                return new S($b['name']);
+                $out = new S($b['name']);
+                break;
             }
+        }
+
+        if($out)
+        {
+            return $out;
         }
 
         throw new \Exception('Invalid character, it is unavailable in any unicode block.');
