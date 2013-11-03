@@ -23,7 +23,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 
-include_once('N.php');
+include_once('src/Malenki/Bah/N.php');
 
 
 class N extends PHPUnit_Framework_TestCase

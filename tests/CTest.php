@@ -23,10 +23,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 
-include_once('O.php');
-include_once('A.php');
-include_once('C.php');
-include_once('S.php');
+include_once('src/Malenki/Bah/O.php');
+include_once('src/Malenki/Bah/A.php');
+include_once('src/Malenki/Bah/C.php');
+include_once('src/Malenki/Bah/S.php');
 
 
 class C extends PHPUnit_Framework_TestCase

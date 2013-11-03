@@ -8,4 +8,4 @@ generatedoc:
 	phpdoc -d . -t docs
 
 runtest:
-	phpunit --colors --include-path src/Malenki/Bah/ tests/
+	phpunit
