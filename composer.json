@@ -5,6 +5,9 @@
     "keywords": ["number","array","string"],
     "homepage": "https://github.com/malenkiki/bah",
     "license": "MIT",
+    "support": {
+        "issues": "https://github.com/malenkiki/bah/issues"
+    },
     "authors": [
         {
             "name": "Michel Petit",
