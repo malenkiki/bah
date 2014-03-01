@@ -39,7 +39,7 @@ $c = new C("€");
 //print($s->chars()->last());
 while($c->bytes->valid())
 {
-    echo $c->bytes->current()->b()->upper()->n();
+    echo $c->bytes->current()->b()->n();
     $c->bytes->next();
 }
 
