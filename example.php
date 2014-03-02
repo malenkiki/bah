@@ -44,36 +44,36 @@ while($c->bytes->valid())
 }
 
 $greek = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
-echo $greek->n();
-echo $greek->upper()->n();
-echo $greek->lower()->n();
-echo $greek->title()->n();
-echo $greek->length->s()->n();
-echo $greek->sub(4)->n();
-echo $greek->chars->length()->s()->n();
-echo $greek->bytes->length()->s()->n();
+echo $greek->n;
+echo $greek->upper->n;
+echo $greek->lower->n;
+echo $greek->title->n;
+echo $greek->length->s()->n;
+echo $greek->sub(4)->n;
+echo $greek->chars->length()->s()->n;
+echo $greek->bytes->length()->s()->n;
 
 $a = new A(array('un', 'deux', 'trois', 'quatre'));
 var_dump(count($a));
 var_dump($a->lastButOne());
 
 $abc = new S('abcdefghijklmnopqrstuvwxyz');
-echo $abc->first()->n();
-echo $abc->last()->n();
-echo $abc->upperCaseFirst()->n();
+echo $abc->first->n;
+echo $abc->last->n;
+echo $abc->upperCaseFirst()->n;
 
 
 
 $long = new S('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet ante ut sapien porta interdum vel non risus. Aenean nec tincidunt lorem. Cras eu metus non nunc dictum condimentum vel vulputate lectus. Maecenas bibendum massa et metus tempor mattis. Sed risus diam, dignissim eget erat ut, egestas adipiscing purus. Duis nunc quam, suscipit eu lorem ut, placerat dapibus dui. Sed adipiscing tempor diam, non egestas odio gravida vestibulum.');
-echo $long->wrap(30)->n()->n();
+echo $long->wrap(30)->n->n;
 
 $long = new S('Tous les êtres humains naissent libres et égaux en dignité et en droits. Ils sont doués de raison et de conscience et doivent agir les uns envers les autres dans un esprit de fraternité.');
-echo $long->wrap(20)->n()->n();
-echo $long->wrap(40)->n()->n();
-echo $long->wrap(80)->n()->n();
-echo $long->wrap(80)->upperCaseWords()->n()->n();
+echo $long->wrap(20)->n->n;
+echo $long->wrap(40)->n->n;
+echo $long->wrap(80)->n->n;
+echo $long->wrap(80)->upperCaseWords()->n->n;
 echo 'First: ';
-echo $long->wrap(40)->margin(10, 0, -7)->n()->n();
+echo $long->wrap(40)->margin(10, 0, -7)->n->n;
 
 $c = new C("Œ");
 $all = $c->allCharsOfItsBlock();
@@ -84,4 +84,4 @@ while($all->valid())
     echo ' ';
     $all->next();
 }
-echo $c->block()->n();
+echo $c->block()->n;

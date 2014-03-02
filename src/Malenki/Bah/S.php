@@ -137,7 +137,7 @@ class S extends O implements \Countable
      */
     public function __get($name)
     {
-        if(in_array($name, array('chars', 'bytes', 'length')))
+        if(in_array($name, array('chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r')))
         {
             if($name == 'length')
             {
@@ -167,6 +167,17 @@ class S extends O implements \Countable
 
                 return $this->bytes;
             }
+
+            if(in_array($name, array('n', 'r')))
+            {
+                return $this->$name();
+            }
+
+            if(in_array($name, array('title', 'upper', 'lower', 'n', 'r', 'first', 'last')))
+            {
+                $str_method = '_' . $name;
+                return $this->$str_method();
+            }
         }
     }
 
@@ -185,12 +196,12 @@ class S extends O implements \Countable
         return new S(mb_substr($this->value, $offset, $limit, C::ENCODING));
     }
 
-    public function first()
+    protected function _first()
     {
         return $this->sub();
     }
 
-    public function last()
+    protected function _last()
     {
         return $this->sub($this->_length()->value - 1, 1);
     }
@@ -258,7 +269,7 @@ class S extends O implements \Countable
     {
         if(!$this->isVoid())
         {
-            $first_char = $this->first()->upper();
+            $first_char = $this->_first()->_upper();
             $other_chars = $this->sub(1, $this->length->value);
             return self::concat($first_char, $other_chars);
         }
@@ -303,7 +314,7 @@ class S extends O implements \Countable
      *
      * @return Malenki\Bah\S
      */
-    public function upper()
+    protected function _upper()
     {
         return new self(mb_convert_case($this, MB_CASE_UPPER, C::ENCODING));
     }
@@ -315,7 +326,7 @@ class S extends O implements \Countable
      *
      * @return Malenki\Bah\S
      */
-    public function lower()
+    protected function _lower()
     {
         return new self(mb_convert_case($this, MB_CASE_LOWER, C::ENCODING));
     }
@@ -327,7 +338,7 @@ class S extends O implements \Countable
      *
      * @return Malenki\Bah\S
      */
-    public function title()
+    protected function _title()
     {
         return new self(mb_convert_case($this, MB_CASE_TITLE, C::ENCODING));
     }
