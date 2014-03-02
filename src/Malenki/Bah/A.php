@@ -29,6 +29,22 @@ class A implements \Iterator, \Countable
     private $count = 0;
     private $position = null;
 
+
+    public function __get($name)
+    {
+        if(in_array($name, array('index', 'length', 'last', 'first', 'lastButOne')))
+        {
+            if($name == 'index')
+            {
+                return $this->key();
+            }
+            else
+            {
+                return $this->$name();
+            }
+        }
+    }
+
     public function __construct($arr = array())
     {
         $this->value = $arr;
@@ -105,6 +121,23 @@ class A implements \Iterator, \Countable
     public function implode($sep = '')
     {
         // TODO test if each object has toString method or is simple string
+        foreach($this->value as $item)
+        {
+            if(
+                is_scalar($item)
+                ||
+                $item instanceof S
+                ||
+                (is_object($item) && method_exists($item, '__toString'))
+            )
+            {
+                continue;
+            }
+            else
+            {
+                throw new \RuntimeException('Todo');
+            }
+        }
         return new S(implode($sep, $this->value));
     }
 
