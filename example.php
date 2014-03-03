@@ -84,4 +84,4 @@ while($all->valid())
     echo ' ';
     $all->next();
 }
-echo $c->block()->n;
+echo $c->block->n(false)->n;

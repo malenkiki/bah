@@ -280,6 +280,12 @@ class C extends O
 
             return $this->bytes;
         }
+
+        if(in_array($name, array('upper', 'lower', 'block')))
+        {
+            $name = '_'.$name;
+            return $this->$name();
+        }
     }
 
     public static function createFromCode($char, $encoding = c::ENCODING)
@@ -300,13 +306,13 @@ class C extends O
     }
 
 
-    public function upper()
+    protected function _upper()
     {
         return new self(mb_convert_case($this, MB_CASE_UPPER, C::ENCODING));
         // return new self(mb_strtoupper($this, c::ENCODING));
     }
 
-    public function lower()
+    protected function _lower()
     {
         return new self(mb_convert_case($this, MB_CASE_LOWER, C::ENCODING));
         //return new self(mb_strtolower($this, c::ENCODING));
@@ -370,7 +376,7 @@ class C extends O
 
 
 
-    public function block()
+    protected function _block()
     {
         $int_code = $this->unicode()->value;
         $out = null;
