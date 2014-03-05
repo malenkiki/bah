@@ -110,6 +110,7 @@ class S extends O implements \Countable
 
         foreach($args as $s)
         {
+            //TODO: allow object having __toString method
             if($s instanceof \Malenki\Bah\S)
             {
                 $str_out .= $s->__toString();
@@ -137,7 +138,7 @@ class S extends O implements \Countable
      */
     public function __get($name)
     {
-        if(in_array($name, array('chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r')))
+        if(in_array($name, array('chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf')))
         {
             if($name == 'length')
             {
@@ -171,6 +172,16 @@ class S extends O implements \Countable
             if(in_array($name, array('n', 'r')))
             {
                 return $this->$name();
+            }
+
+            if($name == 'ucw')
+            {
+                return $this->upperCaseWords();
+            }
+
+            if($name == 'ucf')
+            {
+                return $this->upperCaseFirst();
             }
 
             if(in_array($name, array('title', 'upper', 'lower', 'n', 'r', 'first', 'last')))
