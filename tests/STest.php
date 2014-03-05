@@ -30,9 +30,9 @@ class S extends PHPUnit_Framework_TestCase
     {
         $s = new Malenki\Bah\S('Je suis une chaîne !');
         $this->assertEquals((string) $s, 'Je suis une chaîne !');
-        $this->assertEquals((string) $s->upper(), 'JE SUIS UNE CHAÎNE !');
-        $this->assertEquals((string) $s->lower(), 'je suis une chaîne !');
-        $this->assertEquals((string) $s->title(), 'Je Suis Une Chaîne !');
+        $this->assertEquals((string) $s->upper, 'JE SUIS UNE CHAÎNE !');
+        $this->assertEquals((string) $s->lower, 'je suis une chaîne !');
+        $this->assertEquals((string) $s->title, 'Je Suis Une Chaîne !');
         $this->assertEquals(count($s), 20);
         $this->assertFalse($s->isVoid());
         

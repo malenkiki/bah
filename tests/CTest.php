@@ -115,279 +115,52 @@ class C extends PHPUnit_Framework_TestCase
     public function testBlock()
     {
         $c = new Malenki\Bah\C('z');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Basic Latin'));
-        /*
-Latin-1 Supplement
-             */
+        $this->assertEquals($c->block, new Malenki\Bah\S('Basic Latin'));
 
         $c = new Malenki\Bah\C('Œ');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Latin Extended-A'));
+        $this->assertEquals($c->block, new Malenki\Bah\S('Latin Extended-A'));
         $c = new Malenki\Bah\C('Ȁ');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Latin Extended-B'));
-        /*
-IPA Extensions
-Spacing Modifier Letters
-Combining Diacritical Marks
-Cyrillic Supplement
-         */
+        $this->assertEquals($c->block, new Malenki\Bah\S('Latin Extended-B'));
         $c = new Malenki\Bah\C('α');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Greek and Coptic'));
+        $this->assertEquals($c->block, new Malenki\Bah\S('Greek and Coptic'));
         $c = new Malenki\Bah\C('Ю');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Cyrillic'));
+        $this->assertEquals($c->block, new Malenki\Bah\S('Cyrillic'));
         
-        //$c = new Malenki\Bah\C('');
-        //$this->assertEquals($c->block(), new Malenki\Bah\S('Cyrillic Extended-A'));
         $c = new Malenki\Bah\C('Ꙛ');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Cyrillic Extended-B'));
+        $this->assertEquals($c->block, new Malenki\Bah\S('Cyrillic Extended-B'));
         $c = new Malenki\Bah\C('Ֆ');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Armenian'));
+        $this->assertEquals($c->block, new Malenki\Bah\S('Armenian'));
         $c = new Malenki\Bah\C('ش');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Arabic'));
-        //$c = new Malenki\Bah\C('');
-        //$this->assertEquals($c->block(), new Malenki\Bah\S('Arabic Supplement'));
+        $this->assertEquals($c->block, new Malenki\Bah\S('Arabic'));
         $c = new Malenki\Bah\C('א');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Hebrew'));
+        $this->assertEquals($c->block, new Malenki\Bah\S('Hebrew'));
         $c = new Malenki\Bah\C('ܐ');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Syriac'));
-            /*
-Thaana
-NKo
-Samaritan
-Mandaic
-Arabic Extended-A
-Devanagari
-Bengali
-Gurmukhi
-Gujarati
-Oriya
-Tamil
-Telugu
-Kannada
-Malayalam
-Sinhala
-Thai
-Lao
-Tibetan
-Myanmar
-Georgian
-Hangul Jamo
-Ethiopic
-Ethiopic Supplement
-Cherokee
-Unified Canadian Aboriginal Syllabics
-Ogham
-Runic
-Tagalog
-Hanunoo
-Buhid
-Tagbanwa
-Khmer
-Mongolian
-Unified Canadian Aboriginal Syllabics Extended
-Limbu
-Tai Le
-New Tai Lue
-Khmer Symbols
-Buginese
-Tai Tham
-Balinese
-Sundanese
-Batak
-Lepcha
-Ol Chiki
-Sundanese Supplement
-Vedic Extensions
-Phonetic Extensions
-Phonetic Extensions Supplement
-Combining Diacritical Marks Supplement
-             */
+        $this->assertEquals($c->block, new Malenki\Bah\S('Syriac'));
 
         $c = new Malenki\Bah\C('Ḫ');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Latin Extended Additional'));
-        /*
-Greek Extended
-General Punctuation
-Superscripts and Subscripts
-Currency Symbols
-Combining Diacritical Marks for Symbols
-Letterlike Symbols
-Number Forms
-Arrows
-Mathematical Operators
-Miscellaneous Technical
-Control Pictures
-Optical Character Recognition
-Enclosed Alphanumerics
-Box Drawing
-Block Elements
-Geometric Shapes
-Miscellaneous Symbols
-Dingbats
-Miscellaneous Mathematical Symbols-A
-Supplemental Arrows-A
-Braille Patterns
-Supplemental Arrows-B
-Miscellaneous Mathematical Symbols-B
-Supplemental Mathematical Operators
-Miscellaneous Symbols and Arrows
-Glagolitic
-             */
+        $this->assertEquals($c->block, new Malenki\Bah\S('Latin Extended Additional'));
 
         $c = new Malenki\Bah\C('Ɐ');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Latin Extended-C'));
+        $this->assertEquals($c->block, new Malenki\Bah\S('Latin Extended-C'));
         $c = new Malenki\Bah\C('Ⲁ');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Coptic'));
-        /*
-Georgian Supplement
-Tifinagh
-Ethiopic Extended
-Cyrillic Extended-A
-Supplemental Punctuation
-CJK Radicals Supplement
-Kangxi Radicals
-Ideographic Description Characters
-CJK Symbols and Punctuation
-Hiragana
-Katakana
-Bopomofo
-Hangul Compatibility Jamo
-Kanbun
-Bopomofo Extended
-CJK Strokes
-Katakana Phonetic Extensions
-Enclosed CJK Letters and Months
-CJK Compatibility
-CJK Unified Ideographs Extension A
-Yijing Hexagram Symbols
-CJK Unified Ideographs
-Yi Syllables
-Yi Radicals
-Lisu
-Vai
-Cyrillic Extended-B
-Bamum
-Modifier Tone Letters
-             */
+        $this->assertEquals($c->block, new Malenki\Bah\S('Coptic'));
 
         $c = new Malenki\Bah\C('Ꜧ');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Latin Extended-D'));
-        /*
-Syloti Nagri
-Common Indic Number Forms
-Phags-pa
-Saurashtra
-Devanagari Extended
-Kayah Li
-Rejang
-Hangul Jamo Extended-A
-Javanese
-Cham
-Myanmar Extended-A
-Tai Viet
-Meetei Mayek Extensions
-Ethiopic Extended-A
-Meetei Mayek
-Hangul Syllables
-Hangul Jamo Extended-B
-High Surrogates
-High Private Use Surrogates
-Low Surrogates
-Private Use Area
-CJK Compatibility Ideographs
-Alphabetic Presentation Forms
-Arabic Presentation Forms-A
-Variation Selectors
-Vertical Forms
-Combining Half Marks
-CJK Compatibility Forms
-Small Form Variants
-Arabic Presentation Forms-B
-Halfwidth and Fullwidth Forms
-Specials
-Linear B Syllabary
-Linear B Ideograms
-Aegean Numbers
-         */
+        $this->assertEquals($c->block, new Malenki\Bah\S('Latin Extended-D'));
 
         $c = new Malenki\Bah\C('𐅃');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Ancient Greek Numbers'));
-        /*
-Ancient Symbols
-Phaistos Disc
-Lycian
-Carian
-         */
+        $this->assertEquals($c->block, new Malenki\Bah\S('Ancient Greek Numbers'));
 
         $c = new Malenki\Bah\C('𐌍');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Old Italic'));
+        $this->assertEquals($c->block, new Malenki\Bah\S('Old Italic'));
         $c = new Malenki\Bah\C('𐌰');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Gothic'));
-        /*
-
-Ugaritic
-Old Persian
-Deseret
-Shavian
-Osmanya
-Cypriot Syllabary
-Imperial Aramaic
-Phoenician
-Lydian
-Meroitic Hieroglyphs
-Meroitic Cursive
-Kharoshthi
-Old South Arabian
-Avestan
-Inscriptional Parthian
-Inscriptional Pahlavi
-Old Turkic
-Rumi Numeral Symbols
-Brahmi
-Kaithi
-Sora Sompeng
-Chakma
-Sharada
-Takri
-         */
+        $this->assertEquals($c->block, new Malenki\Bah\S('Gothic'));
 
         $c = new Malenki\Bah\C('𒀧');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Cuneiform'));
-        /*
-
-Cuneiform Numbers and Punctuation
-         */
+        $this->assertEquals($c->block, new Malenki\Bah\S('Cuneiform'));
 
         $c = new Malenki\Bah\C('𓂈');
-        $this->assertEquals($c->block(), new Malenki\Bah\S('Egyptian Hieroglyphs'));
-        /*
-Bamum Supplement
-Miao
-Kana Supplement
-Byzantine Musical Symbols
-Musical Symbols
-Ancient Greek Musical Notation
-Tai Xuan Jing Symbols
-Counting Rod Numerals
-Mathematical Alphanumeric Symbols
-Arabic Mathematical Alphabetic Symbols
-Mahjong Tiles
-Domino Tiles
-Playing Cards
-Enclosed Alphanumeric Supplement
-Enclosed Ideographic Supplement
-Miscellaneous Symbols And Pictographs
-Emoticons
-Transport And Map Symbols
-Alchemical Symbols
-CJK Unified Ideographs Extension B
-CJK Unified Ideographs Extension C
-CJK Unified Ideographs Extension D
-CJK Compatibility Ideographs Supplement
-Tags
-Variation Selectors Supplement
-Supplementary Private Use Area-A
-Supplementary Private Use Area-B
-         */
+        $this->assertEquals($c->block, new Malenki\Bah\S('Egyptian Hieroglyphs'));
 
     }
 }

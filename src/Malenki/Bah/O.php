@@ -39,6 +39,7 @@ class O
      */
     protected $value = null;
 
+    // FIXME: Why?
     public function __get($name)
     {
         return $this->value;

@@ -27,6 +27,14 @@ namespace Malenki\Bah;
 
 class N
 {
+    public function __get($name)
+    {
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr')))
+        {
+            return $this->$name();
+        }
+    }
+
     public function __construct($num = 0)
     {
         $this->value = $num;

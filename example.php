@@ -48,14 +48,14 @@ echo $greek->n;
 echo $greek->upper->n;
 echo $greek->lower->n;
 echo $greek->title->n;
-echo $greek->length->s()->n;
+echo $greek->length->s->n;
 echo $greek->sub(4)->n;
-echo $greek->chars->length()->s()->n;
-echo $greek->bytes->length()->s()->n;
+echo $greek->chars->length->s->n;
+echo $greek->bytes->length->s->n;
 
 $a = new A(array('un', 'deux', 'trois', 'quatre'));
 var_dump(count($a));
-var_dump($a->lastButOne());
+var_dump($a->lastButOne);
 
 $abc = new S('abcdefghijklmnopqrstuvwxyz');
 echo $abc->first->n;
