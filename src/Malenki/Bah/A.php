@@ -49,7 +49,7 @@ class A implements \Iterator, \Countable
     {
         $this->value = $arr;
         $this->count = count($arr);
-        $this->position = new n(0);
+        $this->position = new N(0);
     }
 
     public function current()

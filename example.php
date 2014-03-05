@@ -22,17 +22,14 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-include('src/Malenki/Bah/O.php');
-include('src/Malenki/Bah/N.php');
-include('src/Malenki/Bah/A.php');
-include('src/Malenki/Bah/S.php');
-include('src/Malenki/Bah/C.php');
+(@include_once __DIR__ . '/vendor/autoload.php') || @include_once __DIR__ . '/../../autoload.php';
 
-use Malenki\Bah\O;
-use Malenki\Bah\N;
-use Malenki\Bah\A;
-use Malenki\Bah\S;
-use Malenki\Bah\C;
+use \Malenki\Bah\O;
+use \Malenki\Bah\N;
+use \Malenki\Bah\A;
+use \Malenki\Bah\S;
+use \Malenki\Bah\C;
+
 
 $s = new S('C’est cool !');
 $c = new C("€");
