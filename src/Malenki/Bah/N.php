@@ -302,17 +302,17 @@ class N
 
     protected function _h()
     {
-        return $this->hex();
+        return $this->_hex();
     }
 
     protected function _o()
     {
-        return $this->oct();
+        return $this->_oct();
     }
 
     protected function _b()
     {
-        return $this->bin();
+        return $this->_bin();
     }
 
     protected function _s()
