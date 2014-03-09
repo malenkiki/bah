@@ -65,7 +65,7 @@ class S extends O implements \Countable
         while($i->less($this->length))
         {
             $a->add(new C($this->sub($i->value)->value));
-            $i->incr();
+            $i->incr;
         }
 
         $this->chars = $a;
