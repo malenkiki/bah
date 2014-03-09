@@ -40,7 +40,7 @@ echo $greek->title->n;
 Get string length, convert to string and then add new line:
 
 ```php
-echo $greek->length->s()->n;
+echo $greek->length->s->n;
 ```
 
 Takes first four chars and add new line:
@@ -52,13 +52,13 @@ echo $greek->sub(4)->n;
 Characters amount, as a string, new line added:
 
 ```php
-echo $greek->chars->length->s()->n;
+echo $greek->chars->length->s->n;
 ```
 
 Bytes amount, as a string, new line added:
 
 ```php
-echo $greek->bytes->length->s()->n;
+echo $greek->bytes->length->s->n;
 ```
 
 Wrapping and margin a long string:
@@ -69,10 +69,11 @@ echo $long->wrap(20)->n->n;
 echo $long->wrap(30)->n->n;
 echo $long->wrap(40)->n->n;
 echo $long->wrap(80)->n->n;
-echo $long->wrap(80)->upperCaseWords()->n->n;
+echo $long->wrap(80)->ucw->n->n; // with upper case words
 echo 'First: ';
-// margin left 10 chars length, right 0, first -7 to math the previous string "First: "
+// margin left 10 chars length, right 0, first -7 to place the previous string "First: "
 echo $long->wrap(40)->margin(10, 0, -7)->n->n;
+echo $long->wrap(40)->margin(10)->n->n; // same as previous, but only left margin
 ```
 
 ## Play with characters
