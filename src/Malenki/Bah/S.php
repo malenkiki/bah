@@ -176,12 +176,12 @@ class S extends O implements \Countable
 
             if($name == 'ucw')
             {
-                return $this->upperCaseWords();
+                return $this->_upperCaseWords();
             }
 
             if($name == 'ucf')
             {
-                return $this->upperCaseFirst();
+                return $this->_upperCaseFirst();
             }
 
             if(in_array($name, array('title', 'upper', 'lower', 'n', 'r', 'first', 'last')))
@@ -231,7 +231,7 @@ class S extends O implements \Countable
     }
 
 
-    public function upperCaseWords()
+    protected function _upperCaseWords()
     {
         $str_prov = mb_convert_case(
             mb_strtolower(
@@ -276,7 +276,7 @@ class S extends O implements \Countable
 
 
 
-    public function upperCaseFirst()
+    public function _upperCaseFirst()
     {
         if(!$this->isVoid())
         {

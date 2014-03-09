@@ -254,7 +254,11 @@ class C extends O
 
     public function __construct($char = '')
     {
-        // TODO: test if it is really a char.
+        if(mb_strlen($char, self::ENCODING) > 1)
+        {
+            throw new \InvalidArgumentException('Invalid character!');
+        }
+
         $this->value = $char;
     }
 

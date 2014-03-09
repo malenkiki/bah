@@ -39,11 +39,17 @@ class O
      */
     protected $value = null;
 
-    // FIXME: Why?
+
+
     public function __get($name)
     {
-        return $this->value;
+        if($name == 'value')
+        {
+            return $this->value;
+        }
     }
+
+
 
     public function __toString()
     {

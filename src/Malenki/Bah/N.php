@@ -31,31 +31,34 @@ class N
     {
         if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr')))
         {
-            return $this->$name();
+            $str_method = '_' . $name;
+            return $this->$str_method();
         }
     }
+
+
 
     public function __construct($num = 0)
     {
         $this->value = $num;
     }
 
-    public function incr()
+    protected function _incr()
     {
         $this->value++;
     }
 
-    public function decr()
+    protected function _decr()
     {
         $this->value--;
     }
 
-    public function n()
+    protected function _n()
     {
         return new self($this->value + 1);
     }
 
-    public function p()
+    protected function _p()
     {
         return new self($this->value - 1);
     }
@@ -186,7 +189,7 @@ class N
             }
         }
 
-        return $str_numeral . $str_least;
+        return new S($str_numeral . $str_least);
     }
 
 
@@ -271,7 +274,7 @@ class N
             }
         }
 
-        return implode('', array_reverse($arr_out));
+        return new S(implode('', array_reverse($arr_out)));
     }
 
     public function arabian()
@@ -282,37 +285,37 @@ class N
     {
     }
 
-    public function hex()
+    protected function _hex()
     {
         return new S(dechex($this->value));
     }
 
-    public function oct()
+    protected function _oct()
     {
         return new S(decoct($this->value));
     }
 
-    public function bin()
+    protected function _bin()
     {
         return new S(decbin($this->value));
     }
 
-    public function h()
+    protected function _h()
     {
         return $this->hex();
     }
 
-    public function o()
+    protected function _o()
     {
         return $this->oct();
     }
 
-    public function b()
+    protected function _b()
     {
         return $this->bin();
     }
 
-    public function s()
+    protected function _s()
     {
         return new S($this->__toString());
     }

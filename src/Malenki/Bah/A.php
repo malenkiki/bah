@@ -38,6 +38,11 @@ class A implements \Iterator, \Countable
             {
                 return $this->key();
             }
+            elseif(in_array($name, array('length', 'last', 'first', 'lastButOne')))
+            {
+                $str_method = '_' . $name;
+                return $this->$str_method();
+            }
             else
             {
                 return $this->$name();
@@ -62,7 +67,7 @@ class A implements \Iterator, \Countable
     }
     public function next()
     {
-        $this->position->incr();
+        $this->position->incr;
     }
     public function rewind()
     {
@@ -73,7 +78,7 @@ class A implements \Iterator, \Countable
         return isset($this->value[$this->position->value]);
     }
 
-    public function length()
+    protected function _length()
     {
         return new N($this->count);
     }
@@ -88,7 +93,7 @@ class A implements \Iterator, \Countable
         return $this->value[$idx];
     }
 
-    public function lastButOne()
+    protected function _lastButOne()
     {
         if($this->count < 2)
         {
@@ -97,12 +102,12 @@ class A implements \Iterator, \Countable
         return $this->value[$this->count - 2];
     }
 
-    public function last()
+    protected function _last()
     {
         return $this->value[$this->length()->p()->value];
     }
 
-    public function first()
+    protected function _first()
     {
         return $this->value[0];
     }
@@ -120,7 +125,6 @@ class A implements \Iterator, \Countable
 
     public function implode($sep = '')
     {
-        // TODO test if each object has toString method or is simple string
         foreach($this->value as $item)
         {
             if(
@@ -140,6 +144,8 @@ class A implements \Iterator, \Countable
         }
         return new S(implode($sep, $this->value));
     }
+
+
 
     public function __toString()
     {
