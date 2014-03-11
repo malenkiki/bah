@@ -29,7 +29,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'positive')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -91,6 +91,22 @@ class N
         return $this->value > $n->value;
     }
 
+    public function _negative()
+    {
+        return $this->value < 0;
+    }
+
+    public function _zero()
+    {
+        return $this->value == 0;
+    }
+
+    public function _positive()
+    {
+        return $this->value > 0;
+    }
+
+
     public function equal($num)
     {
         if(is_numeric($num))
@@ -105,16 +121,64 @@ class N
         return $this->value == $n->value;
     }
 
-    public function plus()
+    public function plus($number)
     {
+        if(is_numeric($number) || $number instanceof N)
+        {
+            if(is_numeric($number))
+            {
+                return new self($this->value + $number);
+            }
+            else
+            {
+                return new self($this->value + $number->value);
+            }
+        }
+        else
+        {
+            throw new \InvalidArgumentException('To addition a value, you must use number or \Malenki\Bah\N instance.');
+        }
     }
 
-    public function minus()
+    public function minus($number)
     {
+        if(is_numeric($number) || $number instanceof N)
+        {
+            if(is_numeric($number))
+            {
+                return new self($this->value - $number);
+            }
+            else
+            {
+                return new self($this->value - $number->value);
+            }
+        }
+        else
+        {
+            throw new \InvalidArgumentException('To substract a value, you must use number or \Malenki\Bah\N instance.');
+        }
     }
 
-    public function divide()
+    public function divide($number)
     {
+        if(is_numeric($number) || $number instanceof N)
+        {
+            if(is_object($number))
+            {
+                $number = $number->value;
+            }
+
+            if($number == 0)
+            {
+                throw new \InvalidArgumentException('You cannot divide by zero!');
+            }
+            
+            return new self($this->value / $number);
+        }
+        else
+        {
+            throw new \InvalidArgumentException('To addition a value, you must use number or \Malenki\Bah\N instance.');
+        }
     }
 
     public function roman()

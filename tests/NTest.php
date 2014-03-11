@@ -23,9 +23,57 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 
-
-class N extends PHPUnit_Framework_TestCase
+class NTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDivideByZeroAsObjectShouldRaiseException()
+    {
+        $five = new Malenki\Bah\N(5);
+        $zero = new Malenki\Bah\N(0);
+        $result = $five->divide($zero);
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDivideByZeroAsIntegerShouldRaiseException()
+    {
+        $five = new Malenki\Bah\N(5);
+        $result = $five->divide(0);
+    }
+
+
+    public function testNumbersThatShouldBePositive()
+    {
+        $five = new Malenki\Bah\N(5);
+        $this->assertTrue($five->positive);
+
+        $two = $five->minus(3);
+        $this->assertTrue($two->positive);
+    }
+
+    public function testNumbersThatShouldBeNegative()
+    {
+        $five = new Malenki\Bah\N(-5);
+        $this->assertTrue($five->negative);
+
+        $two = $five->plus(3);
+        $this->assertTrue($two->negative);
+    }
+
+    public function testNumbersThatShouldBeZero()
+    {
+        $zero = new Malenki\Bah\N(0);
+        $this->assertTrue($zero->zero);
+        
+        $five = new Malenki\Bah\N(-5);
+        $zero = $five->plus(5);
+        $this->assertTrue($zero->zero);
+    }
+
+
     public function testGreekNumerals()
     {
         // single digit
