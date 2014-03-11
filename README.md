@@ -85,7 +85,7 @@ $c = new C("€");
 while($c->bytes->valid())
 {
     // for each bytes, print it as binary string and add new line
-    echo $c->bytes->current()->b()->n;
+    echo $c->bytes->current()->b->n;
     $c->bytes->next();
 }
 ```
@@ -123,4 +123,36 @@ var_dump($a->lastButOne);
 
 See `example.php` and run it to understand all methods.
 
+## Play with numbers
+
+Instanciate number, add, sub, div…
+
+```php
+$five = new N(5);
+$two = new N(2);
+
+echo $five->plus(2); // native number or N object
+echo $five->minus($two);
+echo $five->divide(2);
+```
+
+Test whether number is positive, negative or zero:
+
+```php
+$five = new N(5);
+$two = new N(2);
+
+var_dump($two->minus($five)->negative); //should be true
+var_dump($two->minus(2)->zero); //should be true
+var_dump($two->positive); //should be true
+```
+
+You can get roman or greek form:
+
+```php
+$five = new N(5);
+
+print($five->roman);
+print($five->greek);
+```
 More blahblah soon…
