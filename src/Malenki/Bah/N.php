@@ -29,10 +29,15 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'positive')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'positive', 'roman')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
+        }
+
+        if($name == 'greek')
+        {
+            return $this->greek();
         }
     }
 
@@ -181,7 +186,7 @@ class N
         }
     }
 
-    public function roman()
+    protected function _roman()
     {
         $arr_numerals = array(
             (object) array(
