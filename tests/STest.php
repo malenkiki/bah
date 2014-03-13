@@ -24,7 +24,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 
-class S extends PHPUnit_Framework_TestCase
+class STest extends PHPUnit_Framework_TestCase
 {
     public function testBasis()
     {
