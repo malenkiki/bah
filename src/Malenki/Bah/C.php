@@ -417,7 +417,14 @@ class C extends O
                 
                 foreach($arr as $k => $v)
                 {
-                    $arr[$k] = new self(html_entity_decode('&#'.$v.';', ENT_XML1, 'UTF-8'));
+                    if(version_compare(PHP_VERSION, '5.4.0', '>='))
+                    {
+                        $arr[$k] = new self(html_entity_decode('&#'.$v.';', ENT_XML1, 'UTF-8'));
+                    }
+                    else
+                    {
+                        $arr[$k] = new self(html_entity_decode('&#'.$v.';', ENT_COMPAT | ENT_HTML401, 'UTF-8'));
+                    }
                 }
 
                 break;
