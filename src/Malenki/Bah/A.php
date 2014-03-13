@@ -90,21 +90,31 @@ class A implements \Iterator, \Countable
 
     public function take($idx)
     {
+        if(!$this->exist($idx))
+        {
+            throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
+        }
+
         return $this->value[$idx];
+    }
+
+    public function exist($idx)
+    {
+        return array_key_exists($idx, $this->value);
     }
 
     protected function _lastButOne()
     {
         if($this->count < 2)
         {
-            throw new \Exception(_('This collection is too small to have last but one value.'));
+            throw new \RuntimeException(_('This collection is too small to have last but one value.'));
         }
         return $this->value[$this->count - 2];
     }
 
     protected function _last()
     {
-        return $this->value[$this->length()->p()->value];
+        return $this->value[$this->_length()->p->value];
     }
 
     protected function _first()
@@ -121,6 +131,16 @@ class A implements \Iterator, \Countable
     {
         $this->value[] = $thing;
         $this->count++;
+    }
+
+    public function replace($idx, $thing)
+    {
+        if(!$this->exist($idx))
+        {
+            throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
+        }
+
+        $this->value[$idx] = $thing;
     }
 
     public function implode($sep = '')
