@@ -160,7 +160,7 @@ print($five->greek);
 
 Very easy, a magic getter is available to get more meaning type for each class, so:
 
- - class `Malenki\Bah\N` has `int`, 'float' and `double`
+ - class `Malenki\Bah\N` has `int`, `float` and `double`
  - class `Malenki\Bah\S` has `string`
  - class `Malenki\Bah\A` has `array`
  - class `Malenki\Bah\C` has `string`
