@@ -155,4 +155,20 @@ $five = new N(5);
 print($five->roman);
 print($five->greek);
 ```
-More blahblah soon…
+
+## Converting to primitive types
+
+Very easy, a magic getter is available to get more meaning type for each class, so:
+
+ - class `Malenki\Bah\N` has `int`, 'float' and `double`
+ - class `Malenki\Bah\S` has `string`
+ - class `Malenki\Bah\A` has `array`
+ - class `Malenki\Bah\C` has `string`
+
+Quick example:
+
+```php
+$s = new S('This is a string');
+var_dump($s->length); // object N
+var_dump($s->length->int); // integer
+```
