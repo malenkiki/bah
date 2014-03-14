@@ -36,6 +36,13 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(5, count($a));
     }
 
+    public function testConvertingObjectToPrimitiveArray()
+    {
+        $arr = array('one', 'two', 'three', 'four', 'five');
+        $a = new Malenki\Bah\A($arr);
+        $this->assertEquals($arr, $a->array);
+    }
+    
 
     public function testGettingOneAvailableItem()
     {

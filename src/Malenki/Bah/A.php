@@ -32,13 +32,13 @@ class A implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('index', 'length', 'last', 'first', 'lastButOne')))
+        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne')))
         {
             if($name == 'index')
             {
                 return $this->key();
             }
-            elseif(in_array($name, array('length', 'last', 'first', 'lastButOne')))
+            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne')))
             {
                 $str_method = '_' . $name;
                 return $this->$str_method();
@@ -166,6 +166,10 @@ class A implements \Iterator, \Countable
     }
 
 
+    public function _array()
+    {
+        return array_values($this->value);
+    }
 
     public function __toString()
     {
