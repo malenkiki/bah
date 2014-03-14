@@ -285,11 +285,16 @@ class C extends O
             return $this->bytes;
         }
 
-        if(in_array($name, array('upper', 'lower', 'block')))
+        if(in_array($name, array('string', 'upper', 'lower', 'block')))
         {
             $name = '_'.$name;
             return $this->$name();
         }
+    }
+
+    protected function _string()
+    {
+        return (string) $this->value;
     }
 
     public static function createFromCode($char, $encoding = c::ENCODING)

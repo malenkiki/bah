@@ -27,6 +27,11 @@ class CTest extends PHPUnit_Framework_TestCase
 {
 
 
+    public function testConvertingObjectToPrimitiveString()
+    {
+        $c = new Malenki\Bah\C('a');
+        $this->assertEquals('a', $c->string);
+    }
 
     public function testCaseDetection()
     {
