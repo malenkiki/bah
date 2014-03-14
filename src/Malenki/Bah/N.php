@@ -29,7 +29,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'positive', 'roman')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'positive', 'roman', 'int', 'float', 'double')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -46,6 +46,21 @@ class N
     public function __construct($num = 0)
     {
         $this->value = $num;
+    }
+
+    protected function _int()
+    {
+        return (integer) $this->value;
+    }
+
+    protected function _float()
+    {
+        return (float) $this->value;
+    }
+
+    protected function _double()
+    {
+        return (double) $this->value;
     }
 
     protected function _incr()

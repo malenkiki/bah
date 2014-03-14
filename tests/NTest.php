@@ -73,6 +73,29 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($zero->zero);
     }
 
+    public function testObjectConvertedToPrimitiveInteger()
+    {
+        $three = new Malenki\Bah\N(3);
+        $this->assertEquals(3, $three->int);
+        $three = new Malenki\Bah\N(3.0);
+        $this->assertEquals(3, $three->int);
+    }
+
+    public function testObjectConvertedToPrimitiveFloat()
+    {
+        $three = new Malenki\Bah\N(3);
+        $this->assertEquals(3.0, $three->float);
+        $three = new Malenki\Bah\N(3.0);
+        $this->assertEquals(3.0, $three->float);
+    }
+
+    public function testObjectConvertedToPrimitiveDouble()
+    {
+        $three = new Malenki\Bah\N(3);
+        $this->assertEquals((double) 3.0, $three->double);
+        $three = new Malenki\Bah\N(3.0);
+        $this->assertEquals((double) 3.0, $three->double);
+    }
 
     public function testGreekNumerals()
     {
