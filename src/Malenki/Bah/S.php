@@ -141,7 +141,7 @@ class S extends O implements \Countable
      */
     public function __get($name)
     {
-        if(in_array($name, array('chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf')))
+        if(in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf')))
         {
             if($name == 'length')
             {
@@ -183,13 +183,22 @@ class S extends O implements \Countable
                 return $this->_upperCaseFirst();
             }
 
-            if(in_array($name, array('title', 'upper', 'lower', 'n', 'r', 'first', 'last')))
+            if(in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last')))
             {
                 $str_method = '_' . $name;
                 return $this->$str_method();
             }
         }
     }
+
+
+
+    protected function _string()
+    {
+        return (string) $this->value;
+    }
+
+
 
     /**
      * Get substring from the original string.

@@ -43,8 +43,10 @@ class STest extends PHPUnit_Framework_TestCase
 
         $s = new S('!');
         $this->assertEquals((string) $s->times(3), '!!!');
-    }
 
+        $s = new S('I am a string!');
+        $this->assertEquals('I am a string!', $s->string);
+    }
 
 
     public function testChars()
@@ -56,6 +58,7 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals(20, $s->chars->length->int);
         $this->assertEquals(new C('J'), $s->chars->first);
         $this->assertEquals(new C('!'), $s->chars->last);
+        $this->assertEquals(new C(' '), $s->chars->lastButOne);
     }
 }
 
