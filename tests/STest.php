@@ -22,13 +22,15 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
+use Malenki\Bah\S;
+use Malenki\Bah\N;
+use Malenki\Bah\C;
 
 class STest extends PHPUnit_Framework_TestCase
 {
     public function testBasis()
     {
-        $s = new Malenki\Bah\S('Je suis une chaîne !');
+        $s = new S('Je suis une chaîne !');
         $this->assertEquals((string) $s, 'Je suis une chaîne !');
         $this->assertEquals((string) $s->upper, 'JE SUIS UNE CHAÎNE !');
         $this->assertEquals((string) $s->lower, 'je suis une chaîne !');
@@ -36,10 +38,10 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals(count($s), 20);
         $this->assertFalse($s->isVoid());
         
-        $s = new Malenki\Bah\S('');
+        $s = new S('');
         $this->assertTrue($s->isVoid());
 
-        $s = new Malenki\Bah\S('!');
+        $s = new S('!');
         $this->assertEquals((string) $s->times(3), '!!!');
     }
 
@@ -47,10 +49,13 @@ class STest extends PHPUnit_Framework_TestCase
 
     public function testChars()
     {
-        /*
-        $s = new Malenki\Bah\S('Je suis une chaîne !');
-        $this->assertEquals(count($s->chars()), 20);
-         */
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals(new N(20), $s->chars->length);
+        $this->assertEquals($s->length, $s->chars->length);
+        $this->assertEquals("20", $s->chars->length->s);
+        $this->assertEquals(20, $s->chars->length->int);
+        $this->assertEquals(new C('J'), $s->chars->first);
+        $this->assertEquals(new C('!'), $s->chars->last);
     }
 }
 

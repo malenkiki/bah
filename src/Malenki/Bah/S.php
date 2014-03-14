@@ -59,16 +59,19 @@ class S extends O implements \Countable
 
     protected function _chars()
     {
-        $a = new A();
-        $i = new N(0);
-
-        while($i->less($this->length))
+        if(is_null($this->chars))
         {
-            $a->add(new C($this->sub($i->value)->value));
-            $i->incr;
-        }
+            $a = new A();
+            $i = new N(0);
 
-        $this->chars = $a;
+            while($i->less($this->_length()))
+            {
+                $a->add(new C($this->sub($i->value)->value));
+                $i->incr;
+            }
+
+            $this->chars = $a;
+        }
 
         return $this->chars;
     }
@@ -152,11 +155,7 @@ class S extends O implements \Countable
 
             if($name == 'chars')
             {
-                if(is_null($this->chars))
-                {
-                    $this->_chars();
-                }
-                return $this->chars;
+                return $this->_chars();
             }
 
             if($name == 'bytes')
