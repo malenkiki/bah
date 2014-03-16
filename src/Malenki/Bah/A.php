@@ -32,13 +32,13 @@ class A implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne')))
+        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'pop')))
         {
             if($name == 'index')
             {
                 return $this->key();
             }
-            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne')))
+            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'pop')))
             {
                 $str_method = '_' . $name;
                 return $this->$str_method();
@@ -132,6 +132,31 @@ class A implements \Iterator, \Countable
         $this->value[] = $thing;
         $this->count++;
     }
+
+
+    public function delete($idx)
+    {
+        if(!$this->exist($idx))
+        {
+            throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
+        }
+
+        unset($this->value[$idx]);
+        $this->count--;
+    }
+    
+    
+    protected function _pop()
+    {
+        if($this->count() == 0)
+        {
+            throw new \RuntimeException('Cannot take element form void collection!');
+        }
+
+        $this->count--;
+        return array_pop($this->value);
+    }
+
 
     public function replace($idx, $thing)
     {

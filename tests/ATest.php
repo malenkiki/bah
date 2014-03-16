@@ -51,6 +51,47 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(3, $a->length->value);
     }
 
+    public function testDeletingValueWithSuccess()
+    {
+        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a->delete(3);
+        $this->assertEquals(4, count($a));
+        $a->delete(2);
+        $this->assertEquals(3, count($a));
+    }
+
+
+    /**
+     * @expectedException \OutOfRangeException
+     */
+    public function testDeletingNonExistingValueShouldRaiseException()
+    {
+        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a->delete(6);
+    }
+
+
+
+    public function testPopingValueWithSuccess()
+    {
+        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $value = $a->pop;
+        $this->assertEquals('five', $value);
+        $this->assertEquals(4, count($a));
+        $value = $a->pop;
+        $this->assertEquals('four', $value);
+        $this->assertEquals(3, count($a));
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testPopingValueFromVoidCollectionShouldRaiseException()
+    {
+        $a = new Malenki\Bah\A();
+        $value = $a->pop;
+    }
+
     public function testConvertingObjectToPrimitiveArray()
     {
         $arr = array('one', 'two', 'three', 'four', 'five');
