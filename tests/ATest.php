@@ -71,6 +71,27 @@ class ATest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testShiftingValueWithSuccess()
+    {
+        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $value = $a->shift;
+        $this->assertEquals('one', $value);
+        $this->assertEquals(4, count($a));
+        $value = $a->shift;
+        $this->assertEquals('two', $value);
+        $this->assertEquals(3, count($a));
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testShiftingValueFromVoidCollectionShouldRaiseException()
+    {
+        $a = new Malenki\Bah\A();
+        $value = $a->shift;
+    }
+
+
 
     public function testPopingValueWithSuccess()
     {

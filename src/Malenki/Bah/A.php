@@ -32,13 +32,17 @@ class A implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'pop')))
+        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random')))
         {
             if($name == 'index')
             {
                 return $this->key();
             }
-            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'pop')))
+            elseif($name == 'random')
+            {
+                return $this->random(1);
+            }
+            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop')))
             {
                 $str_method = '_' . $name;
                 return $this->$str_method();
@@ -145,12 +149,23 @@ class A implements \Iterator, \Countable
         $this->count--;
     }
     
+
+    protected function _shift()
+    {
+        if($this->count() == 0)
+        {
+            throw new \RuntimeException('Cannot take element from void collection!');
+        }
+
+        $this->count--;
+        return array_shift($this->value);
+    }
     
     protected function _pop()
     {
         if($this->count() == 0)
         {
-            throw new \RuntimeException('Cannot take element form void collection!');
+            throw new \RuntimeException('Cannot take element from void collection!');
         }
 
         $this->count--;
@@ -194,6 +209,35 @@ class A implements \Iterator, \Countable
     public function _array()
     {
         return array_values($this->value);
+    }
+
+    public function random($n = 1)
+    {
+        if(!is_numeric($n) || $n < 1)
+        {
+            throw new \InvalidArgumentException('Random items amount must be an integer greater than or equal one.');
+        }
+
+        if($n > $this->count())
+        {
+            throw new \RuntimeException('Cannot take more random elements than amount contained into the collection.');
+        }
+
+        $mix = array_rand($this->value, $n);
+
+        if(is_integer($mix))
+        {
+            return $this->value[$mix];
+        }
+
+        $out = new self();
+
+        foreach($mix as $idx)
+        {
+            $out->add($this->value[$idx]);
+        }
+
+        return $out;
     }
 
     public function __toString()
