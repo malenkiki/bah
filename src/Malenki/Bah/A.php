@@ -32,13 +32,13 @@ class A implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'pop')))
+        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop')))
         {
             if($name == 'index')
             {
                 return $this->key();
             }
-            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'pop')))
+            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop')))
             {
                 $str_method = '_' . $name;
                 return $this->$str_method();
@@ -145,12 +145,23 @@ class A implements \Iterator, \Countable
         $this->count--;
     }
     
+
+    protected function _shift()
+    {
+        if($this->count() == 0)
+        {
+            throw new \RuntimeException('Cannot take element from void collection!');
+        }
+
+        $this->count--;
+        return array_shift($this->value);
+    }
     
     protected function _pop()
     {
         if($this->count() == 0)
         {
-            throw new \RuntimeException('Cannot take element form void collection!');
+            throw new \RuntimeException('Cannot take element from void collection!');
         }
 
         $this->count--;
