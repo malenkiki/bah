@@ -32,7 +32,7 @@ class A implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle')))
+        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode')))
         {
             if($name == 'index')
             {
@@ -41,6 +41,10 @@ class A implements \Iterator, \Countable
             elseif($name == 'random')
             {
                 return $this->random(1);
+            }
+            elseif(in_array($name, array('implode', 'join')))
+            {
+                return $this->implode();
             }
             elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'shuffle')))
             {

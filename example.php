@@ -56,6 +56,7 @@ var_dump($a->random);
 var_dump($a->random(2));
 var_dump($a->lastButOne);
 var_dump($a->shuffle->join(', ')->string);
+var_dump($a->shuffle->join->string);
 $abc = new S('abcdefghijklmnopqrstuvwxyz');
 echo $abc->first->n;
 echo $abc->last->n;
