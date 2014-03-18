@@ -121,6 +121,49 @@ var_dump(count($a));
 var_dump($a->lastButOne);
 ```
 
+Get new collection from existing one but into other order:
+
+```php
+$a = new A(array('un', 'deux', 'trois', 'quatre'));
+var_dump($a->shuffle);
+```
+
+Get random element from a collection:
+
+```php
+$a = new A(array('un', 'deux', 'trois', 'quatre'));
+var_dump($a->random);
+// or
+var_dump($a->random(1));
+```
+
+Get several random elements from a collection:
+
+```php
+$a = new A(array('un', 'deux', 'trois', 'quatre'));
+var_dump($a->random(2));
+```
+
+Concatenate elements into a string object from class S:
+
+```php
+$a = new A(array('un', 'deux', 'trois', 'quatre'));
+var_dump($a->join);
+//or
+var_dump($a->implode);
+```
+
+Concatenate elements into a string object from class S using custom separator:
+
+```php
+$a = new A(array('un', 'deux', 'trois', 'quatre'));
+var_dump($a->join(', '));
+//or
+var_dump($a->implode(', '));
+```
+
+
+
 See `example.php` and run it to understand all methods.
 
 ## Play with numbers
