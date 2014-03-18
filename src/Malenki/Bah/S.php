@@ -141,7 +141,7 @@ class S extends O implements \Countable
      */
     public function __get($name)
     {
-        if(in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf')))
+        if(in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf', 'a')))
         {
             if($name == 'length')
             {
@@ -183,7 +183,7 @@ class S extends O implements \Countable
                 return $this->_upperCaseFirst();
             }
 
-            if(in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last')))
+            if(in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a')))
             {
                 $str_method = '_' . $name;
                 return $this->$str_method();
@@ -198,6 +198,20 @@ class S extends O implements \Countable
         return (string) $this->value;
     }
 
+
+    protected function _a()
+    {
+        $a = new A();
+        $i = new N(0);
+
+        while($i->less($this->_length()))
+        {
+            $a->add($this->sub($i->value));
+            $i->incr;
+        }
+
+        return  $a;
+    }
 
 
     /**

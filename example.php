@@ -55,7 +55,8 @@ var_dump(count($a));
 var_dump($a->random);
 var_dump($a->random(2));
 var_dump($a->lastButOne);
-
+var_dump($a->shuffle->join(', ')->string);
+var_dump($a->shuffle->join->string);
 $abc = new S('abcdefghijklmnopqrstuvwxyz');
 echo $abc->first->n;
 echo $abc->last->n;
@@ -84,3 +85,6 @@ while($all->valid())
     $all->next();
 }
 echo $c->block->n(false)->n;
+
+$s = new S('abcdef');
+var_dump($s->a);
