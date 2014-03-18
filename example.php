@@ -85,3 +85,6 @@ while($all->valid())
     $all->next();
 }
 echo $c->block->n(false)->n;
+
+$s = new S('abcdef');
+var_dump($s->a);
