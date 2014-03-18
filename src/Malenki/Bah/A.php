@@ -32,7 +32,7 @@ class A implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random')))
+        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle')))
         {
             if($name == 'index')
             {
@@ -42,7 +42,7 @@ class A implements \Iterator, \Countable
             {
                 return $this->random(1);
             }
-            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop')))
+            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'shuffle')))
             {
                 $str_method = '_' . $name;
                 return $this->$str_method();
@@ -205,11 +205,26 @@ class A implements \Iterator, \Countable
         return new S(implode($sep, $this->value));
     }
 
+    public function join($sep = '')
+    {
+        return $this->implode($sep);
+    }
 
     public function _array()
     {
         return array_values($this->value);
     }
+
+
+    protected function _shuffle()
+    {
+        $arr = $this->value;
+
+        shuffle($arr);
+
+        return new self($arr);
+    }
+
 
     public function random($n = 1)
     {
