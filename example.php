@@ -86,5 +86,24 @@ while($all->valid())
 }
 echo $c->block->n(false)->n;
 
+$filter_vowel = function($item)
+{
+    if(in_array($item, array('a', 'e', 'y', 'u', 'i', 'o')))
+    {
+        return "I am vowel $item!";
+    }
+};
+$filter_upper_consons = function($item)
+{
+    if(!in_array($item, array('a', 'e', 'y', 'u', 'i', 'o')))
+    {
+        return 'I am prout to be a '.strtoupper($item);
+    }
+    else
+    {
+        return 'I am just simple vowel '.$item;
+    }
+};
 $s = new S('abcdef');
-var_dump($s->a);
+var_dump($s->a->filter($filter_vowel));
+var_dump($s->a->map($filter_upper_consons));

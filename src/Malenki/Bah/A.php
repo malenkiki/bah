@@ -229,6 +229,15 @@ class A implements \Iterator, \Countable
         return new self($arr);
     }
 
+    public function map($func)
+    {
+        return new self(array_map($func, $this->value));
+    }
+
+    public function filter($func)
+    {
+        return new self(array_filter($this->value, $func));
+    }
 
     public function random($n = 1)
     {
