@@ -32,7 +32,7 @@ class A implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode')))
+        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode', 'current', 'key', 'next', 'rewind', 'valid')))
         {
             if($name == 'index')
             {
@@ -45,6 +45,10 @@ class A implements \Iterator, \Countable
             elseif(in_array($name, array('implode', 'join')))
             {
                 return $this->implode();
+            }
+            elseif(in_array($name, array('current', 'key', 'next', 'rewind', 'valid')))
+            {
+                return $this->$name();
             }
             elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'shuffle')))
             {
@@ -76,11 +80,16 @@ class A implements \Iterator, \Countable
     public function next()
     {
         $this->position->incr;
+
+        return $this;
     }
     public function rewind()
     {
         $this->position->value = 0;
+
+        return $this;
     }
+
     public function valid()
     {
         return isset($this->value[$this->position->value]);
