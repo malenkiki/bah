@@ -495,15 +495,5 @@ class C extends O
         return new N(bindec($str_unicode));
     }
 
-
-
-    public function directionality()
-    {
-    }
-
-    public function isMirrored()
-    {
-    }
-
 }
 
