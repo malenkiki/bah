@@ -162,6 +162,17 @@ var_dump($a->join(', '));
 var_dump($a->implode(', '));
 ```
 
+Take value one by one is easy:
+
+```php
+$a = new A(array('un', 'deux', 'trois', 'quatre'));
+
+while($a->valid) // you can use method call too
+{
+    echo $a->current . "\n";
+    $a->next;
+}
+```
 
 
 See `example.php` and run it to understand all methods.
