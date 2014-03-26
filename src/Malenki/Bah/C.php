@@ -285,7 +285,7 @@ class C extends O
             return $this->bytes;
         }
 
-        if(in_array($name, array('string', 'upper', 'lower', 'block')))
+        if(in_array($name, array('string', 'upper', 'lower', 'block', 'trans')))
         {
             $name = '_'.$name;
             return $this->$name();
@@ -295,6 +295,16 @@ class C extends O
     protected function _string()
     {
         return (string) $this->value;
+    }
+
+    protected function _trans()
+    {
+        $str = transliterator_transliterate(
+            "Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC;",
+            $this->value
+        );
+
+        return new self($str);
     }
 
     public static function createFromCode($char, $encoding = c::ENCODING)

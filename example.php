@@ -112,3 +112,13 @@ $s = new S('C’est rigolo d’écrire en français !');
 echo $s->trans->n;
 $s = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
 echo $s->trans->n;
+
+while($s->chars->valid)
+{
+    printf(
+        "%s => %s\n",
+        $s->chars->current,
+        $s->chars->current->trans
+    );
+    $s->chars->next;
+}
