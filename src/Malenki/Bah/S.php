@@ -141,7 +141,7 @@ class S extends O implements \Countable
      */
     public function __get($name)
     {
-        if(in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf', 'a')))
+        if(in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf', 'a', 'trans')))
         {
             if($name == 'length')
             {
@@ -183,7 +183,7 @@ class S extends O implements \Countable
                 return $this->_upperCaseFirst();
             }
 
-            if(in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a')))
+            if(in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans')))
             {
                 $str_method = '_' . $name;
                 return $this->$str_method();
@@ -212,6 +212,19 @@ class S extends O implements \Countable
 
         return  $a;
     }
+
+
+
+    protected function _trans()
+    {
+        $str = transliterator_transliterate(
+            "Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC;",
+            $this->value
+        );
+
+        return new self($str);
+    }
+
 
 
     /**

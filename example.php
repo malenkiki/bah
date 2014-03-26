@@ -107,3 +107,8 @@ $filter_upper_consons = function($item)
 $s = new S('abcdef');
 var_dump($s->a->filter($filter_vowel));
 var_dump($s->a->map($filter_upper_consons));
+
+$s = new S('C’est rigolo d’écrire en français !');
+echo $s->trans->n;
+$s = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
+echo $s->trans->n;
