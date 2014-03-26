@@ -217,6 +217,11 @@ class S extends O implements \Countable
 
     protected function _trans()
     {
+        if(!extension_loaded('intl'))
+        {
+            throw new \RuntimeException('Missing Intl extension. This is required to use ' . __CLASS__);
+        }
+
         $str = transliterator_transliterate(
             "Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC;",
             $this->value
