@@ -76,6 +76,13 @@ echo $long->wrap(40)->margin(10, 0, -7)->n->n;
 echo $long->wrap(40)->margin(10)->n->n; // same as previous, but only left margin
 ```
 
+You can transliterate string to simple one:
+
+```php
+$s = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
+echo $s->trans->n; // Ta ellenika sou einai kalytera apo ta Gallika mou!
+```
+
 ## Play with characters
 
 You can play with characters too:
@@ -109,6 +116,13 @@ Get Unicode Block name of the current char:
 ```php
 $c = new C("Œ");
 echo $c->block->n;
+```
+
+You can transliterate character to simple one:
+
+```php
+$s = new C('λ');
+echo $C->trans; // "l"
 ```
 
 ## Play with Array
