@@ -97,8 +97,32 @@ class N
         return $this->value < $n->value;
     }
 
+
+
+    public function lt($num)
+    {
+        return $this->less($num);
+    }
+
+    public function lte($num)
+    {
+        // TODO: change that way
+        if(is_numeric($num))
+        {
+            $n = new self($num);
+        }
+        else
+        {
+            $n = $num;
+        }
+        
+        return $this->value <= $n->value;
+    }
+
+
     public function greater($num)
     {
+        // TODO: change that way
         if(is_numeric($num))
         {
             $n = new self($num);
@@ -109,6 +133,26 @@ class N
         }
 
         return $this->value > $n->value;
+    }
+
+    public function gt($num)
+    {
+        return $this->greater($num);
+    }
+
+    public function gte($num)
+    {
+        // TODO: change that way
+        if(is_numeric($num))
+        {
+            $n = new self($num);
+        }
+        else
+        {
+            $n = $num;
+        }
+        
+        return $this->value >= $n->value;
     }
 
     public function _negative()

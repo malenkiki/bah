@@ -97,6 +97,41 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals((double) 3.0, $three->double);
     }
 
+    public function testGreaterThanShouldBeTrue()
+    {
+        $n = new Malenki\Bah\N(4);
+        $this->assertTrue($n->gt(2));
+        $this->assertTrue($n->gt(new Malenki\Bah\N(2)));
+        $this->assertTrue($n->gte(4));
+        $this->assertTrue($n->gte(new Malenki\Bah\N(4)));
+    }
+
+    public function testGreaterThanShouldBeFalse()
+    {
+        $n = new Malenki\Bah\N(4);
+        $this->assertFalse($n->gt(5));
+        $this->assertFalse($n->gt(new Malenki\Bah\N(5)));
+        $this->assertFalse($n->gte(6));
+        $this->assertFalse($n->gte(new Malenki\Bah\N(6)));
+    }
+
+    public function testLessThanShouldBeTrue()
+    {
+        $n = new Malenki\Bah\N(4);
+        $this->assertTrue($n->lt(6));
+        $this->assertTrue($n->lt(new Malenki\Bah\N(6)));
+        $this->assertTrue($n->lte(4));
+        $this->assertTrue($n->lte(new Malenki\Bah\N(4)));
+    }
+
+    public function testLessThanShouldBeFalse()
+    {
+        $n = new Malenki\Bah\N(4);
+        $this->assertFalse($n->lt(2));
+        $this->assertFalse($n->lt(new Malenki\Bah\N(-5)));
+        $this->assertFalse($n->lte(-6));
+        $this->assertFalse($n->lte(new Malenki\Bah\N(0)));
+    }
     public function testGreekNumerals()
     {
         // single digit
