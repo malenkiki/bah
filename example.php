@@ -127,3 +127,5 @@ while($s->chars->valid)
 $s = new S('a/zerty');
 var_dump($s->startsWith(new S('a/ze')));
 var_dump($s->endsWith('ty'));
+var_dump($s->match('/ze/'));
+var_dump($s->match(new S('/ze/')));

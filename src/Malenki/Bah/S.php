@@ -271,7 +271,7 @@ class S extends O implements \Countable
 
     public function match($expr)
     {
-        return preg_match($expr, $this->value);
+        return (boolean) preg_match($expr, $this->value);
     }
 
 
