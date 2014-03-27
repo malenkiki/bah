@@ -122,3 +122,8 @@ while($s->chars->valid)
     );
     $s->chars->next;
 }
+
+
+$s = new S('a/zerty');
+var_dump($s->startsWith(new S('a/ze')));
+var_dump($s->endsWith('ty'));

@@ -259,10 +259,14 @@ class S extends O implements \Countable
 
     public function startsWith($str)
     {
+        $str = preg_quote($str, '/');
+        return (boolean) preg_match("/^$str/", $this->value);
     }
 
     public function endsWith($str)
     {
+        $str = preg_quote($str, '/');
+        return (boolean) preg_match("/$str\$/", $this->value);
     }
 
     public function match($expr)
