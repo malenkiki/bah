@@ -129,3 +129,14 @@ var_dump($s->startsWith(new S('a/ze')));
 var_dump($s->endsWith('ty'));
 var_dump($s->match('/ze/'));
 var_dump($s->match(new S('/ze/')));
+
+$n = new N(4);
+var_dump($n->gt(2));
+var_dump($n->gte(4));
+var_dump($n->lt(2));
+var_dump($n->lte(4));
+
+
+$s = new S('abcdefgh');
+var_dump($s->chars->has('c'));
+var_dump($s->chars->has('z'));
