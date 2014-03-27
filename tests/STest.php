@@ -48,6 +48,21 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I am a string!', $s->string);
     }
 
+    public function testStringMatchingShouldBeTrue()
+    {
+        $s = new S('az/erty');
+        $this->assertTrue($s->startsWith('az/'));
+        $this->assertTrue($s->endsWith('ty'));
+        $this->assertTrue($s->match('/ert/'));
+    }
+
+    public function testStringMatchingShouldBeFalse()
+    {
+        $s = new S('az/erty');
+        $this->assertFalse($s->startsWith('z/'));
+        $this->assertFalse($s->endsWith('t'));
+        $this->assertFalse($s->match('/ern/'));
+    }
 
     public function testChars()
     {
