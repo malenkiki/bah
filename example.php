@@ -140,3 +140,15 @@ var_dump($n->lte(4));
 $s = new S('abcdefgh');
 var_dump($s->chars->has('c'));
 var_dump($s->chars->has('z'));
+$s = new S('ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΪΫάέήίΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώϐϑϒ');
+echo $s->trans->n;
+
+while($s->chars->valid)
+{
+    printf(
+        "%s => %s\n",
+        $s->chars->current,
+        $s->chars->current->isUpperCase() ? $s->chars->current->trans->title : $s->chars->current->trans
+    );
+    $s->chars->next;
+}
