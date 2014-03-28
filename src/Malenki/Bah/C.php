@@ -309,7 +309,8 @@ class C extends O
             $this->value
         );
 
-        return new self($str);
+        // S and no C, because can have more than One characters
+        return new S($str);
     }
 
     public static function createFromCode($char, $encoding = c::ENCODING)
