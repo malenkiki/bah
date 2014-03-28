@@ -122,3 +122,16 @@ while($s->chars->valid)
     );
     $s->chars->next;
 }
+
+$s = new S('ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΪΫάέήίΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώϐϑϒ');
+echo $s->trans->n;
+
+while($s->chars->valid)
+{
+    printf(
+        "%s => %s\n",
+        $s->chars->current,
+        $s->chars->current->isUpperCase() ? $s->chars->current->trans->title : $s->chars->current->trans
+    );
+    $s->chars->next;
+}
