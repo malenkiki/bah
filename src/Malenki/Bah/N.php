@@ -25,6 +25,32 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Malenki\Bah;
 
+/**
+ * Defines numbers. 
+ * 
+ * @property-read $hex Get hexadecimal form as S class
+ * @property-read $oct Get octogonal form as S class
+ * @property-read $bin Get binary form as S class
+ * @property-read $h Shorthand for $hex
+ * @property-read $o Shorthand for $o
+ * @property-read $b Shorthand for $b
+ * @property-read $s Get number as S class
+ * @property-read $n 
+ * @property-read $p
+ * @property-read $incr Get increment number
+ * @property-read $decr Get decrement number
+ * @property-read $negative Check if number is negative or not
+ * @property-read $zero Check if number is nul
+ * @property-read $positive Check if number is positive
+ * @property-read $roman Get roman number as S class.
+ * @property-read $greek Get greek number as S class.
+ * @property-read $int Get as primitive integer
+ * @property-read $float Get as primitive float
+ * @property-read $double Get as primitive double 
+ * @copyright 2014 Michel PETIT
+ * @author Michel Petit <petit.michel@gmail.com> 
+ * @license MIT
+ */
 class N
 {
     public function __get($name)

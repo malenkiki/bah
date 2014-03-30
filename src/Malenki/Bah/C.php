@@ -26,6 +26,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Malenki\Bah;
 
 /**
+ * Define a single character.
+ *
  * @package Malenki\Bah
  * @license MIT
  * @property-read Malenki\Bah\A $bytes A collection of Malenki\Bah\N objects
