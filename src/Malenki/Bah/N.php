@@ -109,6 +109,13 @@ class N
         return new self($this->value - 1);
     }
 
+    /**
+     * Checks whether current number is less than given one. 
+     * 
+     * @param mixed $num N or primitive numeric value
+     * @access public
+     * @return boolean
+     */
     public function less($num)
     {
         if(is_numeric($num))
@@ -125,11 +132,28 @@ class N
 
 
 
+    /**
+     * Shorthand for less() method
+     * 
+     * @param mixed $num N or numeric value
+     * @access public
+     * @return boolean
+     */
     public function lt($num)
     {
         return $this->less($num);
     }
 
+
+
+
+    /**
+     * Tests whether current number is less than or equal to given one.
+     * 
+     * @param mixed $num N or numeric value
+     * @access public
+     * @return boolean
+     */
     public function lte($num)
     {
         // TODO: change that way
@@ -146,6 +170,13 @@ class N
     }
 
 
+    /**
+     * Tests whether current number is greater than given one.
+     * 
+     * @param mixed $num N or numeric value.
+     * @access public
+     * @return boolean
+     */
     public function greater($num)
     {
         // TODO: change that way
@@ -161,11 +192,30 @@ class N
         return $this->value > $n->value;
     }
 
+
+
+    /**
+     * Shorthand of greater() method 
+     * 
+     * @param mixed $num N or numeric value
+     * @access public
+     * @return boolean
+     */
     public function gt($num)
     {
         return $this->greater($num);
     }
 
+
+
+
+    /**
+     * Tests whether current number is greater than or equal to the given number. 
+     * 
+     * @param mixed $num N or numeric value
+     * @access public
+     * @return boolean
+     */
     public function gte($num)
     {
         // TODO: change that way
@@ -197,6 +247,14 @@ class N
     }
 
 
+
+    /**
+     * Checks if current number is equal to given argument. 
+     * 
+     * @param mixed $num N or numeric value.
+     * @access public
+     * @return boolean
+     */
     public function equal($num)
     {
         if(is_numeric($num))
