@@ -269,6 +269,16 @@ class N
         return $this->value == $n->value;
     }
 
+
+
+    /**
+     * Create new N having the sum of given argument with current number 
+     * 
+     * @throw \InvalidArgumentException If argument is not N or numeric value.
+     * @param mixed $number N or numeric value
+     * @access public
+     * @return N
+     */
     public function plus($number)
     {
         if(is_numeric($number) || $number instanceof N)
@@ -288,6 +298,17 @@ class N
         }
     }
 
+
+
+
+    /**
+     * Create new N having the substraction of given argument with current number 
+     * 
+     * @throw \InvalidArgumentException If argument is not N or numeric value.
+     * @param mixed $number N or numeric value
+     * @access public
+     * @return N
+     */
     public function minus($number)
     {
         if(is_numeric($number) || $number instanceof N)
@@ -307,6 +328,17 @@ class N
         }
     }
 
+
+
+    /**
+     * Divide current number with given argument.
+     * 
+     * @throw \InvalidArgumentException If given argument is zero
+     * @throw \InvalidArgumentException If given argument is not N or numeric value.
+     * @param mixed $number N or numeric value
+     * @access public
+     * @return N
+     */
     public function divide($number)
     {
         if(is_numeric($number) || $number instanceof N)
@@ -489,13 +521,34 @@ class N
         return new S(implode('', array_reverse($arr_out)));
     }
 
+
+
+    /**
+     * Convert to arabian string number
+     * 
+     * @todo to implement
+     * @access public
+     * @return S
+     */
     public function arabian()
     {
     }
 
+    
+    
+    /**
+     * Convert to hebrew string number
+     * 
+     * @todo to implement
+     * @access public
+     * @return S
+     */
     public function hebrew()
     {
     }
+
+
+
 
     protected function _hex()
     {
