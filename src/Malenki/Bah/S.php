@@ -141,7 +141,7 @@ class S extends O implements \Countable
      */
     public function __get($name)
     {
-        if(in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf', 'a', 'trans')))
+        if(in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf', 'a', 'trans', 'void', 'empty')))
         {
             if($name == 'length')
             {
@@ -171,6 +171,11 @@ class S extends O implements \Countable
             if(in_array($name, array('n', 'r')))
             {
                 return $this->$name();
+            }
+
+            if(in_array($name, array('void', 'empty')))
+            {
+                return $this->isVoid();
             }
 
             if($name == 'ucw')
@@ -445,11 +450,13 @@ class S extends O implements \Countable
     /**
      * Returns current string as an new string object repeated N times.
      *
-     * @param integer $n
+     * @param mixed $n N or integer
      * @return Malenki\Bah\S
      */
     public function times($n = 1)
     {
+        if($n instanceof N) $n = $n->int;
+
         return new self(str_repeat($this, $n));
     }
 
@@ -459,13 +466,14 @@ class S extends O implements \Countable
      * Wrap the string to have given width. 
      * 
      * @param integer $width Width the text must have
-     * @param string $cut Optional string to put at each linebreak
+     * @param mixed $cut Optional string to put at each linebreak, as string or S
      * @access public
      * @return S
      */
     public function wrap($width, $cut = "\n")
     {
         $arr_lines = array();
+        $cut = "$cut"; // ensure tostring if S object
 
         if(strlen($this->value) === mb_strlen($this->value, 'UTF-8'))
         {
@@ -542,14 +550,34 @@ class S extends O implements \Countable
     /**
      * Ad margin to the text. By default left, but right and alinea are possible too.
      * 
-     * @param int $int_left Margin left
-     * @param int $int_right Margin right, optional
-     * @param int $int_alinea First line, optional
+     * @throw \InvalidArgumentException If Margin left and/or right are negative
+     * @throw \InvalidArgumentException If alinea is greater than margin left
+     * @param mixed $left Margin left (N or integer)
+     * @param mixed $right Margin right, optional (N or integer)
+     * @param mixed $alinea First line, optional (N or integer)
      * @access public
      * @return S
      */
-    public function margin($int_left = 5, $int_right = 0, $int_alinea = 0)
+    public function margin($left = 5, $right = 0, $alinea = 0)
     {
+        $int_left = $left;
+        $int_right = $right;
+        $int_alinea = $alinea;
+
+        if($left instanceof N) $int_left = $left->int;
+        if($right instanceof N) $int_right = $right->int;
+        if($alinea instanceof N) $int_alinea = $alinea->int;
+
+        if($int_left < 0 || $int_right < 0)
+        {
+            throw new \InvalidArgumentException('Margins must be null or positive numbers!');
+        }
+
+        if(abs($int_alinea) > $int_left)
+        {
+            throw new \InvalidArgumentException('Alinea must be equal or less than margin left');
+        }
+
         $arr = explode("\n", $this->value);
         
         foreach($arr as $k => $v)
