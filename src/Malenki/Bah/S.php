@@ -237,13 +237,26 @@ class S extends O implements \Countable
      *
      * By default, returns the first character as a substring.
      *
-     * @param integer $offset Where to start the substring, 0 by default
-     * @param integer $limit Size of the substring, 1 by default
+     * @param mixed $offset Where to start the substring, 0 by default, as N or integer
+     * @param mixed $limit Size of the substring, 1 by default, as N or integer
      *
-     * @return Malenki\Bah\S
+     * @return S
      */
     public function sub($offset = 0, $limit = 1)
     {
+        if($offset instanceof N) $offset = $offset->int;
+        if($limit instanceof N) $limit = $limit->int;
+
+        if($offset < 0)
+        {
+            throw new \InvalidArgumentException('Offset must be a null or positive integer');
+        }
+        
+        if($limit < 1)
+        {
+            throw new \InvalidArgumentException('Limit must be an intger equal to or greater than one.');
+        }
+
         return new S(mb_substr($this->value, $offset, $limit, C::ENCODING));
     }
 
@@ -362,9 +375,9 @@ class S extends O implements \Countable
     /**
      * Get character at the given position.
      *
-     * @param integer $idx The index where the cahracter is.
+     * @param mixed $idx The index where the cahracter is, as N or integer.
      *
-     * @return Malenki\Bah\C
+     * @return C
      */
     public function charAt($idx)
     {
