@@ -54,6 +54,9 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertTrue($s->startsWith('az/'));
         $this->assertTrue($s->endsWith('ty'));
         $this->assertTrue($s->match('/ert/'));
+        $this->assertTrue($s->startsWith(new S('az/')));
+        $this->assertTrue($s->endsWith(new S('ty')));
+        $this->assertTrue($s->match(new S('/ert/')));
     }
 
     public function testStringMatchingShouldBeFalse()
@@ -62,6 +65,9 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->startsWith('z/'));
         $this->assertFalse($s->endsWith('t'));
         $this->assertFalse($s->match('/ern/'));
+        $this->assertFalse($s->startsWith(new S('z/')));
+        $this->assertFalse($s->endsWith(new S('t')));
+        $this->assertFalse($s->match(new S('/ern/')));
     }
 
     public function testChars()
@@ -74,6 +80,52 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals(new C('J'), $s->chars->first);
         $this->assertEquals(new C('!'), $s->chars->last);
         $this->assertEquals(new C(' '), $s->chars->lastButOne);
+        $this->assertEquals(new C('s'), $s->charAt(3));
+        $this->assertEquals(new C('s'), $s->charAt(new N(3)));
+    }
+
+    public function testSubstringShouldSuccess()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('Je suis', $s->sub(0, 7));
+        $this->assertEquals('suis', $s->sub(3, 4));
+        $this->assertEquals('Je suis', $s->sub(new N(0), new N(7)));
+        $this->assertEquals('suis', $s->sub(new N(3), new N(4)));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSubstringWithNegativeOffsetShouldRaiseException()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('Je suis', $s->sub(-3, 7));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSubstringWithNegativeLimitShouldRaiseException()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('Je suis', $s->sub(0, -7));
+    }
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSubstringWithNegativeOffsetAsObjectShouldRaiseException()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('Je suis', $s->sub(new N(-3), new N(7)));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSubstringWithNegativeLimitAsObjectShouldRaiseException()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('Je suis', $s->sub(new N(0), new N(-7)));
     }
 }
 

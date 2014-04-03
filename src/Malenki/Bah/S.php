@@ -237,13 +237,26 @@ class S extends O implements \Countable
      *
      * By default, returns the first character as a substring.
      *
-     * @param integer $offset Where to start the substring, 0 by default
-     * @param integer $limit Size of the substring, 1 by default
+     * @param mixed $offset Where to start the substring, 0 by default, as N or integer
+     * @param mixed $limit Size of the substring, 1 by default, as N or integer
      *
-     * @return Malenki\Bah\S
+     * @return S
      */
     public function sub($offset = 0, $limit = 1)
     {
+        if($offset instanceof N) $offset = $offset->int;
+        if($limit instanceof N) $limit = $limit->int;
+
+        if($offset < 0)
+        {
+            throw new \InvalidArgumentException('Offset must be a null or positive integer');
+        }
+        
+        if($limit < 1)
+        {
+            throw new \InvalidArgumentException('Limit must be an intger equal to or greater than one.');
+        }
+
         return new S(mb_substr($this->value, $offset, $limit, C::ENCODING));
     }
 
@@ -257,18 +270,45 @@ class S extends O implements \Countable
         return $this->sub($this->_length()->value - 1, 1);
     }
 
+
+
+    /**
+     * Checks that current string starts with the given string or not 
+     * 
+     * @param mixed $str S or primitive string
+     * @access public
+     * @return boolean
+     */
     public function startsWith($str)
     {
         $str = preg_quote($str, '/');
         return (boolean) preg_match("/^$str/", $this->value);
     }
 
+
+
+    /**
+     * Checks that current string ends with the given string or not 
+     * 
+     * @param mixed $str S or primitive string
+     * @access public
+     * @return boolean
+     */
     public function endsWith($str)
     {
         $str = preg_quote($str, '/');
         return (boolean) preg_match("/$str\$/", $this->value);
     }
 
+    
+    
+    /**
+     * Check whether current string match the given regular expression. 
+     * 
+     * @param mixed $expr S or primitive string
+     * @access public
+     * @return boolean
+     */
     public function match($expr)
     {
         return (boolean) preg_match($expr, $this->value);
@@ -335,12 +375,17 @@ class S extends O implements \Countable
     /**
      * Get character at the given position.
      *
-     * @param integer $idx The index where the cahracter is.
+     * @param mixed $idx The index where the cahracter is, as N or integer.
      *
-     * @return Malenki\Bah\C
+     * @return C
      */
     public function charAt($idx)
     {
+        if($idx instanceof N)
+        {
+            $idx = $idx->int;
+        }
+
         return new C(mb_substr($this->value, $idx, 1, C::ENCODING));
     }
 
@@ -352,14 +397,12 @@ class S extends O implements \Countable
      */
     public function count()
     {
-        $this->__get('length');
-        return $this->length->value;
+        return $this->_length()->int;
     }
 
     public function isVoid()
     {
-        $this->__get('length');
-        return $this->length->value == 0;
+        return $this->_length()->zero;
     }
 
 
@@ -412,6 +455,14 @@ class S extends O implements \Countable
 
 
 
+    /**
+     * Wrap the string to have given width. 
+     * 
+     * @param integer $width Width the text must have
+     * @param string $cut Optional string to put at each linebreak
+     * @access public
+     * @return S
+     */
     public function wrap($width, $cut = "\n")
     {
         $arr_lines = array();
@@ -488,6 +539,15 @@ class S extends O implements \Countable
 
 
 
+    /**
+     * Ad margin to the text. By default left, but right and alinea are possible too.
+     * 
+     * @param int $int_left Margin left
+     * @param int $int_right Margin right, optional
+     * @param int $int_alinea First line, optional
+     * @access public
+     * @return S
+     */
     public function margin($int_left = 5, $int_right = 0, $int_alinea = 0)
     {
         $arr = explode("\n", $this->value);
