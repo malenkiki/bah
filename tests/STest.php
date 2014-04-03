@@ -54,6 +54,9 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertTrue($s->startsWith('az/'));
         $this->assertTrue($s->endsWith('ty'));
         $this->assertTrue($s->match('/ert/'));
+        $this->assertTrue($s->startsWith(new S('az/')));
+        $this->assertTrue($s->endsWith(new S('ty')));
+        $this->assertTrue($s->match(new S('/ert/')));
     }
 
     public function testStringMatchingShouldBeFalse()
@@ -62,6 +65,9 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->startsWith('z/'));
         $this->assertFalse($s->endsWith('t'));
         $this->assertFalse($s->match('/ern/'));
+        $this->assertFalse($s->startsWith(new S('z/')));
+        $this->assertFalse($s->endsWith(new S('t')));
+        $this->assertFalse($s->match(new S('/ern/')));
     }
 
     public function testChars()
