@@ -257,18 +257,45 @@ class S extends O implements \Countable
         return $this->sub($this->_length()->value - 1, 1);
     }
 
+
+
+    /**
+     * Checks that current string starts with the given string or not 
+     * 
+     * @param mixed $str S or primitive string
+     * @access public
+     * @return boolean
+     */
     public function startsWith($str)
     {
         $str = preg_quote($str, '/');
         return (boolean) preg_match("/^$str/", $this->value);
     }
 
+
+
+    /**
+     * Checks that current string ends with the given string or not 
+     * 
+     * @param mixed $str S or primitive string
+     * @access public
+     * @return boolean
+     */
     public function endsWith($str)
     {
         $str = preg_quote($str, '/');
         return (boolean) preg_match("/$str\$/", $this->value);
     }
 
+    
+    
+    /**
+     * Check whether current string match the given regular expression. 
+     * 
+     * @param mixed $expr S or primitive string
+     * @access public
+     * @return boolean
+     */
     public function match($expr)
     {
         return (boolean) preg_match($expr, $this->value);
@@ -352,14 +379,12 @@ class S extends O implements \Countable
      */
     public function count()
     {
-        $this->__get('length');
-        return $this->length->value;
+        return $this->_length()->int;
     }
 
     public function isVoid()
     {
-        $this->__get('length');
-        return $this->length->value == 0;
+        return $this->_length()->zero;
     }
 
 
@@ -412,6 +437,14 @@ class S extends O implements \Countable
 
 
 
+    /**
+     * Wrap the string to have given width. 
+     * 
+     * @param integer $width Width the text must have
+     * @param string $cut Optional string to put at each linebreak
+     * @access public
+     * @return S
+     */
     public function wrap($width, $cut = "\n")
     {
         $arr_lines = array();
@@ -488,6 +521,15 @@ class S extends O implements \Countable
 
 
 
+    /**
+     * Ad margin to the text. By default left, but right and alinea are possible too.
+     * 
+     * @param int $int_left Margin left
+     * @param int $int_right Margin right, optional
+     * @param int $int_alinea First line, optional
+     * @access public
+     * @return S
+     */
     public function margin($int_left = 5, $int_right = 0, $int_alinea = 0)
     {
         $arr = explode("\n", $this->value);
