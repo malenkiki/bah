@@ -48,6 +48,20 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I am a string!', $s->string);
     }
 
+
+    public function testCheckingStringShouldBeVoidOrNot()
+    {
+        $s = new S('');
+        $this->assertTrue($s->isVoid());
+        $this->assertTrue($s->void);
+        $this->assertTrue($s->empty);
+        
+        $s = new S('something');
+        $this->assertFalse($s->isVoid());
+        $this->assertFalse($s->void);
+        $this->assertFalse($s->empty);
+    }
+
     public function testStringMatchingShouldBeTrue()
     {
         $s = new S('az/erty');
@@ -126,6 +140,18 @@ class STest extends PHPUnit_Framework_TestCase
     {
         $s = new S('Je suis une chaîne !');
         $this->assertEquals('Je suis', $s->sub(new N(0), new N(-7)));
+    }
+
+    public function testLeftMarginShouldBeOk()
+    {
+        //TODO: test multiline and alinea
+        $s = new S('something');
+        $this->assertEquals('     something', $s->margin(5));
+        $this->assertEquals('     something', $s->margin(new N(5)));
+        $this->assertEquals('something     ', $s->margin(0, 5));
+        $this->assertEquals('something     ', $s->margin(new N(0), new N(5)));
+        $this->assertEquals('     something     ', $s->margin(5, 5));
+        $this->assertEquals('     something     ', $s->margin(new N(5), new N(5)));
     }
 }
 
