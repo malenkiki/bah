@@ -80,6 +80,8 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals(new C('J'), $s->chars->first);
         $this->assertEquals(new C('!'), $s->chars->last);
         $this->assertEquals(new C(' '), $s->chars->lastButOne);
+        $this->assertEquals(new C('s'), $s->charAt(3));
+        $this->assertEquals(new C('s'), $s->charAt(new N(3)));
     }
 }
 

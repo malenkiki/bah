@@ -368,6 +368,11 @@ class S extends O implements \Countable
      */
     public function charAt($idx)
     {
+        if($idx instanceof N)
+        {
+            $idx = $idx->int;
+        }
+
         return new C(mb_substr($this->value, $idx, 1, C::ENCODING));
     }
 
