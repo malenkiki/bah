@@ -24,6 +24,30 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Malenki\Bah;
 
+/**
+ * Enhanced array. 
+ * 
+ * @property-read $array Gets content as primitive array
+ * @property-read $index Gets current index
+ * @property-read $length Number of elements included into the collection
+ * @property-read $last Gets last element
+ * @property-read $first Gets the first element
+ * @property-read $lastButOne Gets the last but one element
+ * @property-read $shift Takes the first element and remove it from the collection
+ * @property-read $pop Takes the last element and remove it from the collection
+ * @property-read $random Gets randomly one element
+ * @property-read $shuffle Gets new collection with the same content as current one, but into shuffle order.
+ * @property-read $join Concatenate all element into a string if each element has toString ethod or are primitive type.
+ * @property-read $implode Same as join magic attribute
+ * @property-read $current Gets current element
+ * @property-read $key Gets index of current element
+ * @property-read $next Place index on the next element
+ * @property-read $rewind Rewind :-)
+ * @property-read $valid Is there another element after current one?
+ * @copyright 2014 Michel Petit
+ * @author Michel Petit <petit.michel@gmail.com> 
+ * @license MIT
+ */
 class A implements \Iterator, \Countable
 {
     private $count = 0;
@@ -107,6 +131,11 @@ class A implements \Iterator, \Countable
 
     public function take($idx)
     {
+        if($idx instanceof N)
+        {
+            $idx = $idx->int;
+        }
+
         if(!$this->exist($idx))
         {
             throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
@@ -117,6 +146,11 @@ class A implements \Iterator, \Countable
 
     public function exist($idx)
     {
+        if($idx instanceof N)
+        {
+            $idx = $idx->int;
+        }
+
         return array_key_exists($idx, $this->value);
     }
 
@@ -153,6 +187,11 @@ class A implements \Iterator, \Countable
 
     public function delete($idx)
     {
+        if($idx instanceof N)
+        {
+            $idx = $idx->int;
+        }
+
         if(!$this->exist($idx))
         {
             throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
@@ -188,6 +227,11 @@ class A implements \Iterator, \Countable
 
     public function replace($idx, $thing)
     {
+        if($idx instanceof N)
+        {
+            $idx = $idx->int;
+        }
+
         if(!$this->exist($idx))
         {
             throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
@@ -250,6 +294,11 @@ class A implements \Iterator, \Countable
 
     public function random($n = 1)
     {
+        if($n instanceof N)
+        {
+            $n = $n->int;
+        }
+
         if(!is_numeric($n) || $n < 1)
         {
             throw new \InvalidArgumentException('Random items amount must be an integer greater than or equal one.');

@@ -22,16 +22,19 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+use \Malenki\Bah\N;
+use \Malenki\Bah\A;
+use \Malenki\Bah\S;
 
 class ATest extends PHPUnit_Framework_TestCase
 {
     public function testGettingNumberOfItem()
     {
-        $a = new Malenki\Bah\A();
+        $a = new A();
         $this->assertEquals(0, $a->length->value);
         $this->assertEquals(0, count($a));
 
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $this->assertEquals(5, $a->length->value);
         $this->assertEquals(5, count($a));
     }
@@ -39,7 +42,7 @@ class ATest extends PHPUnit_Framework_TestCase
 
     public function testAddingValueAndCheckingCountMustBeOk()
     {
-        $a = new Malenki\Bah\A();
+        $a = new A();
         $a->add('one');
         $this->assertEquals(1, count($a));
         $this->assertEquals(1, $a->length->value);
@@ -53,7 +56,7 @@ class ATest extends PHPUnit_Framework_TestCase
 
     public function testDeletingValueWithSuccess()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $a->delete(3);
         $this->assertEquals(4, count($a));
         $a->delete(2);
@@ -66,14 +69,14 @@ class ATest extends PHPUnit_Framework_TestCase
      */
     public function testDeletingNonExistingValueShouldRaiseException()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $a->delete(6);
     }
 
 
     public function testShiftingValueWithSuccess()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $value = $a->shift;
         $this->assertEquals('one', $value);
         $this->assertEquals(4, count($a));
@@ -87,7 +90,7 @@ class ATest extends PHPUnit_Framework_TestCase
      */
     public function testShiftingValueFromVoidCollectionShouldRaiseException()
     {
-        $a = new Malenki\Bah\A();
+        $a = new A();
         $value = $a->shift;
     }
 
@@ -95,7 +98,7 @@ class ATest extends PHPUnit_Framework_TestCase
 
     public function testPopingValueWithSuccess()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $value = $a->pop;
         $this->assertEquals('five', $value);
         $this->assertEquals(4, count($a));
@@ -109,21 +112,21 @@ class ATest extends PHPUnit_Framework_TestCase
      */
     public function testPopingValueFromVoidCollectionShouldRaiseException()
     {
-        $a = new Malenki\Bah\A();
+        $a = new A();
         $value = $a->pop;
     }
 
     public function testConvertingObjectToPrimitiveArray()
     {
         $arr = array('one', 'two', 'three', 'four', 'five');
-        $a = new Malenki\Bah\A($arr);
+        $a = new A($arr);
         $this->assertEquals($arr, $a->array);
     }
     
 
     public function testGettingOneAvailableItem()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $this->assertEquals('one', $a->take(0));
         $this->assertEquals('two', $a->take(1));
         $this->assertEquals('three', $a->take(2));
@@ -137,13 +140,13 @@ class ATest extends PHPUnit_Framework_TestCase
      */
     public function testGettingOneNonAvailableItemShouldRaiseException()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $this->assertEquals('one', $a->take(5));
     }
     
     public function testGettingFirstAndLastItem()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $this->assertEquals('one', $a->first);
         $this->assertEquals('five', $a->last);
 
@@ -153,7 +156,7 @@ class ATest extends PHPUnit_Framework_TestCase
 
     public function testGettingLastButOneItem()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $this->assertEquals('four', $a->lastButOne);
 
         $a->add('six');
@@ -163,32 +166,35 @@ class ATest extends PHPUnit_Framework_TestCase
 
     public function testGettingLastButOneItemShouldRaiseException()
     {
-        $a = new Malenki\Bah\A(array('one', 'two'));
+        $a = new A(array('one', 'two'));
         $a->lastButOne;
 
     }
 
     public function testGettingCollectionJoinIntoString()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', new \Malenki\Bah\S('three'), 'four', 'five'));
+        $a = new A(array('one', 'two', new S('three'), 'four', 'five'));
         $this->assertEquals('onetwothreefourfive', $a->implode());
         $this->assertEquals('one, two, three, four, five', $a->implode(', '));
     }
 
     public function testAvailabilityOfContentAndIndex()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $this->assertTrue($a->has('two'));
         $this->assertFalse($a->has('six'));
         $this->assertTrue($a->exist(1));
         $this->assertFalse($a->exist(7));
+        $this->assertTrue($a->exist(new N(1)));
+        $this->assertFalse($a->exist(new N(7)));
     }
 
     public function testReplacingItem()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $a->replace(1, 'deux');
         $this->assertEquals('deux', $a->take(1));
+        $this->assertEquals('deux', $a->take(new N(1)));
     }
 
 
@@ -197,7 +203,7 @@ class ATest extends PHPUnit_Framework_TestCase
      */
     public function testReplacingNonExistingItemShouldRaiseOutOfRangeException()
     {
-        $a = new Malenki\Bah\A(array('one', 'two', 'three', 'four', 'five'));
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $a->replace(5, 'six');
     }
 }
