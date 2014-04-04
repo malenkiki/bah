@@ -107,6 +107,11 @@ class A implements \Iterator, \Countable
 
     public function take($idx)
     {
+        if($idx instanceof N)
+        {
+            $idx = $idx->int;
+        }
+
         if(!$this->exist($idx))
         {
             throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
@@ -117,6 +122,11 @@ class A implements \Iterator, \Countable
 
     public function exist($idx)
     {
+        if($idx instanceof N)
+        {
+            $idx = $idx->int;
+        }
+
         return array_key_exists($idx, $this->value);
     }
 
@@ -153,6 +163,11 @@ class A implements \Iterator, \Countable
 
     public function delete($idx)
     {
+        if($idx instanceof N)
+        {
+            $idx = $idx->int;
+        }
+
         if(!$this->exist($idx))
         {
             throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
@@ -188,6 +203,11 @@ class A implements \Iterator, \Countable
 
     public function replace($idx, $thing)
     {
+        if($idx instanceof N)
+        {
+            $idx = $idx->int;
+        }
+
         if(!$this->exist($idx))
         {
             throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
@@ -250,6 +270,11 @@ class A implements \Iterator, \Countable
 
     public function random($n = 1)
     {
+        if($n instanceof N)
+        {
+            $n = $n->int;
+        }
+
         if(!is_numeric($n) || $n < 1)
         {
             throw new \InvalidArgumentException('Random items amount must be an integer greater than or equal one.');
