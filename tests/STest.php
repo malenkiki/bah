@@ -32,20 +32,44 @@ class STest extends PHPUnit_Framework_TestCase
     {
         $s = new S('Je suis une chaîne !');
         $this->assertEquals((string) $s, 'Je suis une chaîne !');
-        $this->assertEquals((string) $s->upper, 'JE SUIS UNE CHAÎNE !');
-        $this->assertEquals((string) $s->lower, 'je suis une chaîne !');
         $this->assertEquals((string) $s->title, 'Je Suis Une Chaîne !');
-        $this->assertEquals(count($s), 20);
-        $this->assertFalse($s->isVoid());
         
-        $s = new S('');
-        $this->assertTrue($s->isVoid());
 
         $s = new S('!');
         $this->assertEquals((string) $s->times(3), '!!!');
 
         $s = new S('I am a string!');
         $this->assertEquals('I am a string!', $s->string);
+    }
+
+    public function testSCountShouldBeRight()
+    {
+        $s = new S('J’écris en français !');
+        $this->assertEquals(21, count($s));
+        $this->assertEquals(21, $s->length->int);
+        $s = new S('J\'ecris en francais !');
+        $this->assertEquals(21, count($s));
+        $this->assertEquals(21, $s->length->int);
+    }
+
+
+
+    public function testUppercaseMustBeOk()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('JE SUIS UNE CHAÎNE !', (string) $s->upper);
+        $s = new S('JE SUIS UNE CHAÎNE !');
+        $this->assertEquals('JE SUIS UNE CHAÎNE !', (string) $s->upper);
+    }
+
+    public function testLowercaseMustBeOk()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('je suis une chaîne !', (string) $s->lower);
+        $s = new S('JE SUIS UNE CHAÎNE !');
+        $this->assertEquals('je suis une chaîne !', (string) $s->lower);
+        $s = new S('je suis une chaîne !');
+        $this->assertEquals('je suis une chaîne !', (string) $s->lower);
     }
 
 
