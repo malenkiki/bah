@@ -27,6 +27,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use \Malenki\Bah\O;
 use \Malenki\Bah\N;
 use \Malenki\Bah\A;
+use \Malenki\Bah\H;
 use \Malenki\Bah\S;
 use \Malenki\Bah\C;
 
@@ -151,4 +152,17 @@ while($s->chars->valid)
         $s->chars->current->isUpperCase() ? $s->chars->current->trans->title : $s->chars->current->trans
     );
     $s->chars->next;
+}
+
+
+$h = new H(array('one' => 1, 'two' => 2, 'three' => 3, 'four' => 4, 'five' => 5));
+
+while($h->valid)
+{
+    printf(
+        "key: %s => value: %d\n",
+        $h->current->key,
+        $h->current->value
+    );
+    $h->next;
 }

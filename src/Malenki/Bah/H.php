@@ -24,10 +24,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Malenki\Bah;
 
-class H implements \Countable
+class H implements \Iterator, \Countable
 {
     private $count = 0;
     private $value = array();
+    private $position = null;
 
 
 
@@ -37,6 +38,10 @@ class H implements \Countable
         {
             $str_method = '_' . $name;
             return $this->$str_method();
+        }
+        elseif(in_array($name, array('current', 'key', 'next', 'rewind', 'valid')))
+        {
+            return $this->$name();
         }
         elseif($this->exist($name))
         {
@@ -48,11 +53,6 @@ class H implements \Countable
 
     public function __set($name, $value)
     {
-        if(in_array($name, array('array', 'length', 'keys', 'values')))
-        {
-            throw new \RuntimeException($name . ' is not allowed as key name.');
-        }
-
         $this->set($name, $value);
     }
 
@@ -84,10 +84,14 @@ class H implements \Countable
             {
                 throw new \RuntimeException('Array must have all keys defined as string.');
             }
+            else
+            {
+                $this->set($k, $v);
+            }
         }
 
-        $this->value = $arr;
         $this->count = count($arr);
+        $this->position = new N(0);
     }
 
 
@@ -115,6 +119,39 @@ class H implements \Countable
     }
 
 
+    public function current()
+    {
+        $out = new \stdClass();
+        $out->key = $this->_keys()->take($this->position->value);
+        $out->value = $this->_values()->take($this->position->value);
+
+        return $out;
+    }
+
+    public function key()
+    {
+        return $this->position;
+    }
+    
+    public function next()
+    {
+        $this->position->incr;
+
+        return $this;
+    }
+    public function rewind()
+    {
+        $this->position->value = 0;
+
+        return $this;
+    }
+
+    public function valid()
+    {
+        return $this->_values()->exist($this->position->value);
+    }
+
+
     public function exist($key)
     {
         return array_key_exists($key, $this->value);
@@ -129,6 +166,26 @@ class H implements \Countable
 
     public function set($key, $value)
     {
+        if(
+            in_array(
+                $key,
+                array(
+                    'array', 
+                    'length', 
+                    'keys',
+                    'values',
+                    'current',
+                    'key',
+                    'next',
+                    'rewind',
+                    'valid'
+                )
+            )
+        )
+        {
+            throw new \RuntimeException($key . ' is not allowed as key name.');
+        }
+
         $this->value[$key] = $value;
         $this->count = count($this->value);
 
