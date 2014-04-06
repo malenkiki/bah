@@ -47,6 +47,14 @@ class HTest extends PHPUnit_Framework_TestCase
         $h = new H(array('one', 'two', 2 => 'three', 'four', 'five'));
     }
 
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testInstanciatingWhithArrayHavingNotAllowedKeysShouldRaiseException()
+    {
+        $h = new H(array('one' => 1, 'keys' => 'something'));
+    }
+
 
     public function testGettingValueUsingMethodShouldSuccess()
     {
