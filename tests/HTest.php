@@ -112,4 +112,28 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(3, count($h));
     }
 
+    public function testSettingValueUsingMethodShouldSuccess()
+    {
+        $h = new H();
+        $h->set('one', 1);
+        $h->set('two', 2);
+        $h->set('three', 3);
+        $this->assertEquals(1, $h->get('one'));
+        $this->assertEquals(2, $h->get('two'));
+        $this->assertEquals(3, $h->get('three'));
+        $this->assertEquals(3, count($h));
+    }
+
+    public function testSettingValueUsingValidMagicSetterShouldSuccess()
+    {
+        $h = new H();
+        $h->one =  1;
+        $h->two = 2;
+        $h->three = 3;
+        $this->assertEquals(1, $h->get('one'));
+        $this->assertEquals(2, $h->get('two'));
+        $this->assertEquals(3, $h->get('three'));
+        $this->assertEquals(3, count($h));
+    }
+
 }
