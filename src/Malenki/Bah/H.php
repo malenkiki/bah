@@ -38,6 +38,10 @@ class H implements \Countable
             $str_method = '_' . $name;
             return $this->$str_method();
         }
+        elseif($this->exist($name))
+        {
+            return $this->get($name);
+        }
     }
 
 
@@ -127,6 +131,8 @@ class H implements \Countable
     {
         $this->value[$key] = $value;
         $this->count = count($this->value);
+
+        return $this;
     }
 
 
@@ -140,11 +146,15 @@ class H implements \Countable
         return $this->value[$key];
     }
 
+
+
     public function get($key)
     {
         return $this->take($key);
     }
-    
+
+
+
     public function delete($key)
     {
         if(!$this->exist($key))
@@ -154,6 +164,8 @@ class H implements \Countable
 
         unset($this->value[$key]);
         $this->count--;
+
+        return $this;
     }
     
 

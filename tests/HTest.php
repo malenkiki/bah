@@ -48,6 +48,26 @@ class HTest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testGettingValueUsingMethodShouldSuccess()
+    {
+        $h = new H(array('one' => 1, 'two' => 2, 'twenty-one' => 21, 'fourty_two' => 42));
+        $this->assertEquals(1, $h->get('one'));
+        $this->assertEquals(1, $h->take('one'));
+        $this->assertEquals(21, $h->get('twenty-one'));
+        $this->assertEquals(21, $h->take('twenty-one'));
+        $this->assertEquals(42, $h->get('fourty_two'));
+        $this->assertEquals(42, $h->take('fourty_two'));
+    }
+
+    public function testGettingValueUsingMagicGetterShouldSuccess()
+    {
+        $h = new H(array('one' => 1, 'two' => 2, 'twenty-one' => 21, 'fourty_two' => 42));
+        $this->assertEquals(1, $h->one);
+        $this->assertEquals(21, $h->{'twenty-one'});
+        $this->assertEquals(42, $h->fourty_two);
+    }
+
+
     public function testWhetherKeyExistsUsingMethodShouldSuccess()
     {
         $h = new H(array('one' => 1, 'two' => 2, 'three' => 3, 'four' => 4, 'five' => 5));
