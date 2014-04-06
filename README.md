@@ -189,7 +189,6 @@ while($a->valid) // you can use method call too
 ```
 
 
-See `example.php` and run it to understand all methods.
 
 ## Play with numbers
 
@@ -224,6 +223,52 @@ print($five->roman);
 print($five->greek);
 ```
 
+## Play with Hash
+
+You can use Hash, an array with named keys.
+
+Setting value can be done using two different ways:
+
+```php
+$h = new H();
+$h->set('my_key', 'My Value');
+// or
+$y->my_key = 'My Value';
+```
+Getting value use same ways:
+
+```php
+$h->get('my_key'); // 'My Value'
+// or
+echo $h->my_key; // 'My Value'
+```
+
+Deleting too:
+
+```php
+$h->delete('my_key');
+// or
+unset($h->my_key);
+```
+
+Parsing content is simple, it is like A class, but with a little add to have key too:
+
+```php
+$h = new H(array('one' => 1, 'two' => 2, 'three' => 3, 'four' => 4));
+
+while($h->valid)
+{
+    printf(
+        "key: %s => value: %d\n",
+        $h->current->key,
+        $h->current->value
+    );
+    $h->next;
+}
+```
+
+
+
 ## Converting to primitive types
 
 Very easy, a magic getter is available to get more meaning type for each class, so:
@@ -231,6 +276,7 @@ Very easy, a magic getter is available to get more meaning type for each class, 
  - class `Malenki\Bah\N` has `int`, `float` and `double`
  - class `Malenki\Bah\S` has `string`
  - class `Malenki\Bah\A` has `array`
+ - class `Malenki\Bah\H` has `array`
  - class `Malenki\Bah\C` has `string`
 
 Quick example:
@@ -240,3 +286,7 @@ $s = new S('This is a string');
 var_dump($s->length); // object N
 var_dump($s->length->int); // integer
 ```
+
+## More
+
+See `example.php` and run it to understand many of the available features.
