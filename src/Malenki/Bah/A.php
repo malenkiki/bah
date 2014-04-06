@@ -129,6 +129,13 @@ class A implements \Iterator, \Countable
         return $this->count;
     }
 
+    /**
+     * Gets item having given index. Shorthand for `take` method.
+     * 
+     * @param mixed $idx N or integer
+     * @access public
+     * @return mixed
+     */
     public function take($idx)
     {
         if($idx instanceof N)
@@ -142,6 +149,18 @@ class A implements \Iterator, \Countable
         }
 
         return $this->value[$idx];
+    }
+
+    /**
+     * Gets item having given index. Shorthand for `take` method.
+     * 
+     * @param mixed $idx N or integer
+     * @access public
+     * @return mixed
+     */
+    public function get($idx)
+    {
+        return $this->take($idx);
     }
 
     public function exist($idx)
