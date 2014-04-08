@@ -376,6 +376,22 @@ class A implements \Iterator, \Countable
 
 
 
+    public function inter($arr)
+    {
+        if($arr instanceof A)
+        {
+            $arr = $arr->array;
+        }
+        
+        if($arr instanceof H)
+        {
+            $arr = $arr->array;
+        }
+
+        return new self(array_values(array_intersect($this->value, $arr)));
+    }
+
+
     public function __toString()
     {
         return (string) $this->count;

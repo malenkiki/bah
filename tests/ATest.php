@@ -278,4 +278,22 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('green'), $it->diff($fr)->array);
         $this->assertEquals(array('blue'), $fr->diff($it)->array);
     }
+
+    public function testIntersectWithArrayshouldSuccess()
+    {
+        $fr = array('blue', 'white', 'red');
+        $it = array('green', 'white', 'red');
+        $a = new A($it);
+        $this->assertEquals(array('white', 'red'), $a->inter($fr)->array);
+        $a = new A($fr);
+        $this->assertEquals(array('white', 'red'), $a->inter($it)->array);
+    }
+    
+    public function testIntersectWithAClassShouldSuccess()
+    {
+        $fr = new A(array('blue', 'white', 'red'));
+        $it = new A(array('green', 'white', 'red'));
+        $this->assertEquals(array('white', 'red'), $it->inter($fr)->array);
+        $this->assertEquals(array('white', 'red'), $fr->inter($it)->array);
+    }
 }
