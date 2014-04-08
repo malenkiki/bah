@@ -232,4 +232,18 @@ class H implements \Iterator, \Countable
         return $this->count;
     }
 
+    public function map($func)
+    {
+        $arr = array_map($func, $this->_keys()->array, $this->value);
+
+        $out = new self();
+
+        foreach($this->_keys()->array as $k => $v)
+        {
+            $out->set($v, $arr[$k]);
+        }
+
+        return $out;
+    }
+
 }

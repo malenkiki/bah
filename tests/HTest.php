@@ -136,4 +136,19 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(3, count($h));
     }
 
+    public function testMappingValuesShouldSuccess()
+    {
+        $h = new H();
+        $h->set('one', 'un');
+        $h->set('two', 'deux');
+        $h->set('three', 'trois');
+
+        $blahblah = function($k, $v){
+            return sprintf('English word "%s" is "%s" in french.', $k, $v);
+        };
+
+        $this->assertEquals('English word "one" is "un" in french.', $h->map($blahblah)->one);
+        $this->assertEquals('English word "two" is "deux" in french.', $h->map($blahblah)->two);
+        $this->assertEquals('English word "three" is "trois" in french.', $h->map($blahblah)->three);
+    }
 }
