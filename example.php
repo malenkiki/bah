@@ -166,3 +166,11 @@ while($h->valid)
     );
     $h->next;
 }
+
+$nh = $h->map(function($k,$v){return "Key $k has value $v\n";});
+
+while($nh->valid)
+{
+    echo $nh->current->value;
+    $nh->next;
+}
