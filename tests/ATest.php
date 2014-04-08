@@ -222,4 +222,13 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(0, 2, 4, 6, 8, 10), $a->filter($even)->array);
         $this->assertEquals(array(1, 3, 5, 7, 9), $a->filter($odd)->array);
     }
+
+
+    public function testMappingValuesShouldSuccess()
+    {
+        $cube = function($n){return $n * $n * $n;};
+        
+        $a = new A(range(1, 5));
+        $this->assertEquals(array(1, 8, 27, 64, 125), $a->map($cube)->array);
+    }
 }
