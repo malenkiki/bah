@@ -24,10 +24,38 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use \Malenki\Bah\N;
 use \Malenki\Bah\A;
+use \Malenki\Bah\H;
 use \Malenki\Bah\S;
 
 class ATest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInstanciateWithBadTypeShouldRaiseException()
+    {
+        $a = new A('foo');
+    }
+
+
+    public function testInstanciateWithArrayShouldSuccess()
+    {
+        $a = new A(array('foo', 'bar'));
+        $this->assertInstanceOf('\Malenki\Bah\A', $a);
+    }
+
+    public function testInstanciateWithAClassShouldSuccess()
+    {
+        $a = new A(new A(array('foo', 'bar')));
+        $this->assertInstanceOf('\Malenki\Bah\A', $a);
+    }
+
+
+    public function testInstanciateWithHClassShouldSuccess()
+    {
+        $a = new A(new H(array('foo' => 'something', 'bar' => 'thing')));
+        $this->assertInstanceOf('\Malenki\Bah\A', $a);
+    }
     public function testGettingNumberOfItem()
     {
         $a = new A();

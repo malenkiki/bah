@@ -28,6 +28,43 @@ use \Malenki\Bah\S;
 
 class HTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInstanciateWithBadTypeShouldRaiseException()
+    {
+        $a = new H('foo');
+    }
+    
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testInstanciateWithNumberingIndexedArrayShouldRaiseException()
+    {
+        $a = new H(array('foo', 'bar'));
+    }
+
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInstanciateWithAClassShouldRaiseException()
+    {
+        $a = new H(new A(array('foo', 'bar')));
+    }
+
+    public function testInstanciateWithHClassShouldSuccess()
+    {
+        $a = new H(new H(array('foo' => 'something', 'bar' => 'thing')));
+        $this->assertInstanceOf('\Malenki\Bah\H', $a);
+    }
+
+    public function testInstanciateWithStringIndexedArrayShouldSuccess()
+    {
+        $a = new H(array('foo' => 'something', 'bar' => 'thing'));
+        $this->assertInstanceOf('\Malenki\Bah\H', $a);
+    }
+
     public function testGettingNumberOfItem()
     {
         $h = new H();
