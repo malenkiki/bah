@@ -231,4 +231,23 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A(range(1, 5));
         $this->assertEquals(array(1, 8, 27, 64, 125), $a->map($cube)->array);
     }
+
+
+    public function testDiffWithArrayShouldSuccess()
+    {
+        $fr = array('blue', 'white', 'red');
+        $it = array('green', 'white', 'red');
+        $a = new A($it);
+        $this->assertEquals(array('green'), $a->diff($fr)->array);
+        $a = new A($fr);
+        $this->assertEquals(array('blue'), $a->diff($it)->array);
+    }
+
+    public function testDiffWithClassAShouldSuccess()
+    {
+        $fr = new A(array('blue', 'white', 'red'));
+        $it = new A(array('green', 'white', 'red'));
+        $this->assertEquals(array('green'), $it->diff($fr)->array);
+        $this->assertEquals(array('blue'), $fr->diff($it)->array);
+    }
 }
