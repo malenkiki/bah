@@ -211,4 +211,24 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $a->replace(5, 'six');
     }
+
+
+    public function testFilteringValuesShouldSuccess()
+    {
+        $even = function($n){return !($n & 1);};
+        $odd = function($n){return $n & 1;};
+
+        $a = new A(range(0, 10));
+        $this->assertEquals(array(0, 2, 4, 6, 8, 10), $a->filter($even)->array);
+        $this->assertEquals(array(1, 3, 5, 7, 9), $a->filter($odd)->array);
+    }
+
+
+    public function testMappingValuesShouldSuccess()
+    {
+        $cube = function($n){return $n * $n * $n;};
+        
+        $a = new A(range(1, 5));
+        $this->assertEquals(array(1, 8, 27, 64, 125), $a->map($cube)->array);
+    }
 }
