@@ -78,6 +78,17 @@ class H implements \Iterator, \Countable
 
     public function __construct($arr = array())
     {
+        if(!is_array($arr))
+        {
+            if($arr instanceof H)
+            {
+                $arr = $arr->array;
+            }
+            else
+            {
+                throw new \InvalidArgumentException('Constructor must have array or Class H instance.');
+            }
+        }
         foreach($arr as $k => $v)
         {
             if(is_numeric($k))

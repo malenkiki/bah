@@ -24,10 +24,38 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use \Malenki\Bah\N;
 use \Malenki\Bah\A;
+use \Malenki\Bah\H;
 use \Malenki\Bah\S;
 
 class ATest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInstanciateWithBadTypeShouldRaiseException()
+    {
+        $a = new A('foo');
+    }
+
+
+    public function testInstanciateWithArrayShouldSuccess()
+    {
+        $a = new A(array('foo', 'bar'));
+        $this->assertInstanceOf('\Malenki\Bah\A', $a);
+    }
+
+    public function testInstanciateWithAClassShouldSuccess()
+    {
+        $a = new A(new A(array('foo', 'bar')));
+        $this->assertInstanceOf('\Malenki\Bah\A', $a);
+    }
+
+
+    public function testInstanciateWithHClassShouldSuccess()
+    {
+        $a = new A(new H(array('foo' => 'something', 'bar' => 'thing')));
+        $this->assertInstanceOf('\Malenki\Bah\A', $a);
+    }
     public function testGettingNumberOfItem()
     {
         $a = new A();
@@ -230,5 +258,42 @@ class ATest extends PHPUnit_Framework_TestCase
         
         $a = new A(range(1, 5));
         $this->assertEquals(array(1, 8, 27, 64, 125), $a->map($cube)->array);
+    }
+
+
+    public function testDiffWithArrayShouldSuccess()
+    {
+        $fr = array('blue', 'white', 'red');
+        $it = array('green', 'white', 'red');
+        $a = new A($it);
+        $this->assertEquals(array('green'), $a->diff($fr)->array);
+        $a = new A($fr);
+        $this->assertEquals(array('blue'), $a->diff($it)->array);
+    }
+
+    public function testDiffWithClassAShouldSuccess()
+    {
+        $fr = new A(array('blue', 'white', 'red'));
+        $it = new A(array('green', 'white', 'red'));
+        $this->assertEquals(array('green'), $it->diff($fr)->array);
+        $this->assertEquals(array('blue'), $fr->diff($it)->array);
+    }
+
+    public function testIntersectWithArrayshouldSuccess()
+    {
+        $fr = array('blue', 'white', 'red');
+        $it = array('green', 'white', 'red');
+        $a = new A($it);
+        $this->assertEquals(array('white', 'red'), $a->inter($fr)->array);
+        $a = new A($fr);
+        $this->assertEquals(array('white', 'red'), $a->inter($it)->array);
+    }
+    
+    public function testIntersectWithAClassShouldSuccess()
+    {
+        $fr = new A(array('blue', 'white', 'red'));
+        $it = new A(array('green', 'white', 'red'));
+        $this->assertEquals(array('white', 'red'), $it->inter($fr)->array);
+        $this->assertEquals(array('white', 'red'), $fr->inter($it)->array);
     }
 }

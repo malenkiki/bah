@@ -88,6 +88,18 @@ class A implements \Iterator, \Countable
 
     public function __construct($arr = array())
     {
+        if(!is_array($arr))
+        {
+            if($arr instanceof A || $arr instanceof H)
+            {
+                $arr = $arr->array;
+            }
+            else
+            {
+                throw new \InvalidArgumentException('Constructor must have array, Class A or Class H instance.');
+            }
+        }
+
         $this->value = $arr;
         $this->count = count($arr);
         $this->position = new N(0);
@@ -344,6 +356,41 @@ class A implements \Iterator, \Countable
 
         return $out;
     }
+
+
+
+    public function diff($arr)
+    {
+        if($arr instanceof A)
+        {
+            $arr = $arr->array;
+        }
+        
+        if($arr instanceof H)
+        {
+            $arr = $arr->array;
+        }
+
+        return new self(array_values(array_diff($this->value, $arr)));
+    }
+
+
+
+    public function inter($arr)
+    {
+        if($arr instanceof A)
+        {
+            $arr = $arr->array;
+        }
+        
+        if($arr instanceof H)
+        {
+            $arr = $arr->array;
+        }
+
+        return new self(array_values(array_intersect($this->value, $arr)));
+    }
+
 
     public function __toString()
     {
