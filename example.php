@@ -58,6 +58,8 @@ var_dump($a->random(2));
 var_dump($a->lastButOne);
 var_dump($a->shuffle->join(', ')->string);
 var_dump($a->shuffle->join->string);
+var_dump($a->sort->join(', ')->string);
+var_dump($a->sort->reverse->join(', ')->string);
 $abc = new S('abcdefghijklmnopqrstuvwxyz');
 echo $abc->first->n;
 echo $abc->last->n;
@@ -174,3 +176,8 @@ while($nh->valid)
     echo $nh->current->value;
     $nh->next;
 }
+
+$h = new H(array('one' => 'un', 'two' => 'deux', 'three' => 'trois', 'four' => 'quatre', 'five' => 'cinq'));
+var_dump($h->reverse->array);
+var_dump($h->sort->array);
+var_dump($h->sort->reverse->array);
