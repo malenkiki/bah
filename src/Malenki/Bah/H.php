@@ -34,7 +34,7 @@ class H implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'length', 'keys', 'values', 'reverse', 'sort')))
+        if(in_array($name, array('array', 'length', 'keys', 'values', 'reverse', 'sort', 'unique')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -185,6 +185,9 @@ class H implements \Iterator, \Countable
                     'length', 
                     'keys',
                     'values',
+                    'reverse',
+                    'sort',
+                    'unique',
                     'current',
                     'key',
                     'next',
@@ -253,6 +256,34 @@ class H implements \Iterator, \Countable
     }
 
 
+    protected function _unique()
+    {
+        return new self(array_unique($this->value, SORT_REGULAR));
+    }
+
+
+    public function chunk($size)
+    {
+        if($size instanceof N)
+        {
+            $size = $size->int;
+        }
+
+        if($size < 1)
+        {
+            throw new \InvalidArgumentException('Chunk cannot have null size, please use number equal or greater than one.');
+        }
+
+        $arr = array_chunk($this->value, $size, true);
+
+        foreach($arr as $k => $v)
+        {
+            $arr[$k] = new self($v);
+        }
+
+        return new A($arr);
+    }
+
 
     public function count()
     {
@@ -271,6 +302,48 @@ class H implements \Iterator, \Countable
         }
 
         return $out;
+    }
+
+    /**
+     * Search index of the given element.
+     *
+     * This will return the first index found for the given element if there are several identical.
+     * 
+     * If no element found, then return null.
+     *
+     * If element is found, then S object is returned.
+     *
+     * @param mixed $foo The element to find
+     * @access public
+     * @return mixed
+     */
+    public function search($foo)
+    {
+        
+        if(in_array($foo, $this->value))
+        {
+            return new S(array_search($foo, $this->value, true));
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public function slice($offset, $length = null)
+    {
+        if($offset instanceof N)
+        {
+            $offset = $offset->int;
+        }
+
+        if($length instanceof N)
+        {
+            $length = $length->int;
+        }
+
+
+        return new self(array_slice($this->value, $offset, $length, true));
     }
 
 }

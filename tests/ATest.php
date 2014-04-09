@@ -309,4 +309,47 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('blue', 'red', 'white'), $fr->sort->array);
         $this->assertEquals(array('blue', 'white', 'red'), $fr->array);
     }
+
+    public function testPaddingValuesShouldSuccess()
+    {
+        $a = new A(array('one', 2, 'something'));
+        $this->assertEquals(7, count($a->pad(7)));
+        $this->assertEquals(array('one', 2, 'something','foo', 'foo', 'foo', 'foo'), $a->pad(7, 'foo')->array);
+        $this->assertEquals(array('one', 2, 'something',null, null, null, null), $a->pad(7)->array);
+    }
+
+    public function testRemoveDuplicateEntryShouldSuccess()
+    {
+        $a = new A(array('one', 'two', 'two', 'three', 'two', 12, 13, 12));
+        $this->assertEquals(array('one', 'two', 'three', 12, 13), $a->unique->array);
+    }
+
+
+    public function testMakingChunkShouldSuccess()
+    {
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
+        $result = array(array('one', 'two'), array('three', 'four'), array('five'));
+        $this->assertEquals($result, $a->chunk(2)->array);
+        $this->assertEquals($result, $a->chunk(new N(2))->array);
+    }
+
+
+    public function testSearchingValuesIndexShouldSuccess()
+    {
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
+        $this->assertEquals(2, $a->search('three')->int);
+    }
+    
+    public function testSearchingiNonExistingValuesIndexShouldSuccess()
+    {
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
+        $this->assertNull($a->search('six'));
+    }
+
+    public function testExtractingSliceShouldSuccess()
+    {
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
+        $this->assertEquals(array('two', 'three', 'four'), $a->slice(1, 3)->array);
+        $this->assertEquals(array('two', 'three', 'four'), $a->slice(new N(1), new N(3))->array);
+    }
 }

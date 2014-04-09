@@ -25,6 +25,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use \Malenki\Bah\A;
 use \Malenki\Bah\H;
 use \Malenki\Bah\S;
+use \Malenki\Bah\N;
 
 class HTest extends PHPUnit_Framework_TestCase
 {
@@ -210,5 +211,51 @@ class HTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(array('two' => 'deux', 'three' => 'trois', 'one' => 'un'), $h->sort->array);
         $this->assertEquals(array('one' => 'un', 'two' => 'deux', 'three' => 'trois'), $h->array);
+    }
+
+
+
+    public function testRemovingDuplicateEntries()
+    {
+        $h = new H();
+        $h->set('one', 'un');
+        $h->set('two', 'deux');
+        $h->set('three', 'deux');
+        
+        $this->assertEquals(array('one' => 'un', 'two' => 'deux'), $h->unique->array);
+    }
+
+
+    public function testSearchingValuesIndexShouldSuccess()
+    {
+        $h = new H();
+        $h->set('one', 'un');
+        $h->set('two', 'deux');
+        $h->set('three', 'trois');
+
+        $this->assertEquals('two', $h->search('deux')->string);
+    }
+    
+    public function testSearchingiNonExistingValuesIndexShouldSuccess()
+    {
+        $h = new H();
+        $h->set('one', 'un');
+        $h->set('two', 'deux');
+        $h->set('three', 'trois');
+
+        $this->assertNull($h->search('quatre'));
+    }
+    
+    public function testExtractingSliceShouldSuccess()
+    {
+        $h = new H();
+        $h->set('one', 'un');
+        $h->set('two', 'deux');
+        $h->set('three', 'trois');
+        $h->set('four', 'quatre');
+        $h->set('five', 'cinq');
+
+        $this->assertEquals(array('two' => 'deux', 'three' => 'trois', 'four' => 'quatre'), $h->slice(1, 3)->array);
+        $this->assertEquals(array('two' => 'deux', 'three' => 'trois', 'four' => 'quatre'), $h->slice(new N(1), new N(3))->array);
     }
 }

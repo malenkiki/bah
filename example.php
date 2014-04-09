@@ -60,6 +60,10 @@ var_dump($a->shuffle->join(', ')->string);
 var_dump($a->shuffle->join->string);
 var_dump($a->sort->join(', ')->string);
 var_dump($a->sort->reverse->join(', ')->string);
+
+$a = new A(array('un', 'deux', 'deux', 'trois', 'quatre'));
+var_dump($a->unique->array);
+
 $abc = new S('abcdefghijklmnopqrstuvwxyz');
 echo $abc->first->n;
 echo $abc->last->n;
@@ -181,3 +185,12 @@ $h = new H(array('one' => 'un', 'two' => 'deux', 'three' => 'trois', 'four' => '
 var_dump($h->reverse->array);
 var_dump($h->sort->array);
 var_dump($h->sort->reverse->array);
+var_dump($h->chunk(2)->array);
+var_dump($h->search('trois')->string);
+var_dump($h->slice(1,3));
+$a = new A(array('one', 'two', 'three', 'four', 'five'));
+var_dump($a->chunk(2)->array);
+var_dump($a->search('three')->int);
+var_dump($a->slice(1,3)->array);
+$h = new H(array('one' => 'un', 'two' => 'deux', 'three' => 'trois', 'four' => 'quatre', 'five' => 'cinq', 'six' => 'deux'));
+var_dump($h->unique->array);

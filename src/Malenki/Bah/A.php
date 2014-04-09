@@ -56,7 +56,7 @@ class A implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode', 'current', 'key', 'next', 'rewind', 'valid', 'reverse', 'sort')))
+        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode', 'current', 'key', 'next', 'rewind', 'valid', 'reverse', 'sort', 'unique')))
         {
             if($name == 'index')
             {
@@ -74,7 +74,7 @@ class A implements \Iterator, \Countable
             {
                 return $this->$name();
             }
-            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'shuffle', 'reverse', 'sort')))
+            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'shuffle', 'reverse', 'sort', 'unique')))
             {
                 $str_method = '_' . $name;
                 return $this->$str_method();
@@ -216,6 +216,13 @@ class A implements \Iterator, \Countable
     }
 
 
+    protected function _unique()
+    {
+        return new self(array_unique($this->value, SORT_REGULAR));
+    }
+
+
+
     public function delete($idx)
     {
         if($idx instanceof N)
@@ -329,6 +336,19 @@ class A implements \Iterator, \Countable
     }
 
 
+
+    public function pad($size, $value = null)
+    {
+        if($size instanceof N)
+        {
+            $size = $size->int;
+        }
+
+        return new self(array_pad($this->value, $size, $value));
+    }
+
+
+
     public function map($func)
     {
         return new self(array_map($func, $this->value));
@@ -405,6 +425,66 @@ class A implements \Iterator, \Countable
         }
 
         return new self(array_values(array_intersect($this->value, $arr)));
+    }
+
+    public function chunk($size)
+    {
+        if($size instanceof N)
+        {
+            $size = $size->int;
+        }
+
+        if($size < 1)
+        {
+            throw new \InvalidArgumentException('Chunk cannot have null size, please use number equal or greater than one.');
+        }
+
+        return new self(array_chunk($this->value, $size));
+    }
+
+
+
+    public function slice($offset, $length = null)
+    {
+        if($offset instanceof N)
+        {
+            $offset = $offset->int;
+        }
+
+        if($length instanceof N)
+        {
+            $length = $length->int;
+        }
+
+
+        return new self(array_slice($this->value, $offset, $length, false));
+    }
+
+
+    /**
+     * Search index of the given element.
+     *
+     * This will return the first index found for the given element if there are several identical.
+     * 
+     * If no element found, then return null.
+     *
+     * If element is found, then N object is returned.
+     *
+     * @param mixed $foo The element to find
+     * @access public
+     * @return mixed
+     */
+    public function search($foo)
+    {
+        
+        if(in_array($foo, $this->value))
+        {
+            return new N(array_search($foo, $this->value, true));
+        }
+        else
+        {
+            return null;
+        }
     }
 
 
