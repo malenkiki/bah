@@ -34,7 +34,7 @@ class H implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'length', 'keys', 'values')))
+        if(in_array($name, array('array', 'length', 'keys', 'values', 'reverse')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -224,7 +224,14 @@ class H implements \Iterator, \Countable
 
         return $this;
     }
-    
+
+
+
+    protected function _reverse()
+    {
+        return new self(array_reverse($this->value, true));
+    }
+
 
 
     public function count()

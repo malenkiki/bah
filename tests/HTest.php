@@ -151,4 +151,14 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('English word "two" is "deux" in french.', $h->map($blahblah)->two);
         $this->assertEquals('English word "three" is "trois" in french.', $h->map($blahblah)->three);
     }
+
+    public function testReversingShouldSuccess()
+    {
+        $h = new H();
+        $h->set('one', 'un');
+        $h->set('two', 'deux');
+        $h->set('three', 'trois');
+        $this->assertEquals(array('three' => 'trois','two' => 'deux','one' => 'un'), $h->reverse->array);
+        $this->assertEquals($h->array, $h->reverse->reverse->array);
+    }
 }
