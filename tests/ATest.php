@@ -302,4 +302,11 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('white', 'red'), $it->inter($fr)->array);
         $this->assertEquals(array('white', 'red'), $fr->inter($it)->array);
     }
+
+    public function testSortingShouldSuccess()
+    {
+        $fr = new A(array('blue', 'white', 'red'));
+        $this->assertEquals(array('blue', 'red', 'white'), $fr->sort->array);
+        $this->assertEquals(array('blue', 'white', 'red'), $fr->array);
+    }
 }
