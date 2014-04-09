@@ -256,6 +256,11 @@ class C extends O
 
     public function __construct($char = '')
     {
+        if($char instanceof N)
+        {
+            $char = sprintf('&#%d;', $char->int);
+        }
+
         if(mb_strlen($char, self::ENCODING) > 1)
         {
             // tests whether use string for XML entity
@@ -296,7 +301,7 @@ class C extends O
             return $this->bytes;
         }
 
-        if(in_array($name, array('string', 'upper', 'lower', 'block', 'trans')))
+        if(in_array($name, array('string', 'upper', 'lower', 'block', 'trans', 'unicode')))
         {
             $name = '_'.$name;
             return $this->$name();
@@ -324,13 +329,6 @@ class C extends O
         return new S($str);
     }
 
-    public static function createFromCode($char, $encoding = c::ENCODING)
-    {
-    }
-
-    public static function createFromLatex()
-    {
-    }
 
     public static function encodings()
     {
@@ -415,7 +413,7 @@ class C extends O
 
     protected function _block()
     {
-        $int_code = $this->unicode()->value;
+        $int_code = $this->_unicode()->value;
         $out = null;
 
         foreach(self::$arr_blocks as $b)
@@ -440,7 +438,7 @@ class C extends O
     public function allCharsOfItsBlock()
     {
         $arr = array();
-        $int_code = $this->unicode()->value;
+        $int_code = $this->_unicode()->value;
 
         foreach(self::$arr_blocks as $b)
         {
@@ -477,10 +475,9 @@ class C extends O
     /**
      * Get unicode code point for the current character. 
      * 
-     * @access public
      * @return N
      */
-    public function unicode()
+    protected function _unicode()
     {
         $str_unicode = '';
         $k = 0;

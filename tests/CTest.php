@@ -38,6 +38,13 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('a', $c->string);
     }
 
+    public function testInstanciateFromCode()
+    {
+        $n = new N(948);
+        $c = new C($n);
+
+        $this->assertEquals('δ', $c->string);
+    }
 
     public function testInstanciateFormHtmlEntityShouldSuccess()
     {
@@ -169,15 +176,15 @@ class CTest extends PHPUnit_Framework_TestCase
     {
         $c = new C('é');
         $n = new N(233);
-        $this->assertEquals($n, $c->unicode());
+        $this->assertEquals($n, $c->unicode);
         
         $c = new C('€');
         $n = new N(8364);
-        $this->assertEquals($n, $c->unicode());
+        $this->assertEquals($n, $c->unicode);
         
         $c = new C('æ');
         $n = new N(230);
-        $this->assertEquals($n, $c->unicode());
+        $this->assertEquals($n, $c->unicode);
     }
 
 
