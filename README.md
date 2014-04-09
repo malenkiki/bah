@@ -139,7 +139,10 @@ Get new collection from existing one but into other order:
 
 ```php
 $a = new A(array('un', 'deux', 'trois', 'quatre'));
-var_dump($a->shuffle);
+var_dump($a->shuffle); //randomize
+var_dump($a->sort); //sort ascendently
+var_dump($a->reverse); //reverse order
+var_dump($a->sort->reverse); // sort and then reverse it
 ```
 
 Get random element from a collection:
