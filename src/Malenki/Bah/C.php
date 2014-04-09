@@ -347,6 +347,7 @@ class C extends O
 
     public function isLetter()
     {
+        return (boolean) preg_match("/^\p{L}+$/ui", $this->value);
     }
 
 
@@ -363,6 +364,10 @@ class C extends O
     }
 
 
+    public function isPunctuation()
+    {
+        return (boolean) preg_match("/^\p{P}+$/ui", $this->value);
+    }
 
     /**
      * Tests whether current character is in lower case. 

@@ -22,6 +22,11 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+use \Malenki\Bah\N;
+use \Malenki\Bah\A;
+use \Malenki\Bah\H;
+use \Malenki\Bah\S;
+use \Malenki\Bah\C;
 
 class CTest extends PHPUnit_Framework_TestCase
 {
@@ -29,143 +34,182 @@ class CTest extends PHPUnit_Framework_TestCase
 
     public function testConvertingObjectToPrimitiveString()
     {
-        $c = new Malenki\Bah\C('a');
+        $c = new C('a');
         $this->assertEquals('a', $c->string);
     }
 
     public function testCaseDetection()
     {
-        $c = new Malenki\Bah\C('a');
+        $c = new C('a');
         $this->assertTrue($c->hasCase());
         $this->assertTrue($c->isLowerCase());
         $this->assertFalse($c->isUpperCase());
 
-        $c = new Malenki\Bah\C('A');
+        $c = new C('A');
         $this->assertTrue($c->hasCase());
         $this->assertFalse($c->isLowerCase());
         $this->assertTrue($c->isUpperCase());
 
-        $c = new Malenki\Bah\C('à');
+        $c = new C('à');
         $this->assertTrue($c->hasCase());
         $this->assertTrue($c->isLowerCase());
         $this->assertFalse($c->isUpperCase());
 
-        $c = new Malenki\Bah\C('À');
+        $c = new C('À');
         $this->assertTrue($c->hasCase());
         $this->assertFalse($c->isLowerCase());
         $this->assertTrue($c->isUpperCase());
         
-        $c = new Malenki\Bah\C('=');
+        $c = new C('=');
         $this->assertFalse($c->hasCase());
         $this->assertTrue($c->isLowerCase());
         $this->assertTrue($c->isUpperCase());
         
-        $c = new Malenki\Bah\C('ب');
+        $c = new C('ب');
         $this->assertFalse($c->hasCase());
         $this->assertTrue($c->isLowerCase());
         $this->assertTrue($c->isUpperCase());
         
-        $c = new Malenki\Bah\C('5');
+        $c = new C('5');
         $this->assertFalse($c->hasCase());
         $this->assertTrue($c->isLowerCase());
         $this->assertTrue($c->isUpperCase());
         
-        $c = new Malenki\Bah\C('');
+        $c = new C('');
         $this->assertFalse($c->hasCase());
         $this->assertTrue($c->isLowerCase());
         $this->assertTrue($c->isUpperCase());
     }
 
+
+    public function testLetterDetection()
+    {
+        $c = new C('œ');
+        $this->assertTrue($c->isLetter());
+        $c = new C('a');
+        $this->assertTrue($c->isLetter());
+        $c = new C('ç');
+        $this->assertTrue($c->isLetter());
+        $c = new C('é');
+        $this->assertTrue($c->isLetter());
+        $c = new C(' ');
+        $this->assertFalse($c->isLetter());
+        $c = new C('-');
+        $this->assertFalse($c->isLetter());
+        $c = new C('.');
+        $this->assertFalse($c->isLetter());
+        $c = new C('/');
+        $this->assertFalse($c->isLetter());
+    }
 
 
     public function testDigitDetection()
     {
-        $c = new Malenki\Bah\C('0');
+        $c = new C('0');
         $this->assertTrue($c->isDigit());
         
-        $c = new Malenki\Bah\C('a');
+        $c = new C('a');
         $this->assertFalse($c->isDigit());
         
-        $c = new Malenki\Bah\C(' ');
+        $c = new C(' ');
         $this->assertFalse($c->isDigit());
         
-        $c = new Malenki\Bah\C(',');
+        $c = new C(',');
         $this->assertFalse($c->isDigit());
     }
 
 
+    public function testPunctuationDetection()
+    {
+        $c = new C('.');
+        $this->assertTrue($c->isPunctuation());
+        
+        $c = new C(',');
+        $this->assertTrue($c->isPunctuation());
+        
+        $c = new C('…');
+        $this->assertTrue($c->isPunctuation());
+        
+        $c = new C('–');
+        $this->assertTrue($c->isPunctuation());
+        
+        $c = new C('。');
+        $this->assertTrue($c->isPunctuation());
+        
+        $c = new C('【');
+        $this->assertTrue($c->isPunctuation());
+    }
 
     public function testUnicodeCodePoint()
     {
-        $c = new Malenki\Bah\C('é');
-        $n = new Malenki\Bah\N(233);
+        $c = new C('é');
+        $n = new N(233);
         $this->assertEquals($n, $c->unicode());
         
-        $c = new Malenki\Bah\C('€');
-        $n = new Malenki\Bah\N(8364);
+        $c = new C('€');
+        $n = new N(8364);
         $this->assertEquals($n, $c->unicode());
         
-        $c = new Malenki\Bah\C('æ');
-        $n = new Malenki\Bah\N(230);
+        $c = new C('æ');
+        $n = new N(230);
         $this->assertEquals($n, $c->unicode());
     }
 
 
     /**
      * testBlock 
-     * @todo Finish that!
      * @access public
      * @return void
      */
     public function testBlock()
     {
-        $c = new Malenki\Bah\C('z');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Basic Latin'));
+        $c = new C('z');
+        $this->assertEquals($c->block, new S('Basic Latin'));
 
-        $c = new Malenki\Bah\C('Œ');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Latin Extended-A'));
-        $c = new Malenki\Bah\C('Ȁ');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Latin Extended-B'));
-        $c = new Malenki\Bah\C('α');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Greek and Coptic'));
-        $c = new Malenki\Bah\C('Ю');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Cyrillic'));
+        $c = new C('Œ');
+        $this->assertEquals($c->block, new S('Latin Extended-A'));
+        $c = new C('Ȁ');
+        $this->assertEquals($c->block, new S('Latin Extended-B'));
+        $c = new C('α');
+        $this->assertEquals($c->block, new S('Greek and Coptic'));
+        $c = new C('Ю');
+        $this->assertEquals($c->block, new S('Cyrillic'));
         
-        $c = new Malenki\Bah\C('Ꙛ');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Cyrillic Extended-B'));
-        $c = new Malenki\Bah\C('Ֆ');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Armenian'));
-        $c = new Malenki\Bah\C('ش');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Arabic'));
-        $c = new Malenki\Bah\C('א');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Hebrew'));
-        $c = new Malenki\Bah\C('ܐ');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Syriac'));
+        $c = new C('Ꙛ');
+        $this->assertEquals($c->block, new S('Cyrillic Extended-B'));
+        $c = new C('Ֆ');
+        $this->assertEquals($c->block, new S('Armenian'));
+        $c = new C('ش');
+        $this->assertEquals($c->block, new S('Arabic'));
+        $c = new C('א');
+        $this->assertEquals($c->block, new S('Hebrew'));
+        $c = new C('ܐ');
+        $this->assertEquals($c->block, new S('Syriac'));
 
-        $c = new Malenki\Bah\C('Ḫ');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Latin Extended Additional'));
+        $c = new C('Ḫ');
+        $this->assertEquals($c->block, new S('Latin Extended Additional'));
 
-        $c = new Malenki\Bah\C('Ɐ');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Latin Extended-C'));
-        $c = new Malenki\Bah\C('Ⲁ');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Coptic'));
+        $c = new C('Ɐ');
+        $this->assertEquals($c->block, new S('Latin Extended-C'));
+        $c = new C('Ⲁ');
+        $this->assertEquals($c->block, new S('Coptic'));
 
-        $c = new Malenki\Bah\C('Ꜧ');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Latin Extended-D'));
+        $c = new C('Ꜧ');
+        $this->assertEquals($c->block, new S('Latin Extended-D'));
 
-        $c = new Malenki\Bah\C('𐅃');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Ancient Greek Numbers'));
+        $c = new C('𐅃');
+        $this->assertEquals($c->block, new S('Ancient Greek Numbers'));
 
-        $c = new Malenki\Bah\C('𐌍');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Old Italic'));
-        $c = new Malenki\Bah\C('𐌰');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Gothic'));
+        $c = new C('𐌍');
+        $this->assertEquals($c->block, new S('Old Italic'));
+        $c = new C('𐌰');
+        $this->assertEquals($c->block, new S('Gothic'));
 
-        $c = new Malenki\Bah\C('𒀧');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Cuneiform'));
+        $c = new C('𒀧');
+        $this->assertEquals($c->block, new S('Cuneiform'));
 
-        $c = new Malenki\Bah\C('𓂈');
-        $this->assertEquals($c->block, new Malenki\Bah\S('Egyptian Hieroglyphs'));
+        $c = new C('𓂈');
+        $this->assertEquals($c->block, new S('Egyptian Hieroglyphs'));
 
     }
 }
