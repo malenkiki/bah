@@ -231,4 +231,11 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A(range(1, 5));
         $this->assertEquals(array(1, 8, 27, 64, 125), $a->map($cube)->array);
     }
+
+    public function testReversingOrderShouldSuccess()
+    {
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
+        $this->assertEquals(array('five', 'four', 'three', 'two', 'one'), $a->reverse->array);
+        $this->assertEquals($a->array, $a->reverse->reverse->array);
+    }
 }

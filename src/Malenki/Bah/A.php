@@ -56,7 +56,7 @@ class A implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode', 'current', 'key', 'next', 'rewind', 'valid')))
+        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode', 'current', 'key', 'next', 'rewind', 'valid', 'reverse')))
         {
             if($name == 'index')
             {
@@ -74,7 +74,7 @@ class A implements \Iterator, \Countable
             {
                 return $this->$name();
             }
-            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'shuffle')))
+            elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'shuffle', 'reverse')))
             {
                 $str_method = '_' . $name;
                 return $this->$str_method();
@@ -300,6 +300,15 @@ class A implements \Iterator, \Countable
 
         return new self($arr);
     }
+
+
+
+    protected function _reverse()
+    {
+        return new self(array_reverse($this->value));
+    }
+
+
 
     public function map($func)
     {
