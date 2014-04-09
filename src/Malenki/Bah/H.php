@@ -34,7 +34,7 @@ class H implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'length', 'keys', 'values', 'reverse')))
+        if(in_array($name, array('array', 'length', 'keys', 'values', 'reverse', 'sort')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -241,6 +241,15 @@ class H implements \Iterator, \Countable
     protected function _reverse()
     {
         return new self(array_reverse($this->value, true));
+    }
+
+
+
+    protected function _sort()
+    {
+        $arr = $this->value;
+        asort($arr);
+        return new self($arr);
     }
 
 

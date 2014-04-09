@@ -198,4 +198,17 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('three' => 'trois','two' => 'deux','one' => 'un'), $h->reverse->array);
         $this->assertEquals($h->array, $h->reverse->reverse->array);
     }
+
+
+
+    public function testSortingValuesShouldSuccess()
+    {
+        $h = new H();
+        $h->set('one', 'un');
+        $h->set('two', 'deux');
+        $h->set('three', 'trois');
+
+        $this->assertEquals(array('two' => 'deux', 'three' => 'trois', 'one' => 'un'), $h->sort->array);
+        $this->assertEquals(array('one' => 'un', 'two' => 'deux', 'three' => 'trois'), $h->array);
+    }
 }
