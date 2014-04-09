@@ -38,6 +38,31 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('a', $c->string);
     }
 
+
+    public function testInstanciateFormHtmlEntityShouldSuccess()
+    {
+        $c = new C('&eacute;');
+        $this->assertEquals('é', $c->string);
+        
+        $c = new C('&nbsp;');
+        $this->assertEquals(' ', $c->string);
+        
+        $c = new C('&quot;');
+        $this->assertEquals('"', $c->string);
+        
+        $c = new C('&apos;');
+        $this->assertEquals("'", $c->string);
+        
+        $c = new C('&amp;');
+        $this->assertEquals('&', $c->string);
+        
+        $c = new C('&lt;');
+        $this->assertEquals('<', $c->string);
+        
+        $c = new C('&gt;');
+        $this->assertEquals('>', $c->string);
+    }
+
     public function testCaseDetection()
     {
         $c = new C('a');

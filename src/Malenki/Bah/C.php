@@ -258,7 +258,16 @@ class C extends O
     {
         if(mb_strlen($char, self::ENCODING) > 1)
         {
-            throw new \InvalidArgumentException('Invalid character!');
+            // tests whether use string for XML entity
+            if(preg_match('/^&.+;$/', $char))
+            {
+                $char = str_replace('&apos;', "'", $char); //workaround for php > 5.4
+                $char = html_entity_decode($char, ENT_COMPAT, self::ENCODING);
+            }
+            else
+            {
+                throw new \InvalidArgumentException('Invalid character!');
+            }
         }
 
         $this->value = $char;
@@ -316,10 +325,6 @@ class C extends O
     }
 
     public static function createFromCode($char, $encoding = c::ENCODING)
-    {
-    }
-
-    public static function createFromEntity()
     {
     }
 
