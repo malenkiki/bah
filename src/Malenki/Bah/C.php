@@ -372,6 +372,12 @@ class C extends O
         return (boolean) preg_match("/^\p{P}+$/ui", $this->value);
     }
 
+
+    public function isSymbol()
+    {
+        return (boolean) preg_match("/^\p{S}+$/ui", $this->value);
+    }
+
     /**
      * Tests whether current character is in lower case. 
      * 

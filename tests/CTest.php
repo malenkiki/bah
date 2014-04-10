@@ -172,6 +172,39 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($c->isPunctuation());
     }
 
+    public function testSymbolDetection()
+    {
+        $c = new C('$');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('£');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('€');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('+');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('×');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('÷');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('∀');
+        $this->assertTrue($c->isSymbol());
+
+        $c = new C('∁');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('∃');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('∈');
+        $this->assertTrue($c->isSymbol());
+    }
+
     public function testUnicodeCodePoint()
     {
         $c = new C('é');
