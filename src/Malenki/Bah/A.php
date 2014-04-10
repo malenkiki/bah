@@ -318,7 +318,17 @@ class A implements \Iterator, \Countable
 
     public function _array()
     {
-        return array_values($this->value);
+        $arr = array_values($this->value);
+
+        foreach($arr as $k => $v)
+        {
+            if($v instanceof A || $v instanceof H)
+            {
+                $arr[$k] = $v->array;
+            }
+        }
+
+        return $arr;
     }
 
 
