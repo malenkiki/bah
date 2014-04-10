@@ -172,6 +172,36 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($c->isPunctuation());
     }
 
+
+    public function testSeparatorDetection()
+    {
+        $c = new C(' ');
+        $this->assertTrue($c->isSeparator());
+        
+        $c = new C(' '); // nbsp
+        $this->assertTrue($c->isSeparator());
+        
+        $c = new C("　"); // ideographic space
+        $this->assertTrue($c->isSeparator());
+        
+        $c = new C(" "); // EM space
+        $this->assertTrue($c->isSeparator());
+        
+    }
+
+
+    public function testControlDetection()
+    {
+        $c = new C("\n");
+        $this->assertTrue($c->isControl());
+        
+        $c = new C("\t");
+        $this->assertTrue($c->isControl());
+        
+    }
+
+
+
     public function testSymbolDetection()
     {
         $c = new C('$');

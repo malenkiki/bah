@@ -361,9 +361,22 @@ class C extends O
     }
 
 
-
-    public function isWhitespace()
+    public function isControl()
     {
+        return (boolean) preg_match("/^\p{Cc}+$/ui", $this->value);
+    }
+
+
+    public function isMark()
+    {
+        return (boolean) preg_match("/^\p{M}+$/ui", $this->value);
+    }
+
+
+
+    public function isSeparator()
+    {
+        return (boolean) preg_match("/^\p{Z}+$/ui", $this->value);
     }
 
 
