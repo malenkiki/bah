@@ -280,24 +280,35 @@ class A implements \Iterator, \Countable
 
     public function implode($sep = '')
     {
-        foreach($this->value as $item)
+        $arr = $this->value;
+
+        foreach($this->value as $idx => $item)
         {
             if(
                 is_scalar($item)
                 ||
                 $item instanceof S
                 ||
+                $item instanceof A
+                ||
                 (is_object($item) && method_exists($item, '__toString'))
             )
             {
-                continue;
+                if($item instanceof A)
+                {
+                    $arr[$idx] = $item->join($sep);
+                }
+                else
+                {
+                    continue;
+                }
             }
             else
             {
-                throw new \RuntimeException('Todo');
+                throw new \RuntimeException('Cannot convert this item to string');
             }
         }
-        return new S(implode($sep, $this->value));
+        return new S(implode($sep, $arr));
     }
 
     public function join($sep = '')
@@ -439,7 +450,17 @@ class A implements \Iterator, \Countable
             throw new \InvalidArgumentException('Chunk cannot have null size, please use number equal or greater than one.');
         }
 
-        return new self(array_chunk($this->value, $size));
+        $arr = array_chunk($this->value, $size);
+
+        foreach($arr as $k => $v)
+        {
+            if(is_array($v))
+            {
+                $arr[$k] = new self($v);
+            }
+        }
+
+        return new self($arr);
     }
 
 
