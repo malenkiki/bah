@@ -189,6 +189,36 @@ class CTest extends PHPUnit_Framework_TestCase
         
     }
 
+    public function testFormatDetection()
+    {
+        $this->markTestSkipped("Must find right caracters to test with");
+        $c = new C('');
+        $this->assertTrue($c->isFormat());
+    }
+
+
+    public function testUnassignedDetection()
+    {
+        $c = new C('⁧');
+        $this->assertTrue($c->isUnassigned());
+    }
+
+
+    public function testPrivateUseDetection()
+    {
+        $c = new C('󰀴');
+        $this->assertTrue($c->isPrivateUse());
+        $c = new C('􀁕');
+        $this->assertTrue($c->isPrivateUse());
+    }
+
+
+    public function testSurrogateDetection()
+    {
+        $this->markTestSkipped("Must find right caracters to test with");
+        $c = new C('');
+        $this->assertTrue($c->isSurrogate());
+    }
 
     public function testControlDetection()
     {

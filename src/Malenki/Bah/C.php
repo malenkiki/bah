@@ -366,6 +366,26 @@ class C extends O
         return (boolean) preg_match("/^\p{Cc}+$/ui", $this->value);
     }
 
+    public function isFormat()
+    {
+        return (boolean) preg_match("/^\p{Cf}+$/ui", $this->value);
+    }
+
+    public function isUnassigned()
+    {
+        return (boolean) preg_match("/^\p{Cn}+$/ui", $this->value);
+    }
+
+    public function isPrivateUse()
+    {
+        return (boolean) preg_match("/^\p{Co}+$/ui", $this->value);
+    }
+
+    public function isSurrogate()
+    {
+        return (boolean) preg_match("/^\p{Cs}+$/ui", $this->value);
+    }
+
 
     public function isMark()
     {
