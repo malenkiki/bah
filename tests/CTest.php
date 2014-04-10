@@ -140,14 +140,8 @@ class CTest extends PHPUnit_Framework_TestCase
         $c = new C('0');
         $this->assertTrue($c->isDigit());
         
-        $c = new C('a');
-        $this->assertFalse($c->isDigit());
-        
-        $c = new C(' ');
-        $this->assertFalse($c->isDigit());
-        
-        $c = new C(',');
-        $this->assertFalse($c->isDigit());
+        $c = new C('8');
+        $this->assertTrue($c->isDigit());
     }
 
 
@@ -192,7 +186,7 @@ class CTest extends PHPUnit_Framework_TestCase
     public function testFormatDetection()
     {
         $this->markTestSkipped("Must find right caracters to test with");
-        $c = new C('');
+        $c = new C(new N(0x9B));
         $this->assertTrue($c->isFormat());
     }
 
@@ -200,6 +194,10 @@ class CTest extends PHPUnit_Framework_TestCase
     public function testUnassignedDetection()
     {
         $c = new C('⁧');
+        $this->assertTrue($c->isUnassigned());
+        $c = new C(new N(0x7B9));
+        $this->assertTrue($c->isUnassigned());
+        $c = new C(new N(0x89A));
         $this->assertTrue($c->isUnassigned());
     }
 
@@ -216,7 +214,7 @@ class CTest extends PHPUnit_Framework_TestCase
     public function testSurrogateDetection()
     {
         $this->markTestSkipped("Must find right caracters to test with");
-        $c = new C('');
+        $c = new C();
         $this->assertTrue($c->isSurrogate());
     }
 
