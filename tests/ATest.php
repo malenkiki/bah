@@ -80,6 +80,9 @@ class ATest extends PHPUnit_Framework_TestCase
         $a->add('three');
         $this->assertEquals(3, count($a));
         $this->assertEquals(3, $a->length->value);
+        $a->add('four')->add('five');
+        $this->assertEquals(5, count($a));
+        $this->assertEquals(5, $a->length->value);
     }
 
     public function testDeletingValueWithSuccess()

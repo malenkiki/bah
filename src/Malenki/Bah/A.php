@@ -213,6 +213,8 @@ class A implements \Iterator, \Countable
     {
         $this->value[] = $thing;
         $this->count++;
+
+        return $this;
     }
 
 
@@ -237,6 +239,8 @@ class A implements \Iterator, \Countable
 
         unset($this->value[$idx]);
         $this->count--;
+
+        return $this;
     }
     
 
@@ -276,6 +280,8 @@ class A implements \Iterator, \Countable
         }
 
         $this->value[$idx] = $thing;
+
+        return $this;
     }
 
     public function implode($sep = '')
