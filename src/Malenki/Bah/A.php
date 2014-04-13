@@ -454,6 +454,22 @@ class A implements \Iterator, \Countable
         return new self(array_values(array_intersect($this->value, $arr)));
     }
 
+
+    public function merge($arr)
+    {
+        if($arr instanceof A)
+        {
+            $arr = $arr->array;
+        }
+        
+        if($arr instanceof H)
+        {
+            $arr = $arr->array;
+        }
+
+        return new self(array_values(array_merge($this->value, $arr)));
+    }
+
     public function chunk($size)
     {
         if($size instanceof N)

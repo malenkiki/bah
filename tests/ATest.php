@@ -355,4 +355,16 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('two', 'three', 'four'), $a->slice(1, 3)->array);
         $this->assertEquals(array('two', 'three', 'four'), $a->slice(new N(1), new N(3))->array);
     }
+
+    public function testMergingShouldSuccess()
+    {
+        $a = new A(array('un', 'deux', 'trois'));
+        $b = new A(array('quatre', 'cinq'));
+
+        $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq'), $a->merge($b)->array);
+        
+        $b = new H(array('four' => 'quatre', 'five' => 'cinq'));
+
+        $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq'), $a->merge($b)->array);
+    }
 }
