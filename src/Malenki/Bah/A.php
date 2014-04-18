@@ -213,6 +213,8 @@ class A implements \Iterator, \Countable
     {
         $this->value[] = $thing;
         $this->count++;
+
+        return $this;
     }
 
 
@@ -237,6 +239,8 @@ class A implements \Iterator, \Countable
 
         unset($this->value[$idx]);
         $this->count--;
+
+        return $this;
     }
     
 
@@ -276,28 +280,41 @@ class A implements \Iterator, \Countable
         }
 
         $this->value[$idx] = $thing;
+
+        return $this;
     }
 
     public function implode($sep = '')
     {
-        foreach($this->value as $item)
+        $arr = $this->value;
+
+        foreach($this->value as $idx => $item)
         {
             if(
                 is_scalar($item)
                 ||
                 $item instanceof S
                 ||
+                $item instanceof A
+                ||
                 (is_object($item) && method_exists($item, '__toString'))
             )
             {
-                continue;
+                if($item instanceof A)
+                {
+                    $arr[$idx] = $item->join($sep);
+                }
+                else
+                {
+                    continue;
+                }
             }
             else
             {
-                throw new \RuntimeException('Todo');
+                throw new \RuntimeException('Cannot convert this item to string');
             }
         }
-        return new S(implode($sep, $this->value));
+        return new S(implode($sep, $arr));
     }
 
     public function join($sep = '')
@@ -307,7 +324,17 @@ class A implements \Iterator, \Countable
 
     public function _array()
     {
-        return array_values($this->value);
+        $arr = array_values($this->value);
+
+        foreach($arr as $k => $v)
+        {
+            if($v instanceof A || $v instanceof H)
+            {
+                $arr[$k] = $v->array;
+            }
+        }
+
+        return $arr;
     }
 
 
@@ -427,6 +454,22 @@ class A implements \Iterator, \Countable
         return new self(array_values(array_intersect($this->value, $arr)));
     }
 
+
+    public function merge($arr)
+    {
+        if($arr instanceof A)
+        {
+            $arr = $arr->array;
+        }
+        
+        if($arr instanceof H)
+        {
+            $arr = $arr->array;
+        }
+
+        return new self(array_values(array_merge($this->value, $arr)));
+    }
+
     public function chunk($size)
     {
         if($size instanceof N)
@@ -439,7 +482,17 @@ class A implements \Iterator, \Countable
             throw new \InvalidArgumentException('Chunk cannot have null size, please use number equal or greater than one.');
         }
 
-        return new self(array_chunk($this->value, $size));
+        $arr = array_chunk($this->value, $size);
+
+        foreach($arr as $k => $v)
+        {
+            if(is_array($v))
+            {
+                $arr[$k] = new self($v);
+            }
+        }
+
+        return new self($arr);
     }
 
 

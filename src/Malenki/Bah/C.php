@@ -361,15 +361,54 @@ class C extends O
     }
 
 
-
-    public function isWhitespace()
+    public function isControl()
     {
+        return (boolean) preg_match("/^\p{Cc}+$/ui", $this->value);
+    }
+
+    public function isFormat()
+    {
+        return (boolean) preg_match("/^\p{Cf}+$/ui", $this->value);
+    }
+
+    public function isUnassigned()
+    {
+        return (boolean) preg_match("/^\p{Cn}+$/ui", $this->value);
+    }
+
+    public function isPrivateUse()
+    {
+        return (boolean) preg_match("/^\p{Co}+$/ui", $this->value);
+    }
+
+    public function isSurrogate()
+    {
+        return (boolean) preg_match("/^\p{Cs}+$/ui", $this->value);
+    }
+
+
+    public function isMark()
+    {
+        return (boolean) preg_match("/^\p{M}+$/ui", $this->value);
+    }
+
+
+
+    public function isSeparator()
+    {
+        return (boolean) preg_match("/^\p{Z}+$/ui", $this->value);
     }
 
 
     public function isPunctuation()
     {
         return (boolean) preg_match("/^\p{P}+$/ui", $this->value);
+    }
+
+
+    public function isSymbol()
+    {
+        return (boolean) preg_match("/^\p{S}+$/ui", $this->value);
     }
 
     /**

@@ -346,4 +346,31 @@ class H implements \Iterator, \Countable
         return new self(array_slice($this->value, $offset, $length, true));
     }
 
+
+    public function merge($arr)
+    {
+        if($arr instanceof A)
+        {
+            throw new \InvalidArgumentException('Class \Malenki\Bah\H cannot merge its content with \Malenki\Bah\A class.');
+        }
+        
+
+        if(is_array($arr))
+        {
+            foreach($arr as $k => $v)
+            {
+                if(is_numeric($k))
+                {
+                    throw new \RuntimeException('Array must have all keys defined as string.');
+                }
+            }
+        }
+
+        if($arr instanceof H)
+        {
+            $arr = $arr->array;
+        }
+        return new self(array_merge($this->value, $arr));
+    }
+
 }

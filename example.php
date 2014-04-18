@@ -31,15 +31,12 @@ use \Malenki\Bah\H;
 use \Malenki\Bah\S;
 use \Malenki\Bah\C;
 
+$underline = new S('=');
 
-$s = new S('C’est cool !');
-$c = new C("€");
-//print($s->chars()->last());
-while($c->bytes->valid)
-{
-    echo $c->bytes->current->b->n;
-    $c->bytes->next;
-}
+$title = new S('Play With Strings');
+echo $title->n;
+echo $underline->times(count($title))->n;
+
 
 $greek = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
 echo $greek->n;
@@ -51,25 +48,10 @@ echo $greek->sub(4)->n;
 echo $greek->chars->length->s->n;
 echo $greek->bytes->length->s->n;
 
-$a = new A(array('un', 'deux', 'trois', 'quatre'));
-var_dump(count($a));
-var_dump($a->random);
-var_dump($a->random(2));
-var_dump($a->lastButOne);
-var_dump($a->shuffle->join(', ')->string);
-var_dump($a->shuffle->join->string);
-var_dump($a->sort->join(', ')->string);
-var_dump($a->sort->reverse->join(', ')->string);
-
-$a = new A(array('un', 'deux', 'deux', 'trois', 'quatre'));
-var_dump($a->unique->array);
-
 $abc = new S('abcdefghijklmnopqrstuvwxyz');
 echo $abc->first->n;
 echo $abc->last->n;
 echo $abc->ucf->n;
-
-
 
 $long = new S('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet ante ut sapien porta interdum vel non risus. Aenean nec tincidunt lorem. Cras eu metus non nunc dictum condimentum vel vulputate lectus. Maecenas bibendum massa et metus tempor mattis. Sed risus diam, dignissim eget erat ut, egestas adipiscing purus. Duis nunc quam, suscipit eu lorem ut, placerat dapibus dui. Sed adipiscing tempor diam, non egestas odio gravida vestibulum.');
 echo $long->wrap(30)->n->n;
@@ -81,17 +63,6 @@ echo $long->wrap(80)->n->n;
 echo $long->wrap(80)->ucw->n->n;
 echo 'First: ';
 echo $long->wrap(40)->margin(10, 0, -7)->n->n;
-
-$c = new C("Œ");
-$all = $c->allCharsOfItsBlock();
-
-while($all->valid)
-{
-    echo $all->current;
-    echo ' ';
-    $all->next;
-}
-echo $c->block->n(false)->n;
 
 $filter_vowel = function($item)
 {
@@ -112,13 +83,49 @@ $filter_upper_consons = function($item)
     }
 };
 $s = new S('abcdef');
-var_dump($s->a->filter($filter_vowel));
-var_dump($s->a->map($filter_upper_consons));
+echo $s->a->filter($filter_vowel)->join("\n")->n;
+echo $s->a->map($filter_upper_consons)->join("\n")->n;
 
 $s = new S('C’est rigolo d’écrire en français !');
 echo $s->trans->n;
 $s = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
 echo $s->trans->n;
+
+$s = new S('a/zerty');
+var_dump($s->startsWith(new S('a/ze')));
+var_dump($s->endsWith('ty'));
+var_dump($s->match('/ze/'));
+var_dump($s->match(new S('/ze/')));
+
+
+
+
+
+$title = new S('Play With Characters');
+echo $title->n;
+echo $underline->times(count($title))->n;
+
+
+$c = new C("€");
+while($c->bytes->valid)
+{
+    echo $c->bytes->current->b->n;
+    $c->bytes->next;
+}
+
+$c = new C("Œ");
+$all = $c->allCharsOfItsBlock();
+
+while($all->valid)
+{
+    echo $all->current;
+    echo ' ';
+    $all->next;
+}
+echo $c->block->n(false)->n;
+
+
+$s = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
 
 while($s->chars->valid)
 {
@@ -129,20 +136,6 @@ while($s->chars->valid)
     );
     $s->chars->next;
 }
-
-
-$s = new S('a/zerty');
-var_dump($s->startsWith(new S('a/ze')));
-var_dump($s->endsWith('ty'));
-var_dump($s->match('/ze/'));
-var_dump($s->match(new S('/ze/')));
-
-$n = new N(4);
-var_dump($n->gt(2));
-var_dump($n->gte(4));
-var_dump($n->lt(2));
-var_dump($n->lte(4));
-
 
 $s = new S('abcdefgh');
 var_dump($s->chars->has('c'));
@@ -160,6 +153,61 @@ while($s->chars->valid)
     $s->chars->next;
 }
 
+
+
+
+
+$title = new S('Play With Numbers');
+echo $title->n;
+echo $underline->times(count($title))->n;
+
+
+$n = new N(4);
+var_dump($n->gt(2));
+var_dump($n->gte(4));
+var_dump($n->lt(2));
+var_dump($n->lte(4));
+echo $n->roman->n;
+echo $n->greek->n;
+echo $n->bin->n;
+echo $n->oct->n;
+echo $n->hex->n;
+
+
+
+
+
+
+$title = new S('Play With Arrays');
+echo $title->n;
+echo $underline->times(count($title))->n;
+
+$a = new A(array('un', 'deux', 'trois', 'quatre'));
+var_dump(count($a));
+var_dump($a->random);
+echo $a->random(2)->join(', ')->n;
+var_dump($a->lastButOne);
+echo $a->shuffle->join(', ')->n;
+echo $a->shuffle->join->n;
+echo $a->sort->join(', ')->n;
+echo $a->sort->reverse->join(', ')->n;
+
+$a = new A(array('un', 'deux', 'deux', 'trois', 'quatre'));
+echo $a->unique->join(', ')->n;
+
+$a = new A(array('one', 'two', 'three', 'four', 'five'));
+echo $a->chunk(2)->take(1)->join(', ')->n;
+var_dump($a->search('three')->int);
+echo $a->slice(1,3)->join(', ')->n;
+
+
+
+
+
+
+$title = new S('Play With Hashes');
+echo $title->n;
+echo $underline->times(count($title))->n;
 
 $h = new H(array('one' => 1, 'two' => 2, 'three' => 3, 'four' => 4, 'five' => 5));
 
@@ -188,9 +236,5 @@ var_dump($h->sort->reverse->array);
 var_dump($h->chunk(2)->array);
 var_dump($h->search('trois')->string);
 var_dump($h->slice(1,3));
-$a = new A(array('one', 'two', 'three', 'four', 'five'));
-var_dump($a->chunk(2)->array);
-var_dump($a->search('three')->int);
-var_dump($a->slice(1,3)->array);
 $h = new H(array('one' => 'un', 'two' => 'deux', 'three' => 'trois', 'four' => 'quatre', 'five' => 'cinq', 'six' => 'deux'));
 var_dump($h->unique->array);

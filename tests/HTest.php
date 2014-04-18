@@ -258,4 +258,51 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('two' => 'deux', 'three' => 'trois', 'four' => 'quatre'), $h->slice(1, 3)->array);
         $this->assertEquals(array('two' => 'deux', 'three' => 'trois', 'four' => 'quatre'), $h->slice(new N(1), new N(3))->array);
     }
+
+
+    public function testMergingShouldSuccess()
+    {
+        $h = new H();
+        $h->set('one', 'un');
+        $h->set('two', 'deux');
+        $h->set('three', 'trois');
+
+        $i = new H();
+        $i->set('four', 'quatre');
+        $i->set('five', 'cinq');
+        
+        $this->assertEquals(array('one' => 'un', 'two' => 'deux', 'three' => 'trois', 'four' => 'quatre', 'five' => 'cinq'), $h->merge($i)->array);
+        
+        $this->assertEquals(array('one' => 'un', 'two' => 'deux', 'three' => 'trois', 'four' => 'quatre', 'five' => 'cinq'), $h->merge($i->array)->array);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMergingWithAClassShouldFail()
+    {
+        $h = new H();
+        $h->set('one', 'un');
+        $h->set('two', 'deux');
+        $h->set('three', 'trois');
+
+        $a = new A(array('quatre', 'cinq'));
+
+        $h->merge($a);
+    }
+    
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testMergingWithArrayIndexedWithNumberShouldFail()
+    {
+        $h = new H();
+        $h->set('one', 'un');
+        $h->set('two', 'deux');
+        $h->set('three', 'trois');
+
+        $arr = array('quatre', 'cinq');
+
+        $h->merge($arr);
+    }
 }

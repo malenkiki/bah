@@ -140,14 +140,8 @@ class CTest extends PHPUnit_Framework_TestCase
         $c = new C('0');
         $this->assertTrue($c->isDigit());
         
-        $c = new C('a');
-        $this->assertFalse($c->isDigit());
-        
-        $c = new C(' ');
-        $this->assertFalse($c->isDigit());
-        
-        $c = new C(',');
-        $this->assertFalse($c->isDigit());
+        $c = new C('8');
+        $this->assertTrue($c->isDigit());
     }
 
 
@@ -170,6 +164,103 @@ class CTest extends PHPUnit_Framework_TestCase
         
         $c = new C('【');
         $this->assertTrue($c->isPunctuation());
+    }
+
+
+    public function testSeparatorDetection()
+    {
+        $c = new C(' ');
+        $this->assertTrue($c->isSeparator());
+        
+        $c = new C(' '); // nbsp
+        $this->assertTrue($c->isSeparator());
+        
+        $c = new C("　"); // ideographic space
+        $this->assertTrue($c->isSeparator());
+        
+        $c = new C(" "); // EM space
+        $this->assertTrue($c->isSeparator());
+        
+    }
+
+    public function testFormatDetection()
+    {
+        $this->markTestSkipped("Must find right caracters to test with");
+        $c = new C(new N(0x9B));
+        $this->assertTrue($c->isFormat());
+    }
+
+
+    public function testUnassignedDetection()
+    {
+        $c = new C('⁧');
+        $this->assertTrue($c->isUnassigned());
+        $c = new C(new N(0x7B9));
+        $this->assertTrue($c->isUnassigned());
+        $c = new C(new N(0x89A));
+        $this->assertTrue($c->isUnassigned());
+    }
+
+
+    public function testPrivateUseDetection()
+    {
+        $c = new C('󰀴');
+        $this->assertTrue($c->isPrivateUse());
+        $c = new C('􀁕');
+        $this->assertTrue($c->isPrivateUse());
+    }
+
+
+    public function testSurrogateDetection()
+    {
+        $this->markTestSkipped("Must find right caracters to test with");
+        $c = new C();
+        $this->assertTrue($c->isSurrogate());
+    }
+
+    public function testControlDetection()
+    {
+        $c = new C("\n");
+        $this->assertTrue($c->isControl());
+        
+        $c = new C("\t");
+        $this->assertTrue($c->isControl());
+        
+    }
+
+
+
+    public function testSymbolDetection()
+    {
+        $c = new C('$');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('£');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('€');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('+');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('×');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('÷');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('∀');
+        $this->assertTrue($c->isSymbol());
+
+        $c = new C('∁');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('∃');
+        $this->assertTrue($c->isSymbol());
+        
+        $c = new C('∈');
+        $this->assertTrue($c->isSymbol());
     }
 
     public function testUnicodeCodePoint()
