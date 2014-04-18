@@ -70,10 +70,12 @@ class HTest extends PHPUnit_Framework_TestCase
     {
         $h = new H();
         $this->assertEquals(0, $h->length->value);
+        $this->assertEquals(0, $h->length->int);
         $this->assertEquals(0, count($h));
 
         $h = new H(array('one' => 1, 'two' => 2, 'three' => 3, 'four' => 4, 'five' => 5));
         $this->assertEquals(5, $h->length->value);
+        $this->assertEquals(5, $h->length->int);
         $this->assertEquals(5, count($h));
     }
 
@@ -137,8 +139,12 @@ class HTest extends PHPUnit_Framework_TestCase
         $h = new H(array('one' => 1, 'two' => 2, 'three' => 3, 'four' => 4, 'five' => 5));
         $h->delete('three');
         $this->assertEquals(4, count($h));
+        $this->assertEquals(4, $h->length->value);
+        $this->assertEquals(4, $h->length->int);
         $h->delete('four');
         $this->assertEquals(3, count($h));
+        $this->assertEquals(3, $h->length->value);
+        $this->assertEquals(3, $h->length->int);
     }
 
     public function testDeletingValueUsingUnsetShouldSuccess()
@@ -146,8 +152,12 @@ class HTest extends PHPUnit_Framework_TestCase
         $h = new H(array('one' => 1, 'two' => 2, 'three' => 3, 'four' => 4, 'five' => 5));
         unset($h->three);
         $this->assertEquals(4, count($h));
+        $this->assertEquals(4, $h->length->value);
+        $this->assertEquals(4, $h->length->int);
         unset($h->four);
         $this->assertEquals(3, count($h));
+        $this->assertEquals(3, $h->length->value);
+        $this->assertEquals(3, $h->length->int);
     }
 
     public function testSettingValueUsingMethodShouldSuccess()
@@ -160,6 +170,8 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, $h->get('two'));
         $this->assertEquals(3, $h->get('three'));
         $this->assertEquals(3, count($h));
+        $this->assertEquals(3, $h->length->value);
+        $this->assertEquals(3, $h->length->int);
     }
 
     public function testSettingValueUsingValidMagicSetterShouldSuccess()
@@ -172,6 +184,8 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, $h->get('two'));
         $this->assertEquals(3, $h->get('three'));
         $this->assertEquals(3, count($h));
+        $this->assertEquals(3, $h->length->value);
+        $this->assertEquals(3, $h->length->int);
     }
 
     public function testMappingValuesShouldSuccess()
@@ -272,8 +286,14 @@ class HTest extends PHPUnit_Framework_TestCase
         $i->set('five', 'cinq');
         
         $this->assertEquals(array('one' => 'un', 'two' => 'deux', 'three' => 'trois', 'four' => 'quatre', 'five' => 'cinq'), $h->merge($i)->array);
+        $this->assertEquals(5, count($h->merge($i)));
+        $this->assertEquals(5, $h->merge($i)->length->value);
+        $this->assertEquals(5, $h->merge($i)->length->int);
         
         $this->assertEquals(array('one' => 'un', 'two' => 'deux', 'three' => 'trois', 'four' => 'quatre', 'five' => 'cinq'), $h->merge($i->array)->array);
+        $this->assertEquals(5, count($h->merge($i->array)));
+        $this->assertEquals(5, $h->merge($i->array)->length->value);
+        $this->assertEquals(5, $h->merge($i->array)->length->int);
     }
 
     /**
