@@ -1,5 +1,7 @@
 # BAH!
 
+[![Build Status](https://travis-ci.org/malenkiki/bah.svg?branch=master)](https://travis-ci.org/malenkiki/bah)
+
 Bah! It is just a little set of simple PHP classes to play with collections of strings, numbers and characters.
 
 
