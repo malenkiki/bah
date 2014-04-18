@@ -60,10 +60,12 @@ class ATest extends PHPUnit_Framework_TestCase
     {
         $a = new A();
         $this->assertEquals(0, $a->length->value);
+        $this->assertEquals(0, $a->length->int);
         $this->assertEquals(0, count($a));
 
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $this->assertEquals(5, $a->length->value);
+        $this->assertEquals(5, $a->length->int);
         $this->assertEquals(5, count($a));
     }
 
@@ -74,15 +76,19 @@ class ATest extends PHPUnit_Framework_TestCase
         $a->add('one');
         $this->assertEquals(1, count($a));
         $this->assertEquals(1, $a->length->value);
+        $this->assertEquals(1, $a->length->int);
         $a->add('two');
         $this->assertEquals(2, count($a));
         $this->assertEquals(2, $a->length->value);
+        $this->assertEquals(2, $a->length->int);
         $a->add('three');
         $this->assertEquals(3, count($a));
         $this->assertEquals(3, $a->length->value);
+        $this->assertEquals(3, $a->length->int);
         $a->add('four')->add('five');
         $this->assertEquals(5, count($a));
         $this->assertEquals(5, $a->length->value);
+        $this->assertEquals(5, $a->length->int);
     }
 
     public function testDeletingValueWithSuccess()
@@ -90,8 +96,12 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $a->delete(3);
         $this->assertEquals(4, count($a));
+        $this->assertEquals(4, $a->length->value);
+        $this->assertEquals(4, $a->length->int);
         $a->delete(2);
         $this->assertEquals(3, count($a));
+        $this->assertEquals(3, $a->length->value);
+        $this->assertEquals(3, $a->length->int);
     }
 
 
@@ -111,9 +121,13 @@ class ATest extends PHPUnit_Framework_TestCase
         $value = $a->shift;
         $this->assertEquals('one', $value);
         $this->assertEquals(4, count($a));
+        $this->assertEquals(4, $a->length->value);
+        $this->assertEquals(4, $a->length->int);
         $value = $a->shift;
         $this->assertEquals('two', $value);
         $this->assertEquals(3, count($a));
+        $this->assertEquals(3, $a->length->value);
+        $this->assertEquals(3, $a->length->int);
     }
 
     /**
@@ -133,9 +147,13 @@ class ATest extends PHPUnit_Framework_TestCase
         $value = $a->pop;
         $this->assertEquals('five', $value);
         $this->assertEquals(4, count($a));
+        $this->assertEquals(4, $a->length->value);
+        $this->assertEquals(4, $a->length->int);
         $value = $a->pop;
         $this->assertEquals('four', $value);
         $this->assertEquals(3, count($a));
+        $this->assertEquals(3, $a->length->value);
+        $this->assertEquals(3, $a->length->int);
     }
 
     /**
