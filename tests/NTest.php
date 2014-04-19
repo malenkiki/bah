@@ -22,6 +22,11 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+use \Malenki\Bah\N;
+use \Malenki\Bah\S;
+use \Malenki\Bah\A;
+use \Malenki\Bah\H;
+use \Malenki\Bah\C;
 
 class NTest extends PHPUnit_Framework_TestCase
 {
@@ -30,8 +35,8 @@ class NTest extends PHPUnit_Framework_TestCase
      */
     public function testDivideByZeroAsObjectShouldRaiseException()
     {
-        $five = new Malenki\Bah\N(5);
-        $zero = new Malenki\Bah\N(0);
+        $five = new N(5);
+        $zero = new N(0);
         $result = $five->divide($zero);
     }
     
@@ -40,14 +45,14 @@ class NTest extends PHPUnit_Framework_TestCase
      */
     public function testDivideByZeroAsIntegerShouldRaiseException()
     {
-        $five = new Malenki\Bah\N(5);
+        $five = new N(5);
         $result = $five->divide(0);
     }
 
 
     public function testNumbersThatShouldBePositive()
     {
-        $five = new Malenki\Bah\N(5);
+        $five = new N(5);
         $this->assertTrue($five->positive);
 
         $two = $five->minus(3);
@@ -56,7 +61,7 @@ class NTest extends PHPUnit_Framework_TestCase
 
     public function testNumbersThatShouldBeNegative()
     {
-        $five = new Malenki\Bah\N(-5);
+        $five = new N(-5);
         $this->assertTrue($five->negative);
 
         $two = $five->plus(3);
@@ -65,148 +70,149 @@ class NTest extends PHPUnit_Framework_TestCase
 
     public function testNumbersThatShouldBeZero()
     {
-        $zero = new Malenki\Bah\N(0);
+        $zero = new N(0);
         $this->assertTrue($zero->zero);
         
-        $five = new Malenki\Bah\N(-5);
+        $five = new N(-5);
         $zero = $five->plus(5);
         $this->assertTrue($zero->zero);
     }
 
     public function testObjectConvertedToPrimitiveInteger()
     {
-        $three = new Malenki\Bah\N(3);
+        $three = new N(3);
         $this->assertEquals(3, $three->int);
-        $three = new Malenki\Bah\N(3.0);
+        $three = new N(3.0);
         $this->assertEquals(3, $three->int);
     }
 
     public function testObjectConvertedToPrimitiveFloat()
     {
-        $three = new Malenki\Bah\N(3);
+        $three = new N(3);
         $this->assertEquals(3.0, $three->float);
-        $three = new Malenki\Bah\N(3.0);
+        $three = new N(3.0);
         $this->assertEquals(3.0, $three->float);
     }
 
     public function testObjectConvertedToPrimitiveDouble()
     {
-        $three = new Malenki\Bah\N(3);
+        $three = new N(3);
         $this->assertEquals((double) 3.0, $three->double);
-        $three = new Malenki\Bah\N(3.0);
+        $three = new N(3.0);
         $this->assertEquals((double) 3.0, $three->double);
     }
 
     public function testGreaterThanShouldBeTrue()
     {
-        $n = new Malenki\Bah\N(4);
+        $n = new N(4);
         $this->assertTrue($n->gt(2));
-        $this->assertTrue($n->gt(new Malenki\Bah\N(2)));
+        $this->assertTrue($n->gt(new N(2)));
         $this->assertTrue($n->gte(4));
-        $this->assertTrue($n->gte(new Malenki\Bah\N(4)));
+        $this->assertTrue($n->gte(new N(4)));
     }
 
     public function testGreaterThanShouldBeFalse()
     {
-        $n = new Malenki\Bah\N(4);
+        $n = new N(4);
         $this->assertFalse($n->gt(5));
-        $this->assertFalse($n->gt(new Malenki\Bah\N(5)));
+        $this->assertFalse($n->gt(new N(5)));
         $this->assertFalse($n->gte(6));
-        $this->assertFalse($n->gte(new Malenki\Bah\N(6)));
+        $this->assertFalse($n->gte(new N(6)));
     }
 
     public function testLessThanShouldBeTrue()
     {
-        $n = new Malenki\Bah\N(4);
+        $n = new N(4);
         $this->assertTrue($n->lt(6));
-        $this->assertTrue($n->lt(new Malenki\Bah\N(6)));
+        $this->assertTrue($n->lt(new N(6)));
         $this->assertTrue($n->lte(4));
-        $this->assertTrue($n->lte(new Malenki\Bah\N(4)));
+        $this->assertTrue($n->lte(new N(4)));
     }
 
     public function testLessThanShouldBeFalse()
     {
-        $n = new Malenki\Bah\N(4);
+        $n = new N(4);
         $this->assertFalse($n->lt(2));
-        $this->assertFalse($n->lt(new Malenki\Bah\N(-5)));
+        $this->assertFalse($n->lt(new N(-5)));
         $this->assertFalse($n->lte(-6));
-        $this->assertFalse($n->lte(new Malenki\Bah\N(0)));
+        $this->assertFalse($n->lte(new N(0)));
     }
     public function testGreekNumerals()
     {
         // single digit
-        $one = new Malenki\Bah\N(1);
+        $one = new N(1);
         $this->assertEquals('α', $one->greek());
 
         // ten and followers…
-        $ten = new Malenki\Bah\N(10);
+        $ten = new N(10);
         $this->assertEquals('ι', $ten->greek());
         
-        $hundred = new Malenki\Bah\N(100);
+        $hundred = new N(100);
         $this->assertEquals('ρ', $hundred->greek());
         
-        $thousand = new Malenki\Bah\N(1000);
+        $thousand = new N(1000);
         $this->assertEquals('ͺα', $thousand->greek());
 
-        $number269 = new Malenki\Bah\N(269);
+        $number269 = new N(269);
         $this->assertEquals('σξθ', $number269->greek());
 
         //now, as magic getter
         // single digit
-        $one = new Malenki\Bah\N(1);
+        $one = new N(1);
         $this->assertEquals('α', $one->greek);
 
         // ten and followers…
-        $ten = new Malenki\Bah\N(10);
+        $ten = new N(10);
         $this->assertEquals('ι', $ten->greek);
         
-        $hundred = new Malenki\Bah\N(100);
+        $hundred = new N(100);
         $this->assertEquals('ρ', $hundred->greek);
         
-        $thousand = new Malenki\Bah\N(1000);
+        $thousand = new N(1000);
         $this->assertEquals('ͺα', $thousand->greek);
 
-        $number269 = new Malenki\Bah\N(269);
+        $number269 = new N(269);
         $this->assertEquals('σξθ', $number269->greek);
     }
 
     public function testRomanNumerals()
     {
-        $one = new Malenki\Bah\N(1);
+        $one = new N(1);
         $this->assertEquals('i', $one->roman);
         
-        $two = new Malenki\Bah\N(2);
+        $two = new N(2);
         $this->assertEquals('ii', $two->roman);
         
-        $three = new Malenki\Bah\N(3);
+        $three = new N(3);
         $this->assertEquals('iii', $three->roman);
         
-        $four = new Malenki\Bah\N(4);
+        $four = new N(4);
         $this->assertEquals('iv', $four->roman);
         
-        $five = new Malenki\Bah\N(5);
+        $five = new N(5);
         $this->assertEquals('v', $five->roman);
         
-        $six = new Malenki\Bah\N(6);
+        $six = new N(6);
         $this->assertEquals('vi', $six->roman);
         
-        $seven = new Malenki\Bah\N(7);
+        $seven = new N(7);
         $this->assertEquals('vii', $seven->roman);
         
-        $eight = new Malenki\Bah\N(8);
+        $eight = new N(8);
         $this->assertEquals('viii', $eight->roman);
         
-        $nine = new Malenki\Bah\N(9);
+        $nine = new N(9);
         $this->assertEquals('ix', $nine->roman);
 
-        $ten = new Malenki\Bah\N(10);
+        $ten = new N(10);
         $this->assertEquals('x', $ten->roman);
         
-        $number269 = new Malenki\Bah\N(269);
+        $number269 = new N(269);
         $this->assertEquals('cclxix', $number269->roman);
         
-        $number1978 = new Malenki\Bah\N(1978);
+        $number1978 = new N(1978);
         $this->assertEquals('mcmlxxviii', $number1978->roman);
-
     }
+
+
 }
