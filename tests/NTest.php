@@ -239,4 +239,23 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($n->test('lt 10'));
         $this->assertTrue($n->test('le 10'));
     }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testTestingMalformedConditionsShouldFail()
+    {
+        $n = new N(5);
+        $n->test('< = 10');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testTestingConditionsWithBadArgTypeShouldFail()
+    {
+        $n = new N(5);
+        $n->test(45);
+    }
 }
