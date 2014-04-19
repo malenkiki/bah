@@ -215,4 +215,28 @@ class NTest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testTestingConditionsShouldSuccess()
+    {
+        $n = new N(5);
+
+        $this->assertTrue($n->test('>= 2'));
+        $this->assertTrue($n->test(new S(' >= 2 ')));
+        $this->assertTrue($n->test('> 2'));
+        $this->assertTrue($n->test('> -2'));
+        $this->assertTrue($n->test('ge 2'));
+        $this->assertTrue($n->test('gt 2'));
+        $this->assertTrue($n->test('GE 2'));
+        $this->assertTrue($n->test('GT 2'));
+        $this->assertTrue($n->test('= 5'));
+        $this->assertTrue($n->test('== 5'));
+        $this->assertTrue($n->test('eq 5'));
+        $this->assertTrue($n->test('neq 10'));
+        $this->assertTrue($n->test('no 10'));
+        $this->assertTrue($n->test('!=10'));
+        $this->assertTrue($n->test('<>10'));
+        $this->assertTrue($n->test('<10'));
+        $this->assertTrue($n->test('<=10'));
+        $this->assertTrue($n->test('lt 10'));
+        $this->assertTrue($n->test('le 10'));
+    }
 }

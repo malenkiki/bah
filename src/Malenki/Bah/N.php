@@ -170,6 +170,12 @@ class N
     }
 
 
+
+    public function le($num)
+    {
+        return $this->lte($num);
+    }
+
     /**
      * Tests whether current number is greater than given one.
      * 
@@ -231,6 +237,11 @@ class N
         return $this->value >= $n->value;
     }
 
+    public function ge($num)
+    {
+        return $this->gte($num);
+    }
+
     public function _negative()
     {
         return $this->value < 0;
@@ -269,7 +280,79 @@ class N
         return $this->value == $n->value;
     }
 
+    public function notEqual($num)
+    {
+        return !$this->equal($num);
+    }
 
+    public function eq($num)
+    {
+        return $this->equal($num);
+    }
+
+    public function neq($num)
+    {
+        return $this->notEqual($num);
+    }
+
+
+    public function test($what)
+    {
+        if(is_string($what) || $what instanceof S)
+        {
+            $arr = array();
+
+            if(
+                preg_match(
+                    '/^(<|>|<=|>=|=|==|eq\s+|!=|<>|no\s+|neq\s+|le\s+|ge\s+|lt\s+|gt\s+)\s*([-]{0,1}[0-9]+)$/i',
+                    trim($what),
+                    $arr
+                )
+            )
+            {
+                $operator = strtolower(trim($arr[1]));
+                $num = (int) $arr[2];
+
+                if(in_array($operator, array('<','lt')))
+                {
+                    return $this->lt($num);
+                }
+                
+                if(in_array($operator, array('>','gt')))
+                {
+                    return $this->gt($num);
+                }
+
+                if(in_array($operator, array('<=','le')))
+                {
+                    return $this->le($num);
+                }
+
+                if(in_array($operator, array('>=','ge')))
+                {
+                    return $this->ge($num);
+                }
+
+                if(in_array($operator, array('=', '==', 'eq')))
+                {
+                    return $this->eq($num);
+                }
+
+                if(in_array($operator, array('!=', '<>', 'no', 'neq')))
+                {
+                    return $this->neq($num);
+                }
+            }
+            else
+            {
+                throw new \RuntimeException('Not valid test expression.');
+            }
+        }
+        else
+        {
+            throw new \InvalidArgumentException('Test argument must be a string or a S object.');
+        }
+    }
 
     /**
      * Create new N having the sum of given argument with current number 
