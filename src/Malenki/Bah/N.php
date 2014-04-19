@@ -55,7 +55,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'positive', 'roman', 'int', 'float', 'double')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -331,7 +331,28 @@ class N
         return $this->notEqual($num);
     }
 
+    public function _decimal()
+    {
+        return new N($this->value - floor($this->value));
+    }
 
+    public function _odd()
+    {
+        if(!$this->_decimal()->_zero())
+        {
+            throw new \RuntimeException('Testing if number is odd only if it is an integer!');
+        }
+        return (boolean) ($this->value & 1);
+    }
+
+    public function _even()
+    {
+        if(!$this->_decimal()->_zero())
+        {
+            throw new \RuntimeException('Testing if number is even only if it is an integer!');
+        }
+        return !$this->_odd();
+    }
 
 
     public function test($what)

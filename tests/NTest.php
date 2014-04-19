@@ -258,4 +258,70 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(5);
         $n->test(45);
     }
+
+    public function testIfNumberIsOddShouldSuccess()
+    {
+        $n = new N(1);
+        $this->assertTrue($n->odd);
+        $n = new N(3);
+        $this->assertTrue($n->odd);
+        $n = new N(5);
+        $this->assertTrue($n->odd);
+        $n = new N(7);
+        $this->assertTrue($n->odd);
+        $n = new N(9);
+        $this->assertTrue($n->odd);
+        $n = new N(-1);
+        $this->assertTrue($n->odd);
+        $n = new N(-3);
+        $this->assertTrue($n->odd);
+        $n = new N(-5);
+        $this->assertTrue($n->odd);
+        $n = new N(-7);
+        $this->assertTrue($n->odd);
+        $n = new N(-9);
+        $this->assertTrue($n->odd);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testIfNumberIsOddShouldFail()
+    {
+        $n = new N(5.1);
+        $n->odd;
+    }
+
+    public function testIfNumberIsEvenShouldSuccess()
+    {
+        $n = new N(2);
+        $this->assertTrue($n->even);
+        $n = new N(4);
+        $this->assertTrue($n->even);
+        $n = new N(6);
+        $this->assertTrue($n->even);
+        $n = new N(8);
+        $this->assertTrue($n->even);
+        $n = new N(10);
+        $this->assertTrue($n->even);
+        $n = new N(-2);
+        $this->assertTrue($n->even);
+        $n = new N(-4);
+        $this->assertTrue($n->even);
+        $n = new N(-6);
+        $this->assertTrue($n->even);
+        $n = new N(-8);
+        $this->assertTrue($n->even);
+        $n = new N(-10);
+        $this->assertTrue($n->even);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testIfNumberIsEvenShouldFail()
+    {
+        $n = new N(4.1);
+        $n->even;
+    }
 }
