@@ -574,7 +574,7 @@ class S extends O implements \Countable
 
 
     /**
-     * Ad margin to the text. By default left, but right and alinea are possible too.
+     * Adds margin to the text. By default left, but right and alinea are possible too.
      * 
      * @throw \InvalidArgumentException If Margin left and/or right are negative
      * @throw \InvalidArgumentException If alinea is greater than margin left
