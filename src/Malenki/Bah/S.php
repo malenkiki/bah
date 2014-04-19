@@ -320,6 +320,32 @@ class S extends O implements \Countable
     }
 
 
+    /**
+     * Shorthand for match method 
+     * 
+     * @param mixed $expr S or primitive string
+     * @access public
+     * @return boolean
+     */
+    public function regexp($expr)
+    {
+        return $this->match($expr);
+    }
+
+    
+    
+    /**
+     * Shorthand for match method 
+     * 
+     * @param mixed $expr S or primitive string
+     * @access public
+     * @return boolean
+     */
+    public function re($expr)
+    {
+        return $this->match($expr);
+    }
+
     protected function _upperCaseWords()
     {
         $str_prov = mb_convert_case(
