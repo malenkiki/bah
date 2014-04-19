@@ -186,6 +186,36 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('     something     ', $s->margin(5, 5));
         $this->assertEquals('     something     ', $s->margin(new N(5), new N(5)));
     }
+
+
+    public function testSplitingStringShouldSuccess()
+    {
+        $s = new S('one, two, three, four');
+        $this->assertEquals(
+            array(new S('one'), new S('two'), new S('three'), new S('four')),
+            $s->split('/[\s,]+/')->array
+        );
+        $this->assertEquals(
+            array(new S('one'), new S('two'), new S('three'), new S('four')),
+            $s->cut('/[\s,]+/')->array
+        );
+        $this->assertEquals(
+            array(new S('one'), new S('two'), new S('three'), new S('four')),
+            $s->explode('/[\s,]+/')->array
+        );
+        $this->assertEquals(
+            array(new S('one'), new S('two'), new S('three'), new S('four')),
+            $s->split(new S('/[\s,]+/'))->array
+        );
+        $this->assertEquals(
+            array(new S('one'), new S('two'), new S('three'), new S('four')),
+            $s->cut(new S('/[\s,]+/'))->array
+        );
+        $this->assertEquals(
+            array(new S('one'), new S('two'), new S('three'), new S('four')),
+            $s->explode(new S('/[\s,]+/'))->array
+        );
+    }
 }
 
 

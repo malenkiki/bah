@@ -629,6 +629,51 @@ class S extends O implements \Countable
     }
 
 
+
+    public function explode($sep)
+    {
+        if(is_string($sep) || $sep instanceof S)
+        {
+            if(is_object($sep))
+            {
+                $sep = (string) $sep;
+            }
+
+            if(strlen($sep) == 0)
+            {
+                throw new \InvalidArgumentException(
+                    'Separator regexp must be a not null string or S instance.'
+                );
+            }
+
+            $arr = preg_split($sep, $this->value);
+
+            foreach($arr as $k => $str)
+            {
+                $arr[$k] = new S($str);
+            }
+
+            return new A($arr);
+        }
+        else
+        {
+            throw new \InvalidArgumentException(
+                'Separator regexp must be a string or S object'
+            );
+        }
+    }
+
+    public function split($sep)
+    {
+        return $this->explode($sep);
+    }
+
+
+    public function cut($sep)
+    {
+        return $this->explode($sep);
+    }
+
     /**
      *
      * @param boolean $after
