@@ -330,6 +330,35 @@ class H implements \Iterator, \Countable
         }
     }
 
+
+    public function find($pattern)
+    {
+        if(is_string($pattern) || $pattern instanceof S)
+        {
+            if(strlen($pattern) == 0)
+            {
+                throw new \InvalidArgumentException('Pattern must be a not null string.');
+            }
+
+            $h = new self();
+
+            foreach($this->value as $k => $v)
+            {
+                if(preg_match($pattern, $k))
+                {
+                    $h->set($k, $v);
+                }
+            }
+
+            return $h;
+        }
+        else
+        {
+            throw new \InvalidArgumentException('Pattern must be a string or a S instance.');
+        }
+    }
+
+
     public function slice($offset, $length = null)
     {
         if($offset instanceof N)

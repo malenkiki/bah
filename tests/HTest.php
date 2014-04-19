@@ -259,7 +259,18 @@ class HTest extends PHPUnit_Framework_TestCase
 
         $this->assertNull($h->search('quatre'));
     }
-    
+
+    public function testFindingKeyUsingPatternShouldSuccess()
+    {
+        $h = new H();
+        $h->set('one', 'un');
+        $h->set('two', 'deux');
+        $h->set('three', 'trois');
+        $h->set('four', 'quatre');
+
+        $this->assertEquals(array('two' => 'deux', 'three' => 'trois'), $h->find('/^t/')->array);
+    }
+
     public function testExtractingSliceShouldSuccess()
     {
         $h = new H();
@@ -325,4 +336,5 @@ class HTest extends PHPUnit_Framework_TestCase
 
         $h->merge($arr);
     }
+
 }
