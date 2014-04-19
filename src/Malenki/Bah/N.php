@@ -336,7 +336,7 @@ class N
         return new N($this->value - floor($this->value));
     }
 
-    public function _odd()
+    protected function _odd()
     {
         if(!$this->_decimal()->_zero())
         {
@@ -345,7 +345,7 @@ class N
         return (boolean) ($this->value & 1);
     }
 
-    public function _even()
+    protected function _even()
     {
         if(!$this->_decimal()->_zero())
         {

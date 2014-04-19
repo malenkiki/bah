@@ -374,6 +374,40 @@ class A implements \Iterator, \Countable
         return new self(array_pad($this->value, $size, $value));
     }
 
+    public function find($what)
+    {
+        if(!is_string($what) && !($what instanceof S))
+        {
+            throw new \InvalidArgumentException('Find expression must be a valid string');
+        }
+
+        $a = new self();
+
+        $what = strtolower(trim($what));
+
+        foreach($this->value as $k => $v)
+        {
+            $k = new N($k);
+
+            if(in_array($what, array('odd', 'even')))
+            {
+                if($k->$what)
+                {
+                    $a->add($v);
+                }
+            }
+            elseif($k->test($what))
+            {
+                if(preg_match('/-[0-9]+$/', $what))
+                {
+                    throw new \InvalidArgumentException('Cannot test against negative integer, because their are not negative index.');
+                }
+                $a->add($v);
+            }
+        }
+
+        return $a;
+    }
 
 
     public function map($func)

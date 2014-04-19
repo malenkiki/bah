@@ -385,4 +385,23 @@ class ATest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq'), $a->merge($b)->array);
     }
+
+    public function testfindingKeysValuesUsingKeyTest()
+    {
+        $a = new A(array('foo', 'bar', 'thing', 'other'));
+        $this->assertEquals(array('bar', 'other'), $a->find('odd')->array);
+        $this->assertEquals(array('foo', 'thing'), $a->find('even')->array);
+        $this->assertEquals(array('thing', 'other'), $a->find('>=2')->array);
+        $this->assertEquals(array('foo', 'bar'), $a->find('< 2')->array);
+        $this->assertEquals(array('foo', 'bar'), $a->find('<= 1')->array);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testfindingKeysValuesUsingKeyTestWithNegativeNumberShouldFail()
+    {
+        $a = new A(array('foo', 'bar', 'thing', 'other'));
+        $a->find('>= -5');
+    }
 }
