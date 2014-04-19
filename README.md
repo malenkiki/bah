@@ -147,6 +147,13 @@ var_dump($a->reverse); //reverse order
 var_dump($a->sort->reverse); // sort and then reverse it
 ```
 
+Get new collection following some criterias for its indexes, using the same way as used into `test()` method of N class (excepted `odd` and `even` added here):
+```php
+$a = new A('foo', 'bar', 'thing', 'other');
+$a->find('>= 2'); // has 'thing' and 'other'
+$a->find('odd'); // has 'bar' and 'other'
+```
+
 Get random element from a collection:
 
 ```php
@@ -219,6 +226,39 @@ var_dump($two->minus(2)->zero); //should be true
 var_dump($two->positive); //should be true
 ```
 
+Odd or even?
+
+```php
+$n = new N(3);
+var_dump($n->odd);
+var_dump($n->even);
+$n = new N(4);
+var_dump($n->odd);
+var_dump($n->even);
+```
+
+Testing numbers, many ways:
+
+```php
+$n = new N(5);
+var_dump($n->gt(3)); // true
+var_dump($n->lt(3)); // false
+var_dump($n->eq(5)); // true
+var_dump($n->neq(3)); // true
+var_dump($n->test('>= 3')); // true
+```
+For very last previous example, `test()` method can use all following operators:
+ - `<`, `>`, `lt` and `gt` for _less than_ or _greater than_
+ -  `<=`, `>=`, `le` and `ge` for _less than or equal_ or _greater than or equal_
+ -  `=`, `==`, `eq` for _equal_
+ - `!=`, `<>`, `no`, `neq` for _not equal_
+
+Get decimal part:
+```php
+$n = new N(4.3);
+var_dump($n->decimal); // N object having 0.3 as value
+```
+
 You can get roman or greek form:
 
 ```php
@@ -272,6 +312,14 @@ while($h->valid)
 }
 ```
 
+Finding contents having key matching some pattern:
+
+```php
+$h = new H(array('one' => 1, 'two' => 2, 'three' => 3, 'four' => 4));
+
+$arr = $h->find('/[o]+/');
+var_dump($arr); // array('one' => 1, 'two' => 2, 'four' => 4)
+```
 
 
 ## Converting to primitive types
