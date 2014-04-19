@@ -324,4 +324,50 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(4.1);
         $n->even;
     }
+
+
+
+    public function testNumberGetDecimalPart()
+    {
+        $n = new N(4.0);
+        $this->assertEquals(0, $n->decimal->float);
+        $n = new N(4.1);
+        $this->assertEquals(0.1, $n->decimal->float);
+        $n = new N(4.2);
+        $this->assertEquals(0.2, $n->decimal->float);
+        $n = new N(4.3);
+        $this->assertEquals(0.3, $n->decimal->float);
+        $n = new N(4.4);
+        $this->assertEquals(0.4, $n->decimal->float);
+        $n = new N(4.5);
+        $this->assertEquals(0.5, $n->decimal->float);
+        $n = new N(4.6);
+        $this->assertEquals(0.6, $n->decimal->float);
+        $n = new N(4.7);
+        $this->assertEquals(0.7, $n->decimal->float);
+        $n = new N(4.8);
+        $this->assertEquals(0.8, $n->decimal->float);
+        $n = new N(4.9);
+        $this->assertEquals(0.9, $n->decimal->float);
+        $n = new N(-4.0);
+        $this->assertEquals(0, $n->decimal->float);
+        $n = new N(-4.1);
+        $this->assertEquals(-0.1, $n->decimal->float);
+        $n = new N(-4.2);
+        $this->assertEquals(-0.2, $n->decimal->float);
+        $n = new N(-4.3);
+        $this->assertEquals(-0.3, $n->decimal->float);
+        $n = new N(-4.4);
+        $this->assertEquals(-0.4, $n->decimal->float);
+        $n = new N(-4.5);
+        $this->assertEquals(-0.5, $n->decimal->float);
+        $n = new N(-4.6);
+        $this->assertEquals(-0.6, $n->decimal->float);
+        $n = new N(-4.7);
+        $this->assertEquals(-0.7, $n->decimal->float);
+        $n = new N(-4.8);
+        $this->assertEquals(-0.8, $n->decimal->float);
+        $n = new N(-4.9);
+        $this->assertEquals(-0.9, $n->decimal->float);
+    }
 }

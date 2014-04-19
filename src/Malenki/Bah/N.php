@@ -333,7 +333,14 @@ class N
 
     public function _decimal()
     {
-        return new N($this->value - floor($this->value));
+        $sign = 1;
+
+        if($this->_negative())
+        {
+            $sign = -1;
+        }
+
+        return new N($sign * (abs($this->value) - floor(abs($this->value))));
     }
 
     protected function _odd()
