@@ -112,6 +112,7 @@ class N
     /**
      * Checks whether current number is less than given one. 
      * 
+     * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param mixed $num N or primitive numeric value
      * @access public
      * @return boolean
@@ -120,14 +121,21 @@ class N
     {
         if(is_numeric($num))
         {
-            $n = new self($num);
+            $n = $num;
+        }
+        elseif($num instanceof N)
+        {
+            $n = $num->value;
         }
         else
         {
-            $n = $num;
+            throw new \InvalidArgumentException(
+                'Testing must be done with numeric value or N object!'
+            );
         }
+        
 
-        return $this->value < $n->value;
+        return $this->value < $n;
     }
 
 
@@ -135,6 +143,7 @@ class N
     /**
      * Shorthand for less() method
      * 
+     * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param mixed $num N or numeric value
      * @access public
      * @return boolean
@@ -150,23 +159,29 @@ class N
     /**
      * Tests whether current number is less than or equal to given one.
      * 
+     * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param mixed $num N or numeric value
      * @access public
      * @return boolean
      */
     public function lte($num)
     {
-        // TODO: change that way
         if(is_numeric($num))
-        {
-            $n = new self($num);
-        }
-        else
         {
             $n = $num;
         }
+        elseif($num instanceof N)
+        {
+            $n = $num->value;
+        }
+        else
+        {
+            throw new \InvalidArgumentException(
+                'Testing must be done with numeric value or N object!'
+            );
+        }
         
-        return $this->value <= $n->value;
+        return $this->value <= $n;
     }
 
 
@@ -179,23 +194,29 @@ class N
     /**
      * Tests whether current number is greater than given one.
      * 
+     * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param mixed $num N or numeric value.
      * @access public
      * @return boolean
      */
     public function greater($num)
     {
-        // TODO: change that way
         if(is_numeric($num))
-        {
-            $n = new self($num);
-        }
-        else
         {
             $n = $num;
         }
+        elseif($num instanceof N)
+        {
+            $n = $num->value;
+        }
+        else
+        {
+            throw new \InvalidArgumentException(
+                'Testing must be done with numeric value or N object!'
+            );
+        }
 
-        return $this->value > $n->value;
+        return $this->value > $n;
     }
 
 
@@ -203,6 +224,7 @@ class N
     /**
      * Shorthand of greater() method 
      * 
+     * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param mixed $num N or numeric value
      * @access public
      * @return boolean
@@ -218,23 +240,30 @@ class N
     /**
      * Tests whether current number is greater than or equal to the given number. 
      * 
+     * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param mixed $num N or numeric value
      * @access public
      * @return boolean
      */
     public function gte($num)
     {
-        // TODO: change that way
         if(is_numeric($num))
-        {
-            $n = new self($num);
-        }
-        else
         {
             $n = $num;
         }
+        elseif($num instanceof N)
+        {
+            $n = $num->value;
+        }
+        else
+        {
+            throw new \InvalidArgumentException(
+                'Testing must be done with numeric value or N object!'
+            );
+        }
+
         
-        return $this->value >= $n->value;
+        return $this->value >= $n;
     }
 
     public function ge($num)
@@ -262,6 +291,7 @@ class N
     /**
      * Checks if current number is equal to given argument. 
      * 
+     * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param mixed $num N or numeric value.
      * @access public
      * @return boolean
@@ -270,14 +300,20 @@ class N
     {
         if(is_numeric($num))
         {
-            $n = new self($num);
+            $n = $num;
+        }
+        elseif($num instanceof N)
+        {
+            $n = $num->value;
         }
         else
         {
-            $n = $num;
+            throw new \InvalidArgumentException(
+                'Testing equality must be done with numeric value or N object!'
+            );
         }
 
-        return $this->value == $n->value;
+        return $this->value == $n;
     }
 
     public function notEqual($num)
@@ -294,6 +330,8 @@ class N
     {
         return $this->notEqual($num);
     }
+
+
 
 
     public function test($what)
