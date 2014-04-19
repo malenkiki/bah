@@ -216,6 +216,25 @@ class STest extends PHPUnit_Framework_TestCase
             $s->explode(new S('/[\s,]+/'))->array
         );
     }
+
+
+    public function testStringActAsRegexpShouldSuccess()
+    {
+        $s = new S('/\s+/');
+        $this->assertTrue($s->test('one string with spaces'));
+        $this->assertFalse($s->test('one_string_w/o_spaces'));
+        $this->assertTrue($s->test(new S('one string with spaces')));
+        $this->assertFalse($s->test(new S('one_string_w/o_spaces')));
+        $s = new S('/’/');
+        $this->assertTrue($s->test('C’est OK'));
+        $this->assertFalse($s->test("C'est KO"));
+        $s = new S('/[0-9]+/');
+        $this->assertTrue($s->test('1 digit'));
+        $this->assertTrue($s->test('1'));
+        $this->assertTrue($s->test(1));
+        $this->assertTrue($s->test(new N(1)));
+        $this->assertFalse($s->test("no digit"));
+    }
 }
 
 

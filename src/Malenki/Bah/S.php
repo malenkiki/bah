@@ -346,6 +346,23 @@ class S extends O implements \Countable
         return $this->match($expr);
     }
 
+
+    public function test($str)
+    {
+        if(
+            is_scalar($str)
+            ||
+            $str instanceof S
+            ||
+            (is_object($str) && method_exists($str, '__toString'))
+        )
+        {
+            return (boolean) preg_match($this->value, $str);
+        }
+
+        return false;
+    }
+
     protected function _upperCaseWords()
     {
         $str_prov = mb_convert_case(
