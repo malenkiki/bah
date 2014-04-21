@@ -48,8 +48,10 @@ namespace Malenki\Bah;
  * @property-read $opposite Gets its opposite number
  * @property-read $divisors Gets divisors
  * @property-read $square Gets square number
- * @property-read $ln Gets neperian logarythm
- * @property-read $sqrt Gets neperian logarythm
+ * @property-read $ln Gets neperian logarithm
+ * @property-read $sqrt Gets neperian logarithm
+ * @property-read $factorial Gets factorial
+ * @property-read $fact Gets factorial
  * @property-read $positive Check if number is positive
  * @property-read $roman Get roman number as S class.
  * @property-read $greek Get greek number as S class.
@@ -64,7 +66,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -497,6 +499,30 @@ class N
     protected function _sqrt()
     {
         return $this->root(2);
+    }
+
+    protected function _factorial()
+    {
+        if($this->_zero())
+        {
+            return new N(1);
+        }
+
+        if($this->value < 0)
+        {
+            throw new \RuntimeException('Cannot get factorial of negative number!');
+        }
+
+        if(!$this->_decimal()->zero)
+        {
+            throw new \RuntimeException('Cannot get factorial of non integer!');
+        }
+        return new N(array_product(range(1, $this->value)));
+    }
+
+    protected function _fact()
+    {
+        return $this->_factorial();
     }
 
     protected function _sign()

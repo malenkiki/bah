@@ -671,4 +671,34 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $n->sign->int);
     }
 
+    public function testFactorialShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertEquals(1, $n->factorial->int);
+        $this->assertEquals(1, $n->fact->int);
+        $n = new N(5);
+        $this->assertEquals(120, $n->factorial->int);
+        $this->assertEquals(120, $n->fact->int);
+        $n = new N(4);
+        $this->assertEquals(24, $n->factorial->int);
+        $this->assertEquals(24, $n->fact->int);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testFactorialShouldFail()
+    {
+        $n = new N(-5);
+        $n->factorial;
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testFactorialFromNonIntegerShouldFail()
+    {
+        $n = new N(5.6);
+        $n->factorial;
+    }
 }
