@@ -634,4 +634,30 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->log(-3);
     }
 
+
+
+    public function testGettingRootShouldSuccess()
+    {
+        $n = new N(8);
+
+        $this->assertEquals(2, $n->root(3)->int);
+        $this->assertEquals(2, $n->root(new N(3))->int);
+        $this->assertEquals(8, $n->root(1)->int);
+        $this->assertEquals(8, $n->root(new N(1))->int);
+        
+        $n = new N(9);
+
+        $this->assertEquals(3, $n->sqrt->int);
+        $this->assertEquals(3, $n->root(new N(2))->int);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingRootShouldFail()
+    {
+        $n = new N(8);
+        $n->root(0);
+    }
+
 }

@@ -48,6 +48,7 @@ namespace Malenki\Bah;
  * @property-read $divisors Gets divisors
  * @property-read $square Gets square number
  * @property-read $ln Gets neperian logarythm
+ * @property-read $sqrt Gets neperian logarythm
  * @property-read $positive Check if number is positive
  * @property-read $roman Get roman number as S class.
  * @property-read $greek Get greek number as S class.
@@ -62,7 +63,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -464,6 +465,37 @@ class N
     protected function _ln()
     {
         return $this->log();
+    }
+
+    public function root($num)
+    {
+        if(is_numeric($num))
+        {
+            $n = $num;
+        }
+        elseif($num instanceof N)
+        {
+            $n = $num->value;
+        }
+        else
+        {
+            throw new \InvalidArgumentException(
+                'Root must be numeric value or N object!'
+            );
+        }
+
+        if($n == 0)
+        {
+            throw new \InvalidArgumentException('Root must be not nul');
+        }
+
+        return new N(pow($this->value, 1 / $n));
+    }
+
+
+    protected function _sqrt()
+    {
+        return $this->root(2);
     }
 
     /**
