@@ -47,6 +47,7 @@ namespace Malenki\Bah;
  * @property-read $opposite Gets its opposite number
  * @property-read $divisors Gets divisors
  * @property-read $square Gets square number
+ * @property-read $ln Gets neperian logarythm
  * @property-read $positive Check if number is positive
  * @property-read $roman Get roman number as S class.
  * @property-read $greek Get greek number as S class.
@@ -61,7 +62,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -432,6 +433,37 @@ class N
     protected function _cube()
     {
         return $this->pow(3);
+    }
+
+
+    public function log($base = M_E)
+    {
+        if(is_numeric($base))
+        {
+            $n = $base;
+        }
+        elseif($base instanceof N)
+        {
+            $n = $base->value;
+        }
+        else
+        {
+            throw new \InvalidArgumentException(
+                'Log base must be numeric value or N object!'
+            );
+        }
+
+        if($n == 1 || $n <= 0)
+        {
+            throw new \InvalidArgumentException('Log base must be positive number different of one.');
+        }
+
+        return new N(log($this->value, $n));
+    }
+
+    protected function _ln()
+    {
+        return $this->log();
     }
 
     /**

@@ -579,4 +579,59 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(3);
         $n->pow('4n');
     }
+
+
+    public function testLnShouldSuccess()
+    {
+        $n = new N(1);
+        $this->assertTrue($n->ln->zero);
+        $this->assertTrue($n->log()->zero);
+        $n = new N(M_E);
+        $this->assertEquals(1, $n->ln->int);
+        $this->assertEquals(1, $n->log()->int);
+        
+    }
+
+
+
+    public function testLogShouldSuccess()
+    {
+        $n = new N(1);
+        $this->assertTrue($n->log(10)->zero);
+        $n = new N(10);
+        $this->assertEquals(1, $n->log(10)->int);
+        
+        $n = new N(1);
+        $this->assertTrue($n->log(2)->zero);
+        $n = new N(2);
+        $this->assertEquals(1, $n->log(2)->int);
+        
+        $n = new N(1);
+        $this->assertTrue($n->log(0.5)->zero);
+        $n = new N(0.5);
+        $this->assertEquals(1, $n->log(0.5)->int);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testLogHavingBaseEqualsToOneShouldFail()
+    {
+        $n = new N(5);
+
+        $n->log(1);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testLogHavingNegativeBaseShouldFail()
+    {
+        $n = new N(5);
+
+        $n->log(-3);
+    }
+
 }
