@@ -253,6 +253,22 @@ class A implements \Iterator, \Countable
         return $this;
     }
     
+    public function remove($idx)
+    {
+        return $this->delete($idx);
+    }
+    
+    public function rm($idx)
+    {
+        return $this->delete($idx);
+    }
+    
+    public function del($idx)
+    {
+        return $this->delete($idx);
+    }
+
+
 
     protected function _shift()
     {
