@@ -308,6 +308,33 @@ class N
         return new N(-1 * $this->value);
     }
 
+    public function mod($mod)
+    {
+        if(!is_numeric($mod) && !($mod instanceof N))
+        {
+            throw new \InvalidArgumentException('Divisor must be a valid number or N object!');
+        }
+
+        if($mod instanceof N)
+        {
+            $mod = $mod->double;
+        }
+
+        if($mod == 0)
+        {
+            throw new \RuntimeException('Cannot divide by 0!');
+        }
+
+        return new N(fmod($this->value, $mod));
+    }
+
+
+    public function modulo($mod)
+    {
+        return $this->mod($mod);
+    }
+
+
     protected function _prime()
     {
         if($this->value < 2)

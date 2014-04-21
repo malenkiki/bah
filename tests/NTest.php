@@ -514,5 +514,31 @@ class NTest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testGettingModuloShouldSuccess()
+    {
+        $n = new N(3);
+        $this->assertEquals(1, $n->mod(2)->int);
+        $this->assertEquals(1, $n->modulo(2)->int);
+        
+        $n = new N(3.3);
+        $this->assertEquals((double) 1.3, $n->mod(2)->double);
+    }
 
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingModuloDividingByZeroShouldFail()
+    {
+        $n = new N(3);
+        $n->mod(0);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingModuloDividingNonNumericShouldFail()
+    {
+        $n = new N(3);
+        $n->mod("one");
+    }
 }
