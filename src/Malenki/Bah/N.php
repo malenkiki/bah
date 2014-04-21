@@ -46,6 +46,7 @@ namespace Malenki\Bah;
  * @property-read $absolute Gets absolute value
  * @property-read $opposite Gets its opposite number
  * @property-read $divisors Gets divisors
+ * @property-read $square Gets square number
  * @property-read $positive Check if number is positive
  * @property-read $roman Get roman number as S class.
  * @property-read $greek Get greek number as S class.
@@ -60,7 +61,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -394,6 +395,44 @@ class N
         return $a;
     }
 
+
+
+    public function pow($num)
+    {
+        if(is_numeric($num))
+        {
+            $n = $num;
+        }
+        elseif($num instanceof N)
+        {
+            $n = $num->value;
+        }
+        else
+        {
+            throw new \InvalidArgumentException(
+                'Power calculus must be done with numeric value or N object!'
+            );
+        }
+
+        return new N(pow($this->value, $n));
+    }
+
+
+    public function power($num)
+    {
+        return $this->pow($num);
+    }
+
+    protected function _square()
+    {
+        return $this->pow(2);
+    }
+
+
+    protected function _cube()
+    {
+        return $this->pow(3);
+    }
 
     /**
      * Checks if current number is equal to given argument. 

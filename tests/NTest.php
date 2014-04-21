@@ -541,4 +541,42 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(3);
         $n->mod("one");
     }
+
+    public function testGettingPowerShouldsuccess()
+    {
+        $n = new N(3);
+        $this->assertEquals(9, $n->pow(2)->int);
+        $this->assertEquals(9, $n->square->int);
+        $this->assertEquals(81, $n->pow(2)->pow(2)->int);
+        $this->assertEquals(81, $n->square->square->int);
+        $this->assertEquals(27, $n->pow(3)->int);
+        $this->assertEquals(27, $n->cube->int);
+        
+        $n = new N(-3);
+        $this->assertEquals(9, $n->pow(2)->int);
+        $this->assertEquals(9, $n->square->int);
+        $this->assertEquals(81, $n->pow(2)->pow(2)->int);
+        $this->assertEquals(81, $n->square->square->int);
+        $this->assertEquals(-27, $n->pow(3)->int);
+        $this->assertEquals(-27, $n->cube->int);
+
+        $n = new N(2);
+        $this->assertEquals(4, $n->pow(2)->int);
+        $this->assertEquals(4, $n->square->int);
+        $this->assertEquals(8, $n->cube->int);
+
+        $n = new N(-2);
+        $this->assertEquals(4, $n->pow(2)->int);
+        $this->assertEquals(4, $n->square->int);
+        $this->assertEquals(-8, $n->cube->int);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingPowerShouldFail()
+    {
+        $n = new N(3);
+        $n->pow('4n');
+    }
 }
