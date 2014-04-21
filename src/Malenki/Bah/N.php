@@ -42,6 +42,9 @@ namespace Malenki\Bah;
  * @property-read $negative Check if number is negative or not
  * @property-read $zero Check if number is nul
  * @property-read $prime Check if number is prime number or not
+ * @property-read $abs Gets absolute value
+ * @property-read $absolute Gets absolute value
+ * @property-read $opposite Gets its opposite number
  * @property-read $divisors Gets divisors
  * @property-read $positive Check if number is positive
  * @property-read $roman Get roman number as S class.
@@ -57,7 +60,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -289,6 +292,21 @@ class N
     }
 
 
+
+    protected function _abs()
+    {
+        return new N(abs($this->value));
+    }
+
+    protected function _absolute()
+    {
+        return $this->_abs();
+    }
+
+    protected function _opposite()
+    {
+        return new N(-1 * $this->value);
+    }
 
     protected function _prime()
     {

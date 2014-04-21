@@ -476,4 +476,32 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(3.3);
         $n->divisors;
     }
+
+
+    public function testGettingAbsoluteValueShouldSuccess()
+    {
+        $n = new N(-6);
+        $this->assertEquals(6, $n->abs->int);
+        $n = new N(6);
+        $this->assertEquals(6, $n->abs->int);
+        $n = new N(-6.4);
+        $this->assertEquals((float) 6.4, $n->abs->float);
+        $n = new N(6.4);
+        $this->assertEquals((float) 6.4, $n->abs->float);
+    }
+
+
+    public function testGettingOppositeValueShouldSuccess()
+    {
+        $n = new N(-6);
+        $this->assertEquals(6, $n->opposite->int);
+        $n = new N(6);
+        $this->assertEquals(-6, $n->opposite->int);
+        $n = new N(-6.4);
+        $this->assertEquals((float) 6.4, $n->opposite->float);
+        $n = new N(6.4);
+        $this->assertEquals((float) -6.4, $n->opposite->float);
+        $n = new N(0);
+        $this->assertEquals(0, $n->opposite->int);
+    }
 }
