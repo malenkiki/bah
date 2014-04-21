@@ -223,6 +223,10 @@ class A implements \Iterator, \Countable
         return $this;
     }
 
+    public function push($thing)
+    {
+        return $this->add($thing);
+    }
 
     protected function _unique()
     {

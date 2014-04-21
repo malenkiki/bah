@@ -81,11 +81,11 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($a));
         $this->assertEquals(2, $a->length->value);
         $this->assertEquals(2, $a->length->int);
-        $a->add('three');
+        $a->push('three');
         $this->assertEquals(3, count($a));
         $this->assertEquals(3, $a->length->value);
         $this->assertEquals(3, $a->length->int);
-        $a->add('four')->add('five');
+        $a->push('four')->add('five');
         $this->assertEquals(5, count($a));
         $this->assertEquals(5, $a->length->value);
         $this->assertEquals(5, $a->length->int);
