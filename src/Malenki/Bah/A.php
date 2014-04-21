@@ -39,6 +39,8 @@ namespace Malenki\Bah;
  * @property-read $shuffle Gets new collection with the same content as current one, but into shuffle order.
  * @property-read $join Concatenate all element into a string if each element has toString ethod or are primitive type.
  * @property-read $implode Same as join magic attribute
+ * @property-read $max Gets max numeric value contained into collection
+ * @property-read $min Gets min numeric value contained into collection
  * @property-read $current Gets current element
  * @property-read $key Gets index of current element
  * @property-read $next Place index on the next element
@@ -56,7 +58,7 @@ class A implements \Iterator, \Countable
 
     public function __get($name)
     {
-        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode', 'current', 'key', 'next', 'rewind', 'valid', 'reverse', 'sort', 'unique')))
+        if(in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode', 'current', 'key', 'next', 'rewind', 'valid', 'reverse', 'sort', 'unique', 'min', 'max')))
         {
             if($name == 'index')
             {
@@ -73,6 +75,10 @@ class A implements \Iterator, \Countable
             elseif(in_array($name, array('current', 'key', 'next', 'rewind', 'valid')))
             {
                 return $this->$name();
+            }
+            elseif(in_array($name, array('min', 'max')))
+            {
+                return $this->_maxOrMin($name);
             }
             elseif(in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'shuffle', 'reverse', 'sort', 'unique')))
             {
@@ -320,6 +326,28 @@ class A implements \Iterator, \Countable
     public function join($sep = '')
     {
         return $this->implode($sep);
+    }
+
+
+    public function _maxOrMin($type = 'max')
+    {
+        $arr = array();
+
+        foreach($this->value as $v)
+        {
+            if(is_numeric($v) || $v instanceof N)
+            {
+                //is_numeric can be a string, so cast to double
+                $arr[] = is_object($v) ? $v->value : (double) $v;
+            }
+        }
+
+        if(count($arr) == 0)
+        {
+            return null;
+        }
+
+        return new N($type($arr));
     }
 
     public function _array()

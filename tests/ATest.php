@@ -404,4 +404,37 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A(array('foo', 'bar', 'thing', 'other'));
         $a->find('>= -5');
     }
+
+
+    public function testGettingMinOrMaxShouldSuccess()
+    {
+        $a = new A(array('1bar', 'foo', 1, 7, '6', new N(10), '0'));
+
+        $this->assertInstanceOf('\Malenki\Bah\N', $a->max);
+        $this->assertInstanceOf('\Malenki\Bah\N', $a->min);
+        $this->assertTrue($a->max->equal(10));
+        $this->assertTrue($a->min->equal(0));
+        
+        $a = new A(array(4));
+
+        $this->assertInstanceOf('\Malenki\Bah\N', $a->max);
+        $this->assertInstanceOf('\Malenki\Bah\N', $a->min);
+        $this->assertTrue($a->max->equal(4));
+        $this->assertTrue($a->min->equal(4));
+        $this->assertEquals($a->min->equal(4), $a->max->equal(4));
+
+        $a->add(-4);
+
+        $this->assertInstanceOf('\Malenki\Bah\N', $a->max);
+        $this->assertInstanceOf('\Malenki\Bah\N', $a->min);
+        $this->assertTrue($a->max->equal(4));
+        $this->assertTrue($a->min->equal(-4));
+    }
+
+    public function testGettingMinOrMaxShouldGiveNoResult()
+    {
+        $a = new A(array('some', 'non', 'numeric', 'strings'));
+        $this->assertNull($a->max);
+        $this->assertNull($a->min);
+    }
 }
