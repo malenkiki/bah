@@ -488,6 +488,14 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals((float) 6.4, $n->abs->float);
         $n = new N(6.4);
         $this->assertEquals((float) 6.4, $n->abs->float);
+        $n = new N(-6);
+        $this->assertEquals(6, $n->absolute->int);
+        $n = new N(6);
+        $this->assertEquals(6, $n->absolute->int);
+        $n = new N(-6.4);
+        $this->assertEquals((float) 6.4, $n->absolute->float);
+        $n = new N(6.4);
+        $this->assertEquals((float) 6.4, $n->absolute->float);
     }
 
 
@@ -504,4 +512,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(0);
         $this->assertEquals(0, $n->opposite->int);
     }
+
+
+
 }
