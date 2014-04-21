@@ -41,6 +41,8 @@ namespace Malenki\Bah;
  * @property-read $decr Get decrement number
  * @property-read $negative Check if number is negative or not
  * @property-read $zero Check if number is nul
+ * @property-read $prime Check if number is prime number or not
+ * @property-read $divisors Gets divisors
  * @property-read $positive Check if number is positive
  * @property-read $roman Get roman number as S class.
  * @property-read $greek Get greek number as S class.
@@ -55,7 +57,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -312,6 +314,39 @@ class N
         }
 
         return true;
+    }
+
+
+
+    /**
+     * Gets divisors for the current integer numbers. 
+     * 
+     * If current number is negative, divisors will be based on its positive 
+     * version.
+     *
+     * @throw \RuntimeException If current number is not an integer
+     * @access protected
+     * @return A Instance of A class
+     */
+    protected function _divisors()
+    {
+        if(!$this->_decimal()->zero)
+        {
+            throw new \RuntimeException('You can only get divisors from integers!');
+        }
+
+        $n = abs($this->value);
+        $a = new A();
+
+        for($i = 1; $i <= $n; $i++)
+        {
+            if($n % $i == 0)
+            {
+                $a->add(new self($i));
+            }
+        }
+
+        return $a;
     }
 
 

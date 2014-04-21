@@ -406,4 +406,74 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(30);
         $this->assertFalse($n->prime);
     }
+
+
+    public function testGettingDivisorsShouldSuccess()
+    {
+        $n = new N(3);
+        $this->assertEquals(array(new N(1), new N(3)), $n->divisors->array);
+        $this->assertCount(2, $n->divisors);
+        
+        $n = new N(4);
+        $this->assertEquals(array(new N(1), new N(2), new N(4)), $n->divisors->array);
+        $this->assertCount(3, $n->divisors);
+        
+        $n = new N(5);
+        $this->assertEquals(array(new N(1), new N(5)), $n->divisors->array);
+        $this->assertCount(2, $n->divisors);
+        
+        $n = new N(6);
+        $this->assertEquals(array(new N(1), new N(2), new N(3), new N(6)), $n->divisors->array);
+        $this->assertCount(4, $n->divisors);
+
+        $n = new N(7);
+        $this->assertEquals(array(new N(1), new N(7)), $n->divisors->array);
+        $this->assertCount(2, $n->divisors);
+        
+        $n = new N(8);
+        $this->assertEquals(array(new N(1), new N(2), new N(4), new N(8)), $n->divisors->array);
+        $this->assertCount(4, $n->divisors);
+        
+        $n = new N(9);
+        $this->assertEquals(array(new N(1), new N(3), new N(9)), $n->divisors->array);
+        $this->assertCount(3, $n->divisors);
+        
+        $n = new N(-3);
+        $this->assertEquals(array(new N(1), new N(3)), $n->divisors->array);
+        $this->assertCount(2, $n->divisors);
+        
+        $n = new N(-4);
+        $this->assertEquals(array(new N(1), new N(2), new N(4)), $n->divisors->array);
+        $this->assertCount(3, $n->divisors);
+        
+        $n = new N(-5);
+        $this->assertEquals(array(new N(1), new N(5)), $n->divisors->array);
+        $this->assertCount(2, $n->divisors);
+        
+        $n = new N(-6);
+        $this->assertEquals(array(new N(1), new N(2), new N(3), new N(6)), $n->divisors->array);
+        $this->assertCount(4, $n->divisors);
+
+        $n = new N(-7);
+        $this->assertEquals(array(new N(1), new N(7)), $n->divisors->array);
+        $this->assertCount(2, $n->divisors);
+        
+        $n = new N(-8);
+        $this->assertEquals(array(new N(1), new N(2), new N(4), new N(8)), $n->divisors->array);
+        $this->assertCount(4, $n->divisors);
+        
+        $n = new N(-9);
+        $this->assertEquals(array(new N(1), new N(3), new N(9)), $n->divisors->array);
+        $this->assertCount(3, $n->divisors);
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingDivisorsShouldFail()
+    {
+        $n = new N(3.3);
+        $n->divisors;
+    }
 }
