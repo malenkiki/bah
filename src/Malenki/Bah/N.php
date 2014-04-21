@@ -55,7 +55,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -286,6 +286,33 @@ class N
         return $this->value > 0;
     }
 
+
+
+    protected function _prime()
+    {
+        if($this->value < 2)
+        {
+            return false;
+        }
+
+        if(!$this->_decimal()->zero)
+        {
+            return false;
+        }
+
+        $ok = true;
+        $max = floor(sqrt($this->value));
+
+        for($i = 2; $i <= $max; $i++)
+        {
+            if($this->value % $i == 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 
     /**

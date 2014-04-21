@@ -370,4 +370,40 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(-4.9);
         $this->assertEquals(-0.9, $n->decimal->float);
     }
+
+
+    public function testIfNumberIsPrimeOrNotShouldSuccess()
+    {
+        $n = new N(2);
+        $this->assertTrue($n->prime);
+        $n = new N(3);
+        $this->assertTrue($n->prime);
+        $n = new N(5);
+        $this->assertTrue($n->prime);
+        $n = new N(7);
+        $this->assertTrue($n->prime);
+        $n = new N(11);
+        $this->assertTrue($n->prime);
+        $n = new N(13);
+        $this->assertTrue($n->prime);
+        $n = new N(17);
+        $this->assertTrue($n->prime);
+        $n = new N(19);
+        $this->assertTrue($n->prime);
+        $n = new N(23);
+        $this->assertTrue($n->prime);
+        $n = new N(29);
+        $this->assertTrue($n->prime);
+        $n = new N(1187);
+        $this->assertTrue($n->prime);
+        $n = new N(5711);
+        $this->assertTrue($n->prime);
+
+        $n = new N(4);
+        $this->assertFalse($n->prime);
+        $n = new N(1188);
+        $this->assertFalse($n->prime);
+        $n = new N(30);
+        $this->assertFalse($n->prime);
+    }
 }
