@@ -660,4 +660,15 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->root(0);
     }
 
+
+    public function testGetSignShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertEquals(0, $n->sign->int);
+        $n = new N(-4);
+        $this->assertEquals(-1, $n->sign->int);
+        $n = new N(5.98);
+        $this->assertEquals(1, $n->sign->int);
+    }
+
 }

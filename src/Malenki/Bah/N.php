@@ -40,6 +40,7 @@ namespace Malenki\Bah;
  * @property-read $incr Get increment number
  * @property-read $decr Get decrement number
  * @property-read $negative Check if number is negative or not
+ * @property-read $sign Check if number is negative, positive or null
  * @property-read $zero Check if number is nul
  * @property-read $prime Check if number is prime number or not
  * @property-read $abs Gets absolute value
@@ -63,7 +64,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -496,6 +497,22 @@ class N
     protected function _sqrt()
     {
         return $this->root(2);
+    }
+
+    protected function _sign()
+    {
+        if($this->value == 0)
+        {
+            return new N(0);
+        }
+        elseif($this->value > 0)
+        {
+            return new N(1);
+        }
+        else
+        {
+            return new N(-1);
+        }
     }
 
     /**
