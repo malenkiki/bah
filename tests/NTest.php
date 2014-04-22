@@ -731,4 +731,26 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->triangular;
     }
 
+
+    public function testGettingInverseNumberShouldSuccess()
+    {
+        $n = new N(2);
+        $this->assertEquals((float) 0.5, $n->inverse->float);
+        $n = new N(4);
+        $this->assertEquals((float) 0.25, $n->inverse->float);
+        $n = new N(-2);
+        $this->assertEquals((float) -0.5, $n->inverse->float);
+        $n = new N(-4);
+        $this->assertEquals((float) -0.25, $n->inverse->float);
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingInverseFromZeroShouldFail()
+    {
+        $n = new N(0);
+        $n->inverse;
+    }
 }

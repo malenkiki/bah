@@ -46,6 +46,7 @@ namespace Malenki\Bah;
  * @property-read $abs Gets absolute value
  * @property-read $absolute Gets absolute value
  * @property-read $opposite Gets its opposite number
+ * @property-read $inverse Gets its inverse number
  * @property-read $divisors Gets divisors
  * @property-read $square Gets square number
  * @property-read $ln Gets neperian logarithm
@@ -67,7 +68,7 @@ class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial', 'triangular')))
+        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial', 'triangular', 'inverse')))
         {
             $str_method = '_' . $name;
             return $this->$str_method();
@@ -313,6 +314,16 @@ class N
     protected function _opposite()
     {
         return new N(-1 * $this->value);
+    }
+
+    protected function _inverse()
+    {
+        if($this->_zero())
+        {
+            throw new \RuntimeException('Cannot get inverse number of zero!');
+        }
+
+        return new N(1 / $this->value);
     }
 
     public function mod($mod)
