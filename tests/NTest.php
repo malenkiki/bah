@@ -701,4 +701,34 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(5.6);
         $n->factorial;
     }
+
+
+    public function testGettingTriangularNumberShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertEquals(0, $n->triangular->int);
+        $n = new N(5);
+        $this->assertEquals(15, $n->triangular->int);
+        $n = new N(10);
+        $this->assertEquals(55, $n->triangular->int);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testTriangularForNegativeNumberShouldFail()
+    {
+        $n = new N(-5);
+        $n->triangular;
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testTriangularFromNonIntegerShouldFail()
+    {
+        $n = new N(5.6);
+        $n->triangular;
+    }
+
 }
