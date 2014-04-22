@@ -733,7 +733,7 @@ class N
 
 
     /**
-     * Create new N having the substraction of given argument with current number 
+     * Creates new N having the substraction of given argument with current number 
      * 
      * @throw \InvalidArgumentException If argument is not N or numeric value.
      * @param mixed $number N or numeric value
@@ -758,6 +758,36 @@ class N
             throw new \InvalidArgumentException('To substract a value, you must use number or \Malenki\Bah\N instance.');
         }
     }
+
+    
+    
+    /**
+     * Creates new N by multipling the current to the given one 
+     * 
+     * @throw \InvalidArgumentException If argument is not N or numeric value.
+     * @param mixed $number N or numeric value
+     * @access public
+     * @return N
+     */
+    public function multiply($number)
+    {
+        if(is_numeric($number) || $number instanceof N)
+        {
+            if(is_numeric($number))
+            {
+                return new self($this->value * $number);
+            }
+            else
+            {
+                return new self($this->value * $number->value);
+            }
+        }
+        else
+        {
+            throw new \InvalidArgumentException('To substract a value, you must use number or \Malenki\Bah\N instance.');
+        }
+    }
+
 
 
 

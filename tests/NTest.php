@@ -50,6 +50,33 @@ class NTest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testAddNumberShouldSuccess()
+    {
+        $n = new N(2.3);
+        $this->assertEquals((float) 5.4, $n->plus(3.1)->float);
+        $n = new N(2.3);
+        $this->assertEquals((float) 5.4, $n->plus(new N(3.1))->float);
+    }
+
+
+    public function testMinusNumberShouldSuccess()
+    {
+        $n = new N(5);
+        $this->assertEquals(0, $n->minus(5)->int);
+        $n = new N(5);
+        $this->assertEquals(0, $n->minus(new N(5))->int);
+    }
+
+
+    public function testMultiplyNumberShouldSuccess()
+    {
+        $n = new N(5);
+        $this->assertEquals(20, $n->multiply(4)->int);
+        $n = new N(5);
+        $this->assertEquals(20, $n->multiply(new N(4))->int);
+    }
+
+
     public function testNumbersThatShouldBePositive()
     {
         $five = new N(5);
@@ -736,12 +763,16 @@ class NTest extends PHPUnit_Framework_TestCase
     {
         $n = new N(2);
         $this->assertEquals((float) 0.5, $n->inverse->float);
+        $this->assertEquals((float) 1, $n->inverse->multiply($n)->value);
         $n = new N(4);
         $this->assertEquals((float) 0.25, $n->inverse->float);
+        $this->assertEquals((float) 1, $n->inverse->multiply($n)->value);
         $n = new N(-2);
         $this->assertEquals((float) -0.5, $n->inverse->float);
+        $this->assertEquals((float) 1, $n->inverse->multiply($n)->value);
         $n = new N(-4);
         $this->assertEquals((float) -0.25, $n->inverse->float);
+        $this->assertEquals((float) 1, $n->inverse->multiply($n)->value);
     }
 
 
