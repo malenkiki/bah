@@ -30,73 +30,51 @@ class H implements \Iterator, \Countable
     private $value = array();
     private $position = null;
 
-
-
     public function __get($name)
     {
-        if(in_array($name, array('array', 'length', 'keys', 'values', 'reverse', 'sort', 'unique')))
-        {
+        if (in_array($name, array('array', 'length', 'keys', 'values', 'reverse', 'sort', 'unique'))) {
             $str_method = '_' . $name;
+
             return $this->$str_method();
-        }
-        elseif(in_array($name, array('current', 'key', 'next', 'rewind', 'valid')))
-        {
+        } elseif (in_array($name, array('current', 'key', 'next', 'rewind', 'valid'))) {
             return $this->$name();
-        }
-        elseif($this->exist($name))
-        {
+        } elseif ($this->exist($name)) {
             return $this->get($name);
         }
     }
-
-
 
     public function __set($name, $value)
     {
         $this->set($name, $value);
     }
 
-
     public function __isset($name)
     {
         return $this->exist($name);
     }
 
-
-
     public function __unset($name)
     {
-        if(!$this->exist($name))
-        {
+        if (!$this->exist($name)) {
             throw new \RuntimeException($name . ' does not exist and cannot be deleted.');
         }
 
         return $this->delete($name);
     }
 
-
-
     public function __construct($arr = array())
     {
-        if(!is_array($arr))
-        {
-            if($arr instanceof H)
-            {
+        if (!is_array($arr)) {
+            if ($arr instanceof H) {
                 $arr = $arr->array;
-            }
-            else
-            {
+            } else {
                 throw new \InvalidArgumentException('Constructor must have array or Class H instance.');
             }
         }
-        foreach($arr as $k => $v)
-        {
-            if(is_numeric($k))
-            {
+        foreach ($arr as $k => $v) {
+            if (is_numeric($k)) {
                 throw new \RuntimeException('Array must have all keys defined as string.');
-            }
-            else
-            {
+            } else {
                 $this->set($k, $v);
             }
         }
@@ -105,13 +83,10 @@ class H implements \Iterator, \Countable
         $this->position = new N(0);
     }
 
-
-
     protected function _array()
     {
         return $this->value;
     }
-
 
     protected function _length()
     {
@@ -123,12 +98,10 @@ class H implements \Iterator, \Countable
         return new A(array_keys($this->value));
     }
 
-
     protected function _values()
     {
         return new A(array_values($this->value));
     }
-
 
     public function current()
     {
@@ -143,7 +116,7 @@ class H implements \Iterator, \Countable
     {
         return $this->position;
     }
-    
+
     public function next()
     {
         $this->position->incr;
@@ -162,18 +135,15 @@ class H implements \Iterator, \Countable
         return $this->_values()->exist($this->position->value);
     }
 
-
     public function exist($key)
     {
         return array_key_exists($key, $this->value);
     }
 
-
     public function has($thing)
     {
         return in_array($thing, $this->value);
     }
-
 
     public function set($key, $value)
     {
@@ -181,8 +151,8 @@ class H implements \Iterator, \Countable
             in_array(
                 $key,
                 array(
-                    'array', 
-                    'length', 
+                    'array',
+                    'length',
                     'keys',
                     'values',
                     'reverse',
@@ -206,30 +176,23 @@ class H implements \Iterator, \Countable
         return $this;
     }
 
-
     public function take($key)
     {
-        if(!$this->exist($key))
-        {
+        if (!$this->exist($key)) {
             throw new \RuntimeException('Given key '. $key . ' does not exist!');
         }
 
         return $this->value[$key];
     }
 
-
-
     public function get($key)
     {
         return $this->take($key);
     }
 
-
-
     public function delete($key)
     {
-        if(!$this->exist($key))
-        {
+        if (!$this->exist($key)) {
             throw new \RuntimeException('Given key '. $key . ' does not exist!');
         }
 
@@ -239,51 +202,42 @@ class H implements \Iterator, \Countable
         return $this;
     }
 
-
-
     protected function _reverse()
     {
         return new self(array_reverse($this->value, true));
     }
 
-
-
     protected function _sort()
     {
         $arr = $this->value;
         asort($arr);
+
         return new self($arr);
     }
-
 
     protected function _unique()
     {
         return new self(array_unique($this->value, SORT_REGULAR));
     }
 
-
     public function chunk($size)
     {
-        if($size instanceof N)
-        {
+        if ($size instanceof N) {
             $size = $size->int;
         }
 
-        if($size < 1)
-        {
+        if ($size < 1) {
             throw new \InvalidArgumentException('Chunk cannot have null size, please use number equal or greater than one.');
         }
 
         $arr = array_chunk($this->value, $size, true);
 
-        foreach($arr as $k => $v)
-        {
+        foreach ($arr as $k => $v) {
             $arr[$k] = new self($v);
         }
 
         return new A($arr);
     }
-
 
     public function count()
     {
@@ -296,8 +250,7 @@ class H implements \Iterator, \Countable
 
         $out = new self();
 
-        foreach($this->_keys()->array as $k => $v)
-        {
+        foreach ($this->_keys()->array as $k => $v) {
             $out->set($v, $arr[$k]);
         }
 
@@ -308,97 +261,77 @@ class H implements \Iterator, \Countable
      * Search index of the given element.
      *
      * This will return the first index found for the given element if there are several identical.
-     * 
+     *
      * If no element found, then return null.
      *
      * If element is found, then S object is returned.
      *
-     * @param mixed $foo The element to find
+     * @param  mixed $foo The element to find
      * @access public
      * @return mixed
      */
     public function search($foo)
     {
-        
-        if(in_array($foo, $this->value))
-        {
+
+        if (in_array($foo, $this->value)) {
             return new S(array_search($foo, $this->value, true));
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
 
-
     public function find($pattern)
     {
-        if(is_string($pattern) || $pattern instanceof S)
-        {
-            if(strlen($pattern) == 0)
-            {
+        if (is_string($pattern) || $pattern instanceof S) {
+            if (strlen($pattern) == 0) {
                 throw new \InvalidArgumentException('Pattern must be a not null string.');
             }
 
             $h = new self();
 
-            foreach($this->value as $k => $v)
-            {
-                if(preg_match($pattern, $k))
-                {
+            foreach ($this->value as $k => $v) {
+                if (preg_match($pattern, $k)) {
                     $h->set($k, $v);
                 }
             }
 
             return $h;
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException('Pattern must be a string or a S instance.');
         }
     }
 
-
     public function slice($offset, $length = null)
     {
-        if($offset instanceof N)
-        {
+        if ($offset instanceof N) {
             $offset = $offset->int;
         }
 
-        if($length instanceof N)
-        {
+        if ($length instanceof N) {
             $length = $length->int;
         }
-
 
         return new self(array_slice($this->value, $offset, $length, true));
     }
 
-
     public function merge($arr)
     {
-        if($arr instanceof A)
-        {
+        if ($arr instanceof A) {
             throw new \InvalidArgumentException('Class \Malenki\Bah\H cannot merge its content with \Malenki\Bah\A class.');
         }
-        
 
-        if(is_array($arr))
-        {
-            foreach($arr as $k => $v)
-            {
-                if(is_numeric($k))
-                {
+        if (is_array($arr)) {
+            foreach ($arr as $k => $v) {
+                if (is_numeric($k)) {
                     throw new \RuntimeException('Array must have all keys defined as string.');
                 }
             }
         }
 
-        if($arr instanceof H)
-        {
+        if ($arr instanceof H) {
             $arr = $arr->array;
         }
+
         return new self(array_merge($this->value, $arr));
     }
 

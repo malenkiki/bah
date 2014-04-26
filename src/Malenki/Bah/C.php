@@ -22,7 +22,6 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 namespace Malenki\Bah;
 
 /**
@@ -256,21 +255,16 @@ class C extends O
 
     public function __construct($char = '')
     {
-        if($char instanceof N)
-        {
+        if ($char instanceof N) {
             $char = sprintf('&#%d;', $char->int);
         }
 
-        if(mb_strlen($char, self::ENCODING) > 1)
-        {
+        if (mb_strlen($char, self::ENCODING) > 1) {
             // tests whether use string for XML entity
-            if(preg_match('/^&.+;$/', $char))
-            {
+            if (preg_match('/^&.+;$/', $char)) {
                 $char = str_replace('&apos;', "'", $char); //workaround for php > 5.4
                 $char = html_entity_decode($char, ENT_COMPAT, self::ENCODING);
-            }
-            else
-            {
+            } else {
                 throw new \InvalidArgumentException('Invalid character!');
             }
         }
@@ -278,19 +272,14 @@ class C extends O
         $this->value = $char;
     }
 
-
-
     public function __get($name)
     {
-        if($name == 'bytes')
-        {
-            if(is_null($this->bytes))
-            {
+        if ($name == 'bytes') {
+            if (is_null($this->bytes)) {
                 $i = 0;
                 $a = new A();
 
-                while($i < strlen($this))
-                {
+                while ($i < strlen($this)) {
                     $a->add(new N(ord($this->value{$i})));
                     $i++;
                 }
@@ -301,9 +290,9 @@ class C extends O
             return $this->bytes;
         }
 
-        if(in_array($name, array('string', 'upper', 'lower', 'block', 'trans', 'unicode')))
-        {
+        if (in_array($name, array('string', 'upper', 'lower', 'block', 'trans', 'unicode'))) {
             $name = '_'.$name;
+
             return $this->$name();
         }
     }
@@ -315,8 +304,7 @@ class C extends O
 
     protected function _trans()
     {
-        if(!extension_loaded('intl'))
-        {
+        if (!extension_loaded('intl')) {
             throw new \RuntimeException('Missing Intl extension. This is required to use ' . __CLASS__);
         }
 
@@ -329,12 +317,10 @@ class C extends O
         return new S($str);
     }
 
-
     public static function encodings()
     {
         return new A(mb_list_encodings());
     }
-
 
     protected function _upper()
     {
@@ -353,13 +339,10 @@ class C extends O
         return (boolean) preg_match("/^\p{L}+$/ui", $this->value);
     }
 
-
-
     public function isDigit()
     {
         return is_numeric($this->value);
     }
-
 
     public function isControl()
     {
@@ -386,25 +369,20 @@ class C extends O
         return (boolean) preg_match("/^\p{Cs}+$/ui", $this->value);
     }
 
-
     public function isMark()
     {
         return (boolean) preg_match("/^\p{M}+$/ui", $this->value);
     }
-
-
 
     public function isSeparator()
     {
         return (boolean) preg_match("/^\p{Z}+$/ui", $this->value);
     }
 
-
     public function isPunctuation()
     {
         return (boolean) preg_match("/^\p{P}+$/ui", $this->value);
     }
-
 
     public function isSymbol()
     {
@@ -412,8 +390,8 @@ class C extends O
     }
 
     /**
-     * Tests whether current character is in lower case. 
-     * 
+     * Tests whether current character is in lower case.
+     *
      * @access public
      * @return boolean
      */
@@ -422,11 +400,9 @@ class C extends O
         return mb_strtolower($this->value, C::ENCODING) === $this->value;
     }
 
-
-
     /**
-     * Tests whether current character is in upper case. 
-     * 
+     * Tests whether current character is in upper case.
+     *
      * @access public
      * @return boolean
      */
@@ -435,11 +411,9 @@ class C extends O
         return mb_strtoupper($this->value, C::ENCODING) === $this->value;
     }
 
-
-
     /**
-     * Tests whether the current character has other cases or not. 
-     * 
+     * Tests whether the current character has other cases or not.
+     *
      * @access public
      * @return boolean
      */
@@ -448,51 +422,38 @@ class C extends O
         return !($this->isLowerCase() && $this->isUpperCase());
     }
 
-
-
     protected function _block()
     {
         $int_code = $this->_unicode()->value;
         $out = null;
 
-        foreach(self::$arr_blocks as $b)
-        {
-            if($int_code >= $b['start'] && $int_code <= $b['end'])
-            {
+        foreach (self::$arr_blocks as $b) {
+            if ($int_code >= $b['start'] && $int_code <= $b['end']) {
                 $out = new S($b['name']);
                 break;
             }
         }
 
-        if($out)
-        {
+        if ($out) {
             return $out;
         }
 
         throw new \Exception('Invalid character, it is unavailable in any unicode block.');
     }
 
-
-
     public function allCharsOfItsBlock()
     {
         $arr = array();
         $int_code = $this->_unicode()->value;
 
-        foreach(self::$arr_blocks as $b)
-        {
-            if($int_code >= $b['start'] && $int_code <= $b['end'])
-            {
+        foreach (self::$arr_blocks as $b) {
+            if ($int_code >= $b['start'] && $int_code <= $b['end']) {
                 $arr = range($b['start'], $b['end']);
-                
-                foreach($arr as $k => $v)
-                {
-                    if(version_compare(PHP_VERSION, '5.4.0', '>='))
-                    {
+
+                foreach ($arr as $k => $v) {
+                    if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
                         $arr[$k] = new self(html_entity_decode('&#'.$v.';', ENT_XML1, 'UTF-8'));
-                    }
-                    else
-                    {
+                    } else {
                         $arr[$k] = new self(html_entity_decode('&#'.$v.';', ENT_COMPAT | ENT_HTML401, 'UTF-8'));
                     }
                 }
@@ -501,19 +462,16 @@ class C extends O
             }
         }
 
-        if(count($arr))
-        {
+        if (count($arr)) {
             return new A($arr);
         }
 
         throw new \Exception('Invalid character, it is unavailable in any unicode block.');
     }
 
-
-
     /**
-     * Get unicode code point for the current character. 
-     * 
+     * Get unicode code point for the current character.
+     *
      * @return N
      */
     protected function _unicode()
@@ -523,41 +481,30 @@ class C extends O
 
         $this->__get('bytes');
         $this->bytes->rewind();
-        while ($this->bytes->valid())
-        {
+        while ($this->bytes->valid()) {
             $src = $this->bytes->current();
 
-            if(is_string($src))
-            {
+            if (is_string($src)) {
                 $str_bin = (string) decbin(hexdec($src));
-            }
-            else
-            {
+            } else {
                 $str_bin = (string) decbin($src->value);
             }
 
-            if(count($this->bytes) > 1)
-            {
-                if($k == 0)
-                {
+            if (count($this->bytes) > 1) {
+                if ($k == 0) {
                     $str_unicode .= substr($str_bin, count($this->bytes) + 1);
-                }
-                else
-                {
+                } else {
                     $str_unicode .= substr($str_bin, 2);
                 }
-            }
-            else
-            {
+            } else {
                 $str_unicode .= substr($str_bin, 1);
             }
 
             $k++;
             $this->bytes->next();
         }
-    
+
         return new N(bindec($str_unicode));
     }
 
 }
-

@@ -22,7 +22,6 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 namespace Malenki\Bah;
 
 /**
@@ -39,17 +38,12 @@ class O
      */
     protected $value = null;
 
-
-
     public function __get($name)
     {
-        if($name == 'value')
-        {
+        if ($name == 'value') {
             return $this->value;
         }
     }
-
-
 
     public function __toString()
     {

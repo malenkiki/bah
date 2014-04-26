@@ -37,7 +37,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A('foo');
     }
 
-
     public function testInstanciateWithArrayShouldSuccess()
     {
         $a = new A(array('foo', 'bar'));
@@ -49,7 +48,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A(new A(array('foo', 'bar')));
         $this->assertInstanceOf('\Malenki\Bah\A', $a);
     }
-
 
     public function testInstanciateWithHClassShouldSuccess()
     {
@@ -68,7 +66,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(5, $a->length->int);
         $this->assertEquals(5, count($a));
     }
-
 
     public function testAddingValueAndCheckingCountMustBeOk()
     {
@@ -112,7 +109,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $a->length->int);
     }
 
-
     /**
      * @expectedException \OutOfRangeException
      */
@@ -121,7 +117,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $a->delete(6);
     }
-
 
     public function testShiftingValueWithSuccess()
     {
@@ -146,8 +141,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A();
         $value = $a->shift;
     }
-
-
 
     public function testPopingValueWithSuccess()
     {
@@ -179,7 +172,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A($arr);
         $this->assertEquals($arr, $a->array);
     }
-    
 
     public function testGettingOneAvailableItem()
     {
@@ -195,7 +187,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals('four', $a->get(3));
         $this->assertEquals('five', $a->get(4));
     }
-    
 
     /**
      * @expectedException \OutOfRangeException
@@ -205,7 +196,7 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $this->assertEquals('one', $a->take(5));
     }
-    
+
     public function testGettingFirstAndLastItem()
     {
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
@@ -259,7 +250,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals('deux', $a->take(new N(1)));
     }
 
-
     /**
      * @expectedException \OutOfRangeException
      */
@@ -269,22 +259,20 @@ class ATest extends PHPUnit_Framework_TestCase
         $a->replace(5, 'six');
     }
 
-
     public function testFilteringValuesShouldSuccess()
     {
-        $even = function($n){return !($n & 1);};
-        $odd = function($n){return $n & 1;};
+        $even = function ($n) {return !($n & 1);};
+        $odd = function ($n) {return $n & 1;};
 
         $a = new A(range(0, 10));
         $this->assertEquals(array(0, 2, 4, 6, 8, 10), $a->filter($even)->array);
         $this->assertEquals(array(1, 3, 5, 7, 9), $a->filter($odd)->array);
     }
 
-
     public function testMappingValuesShouldSuccess()
     {
-        $cube = function($n){return $n * $n * $n;};
-        
+        $cube = function ($n) {return $n * $n * $n;};
+
         $a = new A(range(1, 5));
         $this->assertEquals(array(1, 8, 27, 64, 125), $a->map($cube)->array);
     }
@@ -323,7 +311,7 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A($fr);
         $this->assertEquals(array('white', 'red'), $a->inter($it)->array);
     }
-    
+
     public function testIntersectWithAClassShouldSuccess()
     {
         $fr = new A(array('blue', 'white', 'red'));
@@ -353,7 +341,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('one', 'two', 'three', 12, 13), $a->unique->array);
     }
 
-
     public function testMakingChunkShouldSuccess()
     {
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
@@ -362,13 +349,12 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals($result, $a->chunk(new N(2))->array);
     }
 
-
     public function testSearchingValuesIndexShouldSuccess()
     {
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $this->assertEquals(2, $a->search('three')->int);
     }
-    
+
     public function testSearchingiNonExistingValuesIndexShouldSuccess()
     {
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
@@ -388,7 +374,7 @@ class ATest extends PHPUnit_Framework_TestCase
         $b = new A(array('quatre', 'cinq'));
 
         $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq'), $a->merge($b)->array);
-        
+
         $b = new H(array('four' => 'quatre', 'five' => 'cinq'));
 
         $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq'), $a->merge($b)->array);
@@ -413,7 +399,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $a->find('>= -5');
     }
 
-
     public function testGettingMinOrMaxShouldSuccess()
     {
         $a = new A(array('1bar', 'foo', 1, 7, '6', new N(10), '0'));
@@ -422,7 +407,7 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\N', $a->min);
         $this->assertTrue($a->max->equal(10));
         $this->assertTrue($a->min->equal(0));
-        
+
         $a = new A(array(4));
 
         $this->assertInstanceOf('\Malenki\Bah\N', $a->max);

@@ -22,7 +22,6 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 namespace Malenki\Bah;
 
 /**
@@ -59,13 +58,11 @@ class S extends O implements \Countable
 
     protected function _chars()
     {
-        if(is_null($this->chars))
-        {
+        if (is_null($this->chars)) {
             $a = new A();
             $i = new N(0);
 
-            while($i->less($this->_length()))
-            {
+            while ($i->less($this->_length())) {
                 $a->add(new C($this->sub($i->value)->value));
                 $i->incr;
             }
@@ -82,12 +79,10 @@ class S extends O implements \Countable
 
         $this->_chars();
 
-        while($this->chars->valid())
-        {
+        while ($this->chars->valid()) {
             //$bytes = $this->chars->current()->bytes;
 
-            while($this->chars->current()->bytes->valid())
-            {
+            while ($this->chars->current()->bytes->valid()) {
                 $a->add($this->chars->current()->bytes->current());
                 $this->chars->current()->bytes->next();
             }
@@ -102,6 +97,7 @@ class S extends O implements \Countable
     protected function _length()
     {
         $this->length = new N(mb_strlen($this, C::ENCODING));
+
         return $this->length;
     }
 
@@ -111,19 +107,13 @@ class S extends O implements \Countable
 
         $str_out = '';
 
-        foreach($args as $s)
-        {
+        foreach ($args as $s) {
             //TODO: allow object having __toString method
-            if($s instanceof \Malenki\Bah\S)
-            {
+            if ($s instanceof \Malenki\Bah\S) {
                 $str_out .= $s->__toString();
-            }
-            elseif(is_string($s))
-            {
+            } elseif (is_string($s)) {
                 $str_out .= $s;
-            }
-            else
-            {
+            } else {
                 throw new \Exception('All args must be string or Malenki\Bah\S instance!');
             }
         }
@@ -141,76 +131,62 @@ class S extends O implements \Countable
      */
     public function __get($name)
     {
-        if(in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf', 'a', 'trans', 'void', 'empty')))
-        {
-            if($name == 'length')
-            {
-                if(is_null($this->length))
-                {
+        if (in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf', 'a', 'trans', 'void', 'empty'))) {
+            if ($name == 'length') {
+                if (is_null($this->length)) {
                     $this->_length();
                 }
 
                 return $this->length;
             }
 
-            if($name == 'chars')
-            {
+            if ($name == 'chars') {
                 return $this->_chars();
             }
 
-            if($name == 'bytes')
-            {
-                if(is_null($this->bytes))
-                {
+            if ($name == 'bytes') {
+                if (is_null($this->bytes)) {
                     $this->_bytes();
                 }
 
                 return $this->bytes;
             }
 
-            if(in_array($name, array('n', 'r')))
-            {
+            if (in_array($name, array('n', 'r'))) {
                 return $this->$name();
             }
 
-            if(in_array($name, array('void', 'empty')))
-            {
+            if (in_array($name, array('void', 'empty'))) {
                 return $this->isVoid();
             }
 
-            if($name == 'ucw')
-            {
+            if ($name == 'ucw') {
                 return $this->_upperCaseWords();
             }
 
-            if($name == 'ucf')
-            {
+            if ($name == 'ucf') {
                 return $this->_upperCaseFirst();
             }
 
-            if(in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans')))
-            {
+            if (in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans'))) {
                 $str_method = '_' . $name;
+
                 return $this->$str_method();
             }
         }
     }
-
-
 
     protected function _string()
     {
         return (string) $this->value;
     }
 
-
     protected function _a()
     {
         $a = new A();
         $i = new N(0);
 
-        while($i->less($this->_length()))
-        {
+        while ($i->less($this->_length())) {
             $a->add($this->sub($i->value));
             $i->incr;
         }
@@ -218,12 +194,9 @@ class S extends O implements \Countable
         return  $a;
     }
 
-
-
     protected function _trans()
     {
-        if(!extension_loaded('intl'))
-        {
+        if (!extension_loaded('intl')) {
             throw new \RuntimeException('Missing Intl extension. This is required to use ' . __CLASS__);
         }
 
@@ -235,15 +208,13 @@ class S extends O implements \Countable
         return new self($str);
     }
 
-
-
     /**
      * Get substring from the original string.
      *
      * By default, returns the first character as a substring.
      *
      * @param mixed $offset Where to start the substring, 0 by default, as N or integer
-     * @param mixed $limit Size of the substring, 1 by default, as N or integer
+     * @param mixed $limit  Size of the substring, 1 by default, as N or integer
      *
      * @return S
      */
@@ -252,13 +223,11 @@ class S extends O implements \Countable
         if($offset instanceof N) $offset = $offset->int;
         if($limit instanceof N) $limit = $limit->int;
 
-        if($offset < 0)
-        {
+        if ($offset < 0) {
             throw new \InvalidArgumentException('Offset must be a null or positive integer');
         }
-        
-        if($limit < 1)
-        {
+
+        if ($limit < 1) {
             throw new \InvalidArgumentException('Limit must be an intger equal to or greater than one.');
         }
 
@@ -275,42 +244,38 @@ class S extends O implements \Countable
         return $this->sub($this->_length()->value - 1, 1);
     }
 
-
-
     /**
-     * Checks that current string starts with the given string or not 
-     * 
-     * @param mixed $str S or primitive string
+     * Checks that current string starts with the given string or not
+     *
+     * @param  mixed   $str S or primitive string
      * @access public
      * @return boolean
      */
     public function startsWith($str)
     {
         $str = preg_quote($str, '/');
+
         return (boolean) preg_match("/^$str/", $this->value);
     }
 
-
-
     /**
-     * Checks that current string ends with the given string or not 
-     * 
-     * @param mixed $str S or primitive string
+     * Checks that current string ends with the given string or not
+     *
+     * @param  mixed   $str S or primitive string
      * @access public
      * @return boolean
      */
     public function endsWith($str)
     {
         $str = preg_quote($str, '/');
+
         return (boolean) preg_match("/$str\$/", $this->value);
     }
 
-    
-    
     /**
-     * Check whether current string match the given regular expression. 
-     * 
-     * @param mixed $expr S or primitive string
+     * Check whether current string match the given regular expression.
+     *
+     * @param  mixed   $expr S or primitive string
      * @access public
      * @return boolean
      */
@@ -319,11 +284,10 @@ class S extends O implements \Countable
         return (boolean) preg_match($expr, $this->value);
     }
 
-
     /**
-     * Shorthand for match method 
-     * 
-     * @param mixed $expr S or primitive string
+     * Shorthand for match method
+     *
+     * @param  mixed   $expr S or primitive string
      * @access public
      * @return boolean
      */
@@ -332,12 +296,10 @@ class S extends O implements \Countable
         return $this->match($expr);
     }
 
-    
-    
     /**
-     * Shorthand for match method 
-     * 
-     * @param mixed $expr S or primitive string
+     * Shorthand for match method
+     *
+     * @param  mixed   $expr S or primitive string
      * @access public
      * @return boolean
      */
@@ -345,7 +307,6 @@ class S extends O implements \Countable
     {
         return $this->match($expr);
     }
-
 
     public function test($str)
     {
@@ -380,22 +341,19 @@ class S extends O implements \Countable
         $prev_idx = null;
         $arr_to_change = array();
 
-
-        for($i = 0; $i < $int_length; $i++)
-        {
+        for ($i = 0; $i < $int_length; $i++) {
             $letter = mb_substr($str_prov, $i, 1, 'UTF-8');
 
-            if($letter == "'"){
+            if ($letter == "'") {
                 $prev_idx = $i;
             }
 
-            if(!is_null($prev_idx) && ($i == $prev_idx + 1)){
+            if (!is_null($prev_idx) && ($i == $prev_idx + 1)) {
                 $arr_to_change[$i] = $letter;
             }
         }
 
-        foreach($arr_to_change as $idx => $letter)
-        {
+        foreach ($arr_to_change as $idx => $letter) {
             $str_tmp  = mb_substr($str_out, 0, $idx, 'UTF-8'); // On prend ce qu’il y a avant le caractère sans modification
             $str_tmp .= mb_strtoupper($letter, 'UTF-8'); // On met en majuscule la lettre
             $str_tmp .= mb_substr($str_out, $idx + 1, $int_length, 'UTF-8'); // On prend le reste de la chaîne…
@@ -406,14 +364,12 @@ class S extends O implements \Countable
         return new self($str_out);
     }
 
-
-
     public function _upperCaseFirst()
     {
-        if(!$this->isVoid())
-        {
+        if (!$this->isVoid()) {
             $first_char = $this->_first()->_upper();
             $other_chars = $this->sub(1, $this->length->value);
+
             return self::concat($first_char, $other_chars);
         }
 
@@ -429,14 +385,12 @@ class S extends O implements \Countable
      */
     public function charAt($idx)
     {
-        if($idx instanceof N)
-        {
+        if ($idx instanceof N) {
             $idx = $idx->int;
         }
 
         return new C(mb_substr($this->value, $idx, 1, C::ENCODING));
     }
-
 
     /**
      * Implements Countable interface.
@@ -453,8 +407,6 @@ class S extends O implements \Countable
         return $this->_length()->zero;
     }
 
-
-
     /**
      * Returns new string object converted to uppercase.
      *
@@ -464,8 +416,6 @@ class S extends O implements \Countable
     {
         return new self(mb_convert_case($this, MB_CASE_UPPER, C::ENCODING));
     }
-
-
 
     /**
      * Returns new string object converted to lowercase.
@@ -477,8 +427,6 @@ class S extends O implements \Countable
         return new self(mb_convert_case($this, MB_CASE_LOWER, C::ENCODING));
     }
 
-
-
     /**
      * Returns new String object with capital letters
      *
@@ -489,11 +437,10 @@ class S extends O implements \Countable
         return new self(mb_convert_case($this, MB_CASE_TITLE, C::ENCODING));
     }
 
-
     /**
      * Returns current string as an new string object repeated N times.
      *
-     * @param mixed $n N or integer
+     * @param  mixed         $n N or integer
      * @return Malenki\Bah\S
      */
     public function times($n = 1)
@@ -503,13 +450,11 @@ class S extends O implements \Countable
         return new self(str_repeat($this, $n));
     }
 
-
-
     /**
-     * Wrap the string to have given width. 
-     * 
-     * @param integer $width Width the text must have
-     * @param mixed $cut Optional string to put at each linebreak, as string or S
+     * Wrap the string to have given width.
+     *
+     * @param  integer $width Width the text must have
+     * @param  mixed   $cut   Optional string to put at each linebreak, as string or S
      * @access public
      * @return S
      */
@@ -518,43 +463,35 @@ class S extends O implements \Countable
         $arr_lines = array();
         $cut = "$cut"; // ensure tostring if S object
 
-        if(strlen($this->value) === mb_strlen($this->value, 'UTF-8'))
-        {
+        if (strlen($this->value) === mb_strlen($this->value, 'UTF-8')) {
             $arr_lines = explode(
                 $cut,
                 wordwrap(
-                    $this->value, 
-                    $width, 
+                    $this->value,
+                    $width,
                     $cut
                 )
             );
-        }
-        else
-        {
+        } else {
             //Thanks to: http://www.php.net/manual/fr/function.wordwrap.php#104811
             $str_prov = $this->value;
             $int_length = mb_strlen($str_prov, 'UTF-8');
             $int_width = $width;
 
-            if ($int_length <= $int_width)
-            {
+            if ($int_length <= $int_width) {
                 return new self($str_prov);
             }
 
             $int_last_space = 0;
             $i = 0;
 
-            do
-            {
-                if (mb_substr($str_prov, $i, 1, 'UTF-8') == ' ')
-                {
+            do {
+                if (mb_substr($str_prov, $i, 1, 'UTF-8') == ' ') {
                     $int_last_space = $i;
                 }
 
-                if ($i > $int_width)
-                {
-                    if($int_last_space == 0)
-                    {
+                if ($i > $int_width) {
+                    if ($int_last_space == 0) {
                         $int_last_space = $int_width;
                     }
 
@@ -579,8 +516,7 @@ class S extends O implements \Countable
                 }
 
                 $i++;
-            }
-            while ($i < $int_length);
+            } while ($i < $int_length);
 
             $arr_lines[] = trim($str_prov);
         }
@@ -588,16 +524,14 @@ class S extends O implements \Countable
         return new self(implode($cut, $arr_lines));
     }
 
-
-
     /**
      * Adds margin to the text. By default left, but right and alinea are possible too.
-     * 
+     *
      * @throw \InvalidArgumentException If Margin left and/or right are negative
      * @throw \InvalidArgumentException If alinea is greater than margin left
-     * @param mixed $left Margin left (N or integer)
-     * @param mixed $right Margin right, optional (N or integer)
-     * @param mixed $alinea First line, optional (N or integer)
+     * @param  mixed $left   Margin left (N or integer)
+     * @param  mixed $right  Margin right, optional (N or integer)
+     * @param  mixed $alinea First line, optional (N or integer)
      * @access public
      * @return S
      */
@@ -611,29 +545,24 @@ class S extends O implements \Countable
         if($right instanceof N) $int_right = $right->int;
         if($alinea instanceof N) $int_alinea = $alinea->int;
 
-        if($int_left < 0 || $int_right < 0)
-        {
+        if ($int_left < 0 || $int_right < 0) {
             throw new \InvalidArgumentException('Margins must be null or positive numbers!');
         }
 
-        if(abs($int_alinea) > $int_left)
-        {
+        if (abs($int_alinea) > $int_left) {
             throw new \InvalidArgumentException('Alinea must be equal or less than margin left');
         }
 
         $arr = explode("\n", $this->value);
-        
-        foreach($arr as $k => $v)
-        {
+
+        foreach ($arr as $k => $v) {
             $int_margin_left = $int_left;
             $int_margin_right = $int_right;
 
-            if($k == 0)
-            {
+            if ($k == 0) {
                 $int_margin_left = $int_left + $int_alinea;
 
-                if($int_margin_left < 0)
-                {
+                if ($int_margin_left < 0) {
                     $int_margin_left = 0;
                 }
             }
@@ -645,19 +574,14 @@ class S extends O implements \Countable
         return new self(implode("\n", $arr));
     }
 
-
-
     public function explode($sep)
     {
-        if(is_string($sep) || $sep instanceof S)
-        {
-            if(is_object($sep))
-            {
+        if (is_string($sep) || $sep instanceof S) {
+            if (is_object($sep)) {
                 $sep = (string) $sep;
             }
 
-            if(strlen($sep) == 0)
-            {
+            if (strlen($sep) == 0) {
                 throw new \InvalidArgumentException(
                     'Separator regexp must be a not null string or S instance.'
                 );
@@ -665,15 +589,12 @@ class S extends O implements \Countable
 
             $arr = preg_split($sep, $this->value);
 
-            foreach($arr as $k => $str)
-            {
+            foreach ($arr as $k => $str) {
                 $arr[$k] = new S($str);
             }
 
             return new A($arr);
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException(
                 'Separator regexp must be a string or S object'
             );
@@ -685,7 +606,6 @@ class S extends O implements \Countable
         return $this->explode($sep);
     }
 
-
     public function cut($sep)
     {
         return $this->explode($sep);
@@ -693,29 +613,23 @@ class S extends O implements \Countable
 
     /**
      *
-     * @param boolean $after
+     * @param  boolean       $after
      * @return Malenki\Bah\S
      */
     public function n($after = true)
     {
-        if($after)
-        {
+        if ($after) {
             return new self($this . "\n");
-        }
-        else
-        {
+        } else {
             return new self("\n" . $this);
         }
     }
 
     public function r($after = true)
     {
-        if($after)
-        {
+        if ($after) {
             return new self($this . "\r");
-        }
-        else
-        {
+        } else {
             return new self("\r" . $this);
         }
     }

@@ -36,7 +36,7 @@ class HTest extends PHPUnit_Framework_TestCase
     {
         $a = new H('foo');
     }
-    
+
     /**
      * @expectedException \RuntimeException
      */
@@ -45,7 +45,6 @@ class HTest extends PHPUnit_Framework_TestCase
         $a = new H(array('foo', 'bar'));
     }
 
-    
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -95,7 +94,6 @@ class HTest extends PHPUnit_Framework_TestCase
         $h = new H(array('one' => 1, 'keys' => 'something'));
     }
 
-
     public function testGettingValueUsingMethodShouldSuccess()
     {
         $h = new H(array('one' => 1, 'two' => 2, 'twenty-one' => 21, 'fourty_two' => 42));
@@ -114,7 +112,6 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(21, $h->{'twenty-one'});
         $this->assertEquals(42, $h->fourty_two);
     }
-
 
     public function testWhetherKeyExistsUsingMethodShouldSuccess()
     {
@@ -195,7 +192,7 @@ class HTest extends PHPUnit_Framework_TestCase
         $h->set('two', 'deux');
         $h->set('three', 'trois');
 
-        $blahblah = function($k, $v){
+        $blahblah = function ($k, $v) {
             return sprintf('English word "%s" is "%s" in french.', $k, $v);
         };
 
@@ -214,8 +211,6 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($h->array, $h->reverse->reverse->array);
     }
 
-
-
     public function testSortingValuesShouldSuccess()
     {
         $h = new H();
@@ -227,18 +222,15 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('one' => 'un', 'two' => 'deux', 'three' => 'trois'), $h->array);
     }
 
-
-
     public function testRemovingDuplicateEntries()
     {
         $h = new H();
         $h->set('one', 'un');
         $h->set('two', 'deux');
         $h->set('three', 'deux');
-        
+
         $this->assertEquals(array('one' => 'un', 'two' => 'deux'), $h->unique->array);
     }
-
 
     public function testSearchingValuesIndexShouldSuccess()
     {
@@ -249,7 +241,7 @@ class HTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('two', $h->search('deux')->string);
     }
-    
+
     public function testSearchingiNonExistingValuesIndexShouldSuccess()
     {
         $h = new H();
@@ -284,7 +276,6 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('two' => 'deux', 'three' => 'trois', 'four' => 'quatre'), $h->slice(new N(1), new N(3))->array);
     }
 
-
     public function testMergingShouldSuccess()
     {
         $h = new H();
@@ -295,12 +286,12 @@ class HTest extends PHPUnit_Framework_TestCase
         $i = new H();
         $i->set('four', 'quatre');
         $i->set('five', 'cinq');
-        
+
         $this->assertEquals(array('one' => 'un', 'two' => 'deux', 'three' => 'trois', 'four' => 'quatre', 'five' => 'cinq'), $h->merge($i)->array);
         $this->assertEquals(5, count($h->merge($i)));
         $this->assertEquals(5, $h->merge($i)->length->value);
         $this->assertEquals(5, $h->merge($i)->length->int);
-        
+
         $this->assertEquals(array('one' => 'un', 'two' => 'deux', 'three' => 'trois', 'four' => 'quatre', 'five' => 'cinq'), $h->merge($i->array)->array);
         $this->assertEquals(5, count($h->merge($i->array)));
         $this->assertEquals(5, $h->merge($i->array)->length->value);
@@ -321,7 +312,7 @@ class HTest extends PHPUnit_Framework_TestCase
 
         $h->merge($a);
     }
-    
+
     /**
      * @expectedException \RuntimeException
      */

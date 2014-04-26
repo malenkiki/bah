@@ -22,12 +22,11 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 namespace Malenki\Bah;
 
 /**
- * Defines numbers. 
- * 
+ * Defines numbers.
+ *
  * @property-read $hex Get hexadecimal form as S class
  * @property-read $oct Get octogonal form as S class
  * @property-read $bin Get binary form as S class
@@ -35,7 +34,7 @@ namespace Malenki\Bah;
  * @property-read $o Shorthand for $o
  * @property-read $b Shorthand for $b
  * @property-read $s Get number as S class
- * @property-read $n 
+ * @property-read $n
  * @property-read $p
  * @property-read $incr Get increment number
  * @property-read $decr Get decrement number
@@ -59,28 +58,25 @@ namespace Malenki\Bah;
  * @property-read $greek Get greek number as S class.
  * @property-read $int Get as primitive integer
  * @property-read $float Get as primitive float
- * @property-read $double Get as primitive double 
+ * @property-read $double Get as primitive double
  * @copyright 2014 Michel PETIT
- * @author Michel Petit <petit.michel@gmail.com> 
+ * @author Michel Petit <petit.michel@gmail.com>
  * @license MIT
  */
 class N
 {
     public function __get($name)
     {
-        if(in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial', 'triangular', 'inverse')))
-        {
+        if (in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial', 'triangular', 'inverse'))) {
             $str_method = '_' . $name;
+
             return $this->$str_method();
         }
 
-        if($name == 'greek')
-        {
+        if ($name == 'greek') {
             return $this->greek();
         }
     }
-
-
 
     public function __construct($num = 0)
     {
@@ -123,41 +119,33 @@ class N
     }
 
     /**
-     * Checks whether current number is less than given one. 
-     * 
+     * Checks whether current number is less than given one.
+     *
      * @throw \InvalidArgumentException If argument is not numeric or N class
-     * @param mixed $num N or primitive numeric value
+     * @param  mixed   $num N or primitive numeric value
      * @access public
      * @return boolean
      */
     public function less($num)
     {
-        if(is_numeric($num))
-        {
+        if (is_numeric($num)) {
             $n = $num;
-        }
-        elseif($num instanceof N)
-        {
+        } elseif ($num instanceof N) {
             $n = $num->value;
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException(
                 'Testing must be done with numeric value or N object!'
             );
         }
-        
 
         return $this->value < $n;
     }
 
-
-
     /**
      * Shorthand for less() method
-     * 
+     *
      * @throw \InvalidArgumentException If argument is not numeric or N class
-     * @param mixed $num N or numeric value
+     * @param  mixed   $num N or numeric value
      * @access public
      * @return boolean
      */
@@ -166,38 +154,28 @@ class N
         return $this->less($num);
     }
 
-
-
-
     /**
      * Tests whether current number is less than or equal to given one.
-     * 
+     *
      * @throw \InvalidArgumentException If argument is not numeric or N class
-     * @param mixed $num N or numeric value
+     * @param  mixed   $num N or numeric value
      * @access public
      * @return boolean
      */
     public function lte($num)
     {
-        if(is_numeric($num))
-        {
+        if (is_numeric($num)) {
             $n = $num;
-        }
-        elseif($num instanceof N)
-        {
+        } elseif ($num instanceof N) {
             $n = $num->value;
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException(
                 'Testing must be done with numeric value or N object!'
             );
         }
-        
+
         return $this->value <= $n;
     }
-
-
 
     public function le($num)
     {
@@ -206,24 +184,19 @@ class N
 
     /**
      * Tests whether current number is greater than given one.
-     * 
+     *
      * @throw \InvalidArgumentException If argument is not numeric or N class
-     * @param mixed $num N or numeric value.
+     * @param  mixed   $num N or numeric value.
      * @access public
      * @return boolean
      */
     public function greater($num)
     {
-        if(is_numeric($num))
-        {
+        if (is_numeric($num)) {
             $n = $num;
-        }
-        elseif($num instanceof N)
-        {
+        } elseif ($num instanceof N) {
             $n = $num->value;
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException(
                 'Testing must be done with numeric value or N object!'
             );
@@ -232,13 +205,11 @@ class N
         return $this->value > $n;
     }
 
-
-
     /**
-     * Shorthand of greater() method 
-     * 
+     * Shorthand of greater() method
+     *
      * @throw \InvalidArgumentException If argument is not numeric or N class
-     * @param mixed $num N or numeric value
+     * @param  mixed   $num N or numeric value
      * @access public
      * @return boolean
      */
@@ -247,35 +218,26 @@ class N
         return $this->greater($num);
     }
 
-
-
-
     /**
-     * Tests whether current number is greater than or equal to the given number. 
-     * 
+     * Tests whether current number is greater than or equal to the given number.
+     *
      * @throw \InvalidArgumentException If argument is not numeric or N class
-     * @param mixed $num N or numeric value
+     * @param  mixed   $num N or numeric value
      * @access public
      * @return boolean
      */
     public function gte($num)
     {
-        if(is_numeric($num))
-        {
+        if (is_numeric($num)) {
             $n = $num;
-        }
-        elseif($num instanceof N)
-        {
+        } elseif ($num instanceof N) {
             $n = $num->value;
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException(
                 'Testing must be done with numeric value or N object!'
             );
         }
 
-        
         return $this->value >= $n;
     }
 
@@ -299,8 +261,6 @@ class N
         return $this->value > 0;
     }
 
-
-
     protected function _abs()
     {
         return new N(abs($this->value));
@@ -318,8 +278,7 @@ class N
 
     protected function _inverse()
     {
-        if($this->_zero())
-        {
+        if ($this->_zero()) {
             throw new \RuntimeException('Cannot get inverse number of zero!');
         }
 
@@ -328,50 +287,41 @@ class N
 
     public function mod($mod)
     {
-        if(!is_numeric($mod) && !($mod instanceof N))
-        {
+        if (!is_numeric($mod) && !($mod instanceof N)) {
             throw new \InvalidArgumentException('Divisor must be a valid number or N object!');
         }
 
-        if($mod instanceof N)
-        {
+        if ($mod instanceof N) {
             $mod = $mod->double;
         }
 
-        if($mod == 0)
-        {
+        if ($mod == 0) {
             throw new \RuntimeException('Cannot divide by 0!');
         }
 
         return new N(fmod($this->value, $mod));
     }
 
-
     public function modulo($mod)
     {
         return $this->mod($mod);
     }
 
-
     protected function _prime()
     {
-        if($this->value < 2)
-        {
+        if ($this->value < 2) {
             return false;
         }
 
-        if(!$this->_decimal()->zero)
-        {
+        if (!$this->_decimal()->zero) {
             return false;
         }
 
         $ok = true;
         $max = floor(sqrt($this->value));
 
-        for($i = 2; $i <= $max; $i++)
-        {
-            if($this->value % $i == 0)
-            {
+        for ($i = 2; $i <= $max; $i++) {
+            if ($this->value % $i == 0) {
                 return false;
             }
         }
@@ -379,12 +329,10 @@ class N
         return true;
     }
 
-
-
     /**
-     * Gets divisors for the current integer numbers. 
-     * 
-     * If current number is negative, divisors will be based on its positive 
+     * Gets divisors for the current integer numbers.
+     *
+     * If current number is negative, divisors will be based on its positive
      * version.
      *
      * @throw \RuntimeException If current number is not an integer
@@ -393,18 +341,15 @@ class N
      */
     protected function _divisors()
     {
-        if(!$this->_decimal()->zero)
-        {
+        if (!$this->_decimal()->zero) {
             throw new \RuntimeException('You can only get divisors from integers!');
         }
 
         $n = abs($this->value);
         $a = new A();
 
-        for($i = 1; $i <= $n; $i++)
-        {
-            if($n % $i == 0)
-            {
+        for ($i = 1; $i <= $n; $i++) {
+            if ($n % $i == 0) {
                 $a->add(new self($i));
             }
         }
@@ -412,20 +357,13 @@ class N
         return $a;
     }
 
-
-
     public function pow($num)
     {
-        if(is_numeric($num))
-        {
+        if (is_numeric($num)) {
             $n = $num;
-        }
-        elseif($num instanceof N)
-        {
+        } elseif ($num instanceof N) {
             $n = $num->value;
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException(
                 'Power calculus must be done with numeric value or N object!'
             );
@@ -433,7 +371,6 @@ class N
 
         return new N(pow($this->value, $n));
     }
-
 
     public function power($num)
     {
@@ -445,32 +382,24 @@ class N
         return $this->pow(2);
     }
 
-
     protected function _cube()
     {
         return $this->pow(3);
     }
 
-
     public function log($base = M_E)
     {
-        if(is_numeric($base))
-        {
+        if (is_numeric($base)) {
             $n = $base;
-        }
-        elseif($base instanceof N)
-        {
+        } elseif ($base instanceof N) {
             $n = $base->value;
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException(
                 'Log base must be numeric value or N object!'
             );
         }
 
-        if($n == 1 || $n <= 0)
-        {
+        if ($n == 1 || $n <= 0) {
             throw new \InvalidArgumentException('Log base must be positive number different of one.');
         }
 
@@ -484,29 +413,22 @@ class N
 
     public function root($num)
     {
-        if(is_numeric($num))
-        {
+        if (is_numeric($num)) {
             $n = $num;
-        }
-        elseif($num instanceof N)
-        {
+        } elseif ($num instanceof N) {
             $n = $num->value;
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException(
                 'Root must be numeric value or N object!'
             );
         }
 
-        if($n == 0)
-        {
+        if ($n == 0) {
             throw new \InvalidArgumentException('Root must be not nul');
         }
 
         return new N(pow($this->value, 1 / $n));
     }
-
 
     protected function _sqrt()
     {
@@ -515,39 +437,33 @@ class N
 
     protected function _factorial()
     {
-        if($this->_zero())
-        {
+        if ($this->_zero()) {
             return new N(1);
         }
 
-        if($this->value < 0)
-        {
+        if ($this->value < 0) {
             throw new \RuntimeException('Cannot get factorial of negative number!');
         }
 
-        if(!$this->_decimal()->zero)
-        {
+        if (!$this->_decimal()->zero) {
             throw new \RuntimeException('Cannot get factorial of non integer!');
         }
+
         return new N(array_product(range(1, $this->value)));
     }
 
-
     protected function _triangular()
     {
-        if($this->value < 0)
-        {
+        if ($this->value < 0) {
             throw new \RuntimeException('Cannot get triangular number of negative number!');
         }
 
-        if(!$this->_decimal()->zero)
-        {
+        if (!$this->_decimal()->zero) {
             throw new \RuntimeException('Cannot get triangular number of non integer!');
         }
 
         return new N(($this->value * ($this->value + 1)) / 2);
     }
-
 
     protected function _fact()
     {
@@ -556,40 +472,30 @@ class N
 
     protected function _sign()
     {
-        if($this->value == 0)
-        {
+        if ($this->value == 0) {
             return new N(0);
-        }
-        elseif($this->value > 0)
-        {
+        } elseif ($this->value > 0) {
             return new N(1);
-        }
-        else
-        {
+        } else {
             return new N(-1);
         }
     }
 
     /**
-     * Checks if current number is equal to given argument. 
-     * 
+     * Checks if current number is equal to given argument.
+     *
      * @throw \InvalidArgumentException If argument is not numeric or N class
-     * @param mixed $num N or numeric value.
+     * @param  mixed   $num N or numeric value.
      * @access public
      * @return boolean
      */
     public function equal($num)
     {
-        if(is_numeric($num))
-        {
+        if (is_numeric($num)) {
             $n = $num;
-        }
-        elseif($num instanceof N)
-        {
+        } elseif ($num instanceof N) {
             $n = $num->value;
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException(
                 'Testing equality must be done with numeric value or N object!'
             );
@@ -617,8 +523,7 @@ class N
     {
         $sign = 1;
 
-        if($this->_negative())
-        {
+        if ($this->_negative()) {
             $sign = -1;
         }
 
@@ -627,27 +532,25 @@ class N
 
     protected function _odd()
     {
-        if(!$this->_decimal()->_zero())
-        {
+        if (!$this->_decimal()->_zero()) {
             throw new \RuntimeException('Testing if number is odd only if it is an integer!');
         }
+
         return (boolean) ($this->value & 1);
     }
 
     protected function _even()
     {
-        if(!$this->_decimal()->_zero())
-        {
+        if (!$this->_decimal()->_zero()) {
             throw new \RuntimeException('Testing if number is even only if it is an integer!');
         }
+
         return !$this->_odd();
     }
 
-
     public function test($what)
     {
-        if(is_string($what) || $what instanceof S)
-        {
+        if (is_string($what) || $what instanceof S) {
             $arr = array();
 
             if(
@@ -661,163 +564,122 @@ class N
                 $operator = strtolower(trim($arr[1]));
                 $num = (int) $arr[2];
 
-                if(in_array($operator, array('<','lt')))
-                {
+                if (in_array($operator, array('<','lt'))) {
                     return $this->lt($num);
                 }
-                
-                if(in_array($operator, array('>','gt')))
-                {
+
+                if (in_array($operator, array('>','gt'))) {
                     return $this->gt($num);
                 }
 
-                if(in_array($operator, array('<=','le')))
-                {
+                if (in_array($operator, array('<=','le'))) {
                     return $this->le($num);
                 }
 
-                if(in_array($operator, array('>=','ge')))
-                {
+                if (in_array($operator, array('>=','ge'))) {
                     return $this->ge($num);
                 }
 
-                if(in_array($operator, array('=', '==', 'eq')))
-                {
+                if (in_array($operator, array('=', '==', 'eq'))) {
                     return $this->eq($num);
                 }
 
-                if(in_array($operator, array('!=', '<>', 'no', 'neq')))
-                {
+                if (in_array($operator, array('!=', '<>', 'no', 'neq'))) {
                     return $this->neq($num);
                 }
-            }
-            else
-            {
+            } else {
                 throw new \RuntimeException('Not valid test expression.');
             }
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException('Test argument must be a string or a S object.');
         }
     }
 
     /**
-     * Create new N having the sum of given argument with current number 
-     * 
+     * Create new N having the sum of given argument with current number
+     *
      * @throw \InvalidArgumentException If argument is not N or numeric value.
-     * @param mixed $number N or numeric value
+     * @param  mixed $number N or numeric value
      * @access public
      * @return N
      */
     public function plus($number)
     {
-        if(is_numeric($number) || $number instanceof N)
-        {
-            if(is_numeric($number))
-            {
+        if (is_numeric($number) || $number instanceof N) {
+            if (is_numeric($number)) {
                 return new self($this->value + $number);
-            }
-            else
-            {
+            } else {
                 return new self($this->value + $number->value);
             }
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException('To addition a value, you must use number or \Malenki\Bah\N instance.');
         }
     }
 
-
-
-
     /**
-     * Creates new N having the substraction of given argument with current number 
-     * 
+     * Creates new N having the substraction of given argument with current number
+     *
      * @throw \InvalidArgumentException If argument is not N or numeric value.
-     * @param mixed $number N or numeric value
+     * @param  mixed $number N or numeric value
      * @access public
      * @return N
      */
     public function minus($number)
     {
-        if(is_numeric($number) || $number instanceof N)
-        {
-            if(is_numeric($number))
-            {
+        if (is_numeric($number) || $number instanceof N) {
+            if (is_numeric($number)) {
                 return new self($this->value - $number);
-            }
-            else
-            {
+            } else {
                 return new self($this->value - $number->value);
             }
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException('To substract a value, you must use number or \Malenki\Bah\N instance.');
         }
     }
 
-    
-    
     /**
-     * Creates new N by multipling the current to the given one 
-     * 
+     * Creates new N by multipling the current to the given one
+     *
      * @throw \InvalidArgumentException If argument is not N or numeric value.
-     * @param mixed $number N or numeric value
+     * @param  mixed $number N or numeric value
      * @access public
      * @return N
      */
     public function multiply($number)
     {
-        if(is_numeric($number) || $number instanceof N)
-        {
-            if(is_numeric($number))
-            {
+        if (is_numeric($number) || $number instanceof N) {
+            if (is_numeric($number)) {
                 return new self($this->value * $number);
-            }
-            else
-            {
+            } else {
                 return new self($this->value * $number->value);
             }
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException('To substract a value, you must use number or \Malenki\Bah\N instance.');
         }
     }
 
-
-
-
     /**
      * Divide current number with given argument.
-     * 
+     *
      * @throw \InvalidArgumentException If given argument is zero
      * @throw \InvalidArgumentException If given argument is not N or numeric value.
-     * @param mixed $number N or numeric value
+     * @param  mixed $number N or numeric value
      * @access public
      * @return N
      */
     public function divide($number)
     {
-        if(is_numeric($number) || $number instanceof N)
-        {
-            if(is_object($number))
-            {
+        if (is_numeric($number) || $number instanceof N) {
+            if (is_object($number)) {
                 $number = $number->value;
             }
 
-            if($number == 0)
-            {
+            if ($number == 0) {
                 throw new \InvalidArgumentException('You cannot divide by zero!');
             }
-            
+
             return new self($this->value / $number);
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException('To addition a value, you must use number or \Malenki\Bah\N instance.');
         }
     }
@@ -878,17 +740,15 @@ class N
                 'roman' => 'i'
             )
         );
-        
+
         $int_number  = $this->value;
         $str_numeral = '';
         $str_least   = '';
 
         $int_count_numerals = count($arr_numerals);
 
-        for($i = 0; $i < $int_count_numerals; $i++)
-        {
-            while($int_number >= $arr_numerals[$i]->integer)
-            {
+        for ($i = 0; $i < $int_count_numerals; $i++) {
+            while ($int_number >= $arr_numerals[$i]->integer) {
                 $str_least .= $arr_numerals[$i]->roman;
                 $int_number  -= $arr_numerals[$i]->integer;
             }
@@ -897,25 +757,22 @@ class N
         return new S($str_numeral . $str_least);
     }
 
-
-
     /**
-     * greek 
-     * 
+     * greek
+     *
      * If digamma is false, use stigma instead.
      *
      * Max number: 9999.
      *
      * @todo add myriad to have more number after 9999.
-     * @param boolean $digamma 
+     * @param  boolean $digamma
      * @access public
-     * @return s object
+     * @return s       object
      */
     public function greek($digamma = true)
     {
 
-        if($this->value > 9999)
-        {
+        if ($this->value > 9999) {
             throw new \InvalidArgumentException(
                 'Numbers over 9999 are not yet available for greek format.'
             );
@@ -962,8 +819,7 @@ class N
             9000 => 'ͺθ'
         );
 
-        if(!$digamma)
-        {
+        if (!$digamma) {
             $arr_greek[6] = 'ϛ';
         }
 
@@ -971,10 +827,8 @@ class N
 
         $arr_out = array();
 
-        for($i = 0; $i < strlen($str_value); $i++)
-        {
-            if($str_value[$i] > 0)
-            {
+        for ($i = 0; $i < strlen($str_value); $i++) {
+            if ($str_value[$i] > 0) {
                 $arr_out[] = $arr_greek[pow(10, $i) * $str_value[$i]];
             }
         }
@@ -982,11 +836,9 @@ class N
         return new S(implode('', array_reverse($arr_out)));
     }
 
-
-
     /**
      * Convert to arabian string number
-     * 
+     *
      * @todo to implement
      * @access public
      * @return S
@@ -995,11 +847,9 @@ class N
     {
     }
 
-    
-    
     /**
      * Convert to hebrew string number
-     * 
+     *
      * @todo to implement
      * @access public
      * @return S
@@ -1007,9 +857,6 @@ class N
     public function hebrew()
     {
     }
-
-
-
 
     protected function _hex()
     {

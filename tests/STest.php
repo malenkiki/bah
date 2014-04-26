@@ -33,7 +33,6 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S('Je suis une chaîne !');
         $this->assertEquals((string) $s, 'Je suis une chaîne !');
         $this->assertEquals((string) $s->title, 'Je Suis Une Chaîne !');
-        
 
         $s = new S('!');
         $this->assertEquals((string) $s->times(3), '!!!');
@@ -51,8 +50,6 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals(21, count($s));
         $this->assertEquals(21, $s->length->int);
     }
-
-
 
     public function testUppercaseMustBeOk()
     {
@@ -72,14 +69,13 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('je suis une chaîne !', (string) $s->lower);
     }
 
-
     public function testCheckingStringShouldBeVoidOrNot()
     {
         $s = new S('');
         $this->assertTrue($s->isVoid());
         $this->assertTrue($s->void);
         $this->assertTrue($s->empty);
-        
+
         $s = new S('something');
         $this->assertFalse($s->isVoid());
         $this->assertFalse($s->void);
@@ -115,7 +111,6 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->regexp(new S('/ern/')));
         $this->assertFalse($s->re(new S('/ern/')));
     }
-
 
     public function testChars()
     {
@@ -187,7 +182,6 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('     something     ', $s->margin(new N(5), new N(5)));
     }
 
-
     public function testSplitingStringShouldSuccess()
     {
         $s = new S('one, two, three, four');
@@ -217,7 +211,6 @@ class STest extends PHPUnit_Framework_TestCase
         );
     }
 
-
     public function testStringActAsRegexpShouldSuccess()
     {
         $s = new S('/\s+/');
@@ -236,5 +229,3 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->test("no digit"));
     }
 }
-
-

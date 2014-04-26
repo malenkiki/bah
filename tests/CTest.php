@@ -24,13 +24,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use \Malenki\Bah\N;
 use \Malenki\Bah\A;
-use \Malenki\Bah\H;
 use \Malenki\Bah\S;
 use \Malenki\Bah\C;
 
 class CTest extends PHPUnit_Framework_TestCase
 {
-
 
     public function testConvertingObjectToPrimitiveString()
     {
@@ -50,22 +48,22 @@ class CTest extends PHPUnit_Framework_TestCase
     {
         $c = new C('&eacute;');
         $this->assertEquals('é', $c->string);
-        
+
         $c = new C('&nbsp;');
         $this->assertEquals(' ', $c->string);
-        
+
         $c = new C('&quot;');
         $this->assertEquals('"', $c->string);
-        
+
         $c = new C('&apos;');
         $this->assertEquals("'", $c->string);
-        
+
         $c = new C('&amp;');
         $this->assertEquals('&', $c->string);
-        
+
         $c = new C('&lt;');
         $this->assertEquals('<', $c->string);
-        
+
         $c = new C('&gt;');
         $this->assertEquals('>', $c->string);
     }
@@ -91,28 +89,27 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($c->hasCase());
         $this->assertFalse($c->isLowerCase());
         $this->assertTrue($c->isUpperCase());
-        
+
         $c = new C('=');
         $this->assertFalse($c->hasCase());
         $this->assertTrue($c->isLowerCase());
         $this->assertTrue($c->isUpperCase());
-        
+
         $c = new C('ب');
         $this->assertFalse($c->hasCase());
         $this->assertTrue($c->isLowerCase());
         $this->assertTrue($c->isUpperCase());
-        
+
         $c = new C('5');
         $this->assertFalse($c->hasCase());
         $this->assertTrue($c->isLowerCase());
         $this->assertTrue($c->isUpperCase());
-        
+
         $c = new C('');
         $this->assertFalse($c->hasCase());
         $this->assertTrue($c->isLowerCase());
         $this->assertTrue($c->isUpperCase());
     }
-
 
     public function testLetterDetection()
     {
@@ -134,53 +131,50 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($c->isLetter());
     }
 
-
     public function testDigitDetection()
     {
         $c = new C('0');
         $this->assertTrue($c->isDigit());
-        
+
         $c = new C('8');
         $this->assertTrue($c->isDigit());
     }
-
 
     public function testPunctuationDetection()
     {
         $c = new C('.');
         $this->assertTrue($c->isPunctuation());
-        
+
         $c = new C(',');
         $this->assertTrue($c->isPunctuation());
-        
+
         $c = new C('…');
         $this->assertTrue($c->isPunctuation());
-        
+
         $c = new C('–');
         $this->assertTrue($c->isPunctuation());
-        
+
         $c = new C('。');
         $this->assertTrue($c->isPunctuation());
-        
+
         $c = new C('【');
         $this->assertTrue($c->isPunctuation());
     }
-
 
     public function testSeparatorDetection()
     {
         $c = new C(' ');
         $this->assertTrue($c->isSeparator());
-        
+
         $c = new C(' '); // nbsp
         $this->assertTrue($c->isSeparator());
-        
+
         $c = new C("　"); // ideographic space
         $this->assertTrue($c->isSeparator());
-        
+
         $c = new C(" "); // EM space
         $this->assertTrue($c->isSeparator());
-        
+
     }
 
     public function testFormatDetection()
@@ -189,7 +183,6 @@ class CTest extends PHPUnit_Framework_TestCase
         $c = new C(new N(0x9B));
         $this->assertTrue($c->isFormat());
     }
-
 
     public function testUnassignedDetection()
     {
@@ -201,7 +194,6 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($c->isUnassigned());
     }
 
-
     public function testPrivateUseDetection()
     {
         $c = new C('󰀴');
@@ -209,7 +201,6 @@ class CTest extends PHPUnit_Framework_TestCase
         $c = new C('􀁕');
         $this->assertTrue($c->isPrivateUse());
     }
-
 
     public function testSurrogateDetection()
     {
@@ -222,43 +213,41 @@ class CTest extends PHPUnit_Framework_TestCase
     {
         $c = new C("\n");
         $this->assertTrue($c->isControl());
-        
+
         $c = new C("\t");
         $this->assertTrue($c->isControl());
-        
+
     }
-
-
 
     public function testSymbolDetection()
     {
         $c = new C('$');
         $this->assertTrue($c->isSymbol());
-        
+
         $c = new C('£');
         $this->assertTrue($c->isSymbol());
-        
+
         $c = new C('€');
         $this->assertTrue($c->isSymbol());
-        
+
         $c = new C('+');
         $this->assertTrue($c->isSymbol());
-        
+
         $c = new C('×');
         $this->assertTrue($c->isSymbol());
-        
+
         $c = new C('÷');
         $this->assertTrue($c->isSymbol());
-        
+
         $c = new C('∀');
         $this->assertTrue($c->isSymbol());
 
         $c = new C('∁');
         $this->assertTrue($c->isSymbol());
-        
+
         $c = new C('∃');
         $this->assertTrue($c->isSymbol());
-        
+
         $c = new C('∈');
         $this->assertTrue($c->isSymbol());
     }
@@ -268,19 +257,18 @@ class CTest extends PHPUnit_Framework_TestCase
         $c = new C('é');
         $n = new N(233);
         $this->assertEquals($n, $c->unicode);
-        
+
         $c = new C('€');
         $n = new N(8364);
         $this->assertEquals($n, $c->unicode);
-        
+
         $c = new C('æ');
         $n = new N(230);
         $this->assertEquals($n, $c->unicode);
     }
 
-
     /**
-     * testBlock 
+     * testBlock
      * @access public
      * @return void
      */
@@ -297,7 +285,7 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($c->block, new S('Greek and Coptic'));
         $c = new C('Ю');
         $this->assertEquals($c->block, new S('Cyrillic'));
-        
+
         $c = new C('Ꙛ');
         $this->assertEquals($c->block, new S('Cyrillic Extended-B'));
         $c = new C('Ֆ');

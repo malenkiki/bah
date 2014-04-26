@@ -25,7 +25,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use \Malenki\Bah\N;
 use \Malenki\Bah\S;
 use \Malenki\Bah\A;
-use \Malenki\Bah\H;
 use \Malenki\Bah\C;
 
 class NTest extends PHPUnit_Framework_TestCase
@@ -39,7 +38,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $zero = new N(0);
         $result = $five->divide($zero);
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -49,7 +48,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $result = $five->divide(0);
     }
 
-
     public function testAddNumberShouldSuccess()
     {
         $n = new N(2.3);
@@ -57,7 +55,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(2.3);
         $this->assertEquals((float) 5.4, $n->plus(new N(3.1))->float);
     }
-
 
     public function testMinusNumberShouldSuccess()
     {
@@ -67,7 +64,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $n->minus(new N(5))->int);
     }
 
-
     public function testMultiplyNumberShouldSuccess()
     {
         $n = new N(5);
@@ -75,7 +71,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(5);
         $this->assertEquals(20, $n->multiply(new N(4))->int);
     }
-
 
     public function testNumbersThatShouldBePositive()
     {
@@ -99,7 +94,7 @@ class NTest extends PHPUnit_Framework_TestCase
     {
         $zero = new N(0);
         $this->assertTrue($zero->zero);
-        
+
         $five = new N(-5);
         $zero = $five->plus(5);
         $this->assertTrue($zero->zero);
@@ -173,10 +168,10 @@ class NTest extends PHPUnit_Framework_TestCase
         // ten and followers…
         $ten = new N(10);
         $this->assertEquals('ι', $ten->greek());
-        
+
         $hundred = new N(100);
         $this->assertEquals('ρ', $hundred->greek());
-        
+
         $thousand = new N(1000);
         $this->assertEquals('ͺα', $thousand->greek());
 
@@ -191,10 +186,10 @@ class NTest extends PHPUnit_Framework_TestCase
         // ten and followers…
         $ten = new N(10);
         $this->assertEquals('ι', $ten->greek);
-        
+
         $hundred = new N(100);
         $this->assertEquals('ρ', $hundred->greek);
-        
+
         $thousand = new N(1000);
         $this->assertEquals('ͺα', $thousand->greek);
 
@@ -206,41 +201,40 @@ class NTest extends PHPUnit_Framework_TestCase
     {
         $one = new N(1);
         $this->assertEquals('i', $one->roman);
-        
+
         $two = new N(2);
         $this->assertEquals('ii', $two->roman);
-        
+
         $three = new N(3);
         $this->assertEquals('iii', $three->roman);
-        
+
         $four = new N(4);
         $this->assertEquals('iv', $four->roman);
-        
+
         $five = new N(5);
         $this->assertEquals('v', $five->roman);
-        
+
         $six = new N(6);
         $this->assertEquals('vi', $six->roman);
-        
+
         $seven = new N(7);
         $this->assertEquals('vii', $seven->roman);
-        
+
         $eight = new N(8);
         $this->assertEquals('viii', $eight->roman);
-        
+
         $nine = new N(9);
         $this->assertEquals('ix', $nine->roman);
 
         $ten = new N(10);
         $this->assertEquals('x', $ten->roman);
-        
+
         $number269 = new N(269);
         $this->assertEquals('cclxix', $number269->roman);
-        
+
         $number1978 = new N(1978);
         $this->assertEquals('mcmlxxviii', $number1978->roman);
     }
-
 
     public function testTestingConditionsShouldSuccess()
     {
@@ -266,7 +260,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($n->test('lt 10'));
         $this->assertTrue($n->test('le 10'));
     }
-
 
     /**
      * @expectedException \RuntimeException
@@ -352,8 +345,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->even;
     }
 
-
-
     public function testNumberGetDecimalPart()
     {
         $n = new N(4.0);
@@ -398,7 +389,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(-0.9, $n->decimal->float);
     }
 
-
     public function testIfNumberIsPrimeOrNotShouldSuccess()
     {
         $n = new N(2);
@@ -434,21 +424,20 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($n->prime);
     }
 
-
     public function testGettingDivisorsShouldSuccess()
     {
         $n = new N(3);
         $this->assertEquals(array(new N(1), new N(3)), $n->divisors->array);
         $this->assertCount(2, $n->divisors);
-        
+
         $n = new N(4);
         $this->assertEquals(array(new N(1), new N(2), new N(4)), $n->divisors->array);
         $this->assertCount(3, $n->divisors);
-        
+
         $n = new N(5);
         $this->assertEquals(array(new N(1), new N(5)), $n->divisors->array);
         $this->assertCount(2, $n->divisors);
-        
+
         $n = new N(6);
         $this->assertEquals(array(new N(1), new N(2), new N(3), new N(6)), $n->divisors->array);
         $this->assertCount(4, $n->divisors);
@@ -456,27 +445,27 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(7);
         $this->assertEquals(array(new N(1), new N(7)), $n->divisors->array);
         $this->assertCount(2, $n->divisors);
-        
+
         $n = new N(8);
         $this->assertEquals(array(new N(1), new N(2), new N(4), new N(8)), $n->divisors->array);
         $this->assertCount(4, $n->divisors);
-        
+
         $n = new N(9);
         $this->assertEquals(array(new N(1), new N(3), new N(9)), $n->divisors->array);
         $this->assertCount(3, $n->divisors);
-        
+
         $n = new N(-3);
         $this->assertEquals(array(new N(1), new N(3)), $n->divisors->array);
         $this->assertCount(2, $n->divisors);
-        
+
         $n = new N(-4);
         $this->assertEquals(array(new N(1), new N(2), new N(4)), $n->divisors->array);
         $this->assertCount(3, $n->divisors);
-        
+
         $n = new N(-5);
         $this->assertEquals(array(new N(1), new N(5)), $n->divisors->array);
         $this->assertCount(2, $n->divisors);
-        
+
         $n = new N(-6);
         $this->assertEquals(array(new N(1), new N(2), new N(3), new N(6)), $n->divisors->array);
         $this->assertCount(4, $n->divisors);
@@ -484,16 +473,15 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(-7);
         $this->assertEquals(array(new N(1), new N(7)), $n->divisors->array);
         $this->assertCount(2, $n->divisors);
-        
+
         $n = new N(-8);
         $this->assertEquals(array(new N(1), new N(2), new N(4), new N(8)), $n->divisors->array);
         $this->assertCount(4, $n->divisors);
-        
+
         $n = new N(-9);
         $this->assertEquals(array(new N(1), new N(3), new N(9)), $n->divisors->array);
         $this->assertCount(3, $n->divisors);
     }
-
 
     /**
      * @expectedException \RuntimeException
@@ -503,7 +491,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(3.3);
         $n->divisors;
     }
-
 
     public function testGettingAbsoluteValueShouldSuccess()
     {
@@ -525,7 +512,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals((float) 6.4, $n->absolute->float);
     }
 
-
     public function testGettingOppositeValueShouldSuccess()
     {
         $n = new N(-6);
@@ -540,13 +526,12 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $n->opposite->int);
     }
 
-
     public function testGettingModuloShouldSuccess()
     {
         $n = new N(3);
         $this->assertEquals(1, $n->mod(2)->int);
         $this->assertEquals(1, $n->modulo(2)->int);
-        
+
         $n = new N(3.3);
         $this->assertEquals((double) 1.3, $n->mod(2)->double);
     }
@@ -578,7 +563,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(81, $n->square->square->int);
         $this->assertEquals(27, $n->pow(3)->int);
         $this->assertEquals(27, $n->cube->int);
-        
+
         $n = new N(-3);
         $this->assertEquals(9, $n->pow(2)->int);
         $this->assertEquals(9, $n->square->int);
@@ -607,7 +592,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->pow('4n');
     }
 
-
     public function testLnShouldSuccess()
     {
         $n = new N(1);
@@ -616,10 +600,8 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(M_E);
         $this->assertEquals(1, $n->ln->int);
         $this->assertEquals(1, $n->log()->int);
-        
+
     }
-
-
 
     public function testLogShouldSuccess()
     {
@@ -627,18 +609,17 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($n->log(10)->zero);
         $n = new N(10);
         $this->assertEquals(1, $n->log(10)->int);
-        
+
         $n = new N(1);
         $this->assertTrue($n->log(2)->zero);
         $n = new N(2);
         $this->assertEquals(1, $n->log(2)->int);
-        
+
         $n = new N(1);
         $this->assertTrue($n->log(0.5)->zero);
         $n = new N(0.5);
         $this->assertEquals(1, $n->log(0.5)->int);
     }
-
 
     /**
      * @expectedException \InvalidArgumentException
@@ -650,7 +631,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->log(1);
     }
 
-
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -661,8 +641,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->log(-3);
     }
 
-
-
     public function testGettingRootShouldSuccess()
     {
         $n = new N(8);
@@ -671,7 +649,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, $n->root(new N(3))->int);
         $this->assertEquals(8, $n->root(1)->int);
         $this->assertEquals(8, $n->root(new N(1))->int);
-        
+
         $n = new N(9);
 
         $this->assertEquals(3, $n->sqrt->int);
@@ -686,7 +664,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(8);
         $n->root(0);
     }
-
 
     public function testGetSignShouldSuccess()
     {
@@ -729,7 +706,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->factorial;
     }
 
-
     public function testGettingTriangularNumberShouldSuccess()
     {
         $n = new N(0);
@@ -758,7 +734,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->triangular;
     }
 
-
     public function testGettingInverseNumberShouldSuccess()
     {
         $n = new N(2);
@@ -774,7 +749,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals((float) -0.25, $n->inverse->float);
         $this->assertEquals((float) 1, $n->inverse->multiply($n)->value);
     }
-
 
     /**
      * @expectedException \RuntimeException
