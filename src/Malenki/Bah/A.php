@@ -408,6 +408,15 @@ class A implements \Iterator, \Countable
         return new self(array_map($func, $this->value));
     }
 
+    public function walk($func, $other = null)
+    {
+        $arr = $this->value;
+
+        array_walk($arr, $func, $other);
+
+        return new self($arr);
+    }
+
     public function filter($func)
     {
         return new self(array_filter($this->value, $func));

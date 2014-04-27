@@ -277,6 +277,21 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(1, 8, 27, 64, 125), $a->map($cube)->array);
     }
 
+
+    public function testWalkingValuesShouldSuccess()
+    {
+        $foo = function (&$v, $k, $n) {
+            if($k & 1){
+                $v = -1 * (pow($v, 3)  + $n);
+            } else {
+                $v = pow($v, 2)  + $n;
+            }
+        };
+
+        $a = new A(range(1, 5));
+        $this->assertEquals(array(4, -11, 12, -67, 28), $a->walk($foo, 3)->array);
+    }
+
     public function testReversingOrderShouldSuccess()
     {
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
