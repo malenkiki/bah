@@ -257,6 +257,16 @@ class H implements \Iterator, \Countable
         return $out;
     }
 
+    public function walk($func, $other = null)
+    {
+        $arr = $this->value;
+
+        array_walk($arr, $func, $other);
+
+        return new self($arr);
+    }
+
+
     /**
      * Search index of the given element.
      *

@@ -201,6 +201,29 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('English word "three" is "trois" in french.', $h->map($blahblah)->three);
     }
 
+
+    public function testWalkingValuesShouldSuccess()
+    {
+        $foo = function (&$v, &$k, $n) {
+            if(is_string($v)){
+                $v = sprintf('my value is the string "%s"', $v);
+            } elseif(is_integer($v)) {
+                $v = sprintf('my value is the integer "%d"', $v);
+            } else {
+                $v = $n;
+            }
+        };
+
+        $expectedValuesArray = array(
+            'my value is the integer "4"',
+            'my value is the string "some string"',
+            'I don\'t know what I am'
+        );
+
+        $a = new H(array('foo' => 4, 'bar' => 'some string', 'thing' => new N(3)));
+        $this->assertEquals($expectedValuesArray, array_values($a->walk($foo, 'I don\'t know what I am')->array));
+    }
+
     public function testReversingShouldSuccess()
     {
         $h = new H();
