@@ -238,53 +238,67 @@ class NTest extends PHPUnit_Framework_TestCase
 
     public function testGettingHindiNumeralsShouldSuccess()
     {
-        $one = new N(0);
-        $this->assertEquals('०', $one->hindi);
-        $one = new N(1);
-        $this->assertEquals('१', $one->hindi);
-        $one = new N(2);
-        $this->assertEquals('२', $one->hindi);
-        $one = new N(3);
-        $this->assertEquals('३', $one->hindi);
-        $one = new N(4);
-        $this->assertEquals('४', $one->hindi);
-        $one = new N(5);
-        $this->assertEquals('५', $one->hindi);
-        $one = new N(6);
-        $this->assertEquals('६', $one->hindi);
-        $one = new N(7);
-        $this->assertEquals('७', $one->hindi);
-        $one = new N(8);
-        $this->assertEquals('८', $one->hindi);
-        $one = new N(9);
-        $this->assertEquals('९', $one->hindi);
-        $one = new N(10);
-        $this->assertEquals('१०', $one->hindi);
-        $one = new N(20);
-        $this->assertEquals('२०', $one->hindi);
-        $one = new N(30);
-        $this->assertEquals('३०', $one->hindi);
-        $one = new N(40);
-        $this->assertEquals('४०', $one->hindi);
-        $one = new N(50);
-        $this->assertEquals('५०', $one->hindi);
-        $one = new N(60);
-        $this->assertEquals('६०', $one->hindi);
-        $one = new N(70);
-        $this->assertEquals('७०', $one->hindi);
-        $one = new N(80);
-        $this->assertEquals('८०', $one->hindi);
-        $one = new N(90);
-        $this->assertEquals('९०', $one->hindi);
-        $one = new N(100);
-        $this->assertEquals('१००', $one->hindi);
-        $one = new N(1000);
-        $this->assertEquals('१०००', $one->hindi);
+        $n = new N(0);
+        $this->assertEquals('०', $n->hindi);
+        $this->assertEquals('०', $n->hindi());
+        $n = new N(1);
+        $this->assertEquals('१', $n->hindi);
+        $n = new N(2);
+        $this->assertEquals('२', $n->hindi);
+        $n = new N(3);
+        $this->assertEquals('३', $n->hindi);
+        $n = new N(4);
+        $this->assertEquals('४', $n->hindi);
+        $n = new N(5);
+        $this->assertEquals('५', $n->hindi);
+        $n = new N(6);
+        $this->assertEquals('६', $n->hindi);
+        $n = new N(7);
+        $this->assertEquals('७', $n->hindi);
+        $n = new N(8);
+        $this->assertEquals('८', $n->hindi);
+        $n = new N(9);
+        $this->assertEquals('९', $n->hindi);
+        $n = new N(10);
+        $this->assertEquals('१०', $n->hindi);
+        $n = new N(20);
+        $this->assertEquals('२०', $n->hindi);
+        $n = new N(30);
+        $this->assertEquals('३०', $n->hindi);
+        $n = new N(40);
+        $this->assertEquals('४०', $n->hindi);
+        $n = new N(50);
+        $this->assertEquals('५०', $n->hindi);
+        $n = new N(60);
+        $this->assertEquals('६०', $n->hindi);
+        $n = new N(70);
+        $this->assertEquals('७०', $n->hindi);
+        $n = new N(80);
+        $this->assertEquals('८०', $n->hindi);
+        $n = new N(90);
+        $this->assertEquals('९०', $n->hindi);
+        $n = new N(100);
+        $this->assertEquals('१००', $n->hindi);
+        $n = new N(1000);
+        $this->assertEquals('१०००', $n->hindi);
+        $n = new N(123456789);
+        $this->assertEquals('१२३४५६७८९', $n->hindi);
     }
 
     public function testGettingHindiNumeralsUsingSeparatorShouldSuccess()
     {
-        $this->markTestIncomplete();
+        $n = new N(1000);
+        $this->assertEquals('१,०००', $n->hindi(true));
+        $n = new N(10000);
+        $this->assertEquals('१०,०००', $n->hindi(true));
+        $n = new N(100000);
+        $this->assertEquals('१,००,०००', $n->hindi(true));
+        $n = new N(1000000);
+        $this->assertEquals('१०,००,०००', $n->hindi(true));
+        $n = new N(10000000);
+        $this->assertEquals('१,००,००,०००', $n->hindi(true));
+        $n = new N(123456789);
+        $this->assertEquals('१२,३४,५६,७८९', $n->hindi(true));
     }
 
     public function testTestingConditionsShouldSuccess()

@@ -858,7 +858,7 @@ class N
         );
         $str = strtr((string) $this->value, $arr);
 
-        if(mb_strlen($str, 'UTF-8') > 3 && $use_sep){
+        if($use_sep && mb_strlen($str, 'UTF-8') > 3){
             $mb_strrev = function($str){
                 preg_match_all('/./us', $str, $ar);
                 return join('',array_reverse($ar[0]));
@@ -868,11 +868,19 @@ class N
             $str_first = mb_substr($str, 0, 3, 'UTF-8');
             $str_last = mb_substr($str, 3, mb_strlen($str, 'UTF-8'), 'UTF-8');
 
-            $str_last = implode(',', str_split($str_last, 2));
-            $str = $str_first .','.$str_last;
-
-            $str = $mb_strrev($str);
-
+            $str_last = implode(
+                ',',
+                array_map(
+                    function($a){return implode('', $a);},
+                    array_chunk(
+                        preg_split(
+                            '//u', $str_last, -1, PREG_SPLIT_NO_EMPTY
+                        ),
+                        2
+                    )
+                )
+            );
+            $str = $mb_strrev($str_first .','.$str_last);
         }
 
         return new S($str);
