@@ -54,6 +54,7 @@ namespace Malenki\Bah;
  * @property-read $triangular Gets triangular number (1+2+3+4… to current number)
  * @property-read $fact Gets factorial
  * @property-read $positive Check if number is positive
+ * @property-read $hindi Get hindi number as S class.
  * @property-read $roman Get roman number as S class.
  * @property-read $greek Get greek number as S class.
  * @property-read $int Get as primitive integer
@@ -75,6 +76,10 @@ class N
 
         if ($name == 'greek') {
             return $this->greek();
+        }
+        
+        if ($name == 'hindi') {
+            return $this->hindi();
         }
     }
 
@@ -835,6 +840,45 @@ class N
 
         return new S(implode('', array_reverse($arr_out)));
     }
+
+
+    public function hindi($use_sep = false)
+    {
+        $arr = array(
+            0 => '०', 
+            1 => '१', 
+            2 => '२', 
+            3 => '३',
+            4 => '४',
+            5 => '५',
+            6 => '६',
+            7 => '७',
+            8 => '८',
+            9 => '९'
+        );
+        $str = strtr((string) $this->value, $arr);
+
+        if(mb_strlen($str, 'UTF-8') > 3 && $use_sep){
+            $mb_strrev = function($str){
+                preg_match_all('/./us', $str, $ar);
+                return join('',array_reverse($ar[0]));
+            };
+
+            $str = $mb_strrev($str);
+            $str_first = mb_substr($str, 0, 3, 'UTF-8');
+            $str_last = mb_substr($str, 3, mb_strlen($str, 'UTF-8'), 'UTF-8');
+
+            $str_last = implode(',', str_split($str_last, 2));
+            $str = $str_first .','.$str_last;
+
+            $str = $mb_strrev($str);
+
+        }
+
+        return new S($str);
+    }
+
+
 
     /**
      * Convert to arabian string number
