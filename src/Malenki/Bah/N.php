@@ -82,7 +82,7 @@ class N
             return $this->hindi();
         }
         
-        if (in_array($name, array('arabic', 'perso_arabic', 'pakistani'))) {
+        if (in_array($name, array('arabic', 'perso_arabic', 'persian'))) {
             return $this->_arabic($name);
         }
     }
@@ -905,7 +905,7 @@ class N
             9 => '٩'
         );
 
-        if($type == 'perso_arabic'){
+        if($type == 'perso_arabic' || $type == 'persian'){
             $arr = array(
                 0 => '۰',
                 1 => '۱',
@@ -919,33 +919,10 @@ class N
                 9 => '۹'
             );
         }
-
-        //TODO
-        if($type == 'pakistani'){
-            $arr = array(
-
-            );
-        }
         
         return new S(strtr((string) $this->value, $arr));
     }
 
-
-    public function arabic()
-    {
-        return $this->_arabic();
-    }
-
-    public function persoArabic()
-    {
-        return $this->_arabic('persoarabic');
-    }
-
-    public function pakistani()
-    {
-        throw new \RuntimeException('Pakistani conversion is not available yet');
-        return $this->_arabic('pakistani');
-    }
 
 
     /**

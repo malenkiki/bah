@@ -334,19 +334,19 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(0);
         $this->assertEquals('۰', $n->perso_arabic);
         $n = new N(1);
-        $this->assertEquals('۱', $n->perso_arabic);
+        $this->assertEquals('۱', $n->persian);
         $n = new N(2);
         $this->assertEquals('۲', $n->perso_arabic);
         $n = new N(3);
-        $this->assertEquals('۳', $n->perso_arabic);
+        $this->assertEquals('۳', $n->persian);
         $n = new N(4);
         $this->assertEquals('۴', $n->perso_arabic);
         $n = new N(5);
-        $this->assertEquals('۵', $n->perso_arabic);
+        $this->assertEquals('۵', $n->persian);
         $n = new N(6);
         $this->assertEquals('۶', $n->perso_arabic);
         $n = new N(7);
-        $this->assertEquals('۷', $n->perso_arabic);
+        $this->assertEquals('۷', $n->persian);
         $n = new N(8);
         $this->assertEquals('۸', $n->perso_arabic);
         $n = new N(9);
@@ -357,35 +357,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('۱۹۷۹', $n->perso_arabic);
     }
 
-    
-    public function testGettingPakistaniNumeralsShouldSuccess()
-    {
-        $this->markTestIncomplete();
-        $n = new N(0);
-        $this->assertEquals('', $n->pakistani);
-        $n = new N(1);
-        $this->assertEquals('', $n->pakistani);
-        $n = new N(2);
-        $this->assertEquals('', $n->pakistani);
-        $n = new N(3);
-        $this->assertEquals('', $n->pakistani);
-        $n = new N(4);
-        $this->assertEquals('', $n->pakistani);
-        $n = new N(5);
-        $this->assertEquals('', $n->pakistani);
-        $n = new N(6);
-        $this->assertEquals('', $n->pakistani);
-        $n = new N(7);
-        $this->assertEquals('', $n->pakistani);
-        $n = new N(8);
-        $this->assertEquals('', $n->pakistani);
-        $n = new N(9);
-        $this->assertEquals('', $n->pakistani);
-        $n = new N(10);
-        $this->assertEquals('', $n->pakistani);
-        $n = new N(1979);
-        $this->assertEquals('', $n->pakistani);
-    }
 
 
     public function testTestingConditionsShouldSuccess()
