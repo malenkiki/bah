@@ -131,7 +131,7 @@ class S extends O implements \Countable
      */
     public function __get($name)
     {
-        if (in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf', 'a', 'trans', 'void', 'empty'))) {
+        if (in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf', 'a', 'trans', 'void', 'empty', 'chunk'))) {
             if ($name == 'length') {
                 if (is_null($this->length)) {
                     $this->_length();
@@ -158,6 +158,11 @@ class S extends O implements \Countable
 
             if (in_array($name, array('void', 'empty'))) {
                 return $this->isVoid();
+            }
+
+
+            if ($name == 'chunk') {
+                return $this->chunk();
             }
 
             if ($name == 'ucw') {
@@ -609,6 +614,27 @@ class S extends O implements \Countable
     public function cut($sep)
     {
         return $this->explode($sep);
+    }
+
+    public function chunk($size = 1)
+    {
+        if(!is_integer($size) && !($size instanceof N)){
+            throw new \InvalidArgumentException('Chunk’s size must be integer or N iobject.');
+        }
+
+        if($size instanceof N) $size = $size->int;
+        
+        if($size < 1) {
+            throw new \InvalidArgumentException('Chunk’s size must be equal at least to 1.');
+        }
+
+        $a = new A();
+
+        for($i = 0; $i < count($this); $i += $size){
+            $a->add($this->sub($i, $size));
+        }
+
+        return $a;
     }
 
     /**

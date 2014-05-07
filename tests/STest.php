@@ -25,6 +25,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use Malenki\Bah\S;
 use Malenki\Bah\N;
 use Malenki\Bah\C;
+use Malenki\Bah\A;
 
 class STest extends PHPUnit_Framework_TestCase
 {
@@ -227,5 +228,38 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertTrue($s->test(1));
         $this->assertTrue($s->test(new N(1)));
         $this->assertFalse($s->test("no digit"));
+    }
+
+    public function testGettingChunksShouldSuccess()
+    {
+        $s = new S('abcde');
+        $must = new A();
+        $must->add(new S('a'));
+        $must->add(new S('b'));
+        $must->add(new S('c'));
+        $must->add(new S('d'));
+        $must->add(new S('e'));
+        $this->assertEquals($must, $s->chunk());
+        $this->assertEquals($must, $s->chunk);
+
+        $s = new S('C’est une chaîne qu’on va découper !');
+        $must = new A();
+        $must->add(new S('C’est u'));
+        $must->add(new S('ne chaî'));
+        $must->add(new S('ne qu’o'));
+        $must->add(new S('n va dé'));
+        $must->add(new S('couper '));
+        $must->add(new S('!'));
+        $this->assertEquals($must, $s->chunk(7));
+        $this->assertEquals($must, $s->chunk(new N(7)));
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingChunksiHavingBadSizeShouldFail()
+    {
+        $s = new S('abcde');
+        $s->chunk(0);
     }
 }
