@@ -82,12 +82,8 @@ class N
             return $this->hindi();
         }
         
-        if ($name == 'arabic') {
-            return $this->arabic();
-        }
-        
-        if ($name == 'perso_arabic') {
-            return $this->persoArabic();
+        if (in_array($name, array('arabic', 'perso_arabic', 'pakistani'))) {
+            return $this->_arabic($name);
         }
     }
 
@@ -894,7 +890,7 @@ class N
         return new S($str);
     }
 
-    protected function _arabic($type = 'eastern')
+    protected function _arabic($type = 'arabic')
     {
         $arr = array(
             0 => '٠',
@@ -909,7 +905,7 @@ class N
             9 => '٩'
         );
 
-        if($type == 'persoarabic'){
+        if($type == 'perso_arabic'){
             $arr = array(
                 0 => '۰',
                 1 => '۱',
