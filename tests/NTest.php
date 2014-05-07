@@ -300,6 +300,35 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(123456789);
         $this->assertEquals('१२,३४,५६,७८९', $n->hindi(true));
     }
+    
+    public function testGettingEasterArabicNumeralsShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertEquals('٠', $n->arabic);
+        $this->assertEquals('٠', $n->arabic());
+        $n = new N(1);
+        $this->assertEquals('١', $n->arabic);
+        $n = new N(2);
+        $this->assertEquals('٢', $n->arabic);
+        $n = new N(3);
+        $this->assertEquals('٣', $n->arabic);
+        $n = new N(4);
+        $this->assertEquals('٤', $n->arabic);
+        $n = new N(5);
+        $this->assertEquals('٥', $n->arabic);
+        $n = new N(6);
+        $this->assertEquals('٦', $n->arabic);
+        $n = new N(7);
+        $this->assertEquals('٧', $n->arabic);
+        $n = new N(8);
+        $this->assertEquals('٨', $n->arabic);
+        $n = new N(9);
+        $this->assertEquals('٩', $n->arabic);
+        $n = new N(10);
+        $this->assertEquals('١٠', $n->arabic);
+        $n = new N(1979);
+        $this->assertEquals('١٩٧٩', $n->arabic);
+    }
 
     public function testTestingConditionsShouldSuccess()
     {
