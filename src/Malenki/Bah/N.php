@@ -86,7 +86,7 @@ class N
             return $this->arabic();
         }
         
-        if ($name == 'iperso_arabic') {
+        if ($name == 'perso_arabic') {
             return $this->persoArabic();
         }
     }
