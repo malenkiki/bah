@@ -923,12 +923,16 @@ class N
         return new S(strtr((string) $this->value, $arr));
     }
 
-    public function chinese()
+    public function chinese($use_simple_zero = false)
     {
         // n myriads, so indexed using that.
         $arr_myriads = array('兆', '吉', '太', '拍', '艾', '泽', '尧');
         $arr_multiplicators = array('千', '百', '十');
         $arr_units = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
+
+        if($use_simple_zero){
+            $arr_units[0] = '〇';
+        }
 
         if($this->_decimal()->zero){
             $arr_groups = str_split(strrev((string) abs($this->value)), 4); // split into reversed myriads
@@ -973,10 +977,10 @@ class N
                 }
 
                 if(mb_strlen($out_prov, 'UTF-8') > 1){
-                    $out_prov = preg_replace('/零+$/ui', '', $out_prov);
+                    $out_prov = preg_replace('/'.$arr_units[0].'+$/ui', '', $out_prov);
                 }
 
-                $out .= preg_replace('/零+/ui', '零', $out_prov);
+                $out .= preg_replace('/'.$arr_units[0].'+/ui', $arr_units[0], $out_prov);
 
 
 
@@ -996,7 +1000,7 @@ class N
             $part_int = new N(floor(abs($this->value)));
             $part_decimal = substr((string) abs($this->_decimal()->float), 2);
 
-            $out = $part_int->chinese() . '点' . strtr($part_decimal, $arr_units);
+            $out = $part_int->chinese($use_simple_zero) . '点' . strtr($part_decimal, $arr_units);
         }
         
         if($this->value < 0){
