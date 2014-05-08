@@ -57,6 +57,12 @@ namespace Malenki\Bah;
  * @property-read $hindi Get hindi number as S class.
  * @property-read $roman Get roman number as S class.
  * @property-read $greek Get greek number as S class.
+ * @property-read $chinese Get chinese mandarin number as S class.
+ * @property-read $mandarin Get chinese mandarin number as S class.
+ * @property-read $putonghua Get chinese mandarin number as S class.
+ * @property-read $chinese_other_zero Get chinese mandarin number as S class (other way to print zero).
+ * @property-read $mandarin_other_zero Get chinese mandarin number as S class (other way to print zero).
+ * @property-read $putonghua_other_zero Get chinese mandarin number as S class (other way to print zero).
  * @property-read $int Get as primitive integer
  * @property-read $float Get as primitive float
  * @property-read $double Get as primitive double
@@ -82,6 +88,23 @@ class N
             return $this->hindi();
         }
         
+        if (in_array($name, array('chinese', 'mandarin', 'putonghua'))) {
+            return $this->chinese();
+        }
+
+        if (
+            in_array(
+                $name, 
+                array(
+                    'chinese_other_zero',
+                    'mandarin_other_zero',
+                    'putonghua_other_zero'
+                )
+            )
+        ) {
+            return $this->chinese(true);
+        }
+
         if (in_array($name, array('arabic', 'perso_arabic', 'persian'))) {
             return $this->_arabic($name);
         }

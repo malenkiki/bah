@@ -382,11 +382,11 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('一吉二千三百四十五兆六千七百八十九', $n->chinese());
         
         $n = new N(14);
-        $this->assertEquals('十四', $n->chinese());
+        $this->assertEquals('十四', $n->chinese);
         $n = new N(208);
-        $this->assertEquals('二百零八', $n->chinese());
+        $this->assertEquals('二百零八', $n->mandarin);
         $n = new N(2008);
-        $this->assertEquals('二千零八', $n->chinese());
+        $this->assertEquals('二千零八', $n->putonghua);
 
         $n = new N(60);
         $this->assertEquals('六十', $n->chinese());
@@ -446,6 +446,9 @@ class NTest extends PHPUnit_Framework_TestCase
     {
         $n = new N(0);
         $this->assertEquals('〇', $n->chinese(true));
+        $this->assertEquals('〇', $n->chinese_other_zero);
+        $this->assertEquals('〇', $n->mandarin_other_zero);
+        $this->assertEquals('〇', $n->putonghua_other_zero);
         $n = new N(208);
         $this->assertEquals('二百〇八', $n->chinese(true));
         $n = new N(-75.4025);
