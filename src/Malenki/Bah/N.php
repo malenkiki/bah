@@ -1091,6 +1091,23 @@ class N
         return new S($this->__toString());
     }
 
+    public function base($n)
+    {
+        if(!$this->_decimal()->zero) {
+            throw new \RuntimeException('Cannot get decimal numbers into another base.');
+        }
+
+        if ($n instanceof N) {
+            $n = $n->int;
+        }
+
+        if (!is_numeric($n) || $n < 2 || $n > 36) {
+            throw new \InvalidArgumentException('Base must be a integer or N value from 2 to 36 inclusive.');
+        }
+
+        return new S(base_convert($this->value, 10, $n));
+    }
+
     public function __toString()
     {
         return "{$this->value}";

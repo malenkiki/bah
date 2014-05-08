@@ -979,4 +979,64 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(0);
         $n->inverse;
     }
+
+    public function TestGettingNumberIntoAnotherBaseUsingPrimitiveIntegerShouldSuccess()
+    {
+        $n = new N(19);
+        $this->assertEquals('j', $n->base(20));
+        $n = new N(21);
+        $this->assertEquals('11', $n->base(20));
+        $n = new N(1979);
+        $this->assertEquals('4ij', $n->base(20));
+        $n = new N(1979);
+        $this->assertEquals('1iz', $n->base(36));
+        $n = new N(1979);
+        $this->assertEquals($n->bin, $n->base(2));
+    }
+    
+    public function TestGettingNumberIntoAnotherBaseUsingNObjectShouldSuccess()
+    {
+        $n = new N(19);
+        $n20 = new N(20);
+        $n2 = new N(2);
+        $n36 = new N(36);
+
+        $this->assertEquals('j', $n->base($n20));
+        $n = new N(21);
+        $this->assertEquals('11', $n->base($n20));
+        $n = new N(1979);
+        $this->assertEquals('4ij', $n->base($n20));
+        $n = new N(1979);
+        $this->assertEquals('1iz', $n->base($n36));
+        $n = new N(1979);
+        $this->assertEquals($n->bin, $n->base($n2));
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function TestGettingNumberIntoAnotherBaseWhenItIsDecimalShouldFail()
+    {
+        $n = new N(3.4);
+        $n->base(2);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function TestGettingNumberIntoAnotherBaseUsingArgumentLessThanTwoShouldFail()
+    {
+        $n = new N(42);
+        $n->base(1);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function TestGettingNumberIntoAnotherBaseUsingArgumentGreaterThanThirtySixShouldFail()
+    {
+        $n = new N(42);
+        $n->base(37);
+    }
 }
