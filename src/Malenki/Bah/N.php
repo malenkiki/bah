@@ -927,6 +927,8 @@ class N
     {
         // n myriads, so indexed using that.
         $arr_myriads = array('兆', '吉', '太', '拍', '艾', '泽', '尧');
+        $arr_multiplicators = array('千', '百', '十');
+        $arr_units = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
 
         if($this->_decimal()->zero){
             $arr_groups = str_split(strrev((string) abs($this->value)), 4); // split into reversed myriads
@@ -940,8 +942,6 @@ class N
             $out = '';
             $int_count = count($arr_groups) - 2;
 
-            $arr_multiplicators = array('千', '百', '十');
-            $arr_units = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
 
             // ok, we have our divisions, so, let's do it into chinese!
             foreach($arr_groups as $k => $v){
@@ -992,15 +992,18 @@ class N
                 }
             }
 
-            if($this->value < 0){
-                $out = '负' . $out;
-            }
-
-            return new S($out);
         } else {
-            //TODO see http://en.wikipedia.org/wiki/Chinese_numerals#Reading_and_transcribing_numbers
-            throw new \RuntimeException('Non integer value not implemented yet for chinese.');
+            $part_int = new N(floor(abs($this->value)));
+            $part_decimal = substr((string) abs($this->_decimal()->float), 2);
+
+            $out = $part_int->chinese() . '点' . strtr($part_decimal, $arr_units);
         }
+        
+        if($this->value < 0){
+            $out = '负' . $out;
+        }
+        
+        return new S($out);
     }
 
 
