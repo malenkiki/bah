@@ -923,6 +923,81 @@ class N
         return new S(strtr((string) $this->value, $arr));
     }
 
+    public function chinese()
+    {
+        // n myriads, so indexed using that.
+        $arr_myriads = array('兆', '吉', '太', '拍', '艾', '泽', '尧');
+
+        if($this->_decimal()->zero){
+            if($this->value < 0){
+                throw new \RuntimeException('Negative integer value not implemented yet for chinese.');
+            }
+
+            $arr_groups = str_split(strrev((string) $this->value), 4); // split into reversed myriads
+            $arr_groups = array_values(array_reverse($arr_groups));
+
+            // reordering all
+            foreach($arr_groups as $k => $v){
+                $arr_groups[$k] = strrev($v);
+            }
+
+            $out = '';
+            $int_count = count($arr_groups) - 2;
+
+            // ok, we have our divisions, so, let's do it into chinese!
+            foreach($arr_groups as $k => $v){
+                $is_last = (count($arr_groups) - 1) == $k;
+
+                $func = function($v, $last){
+                    $arr_multiplicators = array('千', '百', '十');
+                    $arr_units = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
+
+                    $out = '';
+
+                    for($i = 0; $i < strlen($v); $i++){
+                        if($last && $v[$i] == '0' && strlen($v) != 1) {
+                            continue;
+                        } else {
+                            $out .= $arr_units[(int) $v[$i]];
+
+                            if($i < 3){
+                                $arr_prov = $arr_multiplicators;
+
+                                if(strlen($v) != 4){
+                                    $arr_prov = array_slice($arr_multiplicators, 4 - strlen($v));
+                                }
+
+                                if(isset($arr_prov[$i])){
+                                    $out .= $arr_prov[$i];
+                                }
+                            }
+                        }
+                    }
+
+                    return $out;
+                };
+
+                $v = $func($v, $is_last);
+
+                $out .= $v;
+                
+                if($int_count >= 0){
+                    if(isset($arr_myriads[$int_count])){
+                        $out .= $arr_myriads[$int_count];
+                    } else {
+                        throw new \RuntimeException('Myriads for this number does not exists, cannot create number!');
+                    }
+
+                    $int_count--;
+                }
+            }
+
+            return new S($out);
+        } else {
+            //TODO see http://en.wikipedia.org/wiki/Chinese_numerals#Reading_and_transcribing_numbers
+            throw new \RuntimeException('Non integer value not implemented yet for chinese.');
+        }
+    }
 
 
     /**
