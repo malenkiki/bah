@@ -929,11 +929,7 @@ class N
         $arr_myriads = array('兆', '吉', '太', '拍', '艾', '泽', '尧');
 
         if($this->_decimal()->zero){
-            if($this->value < 0){
-                throw new \RuntimeException('Negative integer value not implemented yet for chinese.');
-            }
-
-            $arr_groups = str_split(strrev((string) $this->value), 4); // split into reversed myriads
+            $arr_groups = str_split(strrev((string) abs($this->value)), 4); // split into reversed myriads
             $arr_groups = array_values(array_reverse($arr_groups));
 
             // reordering all
@@ -944,54 +940,46 @@ class N
             $out = '';
             $int_count = count($arr_groups) - 2;
 
+            $arr_multiplicators = array('千', '百', '十');
+            $arr_units = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
+
             // ok, we have our divisions, so, let's do it into chinese!
             foreach($arr_groups as $k => $v){
-                $is_last = (count($arr_groups) - 1) == $k;
 
 
-                $func = function($v, $last){
-                    $arr_multiplicators = array('千', '百', '十');
-                    $arr_units = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
+                $out_prov = '';
+                $int_abslen = strlen(abs($v));
 
-                    $out = '';
+                for($i = 0; $i < $int_abslen; $i++){
+                    $out_prov .= $arr_units[(int) $v[$i]];
 
-                    for($i = 0; $i < strlen($v); $i++){
-                        /*if($v[$i] == '0' && strlen($v) != 1) {
-                            continue;
-                        } else {*/
-                            $out .= $arr_units[(int) $v[$i]];
+                    if($v[$i] == '0') continue;
 
-                            if($v[$i] == '0') continue;
+                    if($i < 3){
+                        $arr_prov = $arr_multiplicators;
 
-                            if($i < 3){
-                                $arr_prov = $arr_multiplicators;
+                        if($int_abslen != 4){
+                            $arr_prov = array_slice($arr_multiplicators, 4 - $int_abslen);
+                        }
 
-                                if(strlen($v) != 4){
-                                    $arr_prov = array_slice($arr_multiplicators, 4 - strlen($v));
-                                }
-
-                                if(isset($arr_prov[$i])){
-                                    $out .= $arr_prov[$i];
-                                }
-                            }
-                        //}
+                        if(isset($arr_prov[$i])){
+                            $out_prov .= $arr_prov[$i];
+                        }
                     }
+                }
 
-                    if(in_array((int) ltrim($v, 0), range(11, 19))){
-                        $out = preg_replace('/一十/ui', '十', $out);
-                    }
+                if(in_array((int) ltrim($v, 0), range(11, 19))){
+                    $out_prov = preg_replace('/一十/ui', '十', $out_prov);
+                }
 
-                    if(mb_strlen($out, 'UTF-8') > 1){
-                        $out = preg_replace('/零+$/ui', '', $out);
-                    }
+                if(mb_strlen($out_prov, 'UTF-8') > 1){
+                    $out_prov = preg_replace('/零+$/ui', '', $out_prov);
+                }
 
-                    return preg_replace('/零+/ui', '零', $out);
-                };
+                $out .= preg_replace('/零+/ui', '零', $out_prov);
 
 
-                $v = $func($v, $is_last);
 
-                $out .= $v;
                 
                 if($int_count >= 0){
                     if(isset($arr_myriads[$int_count])){
@@ -1002,6 +990,10 @@ class N
 
                     $int_count--;
                 }
+            }
+
+            if($this->value < 0){
+                $out = '负' . $out;
             }
 
             return new S($out);

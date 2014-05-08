@@ -410,6 +410,24 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('十六点九八', $n->chinese());
     }
 
+    public function testGettingChineseNegativeNumbersShouldSuccess()
+    {
+        $n = new N(-1158);
+        $this->assertEquals('负一千一百五十八', $n->chinese());
+        $n = new N(-60);
+        $this->assertEquals('负六十', $n->chinese());
+        $n = new N(-20);
+        $this->assertEquals('负二十', $n->chinese());
+        $n = new N(-200);
+        $this->assertEquals('负二百', $n->chinese());
+        $n = new N(-2000);
+        $this->assertEquals('负二千', $n->chinese());
+        $n = new N(-45);
+        $this->assertEquals('负四十五', $n->chinese());
+        $n = new N(-2362);
+        $this->assertEquals('负二千三百六十二', $n->chinese());
+    }
+
     public function testTestingConditionsShouldSuccess()
     {
         $n = new N(5);
