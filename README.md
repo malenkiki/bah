@@ -268,6 +268,48 @@ print($five->roman);
 print($five->greek);
 ```
 
+Some more other numeral systems are available as bonus. For example Chinese Mandarin numerals for integer or decimal, negative or positive nimbers is ready to use (Simplified Chinese only yet):
+
+```php
+$n = new N(123456); // will be '十二兆三千四百五十六'
+echo $n->chinese();
+// or
+echo $n->chinese;
+// or
+echo $n->mandarin;
+// or
+echo $n->putonghua;
+```
+
+Decimal numbers as example now:
+
+```php
+$n = new N(16.98); // Will be '十六点九八'
+echo $n->chinese;
+```
+
+Negative numbers now:
+
+```php
+$n = new N(-16.98); // Will be '负十六点九八'
+echo $n->chinese;
+```
+
+In Mandarin, you have two ways to display Zero: **零** or **〇**. To use the second form, just call `chinese()` method with argument `true` or use some modified magic getters:
+
+```php
+$n = new N(208);
+echo  $n->chinese(true); // Will be '二百〇八'
+echo  $n->chinese_other_zero; // Will be '二百〇八'
+echo  $n->mandarin_other_zero; // Will be '二百〇八'
+echo  $n->putonghua_other_zero; // Will be '二百〇八'
+// but:
+echo  $n->chinese(); // Will be '二百零八'
+echo  $n->chinese; // Will be '二百零八'
+echo  $n->mandarin; // Will be '二百零八'
+echo  $n->putonghua; // Will be '二百零八'
+```
+
 ## Play with Hash
 
 You can use Hash, an array with named keys.
