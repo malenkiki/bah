@@ -383,10 +383,10 @@ class NTest extends PHPUnit_Framework_TestCase
         
         $n = new N(14);
         $this->assertEquals('十四', $n->chinese());
-        //$n = new N(208);
-        //$this->assertEquals('二百零八', $n->chinese());
-        //$n = new N(2008);
-        //$this->assertEquals('二千零八', $n->chinese());
+        $n = new N(208);
+        $this->assertEquals('二百零八', $n->chinese());
+        $n = new N(2008);
+        $this->assertEquals('二千零八', $n->chinese());
 
         $n = new N(60);
         $this->assertEquals('六十', $n->chinese());

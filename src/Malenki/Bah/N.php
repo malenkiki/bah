@@ -956,10 +956,12 @@ class N
                     $out = '';
 
                     for($i = 0; $i < strlen($v); $i++){
-                        if($last && $v[$i] == '0' && strlen($v) != 1) {
+                        /*if($v[$i] == '0' && strlen($v) != 1) {
                             continue;
-                        } else {
+                        } else {*/
                             $out .= $arr_units[(int) $v[$i]];
+
+                            if($v[$i] == '0') continue;
 
                             if($i < 3){
                                 $arr_prov = $arr_multiplicators;
@@ -972,14 +974,18 @@ class N
                                     $out .= $arr_prov[$i];
                                 }
                             }
-                        }
+                        //}
                     }
 
                     if(in_array((int) ltrim($v, 0), range(11, 19))){
-                        $out = preg_replace('/一十/', '十', $out);
+                        $out = preg_replace('/一十/ui', '十', $out);
                     }
 
-                    return $out;
+                    if(mb_strlen($out, 'UTF-8') > 1){
+                        $out = preg_replace('/零+$/ui', '', $out);
+                    }
+
+                    return preg_replace('/零+/ui', '零', $out);
                 };
 
 
