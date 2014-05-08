@@ -948,6 +948,7 @@ class N
             foreach($arr_groups as $k => $v){
                 $is_last = (count($arr_groups) - 1) == $k;
 
+
                 $func = function($v, $last){
                     $arr_multiplicators = array('千', '百', '十');
                     $arr_units = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
@@ -974,8 +975,13 @@ class N
                         }
                     }
 
+                    if(in_array((int) ltrim($v, 0), range(11, 19))){
+                        $out = preg_replace('/一十/', '十', $out);
+                    }
+
                     return $out;
                 };
+
 
                 $v = $func($v, $is_last);
 

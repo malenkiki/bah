@@ -358,14 +358,14 @@ class NTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testGettingChineseIntegersShouldSuccess()
+    public function testGettingChinesePositiveIntegersShouldSuccess()
     {
         $n = new N(0);
         $this->assertEquals('零', $n->chinese());
         $n = new N(1);
         $this->assertEquals('一', $n->chinese());
         $n = new N(12);
-        $this->assertEquals('一十二', $n->chinese());
+        $this->assertEquals('十二', $n->chinese());
         $n = new N(123);
         $this->assertEquals('一百二十三', $n->chinese());
         $n = new N(1234);
@@ -373,7 +373,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(12345);
         $this->assertEquals('一兆二千三百四十五', $n->chinese());
         $n = new N(123456);
-        $this->assertEquals('一十二兆三千四百五十六', $n->chinese());
+        $this->assertEquals('十二兆三千四百五十六', $n->chinese());
         $n = new N(1234567);
         $this->assertEquals('一百二十三兆四千五百六十七', $n->chinese());
         $n = new N(12345678);
@@ -381,6 +381,13 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(123456789);
         $this->assertEquals('一吉二千三百四十五兆六千七百八十九', $n->chinese());
         
+        $n = new N(14);
+        $this->assertEquals('十四', $n->chinese());
+        //$n = new N(208);
+        //$this->assertEquals('二百零八', $n->chinese());
+        //$n = new N(2008);
+        //$this->assertEquals('二千零八', $n->chinese());
+
         $n = new N(60);
         $this->assertEquals('六十', $n->chinese());
         $n = new N(20);
@@ -396,6 +403,12 @@ class NTest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testGettingChinesePositiveDecimalNumbersShouldSuccess()
+    {
+        $this->markTestSkipped();
+        $n = new N(16.98);
+        $this->assertEquals('十六点九八', $n->chinese());
+    }
 
     public function testTestingConditionsShouldSuccess()
     {
