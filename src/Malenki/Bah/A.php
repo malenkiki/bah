@@ -27,6 +27,8 @@ namespace Malenki\Bah;
 /**
  * Enhanced array.
  *
+ * @property-read $key_X Gets content at key X
+ * @property-read $index_X Gets content at key X
  * @property-read $array Gets content as primitive array
  * @property-read $index Gets current index
  * @property-read $length Number of elements included into the collection
@@ -57,6 +59,11 @@ class A implements \Iterator, \Countable
 
     public function __get($name)
     {
+        if(preg_match('/^(index|key)_[0-9]+$/', $name)){
+            $arr = explode('_', $name);
+            return $this->take((int) $arr[1]);
+        }
+
         if (in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode', 'current', 'key', 'next', 'rewind', 'valid', 'reverse', 'sort', 'unique', 'min', 'max'))) {
             if ($name == 'index') {
                 return $this->key();

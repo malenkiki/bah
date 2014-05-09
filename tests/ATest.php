@@ -445,4 +445,15 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertNull($a->max);
         $this->assertNull($a->min);
     }
+
+    public function testGettingValueUsingMagicGettersShouldSuccess()
+    {
+        $a = new A(array('foo', 'bar', 'thing'));
+        $this->assertEquals('foo', $a->key_0);
+        $this->assertEquals('foo', $a->index_0);
+        $this->assertEquals('bar', $a->key_1);
+        $this->assertEquals('bar', $a->index_1);
+        $this->assertEquals('thing', $a->key_2);
+        $this->assertEquals('thing', $a->index_2);
+    }
 }
