@@ -137,6 +137,17 @@ var_dump(count($a));
 var_dump($a->lastButOne);
 ```
 
+Getting Some content is simple, using method or magick getters:
+
+```php
+$a = new A(array('zéro', 'un', 'deux', 'trois', 'quatre'));
+echo $a->take(2); // 'deux'
+// or
+echo $a->index_2;
+// or
+echo $a->key_2;
+```
+
 Get new collection from existing one but into other order:
 
 ```php
