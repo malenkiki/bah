@@ -226,6 +226,39 @@ var_dump($two->minus(2)->zero); //should be true
 var_dump($two->positive); //should be true
 ```
 
+Get number (as integer) into another base as S object:
+
+```php
+$n = new N(1979);
+
+echo $n->base(2); // get "11110111011"
+echo $n->base(3); // get "2201022"
+echo $n->base(34); // get "1o7"
+```
+
+For base convert, you have some shorthands for **binary**, **octal** and **hexadecimal**:
+
+```php
+$n = new N(1979);
+
+// binary
+echo $n->bin;
+// or
+echo $n->b;
+
+// octal
+echo $n->oct;
+// or
+echo $n->o;
+
+// hexadecimal
+echo $n->hex;
+// or
+echo $n->h;
+
+
+```
+
 Odd or even?
 
 ```php
