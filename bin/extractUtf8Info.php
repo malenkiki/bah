@@ -1,30 +1,12 @@
 #!/usr/bin/env php
 <?php
 
-$arr_file = explode(PHP_EOL, file_get_contents('http://www.unicode.org/Public/6.0.0/ucd/UnicodeData.txt'));
-$arr_code_points = array();
-$arr_char_properties = array();
-
-foreach($arr_file as $k => $v){
-    $arr_line = explode(';', $v);
-    
-    if(count($arr_line) != 15){ 
-        continue;
-    }
-    
-    if(in_array($arr_line[4], array('R', 'AL'))){
-        $arr_code_points[] = toInt($arr_line[0]);
-    }
-
-    if(!isset($arr_char_properties[$arr_line[2]])){
-        $arr_char_properties[$arr_line[2]] = array();
-    }
-
-    $arr_char_properties[$arr_line[2]][] = toInt($arr_line[0]);
-}
-
 function toInt($str){
     return hexdec('0x'.$str);
+}
+
+function toHex($int){
+    return '0x' . dechex($int);
 }
 
 function group($arr)
@@ -65,11 +47,49 @@ function reduce($arr)
     return $arr;
 }
 
+function phpCode($name, $arr){
+}
+
+$arr_file = explode(PHP_EOL, file_get_contents('http://www.unicode.org/Public/6.0.0/ucd/UnicodeData.txt'));
+$arr_code_points = array();
+$arr_char_properties = array();
+
+foreach($arr_file as $k => $v){
+    $arr_line = explode(';', $v);
+    
+    if(count($arr_line) != 15){ 
+        continue;
+    }
+    
+    if(in_array($arr_line[4], array('R', 'AL'))){
+        $arr_code_points[] = toInt($arr_line[0]);
+    }
+
+    if(!isset($arr_char_properties[$arr_line[2]])){
+        $arr_char_properties[$arr_line[2]] = array();
+    }
+
+    $arr_char_properties[$arr_line[2]][] = toInt($arr_line[0]);
+}
+
+unset($arr_file);
+
+
 $arr_code_points = group($arr_code_points);
 if(is_array(end($arr_code_points))){
     $int_pos = count($arr_code_points) - 1;
     $arr_code_points[$int_pos] = reduce($arr_code_points[$int_pos]);
 }
 
-var_dump($arr_code_points);
-//var_dump($arr_char_properties);
+
+
+foreach($arr_char_properties as $cp => $v){
+    $arr_char_properties[$cp] = group($v);
+}
+
+
+//var_dump($arr_code_points);
+//var_dump($arr_char_properties['Lu']);
+//foreach($arr_char_properties as $cp => $v){
+//    var_dump($cp . ' has ' . count($v) . ' items');
+//}
