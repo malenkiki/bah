@@ -648,7 +648,7 @@ class S extends O implements \Countable
             throw new \InvalidArgumentException('Replacement string must be a string or object having __toString() method or S instance');
         }
 
-        return preg_replace($pattern, $string, $this->value);
+        return new S(preg_replace($pattern, $string, $this->value));
     }
     
     public function change($pattern, $string)

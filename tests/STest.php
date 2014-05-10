@@ -269,6 +269,12 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('This string must change!', $s->change('/ a little$/', '!'));
     }
     
+    public function testGettingReplacemendStringShouldSuccess()
+    {
+        $s = new S('This string must change a little');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->change('/ a little$/', '!'));
+    }
+    
     public function testGettingReplacemendStringUsingSObjectShouldSuccess()
     {
         $s = new S('This string must change a little');
