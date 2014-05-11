@@ -290,10 +290,18 @@ class C extends O
             return $this->bytes;
         }
 
-        if (in_array($name, array('string', 'upper', 'lower', 'block', 'trans', 'unicode'))) {
+        if (in_array($name, array('string', 'upper', 'lower', 'block', 'trans', 'unicode', 'rtl', 'ltr'))) {
             $name = '_'.$name;
 
             return $this->$name();
+        }
+
+        if($name == 'is_rtl' || $name == 'right_to_left' || $name == 'is_right_to_left'){
+            return $this->_rtl();
+        }
+
+        if($name == 'is_ltr' || $name == 'left_to_right' || $name == 'is_left_to_right'){
+            return $this->_ltr();
         }
     }
 
@@ -505,6 +513,87 @@ class C extends O
         }
 
         return new N(bindec($str_unicode));
+    }
+
+    
+    protected function _rtl()
+    {
+        $cp = $this->_unicode()->value;
+
+        // generated from script into "bin/" directory
+        if($cp == 0x5be) return true;
+        elseif($cp == 0x5c0) return true;
+        elseif($cp == 0x5c3) return true;
+        elseif($cp == 0x5c6) return true;
+        elseif(0x5d0 <= $cp && $cp <= 0x5ea) return true;
+        elseif(0x5f0 <= $cp && $cp <= 0x5f4) return true;
+        elseif($cp == 0x608) return true;
+        elseif($cp == 0x60b) return true;
+        elseif($cp == 0x60d) return true;
+        elseif($cp == 0x61b) return true;
+        elseif(0x61e <= $cp && $cp <= 0x64a) return true;
+        elseif(0x66d <= $cp && $cp <= 0x66f) return true;
+        elseif(0x671 <= $cp && $cp <= 0x6d5) return true;
+        elseif(0x6e5 <= $cp && $cp <= 0x6e6) return true;
+        elseif(0x6ee <= $cp && $cp <= 0x6ef) return true;
+        elseif(0x6fa <= $cp && $cp <= 0x70d) return true;
+        elseif($cp == 0x710) return true;
+        elseif(0x712 <= $cp && $cp <= 0x72f) return true;
+        elseif(0x74d <= $cp && $cp <= 0x7a5) return true;
+        elseif($cp == 0x7b1) return true;
+        elseif(0x7c0 <= $cp && $cp <= 0x7ea) return true;
+        elseif(0x7f4 <= $cp && $cp <= 0x7f5) return true;
+        elseif($cp == 0x7fa) return true;
+        elseif(0x800 <= $cp && $cp <= 0x815) return true;
+        elseif($cp == 0x81a) return true;
+        elseif($cp == 0x824) return true;
+        elseif($cp == 0x828) return true;
+        elseif(0x830 <= $cp && $cp <= 0x83e) return true;
+        elseif(0x840 <= $cp && $cp <= 0x858) return true;
+        elseif($cp == 0x85e) return true;
+        elseif($cp == 0x200f) return true;
+        elseif($cp == 0xfb1d) return true;
+        elseif(0xfb1f <= $cp && $cp <= 0xfb28) return true;
+        elseif(0xfb2a <= $cp && $cp <= 0xfb36) return true;
+        elseif(0xfb38 <= $cp && $cp <= 0xfb3c) return true;
+        elseif($cp == 0xfb3e) return true;
+        elseif(0xfb40 <= $cp && $cp <= 0xfb41) return true;
+        elseif(0xfb43 <= $cp && $cp <= 0xfb44) return true;
+        elseif(0xfb46 <= $cp && $cp <= 0xfbc1) return true;
+        elseif(0xfbd3 <= $cp && $cp <= 0xfd3d) return true;
+        elseif(0xfd50 <= $cp && $cp <= 0xfd8f) return true;
+        elseif(0xfd92 <= $cp && $cp <= 0xfdc7) return true;
+        elseif(0xfdf0 <= $cp && $cp <= 0xfdfc) return true;
+        elseif(0xfe70 <= $cp && $cp <= 0xfe74) return true;
+        elseif(0xfe76 <= $cp && $cp <= 0xfefc) return true;
+        elseif(0x10800 <= $cp && $cp <= 0x10805) return true;
+        elseif($cp == 0x10808) return true;
+        elseif(0x1080a <= $cp && $cp <= 0x10835) return true;
+        elseif(0x10837 <= $cp && $cp <= 0x10838) return true;
+        elseif($cp == 0x1083c) return true;
+        elseif(0x1083f <= $cp && $cp <= 0x10855) return true;
+        elseif(0x10857 <= $cp && $cp <= 0x1085f) return true;
+        elseif(0x10900 <= $cp && $cp <= 0x1091b) return true;
+        elseif(0x10920 <= $cp && $cp <= 0x10939) return true;
+        elseif($cp == 0x1093f) return true;
+        elseif($cp == 0x10a00) return true;
+        elseif(0x10a10 <= $cp && $cp <= 0x10a13) return true;
+        elseif(0x10a15 <= $cp && $cp <= 0x10a17) return true;
+        elseif(0x10a19 <= $cp && $cp <= 0x10a33) return true;
+        elseif(0x10a40 <= $cp && $cp <= 0x10a47) return true;
+        elseif(0x10a50 <= $cp && $cp <= 0x10a58) return true;
+        elseif(0x10a60 <= $cp && $cp <= 0x10a7f) return true;
+        elseif(0x10b00 <= $cp && $cp <= 0x10b35) return true;
+        elseif(0x10b40 <= $cp && $cp <= 0x10b55) return true;
+        elseif(0x10b58 <= $cp && $cp <= 0x10b72) return true;
+        elseif(0x10b78 <= $cp && $cp <= 0x10b7f) return true;
+        elseif(0x10c00 <= $cp && $cp <= 0x10c48) return true;
+        return false;
+    }
+
+    protected function _ltr()
+    {
+        return !$this->_rtl();
     }
 
 }

@@ -325,4 +325,41 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($c->block, new S('Egyptian Hieroglyphs'));
 
     }
+
+
+    public function testCheckingIfCharacterIsRtlOrNotShouldSuccess()
+    {
+        $c = new C('ش');
+        $this->assertTrue($c->rtl);
+        $this->assertTrue($c->is_rtl);
+        $this->assertTrue($c->is_right_to_left);
+        $this->assertTrue($c->right_to_left);
+        $this->assertFalse($c->ltr);
+        $this->assertFalse($c->is_ltr);
+        $this->assertFalse($c->is_left_to_right);
+        $this->assertFalse($c->left_to_right);
+        $c = new C('ڟ');
+        $this->assertTrue($c->rtl);
+        $this->assertFalse($c->ltr);
+        $c = new C('𐨐');
+        $this->assertTrue($c->rtl);
+        $this->assertFalse($c->ltr);
+        $c = new C('א');
+        $this->assertTrue($c->rtl);
+        $this->assertFalse($c->ltr);
+
+        $c = new C('a');
+        $this->assertFalse($c->rtl);
+        $this->assertTrue($c->ltr);
+        
+        $c = new C('ç');
+        $this->assertFalse($c->rtl);
+        $this->assertTrue($c->ltr);
+        
+        $c = new C('Я');
+        $this->assertFalse($c->rtl);
+        $this->assertTrue($c->ltr);
+
+
+    }
 }
