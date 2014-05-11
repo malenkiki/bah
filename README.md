@@ -85,6 +85,38 @@ $s = new S('Τα ελληνικά σου είναι καλύτερα απο τα
 echo $s->trans->n; // Ta ellenika sou einai kalytera apo ta Gallika mou!
 ```
 
+You can test if string is full RTL (Right To Left):
+
+```php
+$s = new S('أبجد');
+var_dump($s->rtl); // true
+var_dump($s->is_rtl); // true
+var_dump($s->is_right_to_left); // true
+var_dump($s->right_to_left); // true
+```
+
+You can test if string is full LTR (Left To Right):
+
+```php
+$s = new S('Ceci est du français tout à fait banal.');
+var_dump($s->ltr); // true
+var_dump($s->is_ltr); // true
+var_dump($s->is_left_to_right); // true
+var_dump($s->left_to_right); // true
+```
+
+You can test if string has part in LTR and part in RTL:
+
+```php
+$s = new S('Ceci est du français contenant le mot arabe أبجد qui veut dire "abjad".');
+var_dump($s->has_mixed_direction); // true
+var_dump($s->mixed_direction); // true
+var_dump($s->is_ltr_and_rtl); // true
+var_dump($s->ltr_and_rtl); // true
+var_dump($s->is_rtl_and_ltr); // true
+var_dump($s->rtl_and_ltr); // true
+```
+
 ## Play with characters
 
 You can play with characters too:
