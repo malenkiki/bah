@@ -286,4 +286,71 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S('This string must change a little');
         $this->assertEquals('This string must change!', $s->change(new S('/ a little$/'), new C('!')));
     }
+
+
+    public function testIfStringIsFullLeftToRightShouldSuccess()
+    {
+        $s = new S('Ceci est du français tout à fait banal.');
+        $this->assertTrue($s->ltr);
+        $this->assertTrue($s->is_ltr);
+        $this->assertTrue($s->is_left_to_right);
+        $this->assertTrue($s->left_to_right);
+    }
+    
+    public function testIfStringIsFullRightToLeftShouldSuccess()
+    {
+        $s = new S('أبجد');
+        $this->assertTrue($s->rtl);
+        $this->assertTrue($s->is_rtl);
+        $this->assertTrue($s->is_right_to_left);
+        $this->assertTrue($s->right_to_left);
+    }
+
+    public function testIfStringHasBothRtlAndLtrPartsShouldSuccess()
+    {
+        $s = new S('Ceci est du français contenant le mot arabe أبجد qui veut dire "abjad".');
+        $this->assertTrue($s->has_mixed_direction);
+        $this->assertTrue($s->mixed_direction);
+        $this->assertTrue($s->is_ltr_and_rtl);
+        $this->assertTrue($s->ltr_and_rtl);
+        $this->assertTrue($s->is_rtl_and_ltr);
+        $this->assertTrue($s->rtl_and_ltr);
+    }
+
+    public function testIfStringHasNotBothRtlAndLtrPartsShouldSuccess()
+    {
+        $s = new S('Ceci est du français tout à fait banal.');
+        $this->assertFalse($s->has_mixed_direction);
+        $this->assertFalse($s->mixed_direction);
+        $this->assertFalse($s->is_ltr_and_rtl);
+        $this->assertFalse($s->ltr_and_rtl);
+        $this->assertFalse($s->is_rtl_and_ltr);
+        $this->assertFalse($s->rtl_and_ltr);
+        
+        $s = new S('أبجد');
+        $this->assertFalse($s->has_mixed_direction);
+        $this->assertFalse($s->mixed_direction);
+        $this->assertFalse($s->is_ltr_and_rtl);
+        $this->assertFalse($s->ltr_and_rtl);
+        $this->assertFalse($s->is_rtl_and_ltr);
+        $this->assertFalse($s->rtl_and_ltr);
+    }
+
+    public function testStringHavingTwoDirectionsShouldNotBeRtl()
+    {
+        $s = new S('Ceci est du français contenant le mot arabe أبجد qui veut dire "abjad".');
+        $this->assertFalse($s->rtl);
+        $this->assertFalse($s->is_rtl);
+        $this->assertFalse($s->is_right_to_left);
+        $this->assertFalse($s->right_to_left);
+    }
+
+    public function testStringHavingTwoDirectionsShouldNotBeLtr()
+    {
+        $s = new S('Ceci est du français contenant le mot arabe أبجد qui veut dire "abjad".');
+        $this->assertFalse($s->ltr);
+        $this->assertFalse($s->is_ltr);
+        $this->assertFalse($s->is_left_to_right);
+        $this->assertFalse($s->left_to_right);
+    }
 }

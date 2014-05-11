@@ -131,53 +131,63 @@ class S extends O implements \Countable
      */
     public function __get($name)
     {
-        if (in_array($name, array('string', 'chars', 'bytes', 'length', 'title', 'first', 'last', 'upper', 'lower', 'n', 'r', 'ucw', 'ucf', 'a', 'trans', 'void', 'empty', 'chunk'))) {
-            if ($name == 'length') {
-                if (is_null($this->length)) {
-                    $this->_length();
-                }
-
-                return $this->length;
+        if ($name == 'length') {
+            if (is_null($this->length)) {
+                $this->_length();
             }
 
-            if ($name == 'chars') {
-                return $this->_chars();
+            return $this->length;
+        }
+
+        if ($name == 'chars') {
+            return $this->_chars();
+        }
+
+        if ($name == 'bytes') {
+            if (is_null($this->bytes)) {
+                $this->_bytes();
             }
 
-            if ($name == 'bytes') {
-                if (is_null($this->bytes)) {
-                    $this->_bytes();
-                }
+            return $this->bytes;
+        }
 
-                return $this->bytes;
-            }
+        if (in_array($name, array('n', 'r'))) {
+            return $this->$name();
+        }
 
-            if (in_array($name, array('n', 'r'))) {
-                return $this->$name();
-            }
-
-            if (in_array($name, array('void', 'empty'))) {
-                return $this->isVoid();
-            }
+        if (in_array($name, array('void', 'empty'))) {
+            return $this->isVoid();
+        }
 
 
-            if ($name == 'chunk') {
-                return $this->chunk();
-            }
+        if ($name == 'chunk') {
+            return $this->chunk();
+        }
 
-            if ($name == 'ucw') {
-                return $this->_upperCaseWords();
-            }
+        if ($name == 'ucw') {
+            return $this->_upperCaseWords();
+        }
 
-            if ($name == 'ucf') {
-                return $this->_upperCaseFirst();
-            }
+        if ($name == 'ucf') {
+            return $this->_upperCaseFirst();
+        }
 
-            if (in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans'))) {
-                $str_method = '_' . $name;
+        if (in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans', 'rtl', 'ltr'))) {
+            $str_method = '_' . $name;
 
-                return $this->$str_method();
-            }
+            return $this->$str_method();
+        }
+
+        if(in_array($name, array('is_ltr', 'left_to_right', 'is_left_to_right'))){
+            return $this->_ltr();
+        }
+        
+        if(in_array($name, array('is_rtl', 'right_to_left', 'is_right_to_left'))){
+            return $this->_rtl();
+        }
+        
+        if(in_array($name, array('has_mixed_direction', 'mixed_direction', 'is_rtl_and_ltr', 'rtl_and_ltr', 'is_ltr_and_rtl', 'ltr_and_rtl'))){
+            return $this->_hasMixedDirection();
         }
     }
 
@@ -655,6 +665,37 @@ class S extends O implements \Countable
     {
         return $this->replace($pattern, $string);
     }
+
+
+    protected function _rtl()
+    {
+        $this->_chars()->rewind();
+
+        while($this->_chars()->valid){
+            if($this->_chars()->current()->ltr) return false;
+            $this->_chars()->next;
+        }
+
+        return true;
+    }
+
+    protected function _ltr()
+    {
+        $this->_chars()->rewind();
+
+        while($this->_chars()->valid){
+            if($this->_chars()->current()->rtl) return false;
+            $this->_chars()->next;
+        }
+
+        return true;
+    }
+
+    protected function _hasMixedDirection()
+    {
+        return !$this->_rtl() && !$this->_ltr();
+    }
+
 
     /**
      *
