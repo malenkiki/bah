@@ -47,8 +47,36 @@ function reduce($arr)
     return $arr;
 }
 
-function phpCode($name, $arr){
+function php4RTL($arr){
+    $str_simple_1st = 'if($cp == 0x%x) return true;' . PHP_EOL;
+    $str_double_1st = 'if(0x%x <= $cp && $cp <= 0x%x) return true;' . PHP_EOL;
+    $str_simple = 'elseif($cp == 0x%x) return true;' . PHP_EOL;
+    $str_double = 'elseif(0x%x <= $cp && $cp <= 0x%x) return true;' . PHP_EOL;
+
+    $str_out = '';
+
+    foreach($arr as $k => $cond){
+        if($k == 0){
+            $str_cond_simple = $str_simple_1st; 
+            $str_cond_double = $str_double_1st; 
+        } else {
+            $str_cond_simple = $str_simple; 
+            $str_cond_double = $str_double; 
+        }
+
+        if(is_integer($cond)){
+            $str_out .= sprintf($str_cond_simple, $cond);
+        } else {
+            $str_out .= sprintf($str_cond_double, $cond[0], $cond[1]);
+        }
+    }
+
+    $str_out .= 'return false;' . PHP_EOL;
+
+    return $str_out;
 }
+
+
 
 $arr_file = explode(PHP_EOL, file_get_contents('http://www.unicode.org/Public/6.0.0/ucd/UnicodeData.txt'));
 $arr_code_points = array();
@@ -93,3 +121,4 @@ foreach($arr_char_properties as $cp => $v){
 //foreach($arr_char_properties as $cp => $v){
 //    var_dump($cp . ' has ' . count($v) . ' items');
 //}
+echo  php4RTL($arr_code_points);
