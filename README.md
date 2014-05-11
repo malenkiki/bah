@@ -127,6 +127,20 @@ $s = new C('λ');
 echo $C->trans; // "l"
 ```
 
+You can test whether character ir right to left or left to right (RTL/LTR):
+
+```php
+$c = new C('ش');
+var_dump($c->rtl); // true
+var_dump($c->is_rtl); // true
+var_dump($c->is_right_to_left); // true
+var_dump($c->right_to_left); // true
+var_dump($c->ltr); // false
+var_dump($c->is_ltr); // false
+var_dump($c->is_left_to_right); // false
+var_dump($c->left_to_right); // false
+```
+
 ## Play with Array
 
 Get count of an array and get the last but one easily:
