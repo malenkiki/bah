@@ -353,4 +353,27 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->is_left_to_right);
         $this->assertFalse($s->left_to_right);
     }
+
+
+    public function testRemovingTrailingWhitespaceFromTheStringShouldSuccess()
+    {
+        $s = new S('I have some spaces                 ');
+        $this->assertEquals('I have some spaces', $s->rstrip());
+        $this->assertEquals('I have some spaces', $s->rstrip);
+    }
+
+    public function testRemovingLeadingWhitespaceFromTheStringShouldSuccess()
+    {
+        $s = new S("    \t   \t     I have some spaces");
+        $this->assertEquals('I have some spaces', $s->lstrip());
+        $this->assertEquals('I have some spaces', $s->lstrip);
+    }
+
+    public function testRemovingBothLeadingAndTrailingWhitespaceFromTheStringShouldSuccess()
+    {
+        $s = new S("    \t   \t     I have some spaces   \t \t   ");
+        $this->assertEquals('I have some spaces', $s->strip());
+        $this->assertEquals('I have some spaces', $s->strip);
+        $this->assertEquals($s->lstrip->rstrip, $s->strip);
+    }
 }

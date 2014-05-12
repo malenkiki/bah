@@ -159,6 +159,10 @@ class S extends O implements \Countable
             return $this->isVoid();
         }
 
+        if (in_array($name, array('strip', 'lstrip', 'rstrip'))) {
+            return $this->$name();
+        }
+
 
         if ($name == 'chunk') {
             return $this->chunk();
@@ -222,6 +226,35 @@ class S extends O implements \Countable
 
         return new self($str);
     }
+
+    public function strip($str = null)
+    {
+        if(is_string($str) || $str instanceof S){
+            return new S(trim($this->value, $str));
+        }
+    
+        return new S(trim($this->value));
+    }
+
+
+    public function lstrip($str = null)
+    {
+        if(is_string($str) || $str instanceof S){
+            return new S(ltrim($this->value, $str));
+        }
+    
+        return new S(ltrim($this->value));
+    }
+
+    public function rstrip($str = null)
+    {
+        if(is_string($str) || $str instanceof S){
+            return new S(rtrim($this->value, $str));
+        }
+    
+        return new S(rtrim($this->value));
+    }
+
 
     /**
      * Get substring from the original string.
