@@ -385,8 +385,15 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I have some', $s->rstrip(new C('.')));
 
         $s = new S('I have some...!?');
+        $a = new A();
+        $a->add(new C('.'));
+        $a->add('!');
+        $a->add(new S('?'));
         $this->assertEquals('I have some', $s->rstrip('.!?'));
         $this->assertEquals('I have some', $s->rstrip(new S('.!?')));
+        $this->assertEquals('I have some', $s->rstrip($a));
+        $this->assertEquals('I have some', $s->rstrip(array('.', '!', '?')));
+        $this->assertEquals('I have some', $s->rstrip(array(new S('.'), '!', new C('?'))));
     }
 
     public function testRemovingLeadingCustomCharsFromTheStringShouldSuccess()
@@ -396,15 +403,36 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I have something', $s->lstrip(new S('-')));
         $this->assertEquals('I have something', $s->lstrip(new C('-')));
         $s = new S("-----__--_----I have something");
+        $a = new A();
+        $a->add(new C('-'));
+        $a->add('_');
         $this->assertEquals('I have something', $s->lstrip('-_'));
         $this->assertEquals('I have something', $s->lstrip(new S('-_')));
+        $this->assertEquals('I have something', $s->lstrip($a));
+        $this->assertEquals('I have something', $s->lstrip(array('-', '_')));
+        $this->assertEquals('I have something', $s->lstrip(array(new S('-'), new C('_'))));
     }
 
     public function testRemovingBothLeadingAndTrailingCustomCharsFromTheStringShouldSuccess()
     {
         $s = new S("---==--==---I have some spaces---=--=-=-=");
+        $a = new A();
+        $a->add(new C('-'));
+        $a->add('=');
         $this->assertEquals('I have some spaces', $s->strip('-='));
         $this->assertEquals('I have some spaces', $s->strip(new S('-=')));
+        $this->assertEquals('I have some spaces', $s->strip($a));
         $this->assertEquals($s->lstrip('-=')->rstrip('-='), $s->strip('-='));
+        $this->assertEquals($s->lstrip($a)->rstrip('-='), $s->strip('-='));
+        $this->assertEquals($s->lstrip('-=')->rstrip($a), $s->strip('-='));
+        $this->assertEquals($s->lstrip('-=')->rstrip('-='), $s->strip($a));
+        $a = array('-', '=');
+        $this->assertEquals($s->lstrip($a)->rstrip('-='), $s->strip('-='));
+        $this->assertEquals($s->lstrip('-=')->rstrip($a), $s->strip('-='));
+        $this->assertEquals($s->lstrip('-=')->rstrip('-='), $s->strip($a));
+        $a = array(new S('-'), new C('='));
+        $this->assertEquals($s->lstrip($a)->rstrip('-='), $s->strip('-='));
+        $this->assertEquals($s->lstrip('-=')->rstrip($a), $s->strip('-='));
+        $this->assertEquals($s->lstrip('-=')->rstrip('-='), $s->strip($a));
     }
 }
