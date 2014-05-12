@@ -108,9 +108,8 @@ class S extends O implements \Countable
         $str_out = '';
 
         foreach ($args as $s) {
-            //TODO: allow object having __toString method
-            if ($s instanceof \Malenki\Bah\S) {
-                $str_out .= $s->__toString();
+            if (is_object($s) && method_exists($s, '__toString')) {
+                $str_out .= $s;
             } elseif (is_string($s)) {
                 $str_out .= $s;
             } else {
@@ -118,7 +117,7 @@ class S extends O implements \Countable
             }
         }
 
-        return new self($str_out);
+        return new S($str_out);
     }
 
     public function __construct($str = '')
@@ -282,6 +281,17 @@ class S extends O implements \Countable
 
     
         return new S(rtrim($this->value));
+    }
+
+
+    public function append($str)
+    {
+        return static::concat($this, $str);
+    }
+
+    public function prepend($str)
+    {
+        return static::concat($str, $this);
     }
 
 

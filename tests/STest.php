@@ -435,4 +435,24 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->lstrip('-=')->rstrip($a), $s->strip('-='));
         $this->assertEquals($s->lstrip('-=')->rstrip('-='), $s->strip($a));
     }
+
+    public function testAppendingStringShouldSuccess()
+    {
+        $s = new S('foo');
+        $this->assertEquals('foo bar', $s->append(' bar'));
+        $this->assertEquals('foo bar', $s->append(' ')->append('bar'));
+        $this->assertEquals('foo bar', $s->append(new S(' bar')));
+        $this->assertEquals('foo bar', $s->append(new S(' '))->append(new S('bar')));
+        $this->assertEquals('foo bar', $s->append(new C(' '))->append(new S('bar')));
+    }
+
+    public function testPrependingStringShouldsuccess()
+    {
+        $s = new S('bar');
+        $this->assertEquals('foo bar', $s->prepend('foo '));
+        $this->assertEquals('foo bar', $s->prepend(' ')->prepend('foo'));
+        $this->assertEquals('foo bar', $s->prepend(new S('foo ')));
+        $this->assertEquals('foo bar', $s->prepend(new S(' '))->prepend(new S('foo')));
+        $this->assertEquals('foo bar', $s->prepend(new C(' '))->prepend(new S('foo')));
+    }
 }
