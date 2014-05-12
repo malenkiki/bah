@@ -376,4 +376,35 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I have some spaces', $s->strip);
         $this->assertEquals($s->lstrip->rstrip, $s->strip);
     }
+    
+    public function testRemovingTrailingCustomCharsFromTheStringShouldSuccess()
+    {
+        $s = new S('I have some...');
+        $this->assertEquals('I have some', $s->rstrip('.'));
+        $this->assertEquals('I have some', $s->rstrip(new S('.')));
+        $this->assertEquals('I have some', $s->rstrip(new C('.')));
+
+        $s = new S('I have some...!?');
+        $this->assertEquals('I have some', $s->rstrip('.!?'));
+        $this->assertEquals('I have some', $s->rstrip(new S('.!?')));
+    }
+
+    public function testRemovingLeadingCustomCharsFromTheStringShouldSuccess()
+    {
+        $s = new S("--------------I have something");
+        $this->assertEquals('I have something', $s->lstrip('-'));
+        $this->assertEquals('I have something', $s->lstrip(new S('-')));
+        $this->assertEquals('I have something', $s->lstrip(new C('-')));
+        $s = new S("-----__--_----I have something");
+        $this->assertEquals('I have something', $s->lstrip('-_'));
+        $this->assertEquals('I have something', $s->lstrip(new S('-_')));
+    }
+
+    public function testRemovingBothLeadingAndTrailingCustomCharsFromTheStringShouldSuccess()
+    {
+        $s = new S("---==--==---I have some spaces---=--=-=-=");
+        $this->assertEquals('I have some spaces', $s->strip('-='));
+        $this->assertEquals('I have some spaces', $s->strip(new S('-=')));
+        $this->assertEquals($s->lstrip('-=')->rstrip('-='), $s->strip('-='));
+    }
 }

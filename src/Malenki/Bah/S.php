@@ -229,7 +229,7 @@ class S extends O implements \Countable
 
     public function strip($str = null)
     {
-        if(is_string($str) || $str instanceof S){
+        if(is_string($str) || (is_object($str) && method_exists($str, '__toString'))){
             return new S(trim($this->value, $str));
         }
     
@@ -239,7 +239,7 @@ class S extends O implements \Countable
 
     public function lstrip($str = null)
     {
-        if(is_string($str) || $str instanceof S){
+        if(is_string($str) || (is_object($str) && method_exists($str, '__toString'))){
             return new S(ltrim($this->value, $str));
         }
     
@@ -248,7 +248,7 @@ class S extends O implements \Countable
 
     public function rstrip($str = null)
     {
-        if(is_string($str) || $str instanceof S){
+        if(is_string($str) || (is_object($str) && method_exists($str, '__toString'))){
             return new S(rtrim($this->value, $str));
         }
     
