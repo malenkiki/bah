@@ -456,4 +456,15 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals('thing', $a->key_2);
         $this->assertEquals('thing', $a->index_2);
     }
+
+    public function testReplacingValueUsingMagicSettersShouldSuccess()
+    {
+        $this->markTestIncomplete();
+        $a = new A(array('foo', 'bar', 'thing'));
+        $a->key_0 = 'truc';
+        $a->index_1 = 'machin';
+        $a->key_2 = 'bidule';
+
+        $this->assertEquals(array('truc', 'machin', 'bidule'), $a->array);
+    }
 }

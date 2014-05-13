@@ -84,6 +84,18 @@ class A implements \Iterator, \Countable
             }
         }
     }
+    
+    /* WTF
+    public function __set($name, $value)
+    {
+        if(preg_match('/^(index|key)_[0-9]+$/', $name)){
+            $arr = explode('_', $name);
+            $this->replace((int) $arr[1], $value);
+        }
+    }
+     */
+     
+
 
     public function __construct($arr = array())
     {
