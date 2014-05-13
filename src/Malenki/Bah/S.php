@@ -192,6 +192,16 @@ class S extends O implements \Countable
         if(in_array($name, array('has_mixed_direction', 'mixed_direction', 'is_rtl_and_ltr', 'rtl_and_ltr', 'is_ltr_and_rtl', 'ltr_and_rtl'))){
             return $this->_hasMixedDirection();
         }
+        
+        if(in_array($name, array('lower_camel_case', 'lcc'))){
+            return $this->camelCase();
+        }
+        
+        
+        if(in_array($name, array('upper_camel_case', 'ucc'))){
+            return $this->camelCase(true);
+        }
+        
     }
 
     protected function _string()
@@ -294,6 +304,40 @@ class S extends O implements \Countable
         return static::concat($str, $this);
     }
 
+    public function camelCase($is_upper = false)
+    {
+        $func = function(&$v, $k, $is_upper){
+            $c = $v->chunk;
+            if($is_upper || $k != 0) {
+                $first = $c->key_0->upper;
+            } else {
+                $first = $c->key_0->lower;
+            }
+
+            $c->replace(0, $first);
+
+            $v = $c->join;
+        };
+
+        return $this->strip()
+            ->replace('/[\s]+/', '_')
+            ->replace('/[^\p{Ll}\p{Lu}0-9_]/u', '')
+            ->replace('/_+/', '_')
+            ->strip('_')
+            ->split('/_/')
+            ->walk($func, $is_upper)->join
+            ;
+    }
+
+    public function lowerCamelCase()
+    {
+        return $this->camelCase();
+    }
+
+    public function upperCamelCase()
+    {
+        return $this->camelCase(true);
+    }
 
     /**
      * Get substring from the original string.

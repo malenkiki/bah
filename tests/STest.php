@@ -446,7 +446,7 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo bar', $s->append(new C(' '))->append(new S('bar')));
     }
 
-    public function testPrependingStringShouldsuccess()
+    public function testPrependingStringShouldSuccess()
     {
         $s = new S('bar');
         $this->assertEquals('foo bar', $s->prepend('foo '));
@@ -454,5 +454,23 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo bar', $s->prepend(new S('foo ')));
         $this->assertEquals('foo bar', $s->prepend(new S(' '))->prepend(new S('foo')));
         $this->assertEquals('foo bar', $s->prepend(new C(' '))->prepend(new S('foo')));
+    }
+
+    public function testConvertStringTolowerCamelCaseShouldSuccess()
+    {
+        $s = new S('Je vais être en « lowerCamelCase »');
+        $this->assertEquals('jeVaisÊtreEnLowerCamelCase', $s->camelCase());
+        $this->assertEquals('jeVaisÊtreEnLowerCamelCase', $s->lowerCamelCase());
+        $this->assertEquals('jeVaisÊtreEnLowerCamelCase', $s->lower_camel_case);
+        $this->assertEquals('jeVaisÊtreEnLowerCamelCase', $s->lcc);
+    }
+
+    public function testConvertStringToUpperCamelCaseShouldSuccess()
+    {
+        $s = new S('Je vais être en « UpperCamelCase »');
+        $this->assertEquals('JeVaisÊtreEnUpperCamelCase', $s->camelCase(true));
+        $this->assertEquals('JeVaisÊtreEnUpperCamelCase', $s->upperCamelCase());
+        $this->assertEquals('JeVaisÊtreEnUpperCamelCase', $s->upper_camel_case);
+        $this->assertEquals('JeVaisÊtreEnUpperCamelCase', $s->ucc);
     }
 }
