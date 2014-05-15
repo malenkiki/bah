@@ -2,7 +2,11 @@
 
 [![Build Status](https://travis-ci.org/malenkiki/bah.svg?branch=master)](https://travis-ci.org/malenkiki/bah)
 
-Bah! It is just a little set of simple PHP classes to play with collections of strings, numbers and characters.
+Bah! It is just a little set of simple PHP classes to play with **strings**, **numbers**, **characters**, **arrays** and **hashes**.
+
+Each class is designed to be used in many different ways, using **magic getters**, **magic setters**, or **methods**.
+
+When it is possible, **chaining methods** (and then **magic getters** too) are available.
 
 
 ## Play with strings
