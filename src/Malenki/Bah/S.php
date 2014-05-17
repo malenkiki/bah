@@ -209,6 +209,10 @@ class S extends O implements \Countable
         if($name == 'swap_case' || $name == 'swapcase' || $name == 'swap'){
             return $this->_swapCase();
         }
+
+        if(in_array($name, array('left', 'left_justify', 'left_align', 'ljust'))){
+            return $this->left();
+        }
     }
 
     protected function _string()
@@ -740,6 +744,15 @@ class S extends O implements \Countable
 
     public function center($width = 79, $cut = PHP_EOL)
     {
+        if(!($width instanceof N) && !is_integer($width)){
+            throw new \InvalidArgumentException('Width must be N instance or integer.');
+        }
+
+
+        if(is_object($width)){
+            $width = $width->int;
+        }
+
         $a = $this->wrap($width, $cut)->split('/'.$cut.'/u');
 
         $s = '';
@@ -770,6 +783,64 @@ class S extends O implements \Countable
     }
 
 
+    protected function _leftOrRightJustify($type = 'left', $width = 79, $cut = PHP_EOL)
+    {
+        if(!($width instanceof N) && !is_integer($width)){
+            throw new \InvalidArgumentException('Width must be N instance or integer.');
+        }
+
+
+        if(is_object($width)){
+            $width = $width->int;
+        }
+
+        $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
+
+        $space = new S(' ');
+
+        $s = '';
+
+        $pad = new N($width - count($a->current));
+
+        while($a->valid()){
+            if($type == 'left'){
+                $s .= $a->current->margin(0, $pad);
+            } else {
+                $s .= $a->current->margin($pad);
+            }
+
+            if(!$a->is_last){
+                $s .= $cut;
+            }
+
+            $a->next();
+        }
+
+        return new S($s);
+    }
+
+
+    public function left($width = 79, $cut = PHP_EOL)
+    {
+        return $this->_leftOrRightJustify('left', $width, $cut);
+    }
+
+    public function ljust($width = 79, $cut = PHP_EOL)
+    {
+        return $this->left($width, $cut);
+    }
+
+
+    public function leftAlign($width = 79, $cut = PHP_EOL)
+    {
+        return $this->left($width, $cut);
+    }
+
+
+    public function leftJustify($width = 79, $cut = PHP_EOL)
+    {
+        return $this->left($width, $cut);
+    }
 
     public function explode($sep)
     {
