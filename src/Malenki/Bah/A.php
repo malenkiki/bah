@@ -332,7 +332,7 @@ class A implements \Iterator, \Countable
         return $this->implode($sep);
     }
 
-    public function _maxOrMin($type = 'max')
+    protected function _maxOrMin($type = 'max')
     {
         $arr = array();
 
@@ -350,7 +350,7 @@ class A implements \Iterator, \Countable
         return new N($type($arr));
     }
 
-    public function _array()
+    protected function _array()
     {
         $arr = array_values($this->value);
 
