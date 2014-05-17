@@ -213,6 +213,10 @@ class S extends O implements \Countable
         if(in_array($name, array('left', 'left_justify', 'left_align', 'ljust'))){
             return $this->left();
         }
+
+        if(in_array($name, array('right', 'right_justify', 'right_align', 'rjust'))){
+            return $this->right();
+        }
     }
 
     protected function _string()
@@ -840,6 +844,29 @@ class S extends O implements \Countable
     public function leftJustify($width = 79, $cut = PHP_EOL)
     {
         return $this->left($width, $cut);
+    }
+
+
+    public function right($width = 79, $cut = PHP_EOL)
+    {
+        return $this->_leftOrRightJustify('right', $width, $cut);
+    }
+
+    public function rjust($width = 79, $cut = PHP_EOL)
+    {
+        return $this->right($width, $cut);
+    }
+
+
+    public function rightAlign($width = 79, $cut = PHP_EOL)
+    {
+        return $this->right($width, $cut);
+    }
+
+
+    public function rightJustify($width = 79, $cut = PHP_EOL)
+    {
+        return $this->right($width, $cut);
     }
 
     public function explode($sep)

@@ -534,4 +534,41 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($shouldPad, $sp->ljust(40));
         $this->assertEquals($shouldPad, $sp->left(new N(40)));
     }
+
+
+    public function testRightJustifyingStringShouldSuccess()
+    {
+        $s = new S('Je vais être alignée sur la droite !');
+        $sp = new S('        Je vais être alignée sur la droite !         ');
+        $should = new S('                                           Je vais être alignée sur la droite !');
+        $shouldPad = new S('    Je vais être alignée sur la droite !');
+        
+        $this->assertEquals($should, $s->right);
+        $this->assertEquals($should, $s->right_justify);
+        $this->assertEquals($should, $s->right_align);
+        $this->assertEquals($should, $s->rjust);
+        $this->assertEquals($should, $s->rightJustify());
+        $this->assertEquals($should, $s->rightAlign());
+        $this->assertEquals($should, $s->rjust());
+        $this->assertEquals($should, $s->right());
+        
+        $this->assertEquals($shouldPad, $s->rightJustify(40));
+        $this->assertEquals($shouldPad, $s->rightAlign(new N(40)));
+        $this->assertEquals($shouldPad, $s->rjust(40));
+        $this->assertEquals($shouldPad, $s->right(new N(40)));
+        
+        $this->assertEquals($should, $sp->right);
+        $this->assertEquals($should, $sp->right_justify);
+        $this->assertEquals($should, $sp->right_align);
+        $this->assertEquals($should, $sp->rjust);
+        $this->assertEquals($should, $sp->rightJustify());
+        $this->assertEquals($should, $sp->rightAlign());
+        $this->assertEquals($should, $sp->rjust());
+        $this->assertEquals($should, $sp->right());
+        
+        $this->assertEquals($shouldPad, $sp->rightJustify(40));
+        $this->assertEquals($shouldPad, $sp->rightAlign(new N(40)));
+        $this->assertEquals($shouldPad, $sp->rjust(40));
+        $this->assertEquals($shouldPad, $sp->right(new N(40)));
+    }
 }
