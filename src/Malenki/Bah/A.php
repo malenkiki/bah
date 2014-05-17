@@ -32,9 +32,13 @@ namespace Malenki\Bah;
  * @property-read $array Gets content as primitive array
  * @property-read $index Gets current index
  * @property-read $length Number of elements included into the collection
+ * @property-read $is_last Tests if it is the last element (while context)
+ * @property-read $is_first Tests if it is the first element (while context)
+ * @property-read $is_last_but_one Tests if it is the last but one element (while context)
  * @property-read $last Gets last element
  * @property-read $first Gets the first element
- * @property-read $lastButOne Gets the last but one element
+ * @property-read $lastButOne Gets the last but one element (deprecated syntax, use following)
+ * @property-read $last_but_one Gets the last but one element
  * @property-read $shift Takes the first element and remove it from the collection
  * @property-read $pop Takes the last element and remove it from the collection
  * @property-read $random Gets randomly one element
@@ -64,7 +68,7 @@ class A implements \Iterator, \Countable
             return $this->take((int) $arr[1]);
         }
 
-        if (in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode', 'current', 'key', 'next', 'rewind', 'valid', 'reverse', 'sort', 'unique', 'min', 'max'))) {
+        if (in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'last_but_one', 'is_last', 'is_first', 'is_last_but_one', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode', 'current', 'key', 'next', 'rewind', 'valid', 'reverse', 'sort', 'unique', 'min', 'max'))) {
             if ($name == 'index') {
                 return $this->key();
             } elseif ($name == 'random') {
@@ -79,7 +83,15 @@ class A implements \Iterator, \Countable
                 $str_method = '_' . $name;
 
                 return $this->$str_method();
-            } else {
+            } elseif(in_array($name, array('is_first', 'is_last', 'is_last_but_one'))){
+                $m = '_is' . implode(
+                    array_map(
+                        'ucfirst',
+                        explode('_', preg_replace('/^is_/', '', $name))
+                    )
+                );
+                return $this->$m();
+            }else {
                 return $this->$name();
             }
         }
@@ -187,6 +199,25 @@ class A implements \Iterator, \Countable
         }
 
         return array_key_exists($idx, $this->value);
+    }
+    
+    protected function _isLastButOne()
+    {
+        if ($this->count < 2) {
+            return false;
+        }
+
+        return ($this->count - 2) == $this->position->int;
+    }
+
+    protected function _isLast()
+    {
+        return $this->_length()->p->eq($this->position);
+    }
+
+    protected function _isFirst()
+    {
+        return $this->position->zero;
     }
 
     protected function _lastButOne()
