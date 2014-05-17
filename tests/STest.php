@@ -479,6 +479,8 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S('foo');
         $should = new S('  foo   ');
         $this->assertEquals($should, $s->center(8));
+        $sp = new S('             foo        ');
+        $this->assertEquals($should, $sp->center(8));
 
         $s = new S("foo\nbar\nthing");
         $should = new S('  foo   '."\n".'   bar  '. "\n". ' thing  ');

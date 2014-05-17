@@ -757,7 +757,7 @@ class S extends O implements \Countable
             $width = $width->int;
         }
 
-        $a = $this->wrap($width, $cut)->split('/'.$cut.'/u');
+        $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
 
         $s = '';
 
