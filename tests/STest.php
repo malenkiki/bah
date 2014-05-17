@@ -473,4 +473,20 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('JeVaisÊtreEnUpperCamelCase', $s->upper_camel_case);
         $this->assertEquals('JeVaisÊtreEnUpperCamelCase', $s->ucc);
     }
+
+    public function testCenteringStringShouldSuccess()
+    {
+        $s = new S('foo');
+        $should = new S('  foo   ');
+        $this->assertEquals($should, $s->center(8));
+
+        $s = new S("foo\nbar\nthing");
+        $should = new S('  foo   '."\n".'   bar  '. "\n". ' thing  ');
+        $this->assertEquals($should, $s->center(8));
+        
+        $s = new S('I will be centered!');
+        $should = new S('                              I will be centered!                              ');
+        $this->assertEquals($should, $s->center);
+        
+    }
 }
