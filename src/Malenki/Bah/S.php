@@ -495,7 +495,7 @@ class S extends O implements \Countable
         return new self($str_out);
     }
 
-    public function _upperCaseFirst()
+    protected function _upperCaseFirst()
     {
         if (!$this->isVoid()) {
             $first_char = $this->_first()->_upper();
