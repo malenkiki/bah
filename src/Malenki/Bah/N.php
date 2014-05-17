@@ -74,11 +74,16 @@ class N
 {
     public function __get($name)
     {
-        if (in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial', 'triangular', 'inverse'))) {
+        if (in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial', 'triangular', 'inverse', 'ceil', 'floor'))) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
         }
+        
+        if ($name == 'round') {
+            return $this->round();
+        }
+        
 
         if ($name == 'greek') {
             return $this->greek();
@@ -107,6 +112,12 @@ class N
 
         if (in_array($name, array('arabic', 'perso_arabic', 'persian'))) {
             return $this->_arabic($name);
+        }
+
+        $arr = array();
+        if(preg_match('/round_(up|down|even|odd)/', $name, $arr)){
+            $m = 'round' . ucfirst($arr[1]);
+            return $this->$m();
         }
     }
 
@@ -549,6 +560,42 @@ class N
     public function neq($num)
     {
         return $this->notEqual($num);
+    }
+
+    protected function _ceil()
+    {
+        return new N(ceil($this->value));
+    }
+
+
+    protected function _floor()
+    {
+        return new N(floor($this->value));
+    }
+
+    public function round($precision = 0, $mode = PHP_ROUND_HALF_UP)
+    {
+        return new N(round($this->value, $precision, $mode));
+    }
+
+    public function roundUp($precision = 0)
+    {
+        return $this->round($precision, PHP_ROUND_HALF_UP);
+    }
+
+    public function roundDown($precision = 0)
+    {
+        return $this->round($precision, PHP_ROUND_HALF_DOWN);
+    }
+
+    public function roundEven($precision = 0)
+    {
+        return $this->round($precision, PHP_ROUND_HALF_EVEN);
+    }
+
+    public function roundOdd($precision = 0)
+    {
+        return $this->round($precision, PHP_ROUND_HALF_ODD);
     }
 
     protected function _decimal()

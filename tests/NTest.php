@@ -1039,4 +1039,131 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(42);
         $n->base(37);
     }
+
+    public function testGettingFloorValueShouldSuccess()
+    {
+        $n = new N(7.8);
+        $seven = new N(7);
+        $this->assertEquals($seven, $n->floor);
+        $n = new N(7.1);
+        $this->assertEquals($seven, $n->floor);
+    }
+
+    public function testGettingCeilValueShouldSuccess()
+    {
+        $n = new N(6.8);
+        $seven = new N(7);
+        $this->assertEquals($seven, $n->ceil);
+        $n = new N(6.1);
+        $this->assertEquals($seven, $n->ceil);
+    }
+
+    public function testGettingRoundValueShouldSuccess()
+    {
+        $n = new N(7.8);
+        $seven = new N(7);
+        $height = new N(8);
+        $this->assertEquals($height, $n->round);
+        $n = new N(7.1);
+        $this->assertEquals($seven, $n->round);
+
+        $n = new N(3.4);
+        $this->assertEquals(new N(3), $n->round);
+
+        $n = new N(3.5);
+        $this->assertEquals(new N(4), $n->round);
+
+        $n = new N(3.6);
+        $this->assertEquals(new N(4), $n->round);
+
+        $n = new N(3.6);
+        $this->assertEquals(new N(4), $n->round(0));
+        
+        $n = new N(1.95583);
+        $this->assertEquals(new N(1.96), $n->round(2));
+
+        $n = new N(1241757);
+        $this->assertEquals(new N(1242000), $n->round(-3));
+
+        $n = new N(5.045);
+        $this->assertEquals(new N(5.05), $n->round(2));
+
+        $n = new N(5.055);
+        $this->assertEquals(new N(5.06), $n->round(2));
+    }
+
+    public function testGettingRoundUpValueShouldSuccess()
+    {
+        $n = new N(1.5);
+        $this->assertEquals(new N(2), $n->roundUp());
+        $this->assertEquals(new N(2), $n->round_up);
+        
+        $n = new N(-1.5);
+        $this->assertEquals(new N(-2), $n->roundUp());
+        $this->assertEquals(new N(-2), $n->round_up);
+        
+        $n = new N(1.55);
+        $this->assertEquals(new N(1.6), $n->roundUp(1));
+        $n = new N(1.54);
+        $this->assertEquals(new N(1.5), $n->roundUp(1));
+        $n = new N(-1.55);
+        $this->assertEquals(new N(-1.6), $n->roundUp(1));
+        $n = new N(-1.54);
+        $this->assertEquals(new N(-1.5), $n->roundUp(1));
+    }
+    
+    public function testGettingRoundDownValueShouldSuccess()
+    {
+        $n = new N(1.5);
+        $this->assertEquals(new N(1), $n->roundDown());
+        $this->assertEquals(new N(1), $n->round_down);
+        
+        $n = new N(-1.5);
+        $this->assertEquals(new N(-1), $n->roundDown());
+        $this->assertEquals(new N(-1), $n->round_down);
+        
+        $n = new N(1.55);
+        $np = new N(1.5);
+        $this->assertEquals($np, $n->roundDown(1));
+        $n = new N(1.54);
+        $this->assertEquals($np, $n->roundDown(1));
+        $n = new N(-1.55);
+        $np = new N(-1.5);
+        $this->assertEquals($np, $n->roundDown(1));
+        $n = new N(-1.54);
+        $this->assertEquals($np, $n->roundDown(1));
+    }
+
+    public function testGettingRoundEvenValueShouldSuccess()
+    {
+        $n = new N(9.5);
+        $ten = new N(10);
+        $this->assertEquals($ten, $n->roundEven());
+        $this->assertEquals($ten, $n->round_even);
+        
+        $n = new N(8.5);
+        $n8 = new N(8);
+        $this->assertEquals($n8, $n->roundEven());
+        $this->assertEquals($n8, $n->round_even);
+        
+        
+        $n = new N(1.55);
+        $n16 = new N(1.6);
+        $n15 = new N(1.5);
+        $this->assertEquals($n16, $n->roundEven(1));
+        $n = new N(1.54);
+        $this->assertEquals($n15, $n->roundEven(1));
+        $n = new N(-1.55);
+        $n16 = new N(-1.6);
+        $n15 = new N(-1.5);
+        $this->assertEquals($n16, $n->roundEven(1));
+        $n = new N(-1.54);
+        $this->assertEquals($n15, $n->roundEven(1));
+    }
+
+    public function testGettingRoundOddValueShouldSuccess()
+    {
+        $this->markTestIncomplete();
+    }
+
 }
