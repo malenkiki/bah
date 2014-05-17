@@ -206,6 +206,9 @@ class S extends O implements \Countable
             return $this->camelCase(true);
         }
         
+        if($name == 'swap_case' || $name == 'swapcase' || $name == 'swap'){
+            return $this->_swapCase();
+        }
     }
 
     protected function _string()
@@ -238,6 +241,29 @@ class S extends O implements \Countable
         );
 
         return new self($str);
+    }
+
+    protected function _swapCase()
+    {
+        $coll_upper = $this->_upper()->chunk();
+        $coll_original = $this->chunk();
+
+        $out = '';
+
+        while($coll_original->valid()){
+            $c_upper = $coll_upper->take($coll_original->key);
+            $c_orig = $coll_original->current();
+
+            if($c_upper->string === $c_orig->string){
+                $out .= $c_orig->lower;
+            } else {
+                $out .= $c_upper;
+            }
+
+            $coll_original->next();
+        }
+
+        return new S($out);
     }
 
     public function strip($str = null)

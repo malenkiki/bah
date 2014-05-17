@@ -489,4 +489,12 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($should, $s->center);
         
     }
+
+    public function testSwapingCaseShouldSuccess()
+    {
+        $s = new S('Je SuiS aVec dEs maJuScUleS eT Des MinUScUles !');
+        $should = new S('jE sUIs AvEC DeS MAjUsCuLEs Et dES mINusCuLES !');
+
+        $this->assertEquals($should, $s->swap_case);
+    }
 }
