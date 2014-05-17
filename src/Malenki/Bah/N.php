@@ -278,17 +278,17 @@ class N
         return $this->gte($num);
     }
 
-    public function _negative()
+    protected function _negative()
     {
         return $this->value < 0;
     }
 
-    public function _zero()
+    protected function _zero()
     {
         return $this->value == 0;
     }
 
-    public function _positive()
+    protected function _positive()
     {
         return $this->value > 0;
     }
@@ -551,7 +551,7 @@ class N
         return $this->notEqual($num);
     }
 
-    public function _decimal()
+    protected function _decimal()
     {
         $sign = 1;
 
