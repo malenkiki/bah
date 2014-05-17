@@ -154,6 +154,10 @@ class S extends O implements \Countable
             return $this->$name();
         }
 
+        if (in_array($name, array('center', 'wrap'))) {
+            return $this->$name();
+        }
+
         if (in_array($name, array('void', 'empty'))) {
             return $this->isVoid();
         }
@@ -495,7 +499,7 @@ class S extends O implements \Countable
         return new self($str_out);
     }
 
-    public function _upperCaseFirst()
+    protected function _upperCaseFirst()
     {
         if (!$this->isVoid()) {
             $first_char = $this->_first()->_upper();
@@ -589,10 +593,10 @@ class S extends O implements \Countable
      * @access public
      * @return S
      */
-    public function wrap($width, $cut = "\n")
+    public function wrap($width = 79, $cut = PHP_EOL)
     {
         $arr_lines = array();
-        $cut = "$cut"; // ensure tostring if S object
+        $cut = "$cut"; // ensure __toString() if it is an object
 
         if (strlen($this->value) === mb_strlen($this->value, 'UTF-8')) {
             $arr_lines = explode(
@@ -704,6 +708,42 @@ class S extends O implements \Countable
 
         return new self(implode("\n", $arr));
     }
+
+
+
+
+    public function center($width = 79, $cut = PHP_EOL)
+    {
+        $a = $this->wrap($width, $cut)->split('/'.$cut.'/u');
+
+        $s = '';
+
+        while($a->valid()){
+            $diff = new N(($width - count($a->current)) / 2);
+
+            if($diff->decimal->zero){
+                $left = $right = $diff->int;
+            } else {
+                if($a->index->odd){
+                    $left = $diff->ceil;
+                    $right = $diff->floor;
+                } else {
+                    $left = $diff->floor;
+                    $right = $diff->ceil;
+                }
+            }
+            $s .= $a->current->margin($left, $right);
+
+            if(!$a->is_last){
+                $s .= $cut;
+            }
+            $a->next();
+        }
+
+        return new S($s);
+    }
+
+
 
     public function explode($sep)
     {
