@@ -217,6 +217,10 @@ class S extends O implements \Countable
         if(in_array($name, array('right', 'right_justify', 'right_align', 'rjust'))){
             return $this->right();
         }
+
+        if($name == 'justify' || $name == 'just'){
+            return $this->justify();
+        }
     }
 
     protected function _string()
@@ -884,12 +888,13 @@ class S extends O implements \Countable
         $sp = new S(' ');
 
         if(count($a) == 1){
+            unset($a);
             return $this->$last_line($width, $cut);
         }
 
         while($a->valid()){
             if($a->is_last){
-                $s .= $this->$last_line($width, $cut);
+                $s .= $a->current->$last_line($width, $cut);
             } else {
                 $line = $a->current->strip->replace('/\s+/', ' ');
                 $diff = new N($width - count($line));
