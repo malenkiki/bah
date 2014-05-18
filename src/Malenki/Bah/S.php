@@ -800,8 +800,6 @@ class S extends O implements \Countable
 
         $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
 
-        $space = new S(' ');
-
         $s = '';
 
         $pad = new N($width - count($a->current));
@@ -867,6 +865,62 @@ class S extends O implements \Countable
     public function rightJustify($width = 79, $cut = PHP_EOL)
     {
         return $this->right($width, $cut);
+    }
+    
+    public function justify($width = 79, $last_line = 'left', $cut = PHP_EOL)
+    {
+        if(!($width instanceof N) && !is_integer($width)){
+            throw new \InvalidArgumentException('Width must be N instance or integer.');
+        }
+
+
+        if(is_object($width)){
+            $width = $width->int;
+        }
+
+        $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
+
+        $s = '';
+        $sp = new S(' ');
+
+        if(count($a) == 1){
+            return $this->$last_line($width, $cut);
+        }
+
+        while($a->valid()){
+            if($a->is_last){
+                $s .= $this->$last_line($width, $cut);
+            } else {
+                $line = $a->current->strip->replace('/\s+/', ' ');
+                $diff = new N($width - count($line));
+                $words = $line->split('/\s/u');
+                $nb_spaces = count($words) - 1 + $diff->int;
+
+                $div = new N($nb_spaces / (count($words) - 1));
+                $div_floor = $div->floor->int;
+
+                $missing = new N((count($words) - 1) * ($div->double - $div_floor));
+                $sp_pad = $sp->times($div_floor);
+
+                while($words->valid()){
+                    if(!$words->is_last && count($sp_pad)){
+                        $s .= $words->current->append($sp_pad);
+
+                        if($missing->test('> 0')){
+                            $s .= $sp;
+                            $missing->decr;
+                        }
+                    } else {
+                        $s .= $words->current;
+                    }
+                    $words->next();
+                }
+                $s .= $cut;
+            }
+            $a->next();
+        }
+
+        return new S($s);
     }
 
     public function explode($sep)

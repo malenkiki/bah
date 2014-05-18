@@ -573,4 +573,12 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($shouldPad, $sp->rjust(40));
         $this->assertEquals($shouldPad, $sp->right(new N(40)));
     }
+
+    public function testJustifyingStringShouldSuccess()
+    {
+        $this->markTestIncomplete();
+        $s = new S('Cogito ergo sum, alea jacta est !?');
+        //var_dump($s->justify()->string);
+        //var_dump($s->justify(15)->string);
+    }
 }
