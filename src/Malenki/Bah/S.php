@@ -206,6 +206,17 @@ class S extends O implements \Countable
             return $this->camelCase(true);
         }
         
+        if($name == 'swap_case' || $name == 'swapcase' || $name == 'swap'){
+            return $this->_swapCase();
+        }
+
+        if(in_array($name, array('left', 'left_justify', 'left_align', 'ljust'))){
+            return $this->left();
+        }
+
+        if(in_array($name, array('right', 'right_justify', 'right_align', 'rjust'))){
+            return $this->right();
+        }
     }
 
     protected function _string()
@@ -238,6 +249,29 @@ class S extends O implements \Countable
         );
 
         return new self($str);
+    }
+
+    protected function _swapCase()
+    {
+        $coll_upper = $this->_upper()->chunk();
+        $coll_original = $this->chunk();
+
+        $out = '';
+
+        while($coll_original->valid()){
+            $c_upper = $coll_upper->take($coll_original->key);
+            $c_orig = $coll_original->current();
+
+            if($c_upper->string === $c_orig->string){
+                $out .= $c_orig->lower;
+            } else {
+                $out .= $c_upper;
+            }
+
+            $coll_original->next();
+        }
+
+        return new S($out);
     }
 
     public function strip($str = null)
@@ -714,7 +748,16 @@ class S extends O implements \Countable
 
     public function center($width = 79, $cut = PHP_EOL)
     {
-        $a = $this->wrap($width, $cut)->split('/'.$cut.'/u');
+        if(!($width instanceof N) && !is_integer($width)){
+            throw new \InvalidArgumentException('Width must be N instance or integer.');
+        }
+
+
+        if(is_object($width)){
+            $width = $width->int;
+        }
+
+        $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
 
         $s = '';
 
@@ -744,6 +787,141 @@ class S extends O implements \Countable
     }
 
 
+    protected function _leftOrRightJustify($type = 'left', $width = 79, $cut = PHP_EOL)
+    {
+        if(!($width instanceof N) && !is_integer($width)){
+            throw new \InvalidArgumentException('Width must be N instance or integer.');
+        }
+
+
+        if(is_object($width)){
+            $width = $width->int;
+        }
+
+        $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
+
+        $s = '';
+
+        $pad = new N($width - count($a->current));
+
+        while($a->valid()){
+            if($type == 'left'){
+                $s .= $a->current->margin(0, $pad);
+            } else {
+                $s .= $a->current->margin($pad);
+            }
+
+            if(!$a->is_last){
+                $s .= $cut;
+            }
+
+            $a->next();
+        }
+
+        return new S($s);
+    }
+
+
+    public function left($width = 79, $cut = PHP_EOL)
+    {
+        return $this->_leftOrRightJustify('left', $width, $cut);
+    }
+
+    public function ljust($width = 79, $cut = PHP_EOL)
+    {
+        return $this->left($width, $cut);
+    }
+
+
+    public function leftAlign($width = 79, $cut = PHP_EOL)
+    {
+        return $this->left($width, $cut);
+    }
+
+
+    public function leftJustify($width = 79, $cut = PHP_EOL)
+    {
+        return $this->left($width, $cut);
+    }
+
+
+    public function right($width = 79, $cut = PHP_EOL)
+    {
+        return $this->_leftOrRightJustify('right', $width, $cut);
+    }
+
+    public function rjust($width = 79, $cut = PHP_EOL)
+    {
+        return $this->right($width, $cut);
+    }
+
+
+    public function rightAlign($width = 79, $cut = PHP_EOL)
+    {
+        return $this->right($width, $cut);
+    }
+
+
+    public function rightJustify($width = 79, $cut = PHP_EOL)
+    {
+        return $this->right($width, $cut);
+    }
+    
+    public function justify($width = 79, $last_line = 'left', $cut = PHP_EOL)
+    {
+        if(!($width instanceof N) && !is_integer($width)){
+            throw new \InvalidArgumentException('Width must be N instance or integer.');
+        }
+
+
+        if(is_object($width)){
+            $width = $width->int;
+        }
+
+        $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
+
+        $s = '';
+        $sp = new S(' ');
+
+        if(count($a) == 1){
+            return $this->$last_line($width, $cut);
+        }
+
+        while($a->valid()){
+            if($a->is_last){
+                $s .= $this->$last_line($width, $cut);
+            } else {
+                $line = $a->current->strip->replace('/\s+/', ' ');
+                $diff = new N($width - count($line));
+                $words = $line->split('/\s/u');
+                $nb_spaces = count($words) - 1 + $diff->int;
+
+                $div = new N($nb_spaces / (count($words) - 1));
+                $div_floor = $div->floor->int;
+
+                $missing = new N((count($words) - 1) * ($div->double - $div_floor));
+                $sp_pad = $sp->times($div_floor);
+
+                while($words->valid()){
+                    if(!$words->is_last && count($sp_pad)){
+                        $s .= $words->current->append($sp_pad);
+
+                        if($missing->test('> 0')){
+                            $s .= $sp;
+                            $missing->decr;
+                        }
+                    } else {
+                        $s .= $words->current;
+                    }
+                    $words->next();
+                }
+                $s .= $cut;
+            }
+            $a->next();
+        }
+
+        return new S($s);
+    }
 
     public function explode($sep)
     {

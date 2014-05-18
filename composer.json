@@ -1,8 +1,8 @@
 {
     "name": "malenki/bah",
     "type": "library",
-    "description": "Classes to use in place of array, string, integer PHP primitives",
-    "keywords": ["number","array","string"],
+    "description": "Simple basic PHP classes to play with String, Character, Hash, Collection, Number… A little toolbox to replace PHP primitive types!",
+    "keywords": ["number","array","string","character","hash"],
     "homepage": "https://github.com/malenkiki/bah",
     "license": "MIT",
     "support": {

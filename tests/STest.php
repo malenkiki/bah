@@ -479,6 +479,8 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S('foo');
         $should = new S('  foo   ');
         $this->assertEquals($should, $s->center(8));
+        $sp = new S('             foo        ');
+        $this->assertEquals($should, $sp->center(8));
 
         $s = new S("foo\nbar\nthing");
         $should = new S('  foo   '."\n".'   bar  '. "\n". ' thing  ');
@@ -488,5 +490,95 @@ class STest extends PHPUnit_Framework_TestCase
         $should = new S('                              I will be centered!                              ');
         $this->assertEquals($should, $s->center);
         
+    }
+
+    public function testSwapingCaseShouldSuccess()
+    {
+        $s = new S('Je SuiS aVec dEs maJuScUleS eT Des MinUScUles !');
+        $should = new S('jE sUIs AvEC DeS MAjUsCuLEs Et dES mINusCuLES !');
+
+        $this->assertEquals($should, $s->swap_case);
+    }
+
+
+    public function testLeftJustifyingStringShouldSuccess()
+    {
+        $s = new S('Je vais être alignée sur la gauche !');
+        $sp = new S('        Je vais être alignée sur la gauche !         ');
+        $should = new S('Je vais être alignée sur la gauche !                                           ');
+        $shouldPad = new S('Je vais être alignée sur la gauche !    ');
+        
+        $this->assertEquals($should, $s->left);
+        $this->assertEquals($should, $s->left_justify);
+        $this->assertEquals($should, $s->left_align);
+        $this->assertEquals($should, $s->ljust);
+        $this->assertEquals($should, $s->leftJustify());
+        $this->assertEquals($should, $s->leftAlign());
+        $this->assertEquals($should, $s->ljust());
+        $this->assertEquals($should, $s->left());
+        
+        $this->assertEquals($shouldPad, $s->leftJustify(40));
+        $this->assertEquals($shouldPad, $s->leftAlign(new N(40)));
+        $this->assertEquals($shouldPad, $s->ljust(40));
+        $this->assertEquals($shouldPad, $s->left(new N(40)));
+        
+        $this->assertEquals($should, $sp->left);
+        $this->assertEquals($should, $sp->left_justify);
+        $this->assertEquals($should, $sp->left_align);
+        $this->assertEquals($should, $sp->ljust);
+        $this->assertEquals($should, $sp->leftJustify());
+        $this->assertEquals($should, $sp->leftAlign());
+        $this->assertEquals($should, $sp->ljust());
+        $this->assertEquals($should, $sp->left());
+        
+        $this->assertEquals($shouldPad, $sp->leftJustify(40));
+        $this->assertEquals($shouldPad, $sp->leftAlign(new N(40)));
+        $this->assertEquals($shouldPad, $sp->ljust(40));
+        $this->assertEquals($shouldPad, $sp->left(new N(40)));
+    }
+
+
+    public function testRightJustifyingStringShouldSuccess()
+    {
+        $s = new S('Je vais être alignée sur la droite !');
+        $sp = new S('        Je vais être alignée sur la droite !         ');
+        $should = new S('                                           Je vais être alignée sur la droite !');
+        $shouldPad = new S('    Je vais être alignée sur la droite !');
+        
+        $this->assertEquals($should, $s->right);
+        $this->assertEquals($should, $s->right_justify);
+        $this->assertEquals($should, $s->right_align);
+        $this->assertEquals($should, $s->rjust);
+        $this->assertEquals($should, $s->rightJustify());
+        $this->assertEquals($should, $s->rightAlign());
+        $this->assertEquals($should, $s->rjust());
+        $this->assertEquals($should, $s->right());
+        
+        $this->assertEquals($shouldPad, $s->rightJustify(40));
+        $this->assertEquals($shouldPad, $s->rightAlign(new N(40)));
+        $this->assertEquals($shouldPad, $s->rjust(40));
+        $this->assertEquals($shouldPad, $s->right(new N(40)));
+        
+        $this->assertEquals($should, $sp->right);
+        $this->assertEquals($should, $sp->right_justify);
+        $this->assertEquals($should, $sp->right_align);
+        $this->assertEquals($should, $sp->rjust);
+        $this->assertEquals($should, $sp->rightJustify());
+        $this->assertEquals($should, $sp->rightAlign());
+        $this->assertEquals($should, $sp->rjust());
+        $this->assertEquals($should, $sp->right());
+        
+        $this->assertEquals($shouldPad, $sp->rightJustify(40));
+        $this->assertEquals($shouldPad, $sp->rightAlign(new N(40)));
+        $this->assertEquals($shouldPad, $sp->rjust(40));
+        $this->assertEquals($shouldPad, $sp->right(new N(40)));
+    }
+
+    public function testJustifyingStringShouldSuccess()
+    {
+        $this->markTestIncomplete();
+        $s = new S('Cogito ergo sum, alea jacta est !?');
+        //var_dump($s->justify()->string);
+        //var_dump($s->justify(15)->string);
     }
 }
