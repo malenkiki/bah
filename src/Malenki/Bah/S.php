@@ -171,6 +171,7 @@ class S extends O implements \Countable
             return $this->chunk();
         }
 
+
         if ($name == 'ucw') {
             return $this->_upperCaseWords();
         }
@@ -179,7 +180,7 @@ class S extends O implements \Countable
             return $this->_upperCaseFirst();
         }
 
-        if (in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans', 'rtl', 'ltr'))) {
+        if (in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans', 'rtl', 'ltr', 'md5', 'sha1'))) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
@@ -420,47 +421,75 @@ class S extends O implements \Countable
     /**
      * Checks that current string starts with the given string or not
      *
-     * @param  mixed   $str S or primitive string
+     * @param  mixed   $str primitive string or object havin __toString method
      * @access public
      * @return boolean
      */
     public function startsWith($str)
     {
-        $str = preg_quote($str, '/');
+        if(
+            is_string($str)
+            ||
+            (is_object($str) && method_exists($str, '__toString'))
+        ) {
+            $str = preg_quote($str, '/');
 
-        return (boolean) preg_match("/^$str/", $this->value);
+            return (boolean) preg_match("/^$str/", $this->value);
+        } else {
+            throw new \InvalidArgumentException(
+                'Searched starting string must be string or object having __toString method'
+            );
+        }
     }
 
     /**
      * Checks that current string ends with the given string or not
      *
-     * @param  mixed   $str S or primitive string
+     * @param  mixed   $str primitive string or object havin __toString method
      * @access public
      * @return boolean
      */
     public function endsWith($str)
     {
-        $str = preg_quote($str, '/');
+        if(
+            is_string($str)
+            ||
+            (is_object($str) && method_exists($str, '__toString'))
+        ) {
+            $str = preg_quote($str, '/');
 
-        return (boolean) preg_match("/$str\$/", $this->value);
+            return (boolean) preg_match("/$str\$/", $this->value);
+        } else {
+            throw new \InvalidArgumentException(
+                'Searched ending string must be string or object having __toString method'
+            );
+        }
     }
 
     /**
      * Check whether current string match the given regular expression.
      *
-     * @param  mixed   $expr S or primitive string
+     * @param  mixed   $expr primitive string or object having __toString method
      * @access public
      * @return boolean
      */
     public function match($expr)
     {
-        return (boolean) preg_match($expr, $this->value);
+        if(
+            is_string($expr)
+            ||
+            (is_object($expr) && method_exists($expr, '__toString'))
+        ) {
+            return (boolean) preg_match($expr, $this->value);
+        } else {
+            throw new \InvalidArgumentException('Expression must be string or object having __toString method');
+        }
     }
 
     /**
      * Shorthand for match method
      *
-     * @param  mixed   $expr S or primitive string
+     * @param  mixed   $expr primitive string or object having __toString method
      * @access public
      * @return boolean
      */
@@ -472,7 +501,7 @@ class S extends O implements \Countable
     /**
      * Shorthand for match method
      *
-     * @param  mixed   $expr S or primitive string
+     * @param  mixed   $expr primitive string or object having __toString method
      * @access public
      * @return boolean
      */
@@ -485,8 +514,6 @@ class S extends O implements \Countable
     {
         if(
             is_scalar($str)
-            ||
-            $str instanceof S
             ||
             (is_object($str) && method_exists($str, '__toString'))
         )
@@ -633,8 +660,22 @@ class S extends O implements \Countable
      */
     public function wrap($width = 79, $cut = PHP_EOL)
     {
+
+        if(is_object($cut)){
+            if(!method_exists($cut, '__toString')){
+                throw new \InvalidArgumentException(
+                    'Cut as object must have __toString method.'
+                );
+            }
+
+            $cut = "$cut";
+        } elseif(!is_string($cut)){
+            throw new \InvalidArgumentException(
+                'Cut must be a string or object having __toString method'
+            );
+        }
+
         $arr_lines = array();
-        $cut = "$cut"; // ensure __toString() if it is an object
 
         if (strlen($this->value) === mb_strlen($this->value, 'UTF-8')) {
             $arr_lines = explode(
@@ -757,6 +798,20 @@ class S extends O implements \Countable
         }
 
 
+        if(is_object($cut)){
+            if(!method_exists($cut, '__toString')){
+                throw new \InvalidArgumentException(
+                    'Cut as object must have __toString method.'
+                );
+            }
+
+            $cut = "$cut";
+        } elseif(!is_string($cut)){
+            throw new \InvalidArgumentException(
+                'Cut must be a string or object having __toString method'
+            );
+        }
+
         if(is_object($width)){
             $width = $width->int;
         }
@@ -794,9 +849,24 @@ class S extends O implements \Countable
     protected function _leftOrRightJustify($type = 'left', $width = 79, $cut = PHP_EOL)
     {
         if(!($width instanceof N) && !is_integer($width)){
-            throw new \InvalidArgumentException('Width must be N instance or integer.');
+            throw new \InvalidArgumentException(
+                'Width must be N instance or integer.'
+            );
         }
 
+        if(is_object($cut)){
+            if(!method_exists($cut, '__toString')){
+                throw new \InvalidArgumentException(
+                    'Cut as object must have __toString method.'
+                );
+            }
+
+            $cut = "$cut";
+        } elseif(!is_string($cut)){
+            throw new \InvalidArgumentException(
+                'Cut must be a string or object having __toString method'
+            );
+        }
 
         if(is_object($width)){
             $width = $width->int;
@@ -930,7 +1000,11 @@ class S extends O implements \Countable
 
     public function explode($sep)
     {
-        if (is_string($sep) || $sep instanceof S) {
+        if (
+            is_string($sep)
+            ||
+            (is_object($sep) && method_exists($sep, '__toString'))
+        ) {
             if (is_object($sep)) {
                 $sep = (string) $sep;
             }
@@ -1035,6 +1109,16 @@ class S extends O implements \Countable
         return !$this->_rtl() && !$this->_ltr();
     }
 
+    protected function _md5()
+    {
+        return new S(md5($this->value));
+    }
+
+
+    protected function _sha1()
+    {
+        return new S(sha1($this->value));
+    }
 
     /**
      *
