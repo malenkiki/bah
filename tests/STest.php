@@ -594,4 +594,13 @@ class STest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($should, $s->justify(15, 'right'));
     }
+
+
+    public function testGettingMd5SumShouldSuccess()
+    {
+        $s = new S('I am not a number! I am free man!');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->md5);
+        $this->assertCount(32, $s->md5);
+        $this->assertRegExp('/^[a-f0-9]{32}$/', $s->md5->string);
+    }
 }

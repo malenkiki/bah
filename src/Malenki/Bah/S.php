@@ -171,6 +171,7 @@ class S extends O implements \Countable
             return $this->chunk();
         }
 
+
         if ($name == 'ucw') {
             return $this->_upperCaseWords();
         }
@@ -179,7 +180,7 @@ class S extends O implements \Countable
             return $this->_upperCaseFirst();
         }
 
-        if (in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans', 'rtl', 'ltr'))) {
+        if (in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans', 'rtl', 'ltr', 'md5'))) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
@@ -1035,6 +1036,10 @@ class S extends O implements \Countable
         return !$this->_rtl() && !$this->_ltr();
     }
 
+    protected function _md5()
+    {
+        return new S(md5($this->value));
+    }
 
     /**
      *
