@@ -603,4 +603,12 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertCount(32, $s->md5);
         $this->assertRegExp('/^[a-f0-9]{32}$/', $s->md5->string);
     }
+
+    public function testGettingSha1SumShouldSuccess()
+    {
+        $s = new S('I am not a number! I am free man!');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->sha1);
+        $this->assertCount(40, $s->sha1);
+        $this->assertRegExp('/^[a-f0-9]{40}$/', $s->sha1->string);
+    }
 }

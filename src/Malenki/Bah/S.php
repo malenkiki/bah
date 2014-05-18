@@ -180,7 +180,7 @@ class S extends O implements \Countable
             return $this->_upperCaseFirst();
         }
 
-        if (in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans', 'rtl', 'ltr', 'md5'))) {
+        if (in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans', 'rtl', 'ltr', 'md5', 'sha1'))) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
@@ -1039,6 +1039,12 @@ class S extends O implements \Countable
     protected function _md5()
     {
         return new S(md5($this->value));
+    }
+
+
+    protected function _sha1()
+    {
+        return new S(sha1($this->value));
     }
 
     /**
