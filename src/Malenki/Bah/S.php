@@ -421,29 +421,49 @@ class S extends O implements \Countable
     /**
      * Checks that current string starts with the given string or not
      *
-     * @param  mixed   $str S or primitive string
+     * @param  mixed   $str primitive string or object havin __toString method
      * @access public
      * @return boolean
      */
     public function startsWith($str)
     {
-        $str = preg_quote($str, '/');
+        if(
+            is_string($str)
+            ||
+            (is_object($str) && method_exists($str, '__toString'))
+        ) {
+            $str = preg_quote($str, '/');
 
-        return (boolean) preg_match("/^$str/", $this->value);
+            return (boolean) preg_match("/^$str/", $this->value);
+        } else {
+            throw new \InvalidArgumentException(
+                'Searched starting string must be string or object having __toString method'
+            );
+        }
     }
 
     /**
      * Checks that current string ends with the given string or not
      *
-     * @param  mixed   $str S or primitive string
+     * @param  mixed   $str primitive string or object havin __toString method
      * @access public
      * @return boolean
      */
     public function endsWith($str)
     {
-        $str = preg_quote($str, '/');
+        if(
+            is_string($str)
+            ||
+            (is_object($str) && method_exists($str, '__toString'))
+        ) {
+            $str = preg_quote($str, '/');
 
-        return (boolean) preg_match("/$str\$/", $this->value);
+            return (boolean) preg_match("/$str\$/", $this->value);
+        } else {
+            throw new \InvalidArgumentException(
+                'Searched ending string must be string or object having __toString method'
+            );
+        }
     }
 
     /**
