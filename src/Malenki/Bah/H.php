@@ -190,6 +190,11 @@ class H implements \Iterator, \Countable
         return $this->take($key);
     }
 
+    public function at($key)
+    {
+        return $this->take($key);
+    }
+
     public function delete($key)
     {
         if (!$this->exist($key)) {
