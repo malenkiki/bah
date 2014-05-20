@@ -192,6 +192,20 @@ class A implements \Iterator, \Countable
         return $this->take($idx);
     }
 
+
+
+    /**
+     * Alias of take() method 
+     * 
+     * @param mixed $idx N or integer
+     * @access public
+     * @return mixed
+     */
+    public function at($idx)
+    {
+        return $this->take($idx);
+    }
+
     public function exist($idx)
     {
         if ($idx instanceof N) {
