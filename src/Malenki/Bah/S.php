@@ -347,6 +347,54 @@ class S extends O implements \Countable
         return static::concat($str, $this);
     }
 
+    public function insert($str, $pos)
+    {
+        if(
+            !is_string($str) 
+            &&
+            !(is_object($str) && method_exists($str, '__toString'))
+        ){
+            throw new \InvalidArgumentException(
+                'String to insert must be string or object having __toString method.'
+            );
+        }
+        if(!is_integer($pos) && !($pos instanceof N)){
+            throw new \InvalidArgumentException(
+                'To insert a string, position valud must be integer or N instance.'
+            );
+        }
+
+        if($pos instanceof N){
+            $pos = $pos->int;
+        }
+
+        if($pos < 0){
+            throw new \InvalidArgumentException(
+                'Position must be positive or null integer.'
+            );
+        }
+
+        if($pos > count($this)){
+            throw new \InvalidArgumentException(
+                'Position must not be greater than length of current string.'
+            );
+        }
+
+        if($pos == count($this)){
+            return $this->append($str);
+        }
+
+        if($pos == 0){
+            return $this->prepend($str);
+        }
+
+        $str1 = $this->sub(0, $pos);
+        $str2 = $this->sub($pos, count($this) - 1);
+
+        
+        return static::concat($str1, $str, $str2);
+    }
+
     public function camelCase($is_upper = false)
     {
         $func = function(&$v, $k, $is_upper){

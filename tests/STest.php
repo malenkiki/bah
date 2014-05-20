@@ -460,6 +460,13 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo bar', $s->prepend(new C(' '))->prepend(new S('foo')));
     }
 
+    public function testInsertingStringShouldSuccess()
+    {
+        $s = new S('abcghi');
+        $this->assertEquals('abcdefghi', $s->insert('def', 3));
+        $this->assertEquals('abcdefghi', $s->insert(new S('def'), new N(3)));
+    }
+
     public function testConvertStringTolowerCamelCaseShouldSuccess()
     {
         $s = new S('Je vais être en « lowerCamelCase »');
