@@ -171,6 +171,10 @@ class S extends O implements \Countable
             return $this->chunk();
         }
 
+        if ($name == 'underscore' || $name == '_') {
+            return $this->_underscore();
+        }
+
 
         if ($name == 'ucw') {
             return $this->_upperCaseWords();
@@ -394,6 +398,18 @@ class S extends O implements \Countable
         
         return static::concat($str1, $str, $str2);
     }
+
+    public function _underscore()
+    {
+        return $this->strip()
+            ->lower
+            ->replace('/[\s]+/', '_')
+            ->replace('/[^\p{Ll}\p{Lu}0-9_]/u', '')
+            ->replace('/_+/', '_')
+            ->strip('_')
+            ;
+    }
+
 
     public function camelCase($is_upper = false)
     {

@@ -467,6 +467,13 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('abcdefghi', $s->insert(new S('def'), new N(3)));
     }
 
+    public function testConvertStringToUnderscoreNotationShouldSuccess()
+    {
+        $s = new S('I will be translated to UnderScore notation!');
+        $this->assertEquals('i_will_be_translated_to_underscore_notation', $s->underscore);
+        $this->assertEquals('i_will_be_translated_to_underscore_notation', $s->_);
+    }
+
     public function testConvertStringTolowerCamelCaseShouldSuccess()
     {
         $s = new S('Je vais être en « lowerCamelCase »');
