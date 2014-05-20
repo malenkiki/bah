@@ -592,6 +592,37 @@ class S extends O implements \Countable
         return new C(mb_substr($this->value, $idx, 1, C::ENCODING));
     }
 
+
+
+    /**
+     * Alias of charAt() method 
+     * 
+     * @see charAt()
+     * @param mixed $idx 
+     * @access public
+     * @return C
+     */
+    public function take($idx)
+    {
+        return $this->charAt($idx);
+    }
+
+
+
+    /**
+     * Alias of charAt() method 
+     * 
+     * @see charAt()
+     * @param mixed $idx 
+     * @access public
+     * @return C
+     */
+    public function at($idx)
+    {
+        return $this->charAt($idx);
+    }
+
+
     /**
      * Implements Countable interface.
      *

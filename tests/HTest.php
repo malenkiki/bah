@@ -97,10 +97,13 @@ class HTest extends PHPUnit_Framework_TestCase
     public function testGettingValueUsingMethodShouldSuccess()
     {
         $h = new H(array('one' => 1, 'two' => 2, 'twenty-one' => 21, 'fourty_two' => 42));
+        $this->assertEquals(1, $h->at('one'));
         $this->assertEquals(1, $h->get('one'));
         $this->assertEquals(1, $h->take('one'));
+        $this->assertEquals(21, $h->at('twenty-one'));
         $this->assertEquals(21, $h->get('twenty-one'));
         $this->assertEquals(21, $h->take('twenty-one'));
+        $this->assertEquals(42, $h->at('fourty_two'));
         $this->assertEquals(42, $h->get('fourty_two'));
         $this->assertEquals(42, $h->take('fourty_two'));
     }
