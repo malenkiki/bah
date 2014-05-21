@@ -1155,6 +1155,37 @@ class N
         return new S(base_convert($this->value, 10, $n));
     }
 
+
+    public function times($callback)
+    {
+        if(!$this->_decimal()->zero) {
+            throw new \RuntimeException('Cannot iterate given callback when number is not integer.');
+        }
+
+        if($this->value == 0){
+            throw new \RuntimeException('Cannot iterate given callback on a void range.');
+        }
+
+        if(!is_callable($callback)){
+            throw new \InvalidArgumentException('Argument must be a callback!');
+        }
+
+        if($this->value > 0){
+            $arr_range = range(0, $this->value - 1);
+        } else {
+            $arr_range = range($this->value + 1, 0);
+        }
+
+        $a = new A();
+
+        foreach($arr_range as $idx){
+            $idx = new N($idx);
+            $a->add($callback($idx));
+        }
+
+        return $a;
+    }
+
     public function __toString()
     {
         return "{$this->value}";

@@ -1166,4 +1166,78 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->markTestIncomplete();
     }
 
+    public function testExecuteNTimesCallbackShouldSuccess()
+    {
+        $n = new N(7);
+
+        $func = function($i){
+            if($i->odd){
+                return true;
+            }
+
+            return false;
+        };
+
+        $this->assertInstanceOf('\Malenki\Bah\A', $n->times($func));
+        $this->assertCount(7, $n->times($func));
+        $this->assertEquals(
+            array(false, true, false, true, false, true, false), 
+            $n->times($func)->array
+        );
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testExecuteNTimesCallbackWithNEqualsZeroShouldFail()
+    {
+        $n = new N(0);
+
+        $func = function($i){
+            if($i->odd){
+                return true;
+            }
+
+            return false;
+        };
+        
+        $n->times($func);
+
+    }
+
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testExecuteNTimesCallbackWithNNonIntegerShouldFail()
+    {
+        $n = new N(2.3);
+
+        $func = function($i){
+            if($i->odd){
+                return true;
+            }
+
+            return false;
+        };
+        
+        $n->times($func);
+    }
+    
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testExecuteNTimesCallbackWithNotCallableFunctionShouldFail()
+    {
+        $n = new N(3);
+
+        $func = null;
+        
+        $n->times($func);
+    }
+    
 }
