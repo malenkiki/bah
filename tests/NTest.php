@@ -1333,7 +1333,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(M_PI);
         $this->assertTrue($n->acos->nan); //NaN
         $n = new N(M_PI / 2);
-        $this->assertEquals((double) acos(M_PI / 2), $n->acos->double);
+        $this->assertTrue($n->acos->nan);
     }
     
 
@@ -1345,7 +1345,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(M_PI);
         $this->assertTrue($n->asin->nan); // NaN
         $n = new N(M_PI / 2);
-        $this->assertEquals((double) asin(M_PI / 2), $n->asin->double);
+        $this->assertTrue($n->asin->nan);
     }
     
 
@@ -1393,7 +1393,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(M_PI);
         $this->assertTrue($n->atanh->nan); //NaN
         $n = new N(M_PI / 2);
-        $this->assertEquals((double) atanh(M_PI / 2), $n->atanh->double);
+        $this->assertTrue($n->atanh->nan);
     }
     
 }
