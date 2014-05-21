@@ -74,7 +74,7 @@ class N
 {
     public function __get($name)
     {
-        if (in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial', 'triangular', 'inverse', 'ceil', 'floor'))) {
+        if (in_array($name, array('hex','oct','bin','h', 'o', 'b', 's', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial', 'triangular', 'inverse', 'ceil', 'floor', 'cos', 'sin', 'tan', 'cosh', 'sinh', 'tanh', 'acos', 'asin', 'atan', 'acosh', 'asinh', 'atanh', ))) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
@@ -1185,6 +1185,75 @@ class N
 
         return $a;
     }
+
+    public function _cos()
+    {
+        return new static(cos($this->value));
+    }
+
+    public function _sin()
+    {
+        return new static(sin($this->value));
+    }
+
+    public function _tan()
+    {
+        return new static(tan($this->value));
+    }
+
+
+    public function _cosh()
+    {
+        return new static(cosh($this->value));
+    }
+
+    public function _sinh()
+    {
+        return new static(sinh($this->value));
+    }
+
+    public function _tanh()
+    {
+        return new static(tanh($this->value));
+    }
+
+
+
+
+
+    public function _acos()
+    {
+        return new static(acos($this->value));
+    }
+
+    public function _asin()
+    {
+        return new static(asin($this->value));
+    }
+
+    public function _atan()
+    {
+        return new static(atan($this->value));
+    }
+
+
+    public function _acosh()
+    {
+        return new static(acosh($this->value));
+    }
+
+    public function _asinh()
+    {
+        return new static(asinh($this->value));
+    }
+
+    public function _atanh()
+    {
+        return new static(atanh($this->value));
+    }
+
+
+
 
     public function __toString()
     {

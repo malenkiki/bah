@@ -1239,5 +1239,149 @@ class NTest extends PHPUnit_Framework_TestCase
         
         $n->times($func);
     }
+
+
+    public function testGettingCosineShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->cos);
+        $this->assertEquals((double) cos(0), $n->cos->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) cos(M_PI), $n->cos->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) cos(M_PI / 2), $n->cos->double);
+    }
+    
+
+    public function testGettingSineShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->sin);
+        $this->assertEquals((double) sin(0), $n->sin->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) sin(M_PI), $n->sin->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) sin(M_PI / 2), $n->sin->double);
+    }
+    
+
+    public function testGettingTangentShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->tan);
+        $this->assertEquals((double) tan(0), $n->tan->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) tan(M_PI), $n->tan->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) tan(M_PI / 2), $n->tan->double);
+    }
+    
+
+    public function testGettingHyperbolicCosineShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->cosh);
+        $this->assertEquals((double) cosh(0), $n->cosh->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) cosh(M_PI), $n->cosh->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) cosh(M_PI / 2), $n->cosh->double);
+    }
+    
+
+    public function testGettingHyperbolicSineShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->sinh);
+        $this->assertEquals((double) sinh(0), $n->sinh->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) sinh(M_PI), $n->sinh->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) sinh(M_PI / 2), $n->sinh->double);
+    }
+    
+
+    public function testGettingHyperbolicTangentShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->tanh);
+        $this->assertEquals((double) tanh(0), $n->tanh->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) tanh(M_PI), $n->tanh->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) tanh(M_PI / 2), $n->tanh->double);
+    }
+    
+
+    public function testGettingArcCosineShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->acos);
+        $this->assertEquals((double) acos(0), $n->acos->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) acos(M_PI), $n->acos->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) acos(M_PI / 2), $n->acos->double);
+    }
+    
+
+    public function testGettingArcSineShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->asin);
+        $this->assertEquals((double) asin(0), $n->asin->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) asin(M_PI), $n->asin->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) asin(M_PI / 2), $n->asin->double);
+    }
+    
+
+    public function testGettingArcTangentShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->atan);
+        $this->assertEquals((double) atan(0), $n->atan->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) atan(M_PI), $n->atan->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) atan(M_PI / 2), $n->atan->double);
+    }
+    
+
+    public function testGettingInverseHyperbolicCosineShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->acosh);
+        $this->assertEquals((double) acosh(0), $n->acosh->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) acosh(M_PI), $n->acosh->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) acosh(M_PI / 2), $n->acosh->double);
+    }
+    
+
+    public function testGettingInverseHyperbolicSineShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->asinh);
+        $this->assertEquals((double) asinh(0), $n->asinh->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) asinh(M_PI), $n->asinh->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) asinh(M_PI / 2), $n->asinh->double);
+    }
+    
+
+    public function testGettingInverseHyperbolicTangentShouldSuccess()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->atanh);
+        $this->assertEquals((double) atanh(0), $n->atanh->double);
+        $n = new N(M_PI);
+        $this->assertEquals((double) atanh(M_PI), $n->atanh->double);
+        $n = new N(M_PI / 2);
+        $this->assertEquals((double) atanh(M_PI / 2), $n->atanh->double);
+    }
     
 }
