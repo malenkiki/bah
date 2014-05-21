@@ -84,6 +84,19 @@ class N
             return is_nan($this->value);
         }
         
+        if(in_array($name, array('finite', 'is_finite'))){
+            return is_finite($this->value);
+        }
+        
+        
+        if(in_array($name, array('infinite', 'is_infinite'))){
+            return is_infinite($this->value);
+        }
+
+        if($name == 'exp' || $name == 'exponent'){
+            return new static(exp($this->value));
+        }
+        
         if ($name == 'round') {
             return $this->round();
         }

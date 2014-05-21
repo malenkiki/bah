@@ -1395,5 +1395,38 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(M_PI / 2);
         $this->assertTrue($n->atanh->nan);
     }
+
+    public function testGettingExponentialShouldSucces()
+    {
+        $n = new N(1);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->exp);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->exponent);
+        $this->assertEquals(M_E, $n->exp->double);
+        $this->assertEquals(M_E, $n->exponent->double);
+        $n = new N(0);
+        $this->assertEquals((double) 1, $n->exp->double);
+        $this->assertEquals((double) 1, $n->exponent->double);
+    }
+
+    public function testIfNumberIsFiniteShouldSuccess()
+    {
+        $n = new N(42);
+        $this->assertTrue($n->exp->finite);
+        $this->assertTrue($n->exp->is_finite);
+        
+        $n = new N(90000000);
+        $this->assertFalse($n->exp->finite);
+        $this->assertFalse($n->exp->is_finite);
+    }
     
+    public function testIfNumberIsInfiniteShouldSuccess()
+    {
+        $n = new N(42);
+        $this->assertFalse($n->exp->infinite);
+        $this->assertFalse($n->exp->is_infinite);
+        
+        $n = new N(90000000);
+        $this->assertTrue($n->exp->infinite);
+        $this->assertTrue($n->exp->is_infinite);
+    }
 }
