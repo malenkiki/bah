@@ -79,6 +79,10 @@ class N
 
             return $this->$str_method();
         }
+
+        if(in_array($name, array('nan', 'is_nan', 'is_not_a_number'))){
+            return is_nan($this->value);
+        }
         
         if ($name == 'round') {
             return $this->round();

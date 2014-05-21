@@ -1240,6 +1240,18 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->times($func);
     }
 
+    public function testIfItIsNotANumberShouldSuccess()
+    {
+        $n = new N(acos(M_PI));
+        $this->assertTrue($n->nan);
+        $this->assertTrue($n->is_nan);
+        $this->assertTrue($n->is_not_a_number);
+        
+        $n = new N(42);
+        $this->assertFalse($n->nan);
+        $this->assertFalse($n->is_nan);
+        $this->assertFalse($n->is_not_a_number);
+    }
 
     public function testGettingCosineShouldSuccess()
     {
@@ -1319,7 +1331,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\N', $n->acos);
         $this->assertEquals((double) acos(0), $n->acos->double);
         $n = new N(M_PI);
-        $this->assertEquals((double) acos(M_PI), $n->acos->double);
+        $this->assertTrue($n->acos->nan); //NaN
         $n = new N(M_PI / 2);
         $this->assertEquals((double) acos(M_PI / 2), $n->acos->double);
     }
@@ -1331,7 +1343,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\N', $n->asin);
         $this->assertEquals((double) asin(0), $n->asin->double);
         $n = new N(M_PI);
-        $this->assertEquals((double) asin(M_PI), $n->asin->double);
+        $this->assertTrue($n->asin->nan); // NaN
         $n = new N(M_PI / 2);
         $this->assertEquals((double) asin(M_PI / 2), $n->asin->double);
     }
@@ -1353,7 +1365,7 @@ class NTest extends PHPUnit_Framework_TestCase
     {
         $n = new N(0);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->acosh);
-        $this->assertEquals((double) acosh(0), $n->acosh->double);
+        $this->assertTrue($n->acosh->nan); //NaN
         $n = new N(M_PI);
         $this->assertEquals((double) acosh(M_PI), $n->acosh->double);
         $n = new N(M_PI / 2);
@@ -1379,7 +1391,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\N', $n->atanh);
         $this->assertEquals((double) atanh(0), $n->atanh->double);
         $n = new N(M_PI);
-        $this->assertEquals((double) atanh(M_PI), $n->atanh->double);
+        $this->assertTrue($n->atanh->nan); //NaN
         $n = new N(M_PI / 2);
         $this->assertEquals((double) atanh(M_PI / 2), $n->atanh->double);
     }
