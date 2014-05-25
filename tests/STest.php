@@ -261,36 +261,61 @@ class STest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testGettingChunksiHavingBadSizeShouldFail()
+    public function testGettingChunksHavingBadSizeShouldFail()
     {
         $s = new S('abcde');
         $s->chunk(0);
     }
 
-    public function testGettingReplacemendStringUsingStringShouldSuccess()
+    public function testGettingReplacementStringUsingStringShouldSuccess()
     {
         $s = new S('This string must change a little');
         $this->assertEquals('This string must change!', $s->change('/ a little$/', '!'));
+        $this->assertEquals('This string must change!', $s->replace('/ a little$/', '!'));
     }
     
-    public function testGettingReplacemendStringShouldSuccess()
+    public function testGettingReplacementStringShouldReturnSInstanceWithSuccess()
     {
         $s = new S('This string must change a little');
         $this->assertInstanceOf('\Malenki\Bah\S', $s->change('/ a little$/', '!'));
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->replace('/ a little$/', '!'));
     }
     
-    public function testGettingReplacemendStringUsingSObjectShouldSuccess()
+    public function testGettingReplacementStringUsingSObjectShouldSuccess()
     {
         $s = new S('This string must change a little');
         $this->assertEquals('This string must change!', $s->change(new S('/ a little$/'), new S('!')));
+        $this->assertEquals('This string must change!', $s->replace(new S('/ a little$/'), new S('!')));
     }
     
-    public function testGettingReplacemendStringUsingObjectHavingToStringShouldSuccess()
+    public function testGettingReplacementStringUsingObjectHavingToStringShouldSuccess()
     {
         $s = new S('This string must change a little');
         $this->assertEquals('This string must change!', $s->change(new S('/ a little$/'), new C('!')));
+        $this->assertEquals('This string must change!', $s->replace(new S('/ a little$/'), new C('!')));
     }
 
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingReplacementStringWithNonStringPatternShouldFail()
+    {
+        $s = new S('This string must change a little');
+        $s->change(array('/ a little$/'), '!');
+    }
+
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingReplacementStringWithNonStringReplacementShouldFail()
+    {
+        $s = new S('This string must change a little');
+        $s->change('/ a little$/', null);
+    }
 
     public function testIfStringIsFullLeftToRightShouldSuccess()
     {

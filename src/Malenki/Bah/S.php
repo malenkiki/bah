@@ -1161,12 +1161,26 @@ class S extends O implements \Countable
 
     public function replace($pattern, $string)
     {
-        if (!is_string($pattern) && (is_object($pattern) && !method_exists($pattern, '__toString'))) {
-            throw new \InvalidArgumentException('Pattern must be a string or object having __toString() method or S instance');
+        if (
+            !is_string($pattern)
+            &&
+            !(is_object($pattern) && method_exists($pattern, '__toString'))
+        ) {
+            throw new \InvalidArgumentException(
+                'Pattern must be a string or object having __toString() '
+                .'method or S instance'
+            );
         }
 
-        if (!is_string($string) && (is_object($string) && !method_exists($string, '__toString'))) {
-            throw new \InvalidArgumentException('Replacement string must be a string or object having __toString() method or S instance');
+        if (
+            !is_string($string)
+            &&
+            !(is_object($string) && method_exists($string, '__toString'))
+        ) {
+            throw new \InvalidArgumentException(
+                'Replacement string must be a string or object having '
+                .'__toString() method or S instance'
+            );
         }
 
         return new S(preg_replace($pattern, $string, $this->value));
