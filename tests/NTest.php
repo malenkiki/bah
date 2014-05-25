@@ -1163,7 +1163,28 @@ class NTest extends PHPUnit_Framework_TestCase
 
     public function testGettingRoundOddValueShouldSuccess()
     {
-        $this->markTestIncomplete();
+        $n = new N(9.5);
+        $nine = new N(9);
+        $this->assertEquals($nine, $n->roundOdd());
+        $this->assertEquals($nine, $n->round_odd);
+        
+        $n = new N(8.5);
+        $this->assertEquals($nine, $n->roundOdd());
+        $this->assertEquals($nine, $n->round_odd);
+        
+        
+        $n = new N(1.55);
+        $n16 = new N(1.6);
+        $n15 = new N(1.5);
+        $this->assertEquals($n15, $n->roundOdd(1));
+        $n = new N(1.54);
+        $this->assertEquals($n15, $n->roundOdd(1));
+        $n = new N(-1.55);
+        $n16 = new N(-1.6);
+        $n15 = new N(-1.5);
+        $this->assertEquals($n15, $n->roundOdd(1));
+        $n = new N(-1.54);
+        $this->assertEquals($n15, $n->roundOdd(1));
     }
 
     public function testExecuteNTimesCallbackShouldSuccess()
