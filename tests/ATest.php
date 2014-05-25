@@ -464,7 +464,6 @@ class ATest extends PHPUnit_Framework_TestCase
 
     public function testReplacingValueUsingMagicSettersShouldSuccess()
     {
-        $this->markTestIncomplete();
         $a = new A(array('foo', 'bar', 'thing'));
         $a->key_0 = 'truc';
         $a->index_1 = 'machin';

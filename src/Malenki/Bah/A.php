@@ -58,8 +58,9 @@ namespace Malenki\Bah;
  */
 class A implements \Iterator, \Countable
 {
-    private $count = 0;
-    private $position = null;
+    protected $value = null;
+    protected $count = 0;
+    protected $position = null;
 
     public function __get($name)
     {
@@ -97,7 +98,6 @@ class A implements \Iterator, \Countable
         }
     }
     
-    /* WTF
     public function __set($name, $value)
     {
         if(preg_match('/^(index|key)_[0-9]+$/', $name)){
@@ -105,7 +105,6 @@ class A implements \Iterator, \Countable
             $this->replace((int) $arr[1], $value);
         }
     }
-     */
      
 
 
