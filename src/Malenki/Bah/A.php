@@ -351,8 +351,6 @@ class A implements \Iterator, \Countable
             if(
                 is_scalar($item)
                 ||
-                $item instanceof S
-                ||
                 $item instanceof A
                 ||
                 (is_object($item) && method_exists($item, '__toString'))

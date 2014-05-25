@@ -629,4 +629,65 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertCount(40, $s->sha1);
         $this->assertRegExp('/^[a-f0-9]{40}$/', $s->sha1->string);
     }
+
+    public function testSettingCharacterShouldSuccess()
+    {
+        $s = new S('abcdef');
+        $this->assertEquals('abCdef', $s->set(2, 'C'));
+        $this->assertEquals('abCdef', $s->set(new N(2), 'C'));
+        $this->assertEquals('abCdef', $s->set(new N(2), new S('C')));
+        $this->assertEquals('abCdef', $s->set(new N(2), new C('C')));
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSettingCharacterUsingBadIndexTypeShouldFail()
+    {
+        $s = new S('abcdef');
+        $s->set(array(2), 'C');
+    }
+    
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testSettingCharacterUsingNegativeIndexShouldFail()
+    {
+        $s = new S('abcdef');
+        $s->set(-2, 'C');
+    }
+    
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testSettingCharacterUsingOutOfBoundIndexShouldFail()
+    {
+        $s = new S('abcdef');
+        $s->set(8, 'C');
+    }
+    
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSettingCharacterUsingBadCharacterTypeShouldFail()
+    {
+        $s = new S('abcdef');
+        $s->set(2, array('C'));
+    }
+
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSettingCharacterUsingMoreThanOneCharacterShouldFail()
+    {
+        $s = new S('abcdef');
+        $s->set(2, 'CC');
+    }
+
 }

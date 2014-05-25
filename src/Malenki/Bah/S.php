@@ -228,6 +228,9 @@ class S extends O implements \Countable
         }
     }
 
+
+
+
     protected function _string()
     {
         return (string) $this->value;
@@ -1174,6 +1177,45 @@ class S extends O implements \Countable
         return $this->replace($pattern, $string);
     }
 
+
+
+    public function set($idx, $char)
+    {
+        if(!is_integer($idx) && !($idx instanceof N)){
+            throw new \InvalidArgumentException(
+                'Index must be integer or N object.'
+            );
+        } else {
+            if($idx instanceof N) $idx = $idx->int;
+
+            if($idx < 0 || $idx >= count($this)){
+                throw new \RuntimeException(
+                    sprintf('Index %d is not defined into this string!', $idx)
+                );
+            }
+        }
+
+
+        if (
+            !is_string($char) 
+            &&
+            !(is_object($char) && method_exists($char, '__toString'))
+        ) {
+            throw new \InvalidArgumentException(
+                'New character must be a primitive string or object having '
+                .'__toString() method'
+            );
+        }
+        
+
+        if(mb_strlen($char, C::ENCODING) != 1){
+            throw new \InvalidArgumentException(
+                'Given string must be a only ONE character.'
+            );
+        }
+        
+        return $this->_chars()->replace($idx, $char)->join;
+    }
 
     protected function _rtl()
     {
