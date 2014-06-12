@@ -625,27 +625,40 @@ class A implements \Iterator, \Countable
             );
         }
 
-        $has_found = false;
-        $arr_check = array();
+        if(count($arr) > count($this->value)){
+            return false;
+        }
 
-        foreach($arr as $k => $v){
-            $start = $k;
-            for($i = $start; $i < count($this->value); $i++){
-                if($v === $this->value[$i]){
-                    if($has_found){
-                        $arr_check[] = $v;
-                    } else {
-                        $arr_check = array($v); //RAZ
-                    }
+        $arr_idx = array();
 
-                    $has_found = true;
-                } else {
-                    $has_found = false;
-                }
+        foreach($this->value as $k => $v){
+            if($v === $arr[0]){
+                $arr_idx[] = $k;
             }
         }
 
-        return $arr_check == $arr;
+        if(count($arr_idx) == 0){
+            return false;
+        } else {
+            foreach($arr_idx as $idx){
+                $j = 1;
+                for($i = $idx + 1; $i < (count($arr) + $idx); $i++){
+                    if(!array_key_exists($i, $this->value)){
+                        return false;
+                    }
+                    
+                    if($this->value[$i] !== $arr[$j]){
+                        return false;
+                    }
+
+                    $j++;
+                }
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function __toString()

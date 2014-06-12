@@ -476,20 +476,44 @@ class ATest extends PHPUnit_Framework_TestCase
 
     public function testDetectingWhetherGivenArrayRangeExistOrNotShouldSuccess()
     {
-        $this->markTestIncomplete();
-        $a = new A(array('foo', 'bar', 'thing', 'other'));
+        $a = new A(array('foo', 'bar', 'thing', 'other', 'bar', 'again'));
 
         $this->assertTrue($a->hasRange(array('bar', 'thing')));
         $this->assertFalse($a->hasRange(array('thing', 'bar')));
+
+        $obj = new \stdClass();
+        $obj->truc_un = 'thing';
+        $obj->truc_deux = 'thing again';
+
+        $a = new A(array('foo', 'bar', $obj, 'other', 'bar', 'again'));
+
+        $this->assertTrue($a->hasRange(array('bar', $obj)));
+        $this->assertFalse($a->hasRange(array($obj, 'bar')));
     }
 
     public function testDetectingWhetherGivenARangeExistOrNotShouldSuccess()
     {
-        $this->markTestIncomplete();
         $a = new A(array('foo', 'bar', 'thing', 'other'));
 
         $this->assertTrue($a->hasRange(new A(array('bar', 'thing'))));
         $this->assertFalse($a->hasRange(new A(array('thing', 'bar'))));
+        
+        $obj = new \stdClass();
+        $obj->truc_un = 'thing';
+        $obj->truc_deux = 'thing again';
+
+        $a = new A(array('foo', 'bar', $obj, 'other', 'bar', 'again'));
+
+        $this->assertTrue($a->hasRange(new A(array('bar', $obj))));
+        $this->assertFalse($a->hasRange(new A(array($obj, 'bar'))));
+    }
+
+    public function testDetectingWhetherGivenTooBigArrayRangeExistOrNotShouldReturnFalse()
+    {
+        $a = new A(array('foo', 'bar'));
+
+        $this->assertFalse($a->hasRange(array('foo', 'bar', 'thing','other')));
+        $this->assertFalse($a->hasRange(array('bar', 'thing', 'other')));
     }
 
 
@@ -510,4 +534,6 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A(array('foo', 'bar', 'thing', 'other'));
         $a->hasRange(array());
     }
+
+
 }
