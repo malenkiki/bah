@@ -611,7 +611,12 @@ class A implements \Iterator, \Countable
 
     public function hasRange($arr)
     {
-        if(!is_array($arr)){
+        if(is_array($arr)){
+            if(empty($arr)){
+                throw new \RuntimeException(
+                    'Cannot used empty range to detect it into collection!'
+                );
+            }
         } elseif ($arr instanceof A) {
             $arr = $arr->array;
         } else {
@@ -620,7 +625,27 @@ class A implements \Iterator, \Countable
             );
         }
 
-        return false;
+        $has_found = false;
+        $arr_check = array();
+
+        foreach($arr as $k => $v){
+            $start = $k;
+            for($i = $start; $i < count($this->value); $i++){
+                if($v === $this->value[$i]){
+                    if($has_found){
+                        $arr_check[] = $v;
+                    } else {
+                        $arr_check = array($v); //RAZ
+                    }
+
+                    $has_found = true;
+                } else {
+                    $has_found = false;
+                }
+            }
+        }
+
+        return $arr_check == $arr;
     }
 
     public function __toString()

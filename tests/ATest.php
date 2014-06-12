@@ -476,6 +476,7 @@ class ATest extends PHPUnit_Framework_TestCase
 
     public function testDetectingWhetherGivenArrayRangeExistOrNotShouldSuccess()
     {
+        $this->markTestIncomplete();
         $a = new A(array('foo', 'bar', 'thing', 'other'));
 
         $this->assertTrue($a->hasRange(array('bar', 'thing')));
@@ -484,6 +485,7 @@ class ATest extends PHPUnit_Framework_TestCase
 
     public function testDetectingWhetherGivenARangeExistOrNotShouldSuccess()
     {
+        $this->markTestIncomplete();
         $a = new A(array('foo', 'bar', 'thing', 'other'));
 
         $this->assertTrue($a->hasRange(new A(array('bar', 'thing'))));
