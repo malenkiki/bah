@@ -608,6 +608,21 @@ class A implements \Iterator, \Countable
         }
     }
 
+
+    public function hasRange($arr)
+    {
+        if(!is_array($arr)){
+        } elseif ($arr instanceof A) {
+            $arr = $arr->array;
+        } else {
+            throw new \InvalidArgumentException(
+                'Range to detected must be array or A object!'
+            );
+        }
+
+        return false;
+    }
+
     public function __toString()
     {
         return (string) $this->count;

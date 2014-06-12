@@ -471,4 +471,41 @@ class ATest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(array('truc', 'machin', 'bidule'), $a->array);
     }
+
+
+
+    public function testDetectingWhetherGivenArrayRangeExistOrNotShouldSuccess()
+    {
+        $a = new A(array('foo', 'bar', 'thing', 'other'));
+
+        $this->assertTrue($a->hasRange(array('bar', 'thing')));
+        $this->assertFalse($a->hasRange(array('thing', 'bar')));
+    }
+
+    public function testDetectingWhetherGivenARangeExistOrNotShouldSuccess()
+    {
+        $a = new A(array('foo', 'bar', 'thing', 'other'));
+
+        $this->assertTrue($a->hasRange(new A(array('bar', 'thing'))));
+        $this->assertFalse($a->hasRange(new A(array('thing', 'bar'))));
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDetectingRangeWithBadTypeValueShouldFail()
+    {
+        $a = new A(array('foo', 'bar', 'thing', 'other'));
+        $a->hasRange('foo');
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testDetectingRangeWithVoidRangeShouldFail()
+    {
+        $a = new A(array('foo', 'bar', 'thing', 'other'));
+        $a->hasRange(array());
+    }
 }
