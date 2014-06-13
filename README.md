@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/malenkiki/bah.svg?branch=master)](https://travis-ci.org/malenkiki/bah)
 
+[![Latest Stable Version](https://poser.pugx.org/malenki/bah/v/stable.svg)](https://packagist.org/packages/malenki/bah) [![Total Downloads](https://poser.pugx.org/malenki/bah/downloads.svg)](https://packagist.org/packages/malenki/bah) [![Latest Unstable Version](https://poser.pugx.org/malenki/bah/v/unstable.svg)](https://packagist.org/packages/malenki/bah) [![License](https://poser.pugx.org/malenki/bah/license.svg)](https://packagist.org/packages/malenki/bah)
+
 Bah! It is just a little set of simple PHP classes to play with **strings**, **numbers**, **characters**, **arrays** and **hashes**.
 
 Each class is designed to be used in many different ways, using **magic getters**, **magic setters**, or **methods**.
