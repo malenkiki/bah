@@ -1,8 +1,6 @@
 # BAH!
 
-[![Build Status](https://travis-ci.org/malenkiki/bah.svg?branch=master)](https://travis-ci.org/malenkiki/bah)
-
-[![Latest Stable Version](https://poser.pugx.org/malenki/bah/v/stable.svg)](https://packagist.org/packages/malenki/bah) [![Total Downloads](https://poser.pugx.org/malenki/bah/downloads.svg)](https://packagist.org/packages/malenki/bah) [![Latest Unstable Version](https://poser.pugx.org/malenki/bah/v/unstable.svg)](https://packagist.org/packages/malenki/bah) [![License](https://poser.pugx.org/malenki/bah/license.svg)](https://packagist.org/packages/malenki/bah)
+[![Build Status](https://travis-ci.org/malenkiki/bah.svg?branch=master)](https://travis-ci.org/malenkiki/bah) [![Latest Stable Version](https://poser.pugx.org/malenki/bah/v/stable.svg)](https://packagist.org/packages/malenki/bah) [![Total Downloads](https://poser.pugx.org/malenki/bah/downloads.svg)](https://packagist.org/packages/malenki/bah) [![Latest Unstable Version](https://poser.pugx.org/malenki/bah/v/unstable.svg)](https://packagist.org/packages/malenki/bah) [![License](https://poser.pugx.org/malenki/bah/license.svg)](https://packagist.org/packages/malenki/bah)
 
 Bah! It is just a little set of simple PHP classes to play with **strings**, **numbers**, **characters**, **arrays** and **hashes**.
 
@@ -481,3 +479,11 @@ var_dump($s->length->int); // integer
 ## More
 
 See `example.php` and run it to understand many of the available features.
+
+## MIT Open Source License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
