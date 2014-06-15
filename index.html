@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bah! Forget primitive types in PHP!</title>
+
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/prism.css" >
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body style="margin-top: 70px;">
+
+ <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><strong style="color:#f0ad4e;">B</strong><strong style="color:#5cb85c;">a</strong><strong style="color:#5bc0de;">h</strong>! <small>Forget primitive types in PHP!</small></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Getting started</a></li>
+            <li><a href="#about">Documentation</a></li>
+            <li><a href="#contact">Github</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/en/" title="Browse this site in English">En</a></li>
+            <li><a href="/fr/" title="Consulter ce site en Français">Fr</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="jumbotron">
+        <h1>Forget primitive types in PHP!</h1>
+        <p>PHP becomes better every day, but some bad things aren’t go away. One of this is the primitive type, not available as object.</p>
+        <p>This librairy avoids this by allowing use of objects for <strong>string</strong>, <strong>character</strong>, <strong>array</strong>, <strong>hash</strong> and <strong>number</strong></p>
+        <p class="text-center">
+        <a class="btn btn-lg btn-success" href="https://github.com/malenkiki/bah/archive/master.zip" role="button"><i class="fa fa-flag fa-3x pull-left"></i>Download<br><strong>0.9.3</strong></a>
+        <a class="btn btn-lg btn-default" href="https://github.com/malenkiki/bah/" role="button"><i class="fa fa-github fa-3x pull-left"></i>Fork Me!<br>on <strong>Github</strong></a>
+        </p>
+      </div>
+
+    </div> <!-- /container -->
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <span class="fa-stack fa-5x">
+                        <i class="fa fa-circle fa-stack-2x" style="color:#f0ad4e;text-shadow:0 0 3px silver;"></i>
+                        <i class="fa fa-graduation-cap fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h2>Intuitive</h2>
+                    <p>
+                    Lot of features have several name and call ways, so, you have less surprise when coding with it!
+                    </p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <span class="fa-stack fa-5x">
+                        <i class="fa fa-circle fa-stack-2x" style="color:#5cb85c;text-shadow:0 0 3px silver;"></i>
+                        <i class="fa fa-paper-plane fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h2>Easy</h2>
+                    <p>
+                    Design to be easy to install and use. Install it using git, composer or tgz. Code with it using chaining methods and lot of alias and magic getters.
+                    </p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <span class="fa-stack fa-5x">
+                        <i class="fa fa-circle fa-stack-2x" style="color:#5bc0de;text-shadow:0 0 3px silver;"></i>
+                        <i class="fa fa-users fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h2>Open</h2>
+                    <p>
+                    MIT-Licensed, source code is on Github and CI is on Travis, so you can use it, check it and enhance it!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <hr class="featurette-divider" />
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Short Class name <em class="text-muted">Use them with one letter!</em></h2>
+                <p class="lead">To be used in place of primitive type, classe's names must be short, very short. So, just declare class to use at the start, and then use only one letter! <strong>S</strong> for string, <strong>C</strong> for character, <strong>A</strong> for array, <strong>H</strong> for name-index array (hash) and <strong>N</strong> for numeric values.</p>
+            </div>
+            <div class="col-md-5">
+            <pre><code class="language-php">
+use \Malenki\Bah\S; // For string
+use \Malenki\Bah\C; // For one char string
+use \Malenki\Bah\A; // For array
+use \Malenki\Bah\H; // For name-indexed array
+use \Malenki\Bah\N; // For numeric values
+            </code></pre>
+            </div>
+        </div>
+        <hr class="featurette-divider" />
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Chaining <em class="text-muted">To make your path into the code!</em></h2>
+                <p class="lead">Unless exceptions, all methods are chainable, so you can return each type of Bah after each method call, and avoid use of lot of transition variables!</p>
+            </div>
+            <div class="col-md-5">
+        <pre><code class="language-php">
+use \Malenki\Bah\S;
+$s = new S('This is a string!');
+// print '    THIS    '
+echo $s-&gt;upper-&gt;sub(4)->center(12);
+        </code></pre>
+            </div>
+        </div>
+        <hr class="featurette-divider" />
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">UTF-8 Only <em class="text-muted">Ready for international!</em></h2>
+                <p class="lead">Use old page encoding like <strong>iso-8859-15</strong> and its friends it is very bad idea since some years, so, Bah! discourages the use of this dinosaurs by forcing you to use <strong>UTF-8 only</strong>! This is visible for example into C class.</p>
+            </div>
+            <div class="col-md-5">
+        <pre><code class="language-php">
+use \Malenki\Bah\C;
+$c = new C('œ');
+// Print the unicode block name
+echo $c-&gt;block;
+        </code></pre>
+            </div>
+        </div>
+        <hr class="featurette-divider" />
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Less parenthesis <em class="text-muted">Use them only when needed</em></h2>
+                <p class="lead">A lot of methods have not params or take a default one. So, for this, magic getters are enough, no need to put parenthesis when it is not needed!</p>
+            </div>
+            <div class="col-md-5">
+        <pre><code class="language-php">
+use \Malenki\Bah\A;
+$a = new A(array('un', 'deux', 'trois', 'quatre'));
+echo $a-&gt;join-&gt;upper-&gt;length;
+// print 17;
+        </code></pre>
+            </div>
+        </div>
+        <hr class="featurette-divider" />
+
+        <footer>
+        <p class="pull-right"><a href="#" title="Back to top"><i class="fa fa-arrow-circle-up fa-2x"></i></a></p>
+        <p>© copyright Michel Petit</p>
+        </footer>
+    </div>
+    
+
+    
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <!--script src="js/docs.min.js"></script-->
+    <script src="js/prism.js"></script>
+  </body>
+</html>
+
