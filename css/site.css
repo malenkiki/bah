@@ -1,0 +1,11 @@
+body {
+    margin-top: 70px;
+}
+
+a.navbar-brand strong.b {color:#f0ad4e;}
+a.navbar-brand strong.a {color:#5cb85c;}
+a.navbar-brand strong.h {color:#5bc0de;}
+
+.imgfont-intuitive {color:#f0ad4e;text-shadow:0 0 3px silver;}
+.imgfont-easy {color:#5cb85c;text-shadow:0 0 3px silver;}
+.imgfont-open {color:#5bc0de;text-shadow:0 0 3px silver;}
