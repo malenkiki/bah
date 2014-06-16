@@ -61,25 +61,56 @@
                 <div class="bs-docs-section">
                     <h1 id="overview" class="page-header">Overview</h1>
                     <h2 id="overview-introduction">Some words about classes…</h2>
+                    <p>Classes are defined into namespace <code>\Malenki\Bah</code>.</p>
+
+                    <p>Each class is named by the first letter of its representing type. So, for string, class is named <code>S</code>, for array it is <code>A</code>, hash is <code>H</code>, number is <code>N</code> and character is <code>C</code>.</p>
+                    <p>Methods return either current object, other Bah object or boolean.</p>
+
+
                     <h2 id="overview-methods-naming">How methods are named</h2>
+                    <p>Methods are in camel cases like defined into PSR0.</p>
+                    <p>But I try to use shorter possible name, avoiding get prefix and all sort of this. Get Prefix is useless because classes are get centric, their goal is to return something, seting value is done while instanciating object. Exception is for A and H classes, because you can change value of some item, that’s all. So no get prefix, because no set!</p>
+
                     <h2 id="overview-magic-getters">Magic getters</h2>
+                    <p>Magic getters are often used into Bah. Naming convention is defined as follow:</p>
+                    <ul>
+                        <li>each letters must be in lower cases</li>
+                        <li>words are separated by one underscore (<code>_</code>)</li>
+                    </ul>
+
+                    <p>Bah allow you to export each object as PHP primitive type using magic getters. So, to export S object as string, do <code>$mySObject-&gt;string</code></p>
                 </div>
+
+
+
                 <div class="bs-docs-section">
                     <h1 id="install" class="page-header">Install</h1>
+                    
                     <h2 id="install-composer">Install using Composer</h2>
+                    <p>Project is available on Packagist, so, you can install it using Composer.</p>
+                    <p>You have just to do a <code>composer require malenki/bah:0.9.3</code> to install version 0.9.3 into your project.</p>
+
                     <h2 id="install-git">Use Git repository</h2>
+                    <p>You can clone Github repository where Bah is hosted. Jst do <code>git clone https://github.com/malenkiki/bah.git</code></p>
                 </div>
+                
+                
                 <div class="bs-docs-section">
                     <h1 id="unit-testing" class="page-header">Unit testing</h1>
                 </div>
+                
+                
                 <div class="bs-docs-section">
                     <h1 id="contributing" class="page-header">Contributing</h1>
                     <h2 id="contributing-submit-issue">Submit issues or requests</h2>
                     <h2 id="contributing-pull-request">Pull request</h2>
                 </div>
             </div>
+
+
+
             <div class="col-md-3">
-                <div class="bs-docs-sidebar hidden-print" role="complementary">
+                <div class="bs-docs-sidebar hidden-print affix-top" role="complementary">
                     <ul class="nav bs-docs-sidenav">
 
                         <li>
