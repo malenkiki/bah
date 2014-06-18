@@ -68,7 +68,16 @@
 
                     <h2 id="overview-methods-naming">Comment les méthodes sont-elles nommées</h2>
                     <p>Les méthodes sont nommé en « Camel Cases » comme cela est définie dans la <a href="http://www.php-fig.org/psr/psr-1/">PSR1</a>.</p>
+                    <p>J’ai essayé autant que possible d’éviter les noms de méthodes trop longs, afins d’enchaîner le plus possible les appels.</p>
+                    <p>Les préfixes <code>get</code> sont banni car les classes sont déjà conçu pour retourner des données et non les modifier en leur sein. Bien sur, font exceptions à cela les classes <code>A</code> et <code>H</code> puisqu’elles gère du contenu.</p>
+
                     <h2 id="overview-magic-getters">Magic getters</h2>
+                    <p>Les accesseurs magiques sont souvent utilisées dans Bah. Leur convention de nommage est définit ainsi :</p>
+                    <ul>
+                        <li>chaque lettre doit être en minuscule</li>
+                        <li>les mots doivent être séparés par un underscore (<code>_</code>)</li>
+                    </ul>
+                    <p>Bah vous permet d’exporter ses objets sous la forme de types primitifs en PHP en utilisant les accesseurs magiques. Ainsi, pour exporter un objet instancié à partir de <code>S</code>, faites simplement un <code>$mySObject-&gt;string</code></p>
                 </div>
 
 
