@@ -84,7 +84,7 @@
 
 
                 <div class="bs-docs-section">
-                    <h1 id="install" class="page-header">Install</h1>
+                    <h1 id="install" class="page-header">Install and use</h1>
                     
                     <h2 id="install-composer">Install using Composer</h2>
                     <p>Project is available on Packagist, so, you can install it using Composer.</p>
@@ -92,6 +92,20 @@
 
                     <h2 id="install-git">Use Git repository</h2>
                     <p>You can clone Github repository where Bah is hosted. Just do <code>git clone https://github.com/malenkiki/bah.git</code></p>
+
+                    <h2 id="install-use">Use it!</h2>
+                    <p>Now you have the lib, you canstart using it!</p>
+                    <p>Bah uses composer, so, you must add somewhere into yoour code a line to include the autoloader provided by composer:</p>
+                    <pre><code class="language-php">include(/path/to/verdor/autoloader.php);</code></pre>
+                    <p>Then, you canstart using its classes! For exemple, let’s use S class:</p>
+                    <pre><code class="language-php">
+                    include(/path/to/verdor/autoloader.php);
+                    use \Malenki\Bah\S;
+
+                    $s = new S('J’aime beaucoup coder avec Bah!');
+                    echo $s-&gt;upper-&gt;prepend(' ')-&gt;times(3)-&gt;lstrip;
+                    </code></pre>
+                    <p>This previous example converts the string into upper cases, add at its start a space, then copy 3 times the resulting string and then remove black caracter from the left.</p>
                 </div>
                 
                 
@@ -129,10 +143,11 @@
                         </li>
 
                         <li>
-                        <a href="#install">Install</a>
+                        <a href="#install">Install and use</a>
                         <ul class="nav">
                             <li><a href="#install-composer">Install using Composer</a></li>
                             <li><a href="#install-git">Use git repository</a></li>
+                            <li><a href="#install-use">Use it!</a></li>
                         </ul>
                         </li>
 
