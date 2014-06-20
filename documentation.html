@@ -61,7 +61,15 @@
                 <div class="bs-docs-section">
                     <h1 id="overview" class="page-header">Overview</h1>
                     <h2 id="overview-introduction">About arguments…</h2>
-                    <p>TODO</p>
+                    <p>If method has one or many arguments, then, with Bah, you can use eight primitive form or Bah equivalent.</p>
+                    <pre><code class="language-php">
+use \Malenki\Bah\S;
+use \Malenki\Bah\N;
+$s = new S('Some very long long string…');
+$s-&gt;wrap(80);
+// is the same as:
+$s-&gt;wrap(new N(80));
+                    </code></pre>
 
                 </div>
 
