@@ -60,6 +60,10 @@
             <div class="col-md-9" role="main">
                 <div class="bs-docs-section">
                     <h1 id="overview" class="page-header">Overview</h1>
+                    <h2 id="overview-requirements">What you need</h2>
+                    <p>Bah! is coded and tested on PHP 5.3 to 5.5. So running Bah! on PHP prior to version  5.3 is not good idea.</p>
+                    <p>One PHP extension is <strong>mandatory</strong> by Bah! Without it, you cannot use it. This extension is <strong>multibyte string support</strong> aka <strong>mbstring</strong>.</p>
+                    <p>You must have PHP extension <strong>Intl</strong> for very few features into <code>S</code> and <code>C</code> classes.</p>
                     <h2 id="overview-introduction">About arguments…</h2>
                     <p>If method has one or many arguments, then, with Bah, you can use either primitive form or Bah equivalent.</p>
                     <pre><code class="language-php">
@@ -88,6 +92,7 @@ $s-&gt;wrap(new N(80));
                         <li>
                         <a href="#overview">Overview</a>
                         <ul class="nav">
+                            <li><a href="#overview-requirements">What you need</a></li>
                             <li><a href="#overview-arguments">About arguments…</a></li>
                         </ul>
                         </li>
