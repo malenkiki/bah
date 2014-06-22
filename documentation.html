@@ -130,6 +130,52 @@ $s-&gt;wrap(new N(80));
                 <!-- START SECTION CLASS S -->
                 <div class="bs-docs-section">
                     <h1 id="class-s" class="page-header">Class S</h1>
+
+                    <h2 id="class-s-getting info">Getting info</h2>
+                    <h3>Counts</h3>
+                    <p>You can get counts of chars or of bytes contained into the string using 3 ways:</p>
+                    <ul>
+                        <li>the <code class="language-php">count()</code> function (<code class="language-php">S</code> implements <code>\Countable</code> interface), returns <strong>number of characters</strong> as <strong>primitive integer value</strong></li>
+                        <li>the <code class="language-php">S::length</code> magic getter, returns <strong>number of characters</strong> as <code class="language-php">N</code> object</li>
+                        <li>the <code>S::bytes</code> magic getter returns an <code class="language-php">A</code> object, so you can get number of bytes using <code class="language-php">length</code> magic getter call or this object or calling <code class="language-php">count()</code> withi this object as argument. </li>
+                    </ul>
+
+                    <p>Now, a little example:</p>
+                    <pre><code class="language-php">
+$s = new S('Je suis écrit en français.');
+// using count() function
+var_dump(count($s-&bt;bytes));
+var_dump(count($s));
+
+// using objects
+var_dump($s-&gt;bytes-&gt;length);
+var_dump($s-&gt;length);
+                    </code></pre>
+
+                    <p>This previous code sample should produce following output:</p>
+                    <pre>
+int(28)
+int(26)
+class Malenki\Bah\N#35 (1) {
+  public $value =&gt;
+  int(28)
+}
+class Malenki\Bah\N#114 (1) {
+  public $value =&gt;
+  int(26)
+}
+                    </pre>
+                    
+                    <h2 id="class-s-removing-parts">Removing parts</h2>
+                    
+                    <h2 id="class-s-adding-parts">Adding parts</h2>
+                    
+                    <h2 id="class-s-extracting-parts">Extracting parts</h2>
+                    
+                    <h2 id="class-s-changing-the-string">Changing the string</h2>
+                    
+                    <h2 id="class-s-use-regexp">Use Regexp</h2>
+
                 </div><!-- END SECTION CLASS S -->
                 
                 
@@ -168,6 +214,20 @@ $s-&gt;wrap(new N(80));
 
                         <li>
                         <a href="#class-s">Class S</a>
+                        <ul class="nav">
+                            <li><a href="#class-s-getting-info">Getting info</a></li>
+                            <!-- count != length, ltr, rtl, hasMixedDirection, isVoid, endsWith, starsWith, md5, sha1 -->
+                            <li><a href="#class-s-removing-parts">Removing parts</a></li>
+                            <!-- strip → lstrip → rstrip -->
+                            <li><a href="#class-s-adding-parts">Adding parts</a></li>
+                            <!-- insert, append, prepend, n, r -->
+                            <li><a href="#class-s-extracting-parts">Extracting parts</a></li>
+                            <!-- chars, charAt == take == at, sub, explode == split, chunk, first, last -->
+                            <li><a href="#class-s-changing-the-string">Changing the string</a></li>
+                            <!-- times, swapCase, camelCase → lowerCamelCase → upperCamelCase , ucw, ucf,  underscore, lower, upper, title, wrap, margin, left, right, justify, trans, set… -->
+                            <li><a href="#class-s-use-regexp">Use Regexp</a></li>
+                            <!-- replace == change , test, regexp == match == re -->
+                        </ul>
                         </li>
 
                     </ul>
