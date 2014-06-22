@@ -75,10 +75,62 @@ $s-&gt;wrap(80);
 $s-&gt;wrap(new N(80));
                     </code></pre>
 
+
+                    <h2 id="overview-roles">Roles</h2>
+                    <p>Bah has 5 classes you can use, each one has specific goal:</p>
+
+                    <dl class="dl-horizontal">
+                        <dt>Class A</dt>
+                        <dl>Use it in place of simple array, without named indexes.</dl>
+                        <dl>It replaces code like this: <code class="language-php">$arr = array('foo', 2, 'bar', $obj);</code></dl>
+                        <dt>Class C</dt>
+                        <dl>This is special. It is not replacement for primitive PHP type, but it is a class to handle character. So, one instance of the class C stands for one UTF-8 character.</dl>
+                        <dt>Class H</dt>
+                        <dl>This replaces named indexed array. Use it in place of <code class="language-php">$arr = array('foo' =&gt; 'bar', 'thing' =&gt; 42 );</code></dl>
+                        <dt>Class N</dt>
+                        <dl>It must be used to replace all numeric values: integers, float, double…</dl>
+                        <dt>Class S</dt>
+                        <dl>Last but not the least, This is used in place of string. Say good bye to <code class="language-php">echo trim(mb_strtoupper(' Je suis une chaîne !', 'UTF-8'));</code> and say hello to <code class="language-php">$s = new S('Je suis une chaîne !'); echo $s-&gt;upper-&gt;strip;</code></dl>
+                    </dl>
                 </div>
 
 
+                <!-- START SECTION CLASS A -->
+                <div class="bs-docs-section">
+                    <h1 id="class-a" class="page-header">Class A</h1>
+                </div><!-- END SECTION CLASS A -->
+                
+                
 
+
+                <!-- START SECTION CLASS C -->
+                <div class="bs-docs-section">
+                    <h1 id="class-c" class="page-header">Class C</h1>
+                </div><!-- END SECTION CLASS C-->
+                
+                
+
+
+                <!-- START SECTION CLASS H -->
+                <div class="bs-docs-section">
+                    <h1 id="class-h" class="page-header">Class H</h1>
+                </div><!-- END SECTION CLASS H -->
+                
+                
+
+
+                <!-- START SECTION CLASS N-->
+                <div class="bs-docs-section">
+                    <h1 id="class-n" class="page-header">Class N</h1>
+                </div><!-- END SECTION CLASS N -->
+                
+                
+
+
+                <!-- START SECTION CLASS S -->
+                <div class="bs-docs-section">
+                    <h1 id="class-s" class="page-header">Class S</h1>
+                </div><!-- END SECTION CLASS S -->
                 
                 
             </div>
@@ -94,7 +146,28 @@ $s-&gt;wrap(new N(80));
                         <ul class="nav">
                             <li><a href="#overview-requirements">What you need</a></li>
                             <li><a href="#overview-arguments">About arguments…</a></li>
+                            <li><a href="#overview-roles">Roles</a></li>
                         </ul>
+                        </li>
+
+                        <li>
+                        <a href="#class-a">Class A</a>
+                        </li>
+
+                        <li>
+                        <a href="#class-c">Class C</a>
+                        </li>
+
+                        <li>
+                        <a href="#class-h">Class H</a>
+                        </li>
+
+                        <li>
+                        <a href="#class-n">Class N</a>
+                        </li>
+
+                        <li>
+                        <a href="#class-s">Class S</a>
                         </li>
 
                     </ul>
