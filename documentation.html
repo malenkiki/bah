@@ -137,14 +137,14 @@ $s-&gt;wrap(new N(80));
                     <ul>
                         <li>the <code class="language-php">count()</code> function (<code class="language-php">S</code> implements <code>\Countable</code> interface), returns <strong>number of characters</strong> as <strong>primitive integer value</strong></li>
                         <li>the <code class="language-php">S::length</code> magic getter, returns <strong>number of characters</strong> as <code class="language-php">N</code> object</li>
-                        <li>the <code>S::bytes</code> magic getter returns an <code class="language-php">A</code> object, so you can get number of bytes using <code class="language-php">length</code> magic getter call or this object or calling <code class="language-php">count()</code> withi this object as argument. </li>
+                        <li>the <code class="language-php">S::bytes</code> magic getter returns an <code class="language-php">A</code> object, so you can get number of bytes using <code class="language-php">length</code> magic getter call or this object or calling <code class="language-php">count()</code> withi this object as argument. </li>
                     </ul>
 
                     <p>Now, a little example:</p>
                     <pre><code class="language-php">
 $s = new S('Je suis écrit en français.');
 // using count() function
-var_dump(count($s-&bt;bytes));
+var_dump(count($s-&gt;bytes));
 var_dump(count($s));
 
 // using objects
@@ -166,6 +166,103 @@ class Malenki\Bah\N#114 (1) {
 }
                     </pre>
                     
+                    <h3>Checking whether the string is void</h3>
+                    <p>You can use either <code>void</code> or <code>empty</code> magic getter to check whether the string is void or not. This returns boolean:</p>
+
+                    <pre><code class="language-php">
+$s = new S('');
+var_dump($s-&gt;void);
+var_dump($s-&gt;empty);
+
+$s = new S('foo');
+var_dump($s-&gt;void);
+var_dump($s-&gt;empty);
+
+$s = new S('   ');
+var_dump($s-&gt;void);
+var_dump($s-&gt;empty);
+                    </code></pre>
+
+                    <p>Resulting output should be:</p>
+
+                    <pre>
+bool(true)
+bool(true)
+bool(false)
+bool(false)
+bool(false)
+bool(false)                    
+                    </pre>
+
+
+                    <h3>LTR, RTL or both?</h3>
+                    <p>Some language use other direction while writting words. For example, in english, we write words form left to right (or LTR), and in arabic languages, or in hebrew, we write words from right to left (or RTL).</p>
+
+                    <p>Sometimes, you can have text mixing both directions. So, <code class="language-php">\Malenki\Bah\S</code> class allow you to test directionality of the string using some magic getters and their aliases, returning <code>boolean</code>.</p>
+
+                    <p>Let’s check whether the given string is LTR:</p>
+                    <pre><code class="language-php">
+$s = new S('Ceci est du français tout à fait banal.');
+var_dump($s-&gt;ltr);
+var_dump($s-&gt;is_ltr);
+var_dump($s-&gt;is_left_to_right);
+var_dump($s-&gt;left_to_right);
+                    </code></pre>
+
+                    <p>All previous lines into code sample will return <code>true</code>.</p>
+
+                    <p>Now, let’s check whether the given string is RTL or not:</p>
+
+                    <pre><code class="language-php">
+$s = new S('أبجد');
+var_dump($s-&gt;rtl);
+var_dump($s-&gt;is_rtl);
+var_dump($s-&gt;is_right_to_left);
+var_dump($s-&gt;right_to_left);
+                    </code></pre>
+
+                    <p>Again, all lines will produce <code>true</code>.</p>
+
+                    <p>Now, let’s see how to check whether string has both directions:</p>
+
+                    <pre><code class="language-php">
+$s = new S('Ceci est du français contenant le mot arabe أبجد qui veut dire "abjad".');
+var_dump($s-&gt;has_mixed_direction);
+var_dump($s-&gt;mixed_direction); 
+var_dump($s-&gt;is_ltr_and_rtl); 
+var_dump($s-&gt;ltr_and_rtl); 
+var_dump($s-&gt;is_rtl_and_ltr); 
+var_dump($s-&gt;rtl_and_ltr); 
+                    </code></pre>
+
+                    <p>All should be true!</p>
+
+
+
+                    <h3>Finger prints</h3>
+
+                    <p>Magic getters for <code>md5</code> and <code>sha1</code> are available, and return another <code>S</code> object.</p>
+
+                    <pre><code class="language-php">
+$s = new S('Hello!');
+print($s-&gt;md5); // '952d2c56d0485958336747bcdd98590d'
+print($s-&gt;sha1); // '69342c5c39e5ae5f0077aecc32c0f81811fb8193'                  
+                    </code></pre>
+
+
+                    <h3>Starts or ends with…</h3>
+                    <p>You can check whether string start or end by given another string. This is as simple as that following example:</p>
+                    <pre><code class="language-php">
+$s = new S('Hello!');
+var_dump($s-&gt;startsWith('He'));
+var_dump($s-&gt;endsWith('yo!'));
+                    </code></pre>
+
+                    <p>The first should return <code>true</code> but second should return <code>false</code>.</p>
+
+                    <p>If you would test more complicated pattern, you must read contents about <a href="#class-s-use-regexp">regular expressions</a> usage into class <code>S</code>.</p>
+
+
                     <h2 id="class-s-removing-parts">Removing parts</h2>
                     
                     <h2 id="class-s-adding-parts">Adding parts</h2>
@@ -220,7 +317,7 @@ class Malenki\Bah\N#114 (1) {
                             <li><a href="#class-s-removing-parts">Removing parts</a></li>
                             <!-- strip → lstrip → rstrip -->
                             <li><a href="#class-s-adding-parts">Adding parts</a></li>
-                            <!-- insert, append, prepend, n, r -->
+                            <!-- insert, append, prepend, n, r, concat -->
                             <li><a href="#class-s-extracting-parts">Extracting parts</a></li>
                             <!-- chars, charAt == take == at, sub, explode == split, chunk, first, last -->
                             <li><a href="#class-s-changing-the-string">Changing the string</a></li>
