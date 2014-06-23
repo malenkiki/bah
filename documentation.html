@@ -264,7 +264,34 @@ var_dump($s-&gt;endsWith('yo!'));
 
 
                     <h2 id="class-s-removing-parts">Removing parts</h2>
+
+                    <h3>Stripping</h3>
+                    <p>You can strip left and right sides (<code class="language-php">S::strip</code>), just left side (<code class="language-php">S::lstrip</code>) or just right side (<code class="language-php">S::rstrip</code>).</p>
+
+                    <p>You can strip string either by using methods or by using magic getters.</p>
+
+                    <p>By using methods, you can change default character to strip. If you use magic getter or methods without arguments, then stripping feature removes only white space. To remove other characters, you must provide them using <code>array</code>, <code>string</code>, <code>S</code> or <code>A</code> objects:</p>
+
+                    <pre><code class="language-php">
+                    $s = new S('   I have some white spaces   ');
+                    $s-&gt;strip;
+                    // or
+                    $s-&gt;strip();
                     
+                    $s = new S('~~.~~~I have some custom chars to remove~~~...~~');
+                    $s-&gt;strip('.~');
+                    // or
+                    $s-&gt;strip(new S('.~'));
+                    // or
+                    $s-&gt;strip(array('.', '~'));
+                    // or
+                    $s-&gt;strip(new N(array('.', '~')));
+                    </code></pre>
+
+                    <h3>Removing</h3>
+                    <p>You can remove other part using <code class="language-php">replace</code> feature you can find in <a href="class-s-iuse-regexp">Regexp chapter</a>.</p>
+                    
+
                     <h2 id="class-s-adding-parts">Adding parts</h2>
                     
                     <h2 id="class-s-extracting-parts">Extracting parts</h2>
