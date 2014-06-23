@@ -273,19 +273,19 @@ var_dump($s-&gt;endsWith('yo!'));
                     <p>By using methods, you can change default character to strip. If you use magic getter or methods without arguments, then stripping feature removes only white space. To remove other characters, you must provide them using <code>array</code>, <code>string</code>, <code>S</code> or <code>A</code> objects:</p>
 
                     <pre><code class="language-php">
-                    $s = new S('   I have some white spaces   ');
-                    $s-&gt;strip;
-                    // or
-                    $s-&gt;strip();
-                    
-                    $s = new S('~~.~~~I have some custom chars to remove~~~...~~');
-                    $s-&gt;strip('.~');
-                    // or
-                    $s-&gt;strip(new S('.~'));
-                    // or
-                    $s-&gt;strip(array('.', '~'));
-                    // or
-                    $s-&gt;strip(new N(array('.', '~')));
+$s = new S('   I have some white spaces   ');
+$s-&gt;strip;
+// or
+$s-&gt;strip();
+
+$s = new S('~~.~~~I have some custom chars to remove~~~...~~');
+$s-&gt;strip('.~');
+// or
+$s-&gt;strip(new S('.~'));
+// or
+$s-&gt;strip(array('.', '~'));
+// or
+$s-&gt;strip(new A(array('.', '~')));
                     </code></pre>
 
                     <h3>Removing</h3>
@@ -293,6 +293,23 @@ var_dump($s-&gt;endsWith('yo!'));
                     
 
                     <h2 id="class-s-adding-parts">Adding parts</h2>
+                    <h3>Prepend, append</h3>
+                    <p>Prepending or appending piece of string is as simple as this:</p>
+                    <pre><code class="language-php">
+$s = new S('World');
+echo $s-&gt;prepend('Hello ')-&gt;append('!');
+// or
+echo $s-&gt;prepend(new S('Hello '))-&gt;append(new S('!'));
+                    </code></pre>
+                    <p>You must get <code>Hello World!</code> as resulting string.</p>
+
+                    <h3>Repeat again and again…</h3>
+                    <p>You can repeat the string how many times you wish. You have just to call <code class="language-php">S::times()</code> method:</p>
+                    <pre><code class="language-php">
+$s = new S('Hi!');
+echo $s-&gt;append(' ')-&gt;times(3)-&gt;strip;
+                    </code></pre>
+                    <p>You should get <code>Hi! Hi! Hi!</code>. Note I used some other features to add/remove spaces too.</p>
                     
                     <h2 id="class-s-extracting-parts">Extracting parts</h2>
                     
