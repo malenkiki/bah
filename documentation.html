@@ -303,6 +303,20 @@ echo $s-&gt;prepend(new S('Hello '))-&gt;append(new S('!'));
                     </code></pre>
                     <p>You must get <code>Hello World!</code> as resulting string.</p>
 
+                    <h3>Inserting string</h3>
+                    <p>You can insert inside the string other string.</p>
+                    <p>To insert string, you must have the string or object having <code>__toString()</code> method, and the position as integer (object or primitive type).</p>
+                    <pre><code class="language-php">
+$s = new S('Hello!');
+echo $s-&gt;insert(' World', 5); // print 'Hello World!'
+// or
+echo $s-&gt;insert(new S(' World'), 5);
+// or
+echo $s-&gt;insert(' World', new N(5));
+// or
+echo $s-&gt;insert(new S(' World'), new N(5));
+                    </code></pre>
+
                     <h3>Repeat again and again…</h3>
                     <p>You can repeat the string how many times you wish. You have just to call <code class="language-php">S::times()</code> method:</p>
                     <pre><code class="language-php">
