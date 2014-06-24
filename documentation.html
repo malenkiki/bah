@@ -345,6 +345,14 @@ echo $s-&gt;r(true); // print "Something\r"
 echo $s-&gt;r(false); // print "\rSomething"
                     </code></pre>
 
+                    <h3>Join several strings together</h3>
+                    <p>To concatenate strings and/or objects having <code>__toString()</code> method, then use static method <code class="language-php">S::concat()</code>. This method takes any number of arguments and returns <code>S</code> object.</p>
+
+                    <pre><code class="language-php">
+echo S::concat('Ceci est', new S(' une '), ' chaîne'); // print 'Ceci est une chaîne'
+echo S::concat('Ceci est', new S(' une '), ' chaîne')-&gt;upper; // print 'CECI EST UNE CHAÎNE'
+                    </code></pre>
+
                     
                     <h2 id="class-s-extracting-parts">Extracting parts</h2>
                     
