@@ -310,6 +310,27 @@ $s = new S('Hi!');
 echo $s-&gt;append(' ')-&gt;times(3)-&gt;strip;
                     </code></pre>
                     <p>You should get <code>Hi! Hi! Hi!</code>. Note I used some other features to add/remove spaces too.</p>
+
+                    <h3>Adding new line</h3>
+                    <p>You could add <code>"\n"</code> or <code>"\r"</code> quickly using magic getters… <code>S::n</code> and <code>S::r</code>!</p>
+                    <pre><code class="language-php">
+$s = new S('Something');
+echo $s-&gt;n; // print "Something\n"
+echo $s-&gt;r; // print "Something\r"
+echo $s-&gt;r-&gt;n; // print "Something\r\n"
+                    </code></pre>
+
+                    <p>This shorthand can be called as method taking one boolean argument to place new line character after (default, <code>true</code>) or before the string (<code>false</code>):</p>
+                    <pre><code class="language-php">
+$s = new S('Something');
+echo $s-&gt;n(); // print "Something\n"
+echo $s-&gt;n(true); // print "Something\n"
+echo $s-&gt;n(false); // print "\nSomething"
+echo $s-&gt;r(); // print "Something\r"
+echo $s-&gt;r(true); // print "Something\r"
+echo $s-&gt;r(false); // print "\rSomething"
+                    </code></pre>
+
                     
                     <h2 id="class-s-extracting-parts">Extracting parts</h2>
                     
