@@ -408,6 +408,24 @@ var_dump($s-&gt;cut('/\s/'));
                             <li>Another <code>\InvalidArgumentException</code> is thrown if <strong>pattern is void</strong>.</li>
                         </ul>
                     </div>
+
+
+
+                    <h3>Getting parts having same size</h3>
+
+                    <p>You can cut string after each X numbers of characters, to get parts having same size (except last, depending string’s size and part's size).</p>
+
+                    <p>This is provided by <code>S::chunk()</code> method, which takes only one argument, the size, and it returns <code>\Malenki\Bah\A</code> object containing <code>\Malenki\Bah\S</code> objects.</p>
+                    <pre><code class="language-php">
+$s = new S('Hello World!');
+var_dump($s-&gt;chunk(3));
+                    </code></pre>
+
+                    <p>The result of previous example will have 4 parts: 'Hel', 'lo ', 'Wor' and 'ld!'.</p>
+
+                    <div class="alert alert-danger">
+                        <p>An <code>\InvalidArgumentException</code> is throw if chunk's size is <strong>not an integer</strong>, or <strong>not an <code>\malenki\Bah\N</code> object</strong> or if this size is <strong>less than 1</strong>.</p>
+                    </div>
                     
                     <h2 id="class-s-changing-the-string">Changing the string</h2>
                     
