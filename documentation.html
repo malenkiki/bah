@@ -381,6 +381,33 @@ echo $s-&gt;sub(6, 5); // print 'World'
                             <li>Another <code>\InvalidArgumentException</code> is thrown if <strong>limit is less than one</strong>.</li>
                         </ul>
                     </div>
+
+
+                    <h3>Spliting string using Regexp</h3>
+
+                    <p>You can split string using some patterns using regexp.</p>
+                    
+                    <pre><code class="language-php">
+$s = new S('Hello World!');
+var_dump($s-&gt;explode('/\s/'));
+// or
+var_dump($s-&gt;split('/\s/'));
+// or
+var_dump($s-&gt;cut('/\s/'));
+                    </code></pre>
+
+                    <p>This previous example get <code>\Malenki\Bah\A</code> object having 2 <code>\Malenki\Bah\S</code> object: <code>Hello</code> and <code>World!</code></p>
+
+                    <p>As you can see, their are two aliases available. You can use what you want.</p>
+                    
+                    <div class="alert alert-warning"><p>Unlike <code>explode()</code> native PHP function, the separator is regex expression.</p></div>
+                    
+                    <div class="alert alert-danger">
+                        <ul>
+                            <li>An <code>\InvalidArgumentException</code> is thrown if <strong>pattern is not a string</strong> (or object having not <code>__toString()</code> method).</li>
+                            <li>Another <code>\InvalidArgumentException</code> is thrown if <strong>pattern is void</strong>.</li>
+                        </ul>
+                    </div>
                     
                     <h2 id="class-s-changing-the-string">Changing the string</h2>
                     
