@@ -354,7 +354,19 @@ echo S::concat('Ceci est', new S(' une '), ' chaîne')-&gt;upper; // print 'CECI
                     </code></pre>
 
                     <div class="alert alert-danger"><p>If at least one argument is not a string, then an <code class="language-php">\Exception</code> is thrown.</p></div>
-                    
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <h2 id="class-s-extracting-parts">Extracting parts</h2>
 
                     <h3>Getting substring using sub(), first and last</h3>
@@ -426,9 +438,41 @@ var_dump($s-&gt;chunk(3));
                     <div class="alert alert-danger">
                         <p>An <code>\InvalidArgumentException</code> is throw if chunk's size is <strong>not an integer</strong>, or <strong>not an <code>\malenki\Bah\N</code> object</strong> or if this size is <strong>less than 1</strong>.</p>
                     </div>
-                    
+
+
+                    <h3>Getting character(s)</h3>
+                    <p>You can get smaller uncutable unit of a string, a character, as class <code>\Malenki\Bah\C</code>.</p>
+                    <p>Class <code>\Malenki\Bah\S</code> has some methods and magic getters to deal with characters.</p>
+                    <p>To get one character, you must use methods <code>S::charAt()</code> or one of its aliases <code>S::take()</code> or <code>S::at()</code>. This methods take one argument, the position of the character into the string, as integer or <code>\Malenki\Bah\N</code> object.</p>
+
+                    <pre><code class="language-php">
+$s = new S('Hello World!');
+var_dump($s-&gt;charAt(3));
+// or
+var_dump($s-&gt;at(3));
+// or
+var_dump($s-&gt;take(3));
+                    </code></pre>
+
+
+
+
+
+
+
+
                     <h2 id="class-s-changing-the-string">Changing the string</h2>
-                    
+
+
+
+
+
+
+
+
+
+
+
                     <h2 id="class-s-use-regexp">Use Regexp</h2>
 
                 </div><!-- END SECTION CLASS S -->
