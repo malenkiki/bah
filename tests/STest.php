@@ -715,4 +715,36 @@ class STest extends PHPUnit_Framework_TestCase
         $s->set(2, 'CC');
     }
 
+
+    public function testGettingFormatedStringShouldSuccess()
+    {
+        $s = new S('This will have %s value');
+
+        $this->assertEquals('This will have formated value', $s->format('formated')->string);
+        
+        $fmt = 'This will have %d formated %s';
+        $s = new S($fmt);
+
+        $this->assertEquals(sprintf($fmt, 2, 'values'), $s->format(2, 'values')->string);
+        $this->assertEquals(sprintf($fmt, 2, 'values'), $s->format(new N(2), new S('values'))->string);
+
+        $fmt = 'Pi is %.2f';
+        $s = new S($fmt);
+        $this->assertEquals(sprintf($fmt, M_PI), $s->format(M_PI)->string);
+        $this->assertEquals(sprintf($fmt, M_PI), $s->format(new N(M_PI))->string);
+    }
+
+
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingFormatedStringUsingNonScalarORAllowedObjectShouldFail()
+    {
+        $s = new S('This will have %s value');
+
+        $this->assertEquals('This will have formated value', $s->format(array('formated'))->string);
+    }
+        
 }

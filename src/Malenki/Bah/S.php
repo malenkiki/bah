@@ -1193,6 +1193,32 @@ class S extends O implements \Countable
 
 
 
+    public function format()
+    {
+        $args = func_get_args();
+
+        foreach($args as $k => $v){
+            if($v instanceof N){
+                $args[$k] = $v->value;
+            }
+            elseif(is_object($v) && method_exists($v, '__toString')){
+                $args[$k] = "$v";
+            }
+            elseif(!is_scalar($v)){
+                throw new \InvalidArgumentException(
+                    'Arguments to use with S::format() must be scalar values i'
+                    .'or object having __toString() method.'
+                );
+            }
+        }
+
+        array_unshift($args, $this->value);
+
+        return new self(call_user_func_array('sprintf', $args));
+    }
+
+
+
     public function set($idx, $char)
     {
         if(!is_integer($idx) && !($idx instanceof N)){
