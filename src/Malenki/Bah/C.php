@@ -419,6 +419,13 @@ class C extends O
         return mb_strtoupper($this->value, C::ENCODING) === $this->value;
     }
 
+
+    public function isAscii()
+    {
+        return (boolean) preg_match('/^([\x00-\x7F])*$/', $this->value);
+    }
+
+
     /**
      * Tests whether the current character has other cases or not.
      *
@@ -596,4 +603,8 @@ class C extends O
         return !$this->_rtl();
     }
 
+    public function __toString()
+    {
+        return (string) $this->value;
+    }
 }

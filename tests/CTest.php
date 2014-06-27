@@ -362,4 +362,18 @@ class CTest extends PHPUnit_Framework_TestCase
 
 
     }
+
+
+    public function testIfCharacterisAsciiOrNot()
+    {
+        $c = new C('-');
+        $this->assertTrue($c->isAscii());
+        $c = new C('a');
+        $this->assertTrue($c->isAscii());
+        $c = new C('’');
+        $this->assertFalse($c->isAscii());
+        $c = new C('œ');
+        $this->assertFalse($c->isAscii());
+    }
+
 }
