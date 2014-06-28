@@ -295,7 +295,9 @@ class S extends O implements \Countable
 
         $pos = mb_strpos(
             $this->_lower()->string, 
-            mb_strtolower($phrase, C::ENCODING)
+            mb_strtolower($phrase, C::ENCODING),
+            0,
+            C::ENCODING
         );
 
         if ($pos === false) {
@@ -303,8 +305,8 @@ class S extends O implements \Countable
         }
 
         $start_pos = $pos - $radius;
-        
-        if ($start_pos <= 0) {
+
+        if ($start_pos < 0) {
             $start_pos = 0;
         }
 
@@ -314,7 +316,12 @@ class S extends O implements \Countable
             $end_pos = count($this);
         }
 
-        return mb_substr($this->value, $start_pos, $end_pos - $start_pos);
+        return mb_substr(
+            $this->value, 
+            $start_pos, 
+            $end_pos - $start_pos, 
+            C::ENCODING
+        );
     }
 
 
