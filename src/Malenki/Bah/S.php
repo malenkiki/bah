@@ -286,6 +286,40 @@ class S extends O implements \Countable
         return new S($out);
     }
 
+
+
+
+    public function excerpt($phrase, $radius = 100)
+    {
+        $phrase_len = mb_strlen($phrase, C::ENCODING);
+
+        $pos = mb_strpos(
+            $this->_lower()->string, 
+            mb_strtolower($phrase, C::ENCODING)
+        );
+
+        if ($pos === false) {
+            return $this->sub(0, $radius);
+        }
+
+        $start_pos = $pos - $radius;
+        
+        if ($start_pos <= 0) {
+            $start_pos = 0;
+        }
+
+        $end_pos = $pos + $phrase_len + $radius;
+
+        if ($end_pos >= count($this)) {
+            $end_pos = count($this);
+        }
+
+        return mb_substr($this->value, $start_pos, $end_pos - $start_pos);
+    }
+
+
+
+
     public function strip($str = null)
     {
         if(is_array($str)){
