@@ -139,7 +139,7 @@ Get all chars of the unicode block of the current char:
 
 ```php
 $c = new C("Œ");
-$all = $c->allCharsOfItsBlock();
+$all = $c->family;
 
 while($all->valid())
 {
@@ -184,7 +184,7 @@ Get count of an array and get the last but one easily:
 ```php
 $a = new A(array('un', 'deux', 'trois', 'quatre'));
 var_dump(count($a));
-var_dump($a->lastButOne);
+var_dump($a->last_but_one);
 ```
 
 Getting Some content is simple, using method or magick getters:
