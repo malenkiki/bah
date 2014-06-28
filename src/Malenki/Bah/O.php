@@ -38,6 +38,153 @@ class O
      */
     protected $value = null;
 
+
+    protected static function mustBeStringOrScalar($arg, $arg_name = null)
+    {
+        if (
+            !is_scalar($arg)
+            &&
+            !(is_object($arg) && method_exists($arg, '__toString'))
+        ) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '%s must be a primitive scalar PHP type or object '
+                    .'having `__toString()` method',
+                    is_null($arg_name) ? 'Argument' : $arg_name
+                    )
+            );
+        }
+    }
+
+
+
+
+    protected static function mustBeString($arg, $arg_name = null)
+    {
+        if (
+            !is_string($arg)
+            &&
+            !(is_object($arg) && method_exists($arg, '__toString'))
+        ) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '%s must be a primitive string PHP type or object '
+                    .'having `__toString()` method',
+                    is_null($arg_name) ? 'Argument' : $arg_name
+                    )
+            );
+        }
+    }
+
+
+
+    protected static function mustBeInteger($arg, $arg_name = null)
+    {
+        if(!is_integer($arg) && !($arg instanceof N)){
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '%s must be a primitive integer PHP type or '
+                    .'object \Malenki\Bah\N',
+                    is_null($arg_name) ? 'Argument' : $arg_name
+                )
+            );
+        }
+    }
+
+
+
+    protected static function mustBeFloat($arg, $arg_name = null)
+    {
+        if(!is_float($arg) && !($arg instanceof N)){
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '%s must be a primitive float PHP type or '
+                    .'object \Malenki\Bah\N',
+                    is_null($arg_name) ? 'Argument' : $arg_name
+                )
+            );
+        }
+    }
+
+
+
+    protected static function mustBeDouble($arg, $arg_name = null)
+    {
+        if(!is_double($arg) && !($arg instanceof N)){
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '%s must be a primitive double PHP type or '
+                    .'object \Malenki\Bah\N',
+                    is_null($arg_name) ? 'Argument' : $arg_name
+                )
+            );
+        }
+    }
+
+
+
+    protected static function mustBeNumeric($arg, $arg_name = null)
+    {
+        if(!is_numeric($arg) && !($arg instanceof N)){
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '%s must be a primitive numeric PHP type or '
+                    .'object \Malenki\Bah\N',
+                    is_null($arg_name) ? 'Argument' : $arg_name
+                )
+            );
+        }
+    }
+
+
+
+    protected static function mustBeArray($arg, $arg_name = null)
+    {
+        $msg = sprintf(
+            '%s must be a primitive integer indexed array PHP type or '
+            .'object \Malenki\Bah\A',
+            is_null($arg_name) ? 'Argument' : $arg_name
+        );
+
+        if(!is_array($arg) && !($arg instanceof A)){
+            throw new \InvalidArgumentException($msg);
+        }
+
+        if(is_array($arg)){
+            foreach(array_keys($arg) as $ak){
+                if(!is_integer($ak)){
+                    throw new \InvalidArgumentException($msg);
+                }
+            }
+        }
+    }
+
+
+    protected static function mustBeHash($arg, $arg_name = null)
+    {
+        $msg = sprintf(
+            '%s must be a primitive named indexed array PHP type or '
+            .'object \Malenki\Bah\A',
+            is_null($arg_name) ? 'Argument' : $arg_name
+        );
+
+
+        if(!is_array($arg) && !($arg instanceof H)){
+            throw new \InvalidArgumentException($msg);
+        }
+
+        if(is_array($arg)){
+            foreach(array_keys($arg) as $ak){
+                if(!is_string($ak)){
+                    throw new \InvalidArgumentException($msg);
+                }
+            }
+        }
+    }
+
+
+
+
     public function __get($name)
     {
         if ($name == 'value') {
