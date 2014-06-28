@@ -749,7 +749,7 @@ class STest extends PHPUnit_Framework_TestCase
         
 
 
-    public function testExcerptShouldSuccess()
+    public function testGettingExcerptShouldSuccess()
     {
         $s = new S('Ceci est une phrase assez longue à partir de laquelle un extrait va être pris avec un radius de 10.');
         $this->assertEquals(' longue à partir de laquel', $s->excerpt('partir', 10));
@@ -757,5 +757,26 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('radius de 10.', $s->excerpt('10.', 10));
         $this->assertEquals('Ceci est une phrase as', $s->excerpt('est une', 10));
         $this->assertEquals('s avec un radius de 10.', $s->excerpt('radius', 10));
+    }
+    
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingExcerptUsingBadPhraseArgumentTypeShouldFail()
+    {
+        $s = new S('Ceci est une phrase assez longue à partir de laquelle un extrait va être pris avec un radius de 10.');
+        $s->excerpt(array('est'), 10);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingExcerptUsingBadRadiusArgumentTypeShouldFail()
+    {
+        $s = new S('Ceci est une phrase assez longue à partir de laquelle un extrait va être pris avec un radius de 10.');
+        $s->excerpt('est', 10.5);
     }
 }

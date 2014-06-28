@@ -291,6 +291,22 @@ class S extends O implements \Countable
 
     public function excerpt($phrase, $radius = 100)
     {
+        if(
+            !is_string($phrase) 
+            &&
+            !(is_object($phrase) && method_exists($phrase, '__toString'))
+        ){
+            throw new \InvalidArgumentException(
+                'String to detect has excerpt must be string or object having __toString method.'
+            );
+        }
+        
+        if(!is_integer($radius) && !($radius instanceof N)){
+            throw new \InvalidArgumentException(
+                'Excerpt’s radius must be integer or N instance.'
+            );
+        }
+
         $phrase_len = mb_strlen($phrase, C::ENCODING);
 
         $pos = mb_strpos(
@@ -408,7 +424,7 @@ class S extends O implements \Countable
         }
         if(!is_integer($pos) && !($pos instanceof N)){
             throw new \InvalidArgumentException(
-                'To insert a string, position valud must be integer or N instance.'
+                'To insert a string, position valid must be integer or N instance.'
             );
         }
 
