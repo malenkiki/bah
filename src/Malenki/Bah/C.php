@@ -253,6 +253,7 @@ class C extends O
 
     protected $bytes = null;
 
+
     public function __construct($char = '')
     {
         if ($char instanceof N) {
@@ -290,7 +291,7 @@ class C extends O
             return $this->bytes;
         }
 
-        if (in_array($name, array('string', 'upper', 'lower', 'block', 'trans', 'unicode', 'rtl', 'ltr'))) {
+        if (in_array($name, array('string', 'upper', 'lower', 'block', 'trans', 'unicode', 'rtl', 'ltr', 'family'))) {
             $name = '_'.$name;
 
             return $this->$name();
@@ -303,6 +304,29 @@ class C extends O
         if($name == 'is_ltr' || $name == 'left_to_right' || $name == 'is_left_to_right'){
             return $this->_ltr();
         }
+        
+        if(preg_match('/^is_/', $name)){
+            $m = '_is' . implode(
+                array_map(
+                    'ucfirst',
+                    explode('_', preg_replace('/^is_/', '', $name))
+                )
+            );
+            return $this->$m();
+        }
+        
+        if(preg_match('/^has_/', $name)){
+            $m = '_has' . implode(
+                array_map(
+                    'ucfirst',
+                    explode('_', preg_replace('/^has_/', '', $name))
+                )
+            );
+            return $this->$m();
+        }
+
+
+        return parent::__get($name);
     }
 
     protected function _string()
@@ -327,7 +351,14 @@ class C extends O
 
     public static function encodings()
     {
-        return new A(mb_list_encodings());
+        return new A(
+            array_map(
+                function($v){
+                    return new S($v);
+                },
+                mb_list_encodings()
+            )
+        );
     }
 
     protected function _upper()
@@ -342,57 +373,57 @@ class C extends O
         //return new self(mb_strtolower($this, c::ENCODING));
     }
 
-    public function isLetter()
+    protected function _isLetter()
     {
         return (boolean) preg_match("/^\p{L}+$/ui", $this->value);
     }
 
-    public function isDigit()
+    protected function _isDigit()
     {
         return is_numeric($this->value);
     }
 
-    public function isControl()
+    protected function _isControl()
     {
         return (boolean) preg_match("/^\p{Cc}+$/ui", $this->value);
     }
 
-    public function isFormat()
+    protected function _isFormat()
     {
         return (boolean) preg_match("/^\p{Cf}+$/ui", $this->value);
     }
 
-    public function isUnassigned()
+    protected function _isUnassigned()
     {
         return (boolean) preg_match("/^\p{Cn}+$/ui", $this->value);
     }
 
-    public function isPrivateUse()
+    protected function _isPrivateUse()
     {
         return (boolean) preg_match("/^\p{Co}+$/ui", $this->value);
     }
 
-    public function isSurrogate()
+    protected function _isSurrogate()
     {
         return (boolean) preg_match("/^\p{Cs}+$/ui", $this->value);
     }
 
-    public function isMark()
+    protected function _isMark()
     {
         return (boolean) preg_match("/^\p{M}+$/ui", $this->value);
     }
 
-    public function isSeparator()
+    protected function _isSeparator()
     {
         return (boolean) preg_match("/^\p{Z}+$/ui", $this->value);
     }
 
-    public function isPunctuation()
+    protected function _isPunctuation()
     {
         return (boolean) preg_match("/^\p{P}+$/ui", $this->value);
     }
 
-    public function isSymbol()
+    protected function _isSymbol()
     {
         return (boolean) preg_match("/^\p{S}+$/ui", $this->value);
     }
@@ -400,10 +431,9 @@ class C extends O
     /**
      * Tests whether current character is in lower case.
      *
-     * @access public
      * @return boolean
      */
-    public function isLowerCase()
+    protected function _isLowerCase()
     {
         return mb_strtolower($this->value, C::ENCODING) === $this->value;
     }
@@ -411,16 +441,15 @@ class C extends O
     /**
      * Tests whether current character is in upper case.
      *
-     * @access public
      * @return boolean
      */
-    public function isUpperCase()
+    protected function _isUpperCase()
     {
         return mb_strtoupper($this->value, C::ENCODING) === $this->value;
     }
 
 
-    public function isAscii()
+    protected function _isAscii()
     {
         return (boolean) preg_match('/^([\x00-\x7F])*$/', $this->value);
     }
@@ -429,12 +458,11 @@ class C extends O
     /**
      * Tests whether the current character has other cases or not.
      *
-     * @access public
      * @return boolean
      */
-    public function hasCase()
+    protected function _hasCase()
     {
-        return !($this->isLowerCase() && $this->isUpperCase());
+        return !($this->_isLowerCase() && $this->_isUpperCase());
     }
 
     protected function _block()
@@ -456,7 +484,8 @@ class C extends O
         throw new \Exception('Invalid character, it is unavailable in any unicode block.');
     }
 
-    public function allCharsOfItsBlock()
+
+    public function _family()
     {
         $arr = array();
         $int_code = $this->_unicode()->value;

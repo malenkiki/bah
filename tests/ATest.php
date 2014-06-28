@@ -215,17 +215,17 @@ class ATest extends PHPUnit_Framework_TestCase
     public function testGettingLastButOneItem()
     {
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
-        $this->assertEquals('four', $a->lastButOne);
+        $this->assertEquals('four', $a->last_but_one);
 
         $a->add('six');
-        $this->assertEquals('five', $a->lastButOne);
+        $this->assertEquals('five', $a->last_but_one);
 
     }
 
     public function testGettingLastButOneItemShouldRaiseException()
     {
         $a = new A(array('one', 'two'));
-        $a->lastButOne;
+        $a->last_but_one;
 
     }
 

@@ -70,7 +70,7 @@ namespace Malenki\Bah;
  * @author Michel Petit <petit.michel@gmail.com>
  * @license MIT
  */
-class N
+class N extends O
 {
     public function __get($name)
     {
@@ -136,6 +136,8 @@ class N
             $m = 'round' . ucfirst($arr[1]);
             return $this->$m();
         }
+
+        return parent::__get($name);
     }
 
     public function __construct($num = 0)

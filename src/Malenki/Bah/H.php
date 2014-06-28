@@ -24,11 +24,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Malenki\Bah;
 
-class H implements \Iterator, \Countable
+class H extends O implements \Iterator, \Countable
 {
-    private $count = 0;
-    private $value = array();
-    private $position = null;
+    protected $count = 0;
+    protected $position = null;
 
     public function __get($name)
     {
@@ -168,6 +167,10 @@ class H implements \Iterator, \Countable
         )
         {
             throw new \RuntimeException($key . ' is not allowed as key name.');
+        }
+
+        if(is_null($this->value)){
+            $this->value = array();
         }
 
         $this->value[$key] = $value;
@@ -350,4 +353,8 @@ class H implements \Iterator, \Countable
         return new self(array_merge($this->value, $arr));
     }
 
+    public function __toString()
+    {
+        return (string) count($this);
+    }
 }

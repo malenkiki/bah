@@ -114,7 +114,7 @@ while($c->bytes->valid)
 }
 
 $c = new C("Œ");
-$all = $c->allCharsOfItsBlock();
+$all = $c->family;
 
 while($all->valid)
 {
@@ -148,7 +148,7 @@ while($s->chars->valid)
     printf(
         "%s => %s\n",
         $s->chars->current,
-        $s->chars->current->isUpperCase() ? $s->chars->current->trans->title : $s->chars->current->trans
+        $s->chars->current->is_upper_case ? $s->chars->current->trans->title : $s->chars->current->trans
     );
     $s->chars->next;
 }
@@ -186,7 +186,7 @@ $a = new A(array('un', 'deux', 'trois', 'quatre'));
 var_dump(count($a));
 var_dump($a->random);
 echo $a->random(2)->join(', ')->n;
-var_dump($a->lastButOne);
+var_dump($a->last_but_one);
 echo $a->shuffle->join(', ')->n;
 echo $a->shuffle->join->n;
 echo $a->sort->join(', ')->n;

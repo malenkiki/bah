@@ -71,109 +71,109 @@ class CTest extends PHPUnit_Framework_TestCase
     public function testCaseDetection()
     {
         $c = new C('a');
-        $this->assertTrue($c->hasCase());
-        $this->assertTrue($c->isLowerCase());
-        $this->assertFalse($c->isUpperCase());
+        $this->assertTrue($c->has_Case);
+        $this->assertTrue($c->is_lower_case);
+        $this->assertFalse($c->is_upper_case);
 
         $c = new C('A');
-        $this->assertTrue($c->hasCase());
-        $this->assertFalse($c->isLowerCase());
-        $this->assertTrue($c->isUpperCase());
+        $this->assertTrue($c->has_Case);
+        $this->assertFalse($c->is_lower_case);
+        $this->assertTrue($c->is_upper_case);
 
         $c = new C('à');
-        $this->assertTrue($c->hasCase());
-        $this->assertTrue($c->isLowerCase());
-        $this->assertFalse($c->isUpperCase());
+        $this->assertTrue($c->has_Case);
+        $this->assertTrue($c->is_lower_case);
+        $this->assertFalse($c->is_upper_case);
 
         $c = new C('À');
-        $this->assertTrue($c->hasCase());
-        $this->assertFalse($c->isLowerCase());
-        $this->assertTrue($c->isUpperCase());
+        $this->assertTrue($c->has_Case);
+        $this->assertFalse($c->is_lower_case);
+        $this->assertTrue($c->is_upper_case);
 
         $c = new C('=');
-        $this->assertFalse($c->hasCase());
-        $this->assertTrue($c->isLowerCase());
-        $this->assertTrue($c->isUpperCase());
+        $this->assertFalse($c->has_Case);
+        $this->assertTrue($c->is_lower_case);
+        $this->assertTrue($c->is_upper_case);
 
         $c = new C('ب');
-        $this->assertFalse($c->hasCase());
-        $this->assertTrue($c->isLowerCase());
-        $this->assertTrue($c->isUpperCase());
+        $this->assertFalse($c->has_Case);
+        $this->assertTrue($c->is_lower_case);
+        $this->assertTrue($c->is_upper_case);
 
         $c = new C('5');
-        $this->assertFalse($c->hasCase());
-        $this->assertTrue($c->isLowerCase());
-        $this->assertTrue($c->isUpperCase());
+        $this->assertFalse($c->has_Case);
+        $this->assertTrue($c->is_lower_case);
+        $this->assertTrue($c->is_upper_case);
 
         $c = new C('');
-        $this->assertFalse($c->hasCase());
-        $this->assertTrue($c->isLowerCase());
-        $this->assertTrue($c->isUpperCase());
+        $this->assertFalse($c->has_Case);
+        $this->assertTrue($c->is_lower_case);
+        $this->assertTrue($c->is_upper_case);
     }
 
     public function testLetterDetection()
     {
         $c = new C('œ');
-        $this->assertTrue($c->isLetter());
+        $this->assertTrue($c->is_letter);
         $c = new C('a');
-        $this->assertTrue($c->isLetter());
+        $this->assertTrue($c->is_letter);
         $c = new C('ç');
-        $this->assertTrue($c->isLetter());
+        $this->assertTrue($c->is_letter);
         $c = new C('é');
-        $this->assertTrue($c->isLetter());
+        $this->assertTrue($c->is_letter);
         $c = new C(' ');
-        $this->assertFalse($c->isLetter());
+        $this->assertFalse($c->is_letter);
         $c = new C('-');
-        $this->assertFalse($c->isLetter());
+        $this->assertFalse($c->is_letter);
         $c = new C('.');
-        $this->assertFalse($c->isLetter());
+        $this->assertFalse($c->is_letter);
         $c = new C('/');
-        $this->assertFalse($c->isLetter());
+        $this->assertFalse($c->is_letter);
     }
 
     public function testDigitDetection()
     {
         $c = new C('0');
-        $this->assertTrue($c->isDigit());
+        $this->assertTrue($c->is_digit);
 
         $c = new C('8');
-        $this->assertTrue($c->isDigit());
+        $this->assertTrue($c->is_digit);
     }
 
     public function testPunctuationDetection()
     {
         $c = new C('.');
-        $this->assertTrue($c->isPunctuation());
+        $this->assertTrue($c->is_punctuation);
 
         $c = new C(',');
-        $this->assertTrue($c->isPunctuation());
+        $this->assertTrue($c->is_punctuation);
 
         $c = new C('…');
-        $this->assertTrue($c->isPunctuation());
+        $this->assertTrue($c->is_punctuation);
 
         $c = new C('–');
-        $this->assertTrue($c->isPunctuation());
+        $this->assertTrue($c->is_punctuation);
 
         $c = new C('。');
-        $this->assertTrue($c->isPunctuation());
+        $this->assertTrue($c->is_punctuation);
 
         $c = new C('【');
-        $this->assertTrue($c->isPunctuation());
+        $this->assertTrue($c->is_punctuation);
     }
 
     public function testSeparatorDetection()
     {
         $c = new C(' ');
-        $this->assertTrue($c->isSeparator());
+        $this->assertTrue($c->is_separator);
 
         $c = new C(' '); // nbsp
-        $this->assertTrue($c->isSeparator());
+        $this->assertTrue($c->is_separator);
 
         $c = new C("　"); // ideographic space
-        $this->assertTrue($c->isSeparator());
+        $this->assertTrue($c->is_separator);
 
         $c = new C(" "); // EM space
-        $this->assertTrue($c->isSeparator());
+        $this->assertTrue($c->is_separator);
 
     }
 
@@ -181,77 +181,73 @@ class CTest extends PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped("Must find right caracters to test with");
         $c = new C(new N(0x9B));
-        $this->assertTrue($c->isFormat());
+        $this->assertTrue($c->is_format);
     }
 
     public function testUnassignedDetection()
     {
-        /*FIXME:This fails now on Travis for PHP 5.5, but before has worked fine… WTF???
-        $c = new C('⁧');
-        $this->assertTrue($c->isUnassigned());
-         */
         $c = new C(new N(0x7B9));
-        $this->assertTrue($c->isUnassigned());
+        $this->assertTrue($c->is_unassigned);
         $c = new C(new N(0x89A));
-        $this->assertTrue($c->isUnassigned());
+        $this->assertTrue($c->is_unassigned);
     }
 
     public function testPrivateUseDetection()
     {
         $c = new C('󰀴');
-        $this->assertTrue($c->isPrivateUse());
+        $this->assertTrue($c->is_private_use);
         $c = new C('􀁕');
-        $this->assertTrue($c->isPrivateUse());
+        $this->assertTrue($c->is_private_use);
     }
 
     public function testSurrogateDetection()
     {
         $this->markTestSkipped("Must find right caracters to test with");
         $c = new C();
-        $this->assertTrue($c->isSurrogate());
+        $this->assertTrue($c->is_surrogate);
     }
 
     public function testControlDetection()
     {
         $c = new C("\n");
-        $this->assertTrue($c->isControl());
+        $this->assertTrue($c->is_control);
 
         $c = new C("\t");
-        $this->assertTrue($c->isControl());
+        $this->assertTrue($c->is_control);
 
     }
 
     public function testSymbolDetection()
     {
         $c = new C('$');
-        $this->assertTrue($c->isSymbol());
+        $this->assertTrue($c->is_symbol);
 
         $c = new C('£');
-        $this->assertTrue($c->isSymbol());
+        $this->assertTrue($c->is_symbol);
 
         $c = new C('€');
-        $this->assertTrue($c->isSymbol());
+        $this->assertTrue($c->is_symbol);
 
         $c = new C('+');
-        $this->assertTrue($c->isSymbol());
+        $this->assertTrue($c->is_symbol);
 
         $c = new C('×');
-        $this->assertTrue($c->isSymbol());
+        $this->assertTrue($c->is_symbol);
 
         $c = new C('÷');
-        $this->assertTrue($c->isSymbol());
+        $this->assertTrue($c->is_symbol);
 
         $c = new C('∀');
-        $this->assertTrue($c->isSymbol());
+        $this->assertTrue($c->is_symbol);
 
         $c = new C('∁');
-        $this->assertTrue($c->isSymbol());
+        $this->assertTrue($c->is_symbol);
 
         $c = new C('∃');
-        $this->assertTrue($c->isSymbol());
+        $this->assertTrue($c->is_symbol);
 
         $c = new C('∈');
-        $this->assertTrue($c->isSymbol());
+        $this->assertTrue($c->is_symbol);
     }
 
     public function testUnicodeCodePoint()
@@ -367,13 +363,13 @@ class CTest extends PHPUnit_Framework_TestCase
     public function testIfCharacterisAsciiOrNot()
     {
         $c = new C('-');
-        $this->assertTrue($c->isAscii());
+        $this->assertTrue($c->is_ascii);
         $c = new C('a');
-        $this->assertTrue($c->isAscii());
+        $this->assertTrue($c->is_ascii);
         $c = new C('’');
-        $this->assertFalse($c->isAscii());
+        $this->assertFalse($c->is_ascii);
         $c = new C('œ');
-        $this->assertFalse($c->isAscii());
+        $this->assertFalse($c->is_ascii);
     }
 
 }

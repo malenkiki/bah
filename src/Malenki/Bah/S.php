@@ -226,6 +226,8 @@ class S extends O implements \Countable
         if($name == 'justify' || $name == 'just'){
             return $this->justify();
         }
+
+        return parent::__get($name);
     }
 
 

@@ -37,7 +37,6 @@ namespace Malenki\Bah;
  * @property-read $is_last_but_one Tests if it is the last but one element (while context)
  * @property-read $last Gets last element
  * @property-read $first Gets the first element
- * @property-read $lastButOne Gets the last but one element (deprecated syntax, use following)
  * @property-read $last_but_one Gets the last but one element
  * @property-read $shift Takes the first element and remove it from the collection
  * @property-read $pop Takes the last element and remove it from the collection
@@ -56,45 +55,43 @@ namespace Malenki\Bah;
  * @author Michel Petit <petit.michel@gmail.com>
  * @license MIT
  */
-class A implements \Iterator, \Countable
+class A extends O implements \Iterator, \Countable
 {
-    protected $value = null;
     protected $count = 0;
     protected $position = null;
 
     public function __get($name)
     {
-        if(preg_match('/^(index|key)_[0-9]+$/', $name)){
+
+        if ($name == 'index') {
+            return $this->key();
+        } elseif ($name == 'random') {
+            return $this->random(1);
+        } elseif ($name == 'last_but_one') {
+            return $this->_lastButOne();
+        } elseif (in_array($name, array('implode', 'join'))) {
+            return $this->implode();
+        } elseif (in_array($name, array('current', 'key', 'next', 'rewind', 'valid'))) {
+            return $this->$name();
+        } elseif (in_array($name, array('min', 'max'))) {
+            return $this->_maxOrMin($name);
+        } elseif (in_array($name, array('array', 'length', 'last', 'first', 'shift', 'pop', 'shuffle', 'reverse', 'sort', 'unique'))) {
+            $str_method = '_' . $name;
+
+            return $this->$str_method();
+        } elseif(in_array($name, array('is_first', 'is_last', 'is_last_but_one'))){
+            $m = '_is' . implode(
+                array_map(
+                    'ucfirst',
+                    explode('_', preg_replace('/^is_/', '', $name))
+                )
+            );
+            return $this->$m();
+        } elseif(preg_match('/^(index|key)_[0-9]+$/', $name)){
             $arr = explode('_', $name);
             return $this->take((int) $arr[1]);
-        }
-
-        if (in_array($name, array('array', 'index', 'length', 'last', 'first', 'lastButOne', 'last_but_one', 'is_last', 'is_first', 'is_last_but_one', 'shift', 'pop', 'random', 'shuffle', 'join', 'implode', 'current', 'key', 'next', 'rewind', 'valid', 'reverse', 'sort', 'unique', 'min', 'max'))) {
-            if ($name == 'index') {
-                return $this->key();
-            } elseif ($name == 'random') {
-                return $this->random(1);
-            } elseif (in_array($name, array('implode', 'join'))) {
-                return $this->implode();
-            } elseif (in_array($name, array('current', 'key', 'next', 'rewind', 'valid'))) {
-                return $this->$name();
-            } elseif (in_array($name, array('min', 'max'))) {
-                return $this->_maxOrMin($name);
-            } elseif (in_array($name, array('array', 'length', 'last', 'first', 'lastButOne', 'shift', 'pop', 'shuffle', 'reverse', 'sort', 'unique'))) {
-                $str_method = '_' . $name;
-
-                return $this->$str_method();
-            } elseif(in_array($name, array('is_first', 'is_last', 'is_last_but_one'))){
-                $m = '_is' . implode(
-                    array_map(
-                        'ucfirst',
-                        explode('_', preg_replace('/^is_/', '', $name))
-                    )
-                );
-                return $this->$m();
-            }else {
-                return $this->$name();
-            }
+        } else {
+            return $this->$name();
         }
     }
     
