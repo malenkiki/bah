@@ -56,51 +56,6 @@ class S extends O implements \Countable
      */
     protected $length = null;
 
-    protected function _chars()
-    {
-        if (is_null($this->chars)) {
-            $a = new A();
-            $i = new N(0);
-
-            while ($i->less($this->_length())) {
-                $a->add(new C($this->sub($i->value)->value));
-                $i->incr;
-            }
-
-            $this->chars = $a;
-        }
-
-        return $this->chars;
-    }
-
-    protected function _bytes()
-    {
-        $a = new A();
-
-        $this->_chars();
-
-        while ($this->chars->valid()) {
-            //$bytes = $this->chars->current()->bytes;
-
-            while ($this->chars->current()->bytes->valid()) {
-                $a->add($this->chars->current()->bytes->current());
-                $this->chars->current()->bytes->next();
-            }
-
-            $this->chars->next();
-        }
-        $this->bytes = $a;
-
-        return $this->bytes;
-    }
-
-    protected function _length()
-    {
-        $this->length = new N(mb_strlen($this, C::ENCODING));
-
-        return $this->length;
-    }
-
     public static function concat()
     {
         $args = func_get_args();
@@ -120,10 +75,7 @@ class S extends O implements \Countable
         return new S($str_out);
     }
 
-    public function __construct($str = '')
-    {
-        $this->value = $str;
-    }
+
 
     /**
      * @params string $name
@@ -231,12 +183,66 @@ class S extends O implements \Countable
     }
 
 
+    public function __construct($str = '')
+    {
+        $this->value = $str;
+    }
+
+    
+    
+    protected function _chars()
+    {
+        if (is_null($this->chars)) {
+            $a = new A();
+            $i = new N(0);
+
+            while ($i->less($this->_length())) {
+                $a->add(new C($this->sub($i->value)->value));
+                $i->incr;
+            }
+
+            $this->chars = $a;
+        }
+
+        return $this->chars;
+    }
+
+    protected function _bytes()
+    {
+        $a = new A();
+
+        $this->_chars();
+
+        while ($this->chars->valid()) {
+            //$bytes = $this->chars->current()->bytes;
+
+            while ($this->chars->current()->bytes->valid()) {
+                $a->add($this->chars->current()->bytes->current());
+                $this->chars->current()->bytes->next();
+            }
+
+            $this->chars->next();
+        }
+        $this->bytes = $a;
+
+        return $this->bytes;
+    }
+
+    protected function _length()
+    {
+        $this->length = new N(mb_strlen($this, C::ENCODING));
+
+        return $this->length;
+    }
+
 
 
     protected function _string()
     {
         return (string) $this->value;
     }
+
+
 
     protected function _a()
     {
@@ -251,10 +257,14 @@ class S extends O implements \Countable
         return  $a;
     }
 
+
+
     protected function _trans()
     {
         if (!extension_loaded('intl')) {
-            throw new \RuntimeException('Missing Intl extension. This is required to use ' . __CLASS__);
+            throw new \RuntimeException(
+                'Missing Intl extension. This is required to use ' . __CLASS__
+            );
         }
 
         $str = \transliterator_transliterate(
@@ -264,6 +274,8 @@ class S extends O implements \Countable
 
         return new self($str);
     }
+
+
 
     protected function _swapCase()
     {
@@ -293,21 +305,8 @@ class S extends O implements \Countable
 
     public function excerpt($phrase, $radius = 100)
     {
-        if(
-            !is_string($phrase) 
-            &&
-            !(is_object($phrase) && method_exists($phrase, '__toString'))
-        ){
-            throw new \InvalidArgumentException(
-                'String to detect has excerpt must be string or object having __toString method.'
-            );
-        }
-        
-        if(!is_integer($radius) && !($radius instanceof N)){
-            throw new \InvalidArgumentException(
-                'Excerpt’s radius must be integer or N instance.'
-            );
-        }
+        self::mustBeString($phrase, 'String to detect');
+        self::mustBeInteger($radius, 'Excerpt’s radius');
 
         $phrase_len = mb_strlen($phrase, C::ENCODING);
 
@@ -383,6 +382,8 @@ class S extends O implements \Countable
         return new S(ltrim($this->value));
     }
 
+
+
     public function rstrip($str = null)
     {
         if(is_array($str)){
@@ -403,32 +404,26 @@ class S extends O implements \Countable
     }
 
 
+
+
     public function append($str)
     {
         return static::concat($this, $str);
     }
+
+
 
     public function prepend($str)
     {
         return static::concat($str, $this);
     }
 
+
+
     public function insert($str, $pos)
     {
-        if(
-            !is_string($str) 
-            &&
-            !(is_object($str) && method_exists($str, '__toString'))
-        ){
-            throw new \InvalidArgumentException(
-                'String to insert must be string or object having __toString method.'
-            );
-        }
-        if(!is_integer($pos) && !($pos instanceof N)){
-            throw new \InvalidArgumentException(
-                'To insert a string, position valid must be integer or N instance.'
-            );
-        }
+        self::mustBeString($str, 'String to insert');
+        self::mustBeInteger($pos, 'Position');
 
         if($pos instanceof N){
             $pos = $pos->int;
@@ -460,6 +455,8 @@ class S extends O implements \Countable
         
         return static::concat($str1, $str, $str2);
     }
+
+
 
     public function _underscore()
     {
@@ -503,10 +500,14 @@ class S extends O implements \Countable
         return $this->camelCase();
     }
 
+
+
     public function upperCamelCase()
     {
         return $this->camelCase(true);
     }
+
+
 
     /**
      * Get substring from the original string.
@@ -520,6 +521,9 @@ class S extends O implements \Countable
      */
     public function sub($offset = 0, $limit = 1)
     {
+        self::mustBeInteger($offset, 'Offset');
+        self::mustBeInteger($limit, 'Limit');
+
         if($offset instanceof N) $offset = $offset->int;
         if($limit instanceof N) $limit = $limit->int;
 
@@ -534,15 +538,21 @@ class S extends O implements \Countable
         return new S(mb_substr($this->value, $offset, $limit, C::ENCODING));
     }
 
+
+
     protected function _first()
     {
         return $this->sub();
     }
 
+
+
     protected function _last()
     {
         return $this->sub($this->_length()->value - 1, 1);
     }
+
+
 
     /**
      * Checks that current string starts with the given string or not
@@ -553,20 +563,15 @@ class S extends O implements \Countable
      */
     public function startsWith($str)
     {
-        if(
-            is_string($str)
-            ||
-            (is_object($str) && method_exists($str, '__toString'))
-        ) {
-            $str = preg_quote($str, '/');
+        self::mustBeString($str, 'Searched starting string');
+        
+        $str = preg_quote($str, '/');
 
-            return (boolean) preg_match("/^$str/", $this->value);
-        } else {
-            throw new \InvalidArgumentException(
-                'Searched starting string must be string or object having __toString method'
-            );
-        }
+        return (boolean) preg_match("/^$str/", $this->value);
     }
+
+
+
 
     /**
      * Checks that current string ends with the given string or not
@@ -577,20 +582,14 @@ class S extends O implements \Countable
      */
     public function endsWith($str)
     {
-        if(
-            is_string($str)
-            ||
-            (is_object($str) && method_exists($str, '__toString'))
-        ) {
-            $str = preg_quote($str, '/');
+        self::mustBeString($str, 'Searched ending string');
+        
+        $str = preg_quote($str, '/');
 
-            return (boolean) preg_match("/$str\$/", $this->value);
-        } else {
-            throw new \InvalidArgumentException(
-                'Searched ending string must be string or object having __toString method'
-            );
-        }
+        return (boolean) preg_match("/$str\$/", $this->value);
     }
+
+
 
     /**
      * Check whether current string match the given regular expression.
@@ -601,16 +600,13 @@ class S extends O implements \Countable
      */
     public function match($expr)
     {
-        if(
-            is_string($expr)
-            ||
-            (is_object($expr) && method_exists($expr, '__toString'))
-        ) {
-            return (boolean) preg_match($expr, $this->value);
-        } else {
-            throw new \InvalidArgumentException('Expression must be string or object having __toString method');
-        }
+        self::mustBeString($expr, 'Expression');
+
+        return (boolean) preg_match($expr, $this->value);
     }
+
+
+
 
     /**
      * Shorthand for match method
@@ -638,16 +634,9 @@ class S extends O implements \Countable
 
     public function test($str)
     {
-        if(
-            is_scalar($str)
-            ||
-            (is_object($str) && method_exists($str, '__toString'))
-        )
-        {
-            return (boolean) preg_match($this->value, $str);
-        }
-
-        return false;
+        self::mustBeStringOrScalar($str, 'String to test');
+        
+        return (boolean) preg_match($this->value, $str);
     }
 
     protected function _upperCaseWords()
@@ -711,6 +700,8 @@ class S extends O implements \Countable
      */
     public function charAt($idx)
     {
+        self::mustBeInteger($idx, 'Index');
+
         if ($idx instanceof N) {
             $idx = $idx->int;
         }
@@ -802,6 +793,8 @@ class S extends O implements \Countable
      */
     public function times($n = 1)
     {
+        self::mustBeInteger($n, 'Number of repetition');
+
         if($n instanceof N) $n = $n->int;
 
         return new self(str_repeat($this, $n));
@@ -817,20 +810,8 @@ class S extends O implements \Countable
      */
     public function wrap($width = 79, $cut = PHP_EOL)
     {
-
-        if(is_object($cut)){
-            if(!method_exists($cut, '__toString')){
-                throw new \InvalidArgumentException(
-                    'Cut as object must have __toString method.'
-                );
-            }
-
-            $cut = "$cut";
-        } elseif(!is_string($cut)){
-            throw new \InvalidArgumentException(
-                'Cut must be a string or object having __toString method'
-            );
-        }
+        self::mustBeInteger($width, 'Width');
+        self::mustBeString($cut, 'Cut');
 
         $arr_lines = array();
 
@@ -908,6 +889,10 @@ class S extends O implements \Countable
      */
     public function margin($left = 5, $right = 0, $alinea = 0)
     {
+        self::mustBeInteger($left, 'Left margin');
+        self::mustBeInteger($right, 'Right margin');
+        self::mustBeInteger($alinea, 'Alinea');
+
         $int_left = $left;
         $int_right = $right;
         $int_alinea = $alinea;
@@ -917,11 +902,15 @@ class S extends O implements \Countable
         if($alinea instanceof N) $int_alinea = $alinea->int;
 
         if ($int_left < 0 || $int_right < 0) {
-            throw new \InvalidArgumentException('Margins must be null or positive numbers!');
+            throw new \InvalidArgumentException(
+                'Margins must be null or positive numbers!'
+            );
         }
 
         if (abs($int_alinea) > $int_left) {
-            throw new \InvalidArgumentException('Alinea must be equal or less than margin left');
+            throw new \InvalidArgumentException(
+                'Alinea must be equal or less than margin left'
+            );
         }
 
         $arr = explode("\n", $this->value);
@@ -950,24 +939,8 @@ class S extends O implements \Countable
 
     public function center($width = 79, $cut = PHP_EOL)
     {
-        if(!($width instanceof N) && !is_integer($width)){
-            throw new \InvalidArgumentException('Width must be N instance or integer.');
-        }
-
-
-        if(is_object($cut)){
-            if(!method_exists($cut, '__toString')){
-                throw new \InvalidArgumentException(
-                    'Cut as object must have __toString method.'
-                );
-            }
-
-            $cut = "$cut";
-        } elseif(!is_string($cut)){
-            throw new \InvalidArgumentException(
-                'Cut must be a string or object having __toString method'
-            );
-        }
+        self::mustBeInteger($width, 'Width');
+        self::mustBeString($cut, 'Cut character');
 
         if(is_object($width)){
             $width = $width->int;
@@ -1005,25 +978,15 @@ class S extends O implements \Countable
 
     protected function _leftOrRightJustify($type = 'left', $width = 79, $cut = PHP_EOL)
     {
-        if(!($width instanceof N) && !is_integer($width)){
+        self::mustBeInteger($width, 'Width');
+        self::mustBeString($cut, 'Cut character');
+
+        if(!in_array($type, array('left', 'right'))){
             throw new \InvalidArgumentException(
-                'Width must be N instance or integer.'
+                'Alignment must be "left" or "right"'
             );
         }
 
-        if(is_object($cut)){
-            if(!method_exists($cut, '__toString')){
-                throw new \InvalidArgumentException(
-                    'Cut as object must have __toString method.'
-                );
-            }
-
-            $cut = "$cut";
-        } elseif(!is_string($cut)){
-            throw new \InvalidArgumentException(
-                'Cut must be a string or object having __toString method'
-            );
-        }
 
         if(is_object($width)){
             $width = $width->int;
@@ -1100,8 +1063,13 @@ class S extends O implements \Countable
     
     public function justify($width = 79, $last_line = 'left', $cut = PHP_EOL)
     {
-        if(!($width instanceof N) && !is_integer($width)){
-            throw new \InvalidArgumentException('Width must be N instance or integer.');
+        self::mustBeInteger($width, 'Width');
+        self::mustBeString($cut, 'Cut character');
+
+        if(!in_array($last_line, array('left', 'right'))){
+            throw new \InvalidArgumentException(
+                'Alignment of last line must be "left" or "right"'
+            );
         }
 
 
@@ -1157,33 +1125,25 @@ class S extends O implements \Countable
 
     public function explode($sep)
     {
-        if (
-            is_string($sep)
-            ||
-            (is_object($sep) && method_exists($sep, '__toString'))
-        ) {
-            if (is_object($sep)) {
-                $sep = (string) $sep;
-            }
+        self::mustBeString($sep, 'Separator regexp');
 
-            if (strlen($sep) == 0) {
-                throw new \InvalidArgumentException(
-                    'Separator regexp must be a not null string or S instance.'
-                );
-            }
+        if (is_object($sep)) {
+            $sep = (string) $sep;
+        }
 
-            $arr = preg_split($sep, $this->value);
-
-            foreach ($arr as $k => $str) {
-                $arr[$k] = new S($str);
-            }
-
-            return new A($arr);
-        } else {
+        if (strlen($sep) == 0) {
             throw new \InvalidArgumentException(
-                'Separator regexp must be a string or S object'
+                'Separator regexp must be a not null string or S instance.'
             );
         }
+
+        $arr = preg_split($sep, $this->value);
+
+        foreach ($arr as $k => $str) {
+            $arr[$k] = new S($str);
+        }
+
+        return new A($arr);
     }
 
     public function split($sep)
@@ -1198,9 +1158,7 @@ class S extends O implements \Countable
 
     public function chunk($size = 1)
     {
-        if(!is_integer($size) && !($size instanceof N)){
-            throw new \InvalidArgumentException('Chunk’s size must be integer or N iobject.');
-        }
+        self::mustBeInteger($size, 'Chunk’s size');
 
         if($size instanceof N) $size = $size->int;
         
@@ -1220,27 +1178,8 @@ class S extends O implements \Countable
 
     public function replace($pattern, $string)
     {
-        if (
-            !is_string($pattern)
-            &&
-            !(is_object($pattern) && method_exists($pattern, '__toString'))
-        ) {
-            throw new \InvalidArgumentException(
-                'Pattern must be a string or object having __toString() '
-                .'method or S instance'
-            );
-        }
-
-        if (
-            !is_string($string)
-            &&
-            !(is_object($string) && method_exists($string, '__toString'))
-        ) {
-            throw new \InvalidArgumentException(
-                'Replacement string must be a string or object having '
-                .'__toString() method or S instance'
-            );
-        }
+        self::mustBeString($pattern, 'Pattern');
+        self::mustBeString($string, 'Replacement string');
 
         return new S(preg_replace($pattern, $string, $this->value));
     }
@@ -1280,31 +1219,18 @@ class S extends O implements \Countable
 
     public function set($idx, $char)
     {
-        if(!is_integer($idx) && !($idx instanceof N)){
-            throw new \InvalidArgumentException(
-                'Index must be integer or N object.'
-            );
-        } else {
-            if($idx instanceof N) $idx = $idx->int;
+        self::mustBeInteger($idx, 'Index');
+        
+        if($idx instanceof N) $idx = $idx->int;
 
-            if($idx < 0 || $idx >= count($this)){
-                throw new \RuntimeException(
-                    sprintf('Index %d is not defined into this string!', $idx)
-                );
-            }
-        }
-
-
-        if (
-            !is_string($char) 
-            &&
-            !(is_object($char) && method_exists($char, '__toString'))
-        ) {
-            throw new \InvalidArgumentException(
-                'New character must be a primitive string or object having '
-                .'__toString() method'
+        if($idx < 0 || $idx >= count($this)){
+            throw new \RuntimeException(
+                sprintf('Index %d is not defined into this string!', $idx)
             );
         }
+
+
+        self::mustBeString($char, 'New character');
         
 
         if(mb_strlen($char, C::ENCODING) != 1){
