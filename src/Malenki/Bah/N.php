@@ -563,6 +563,25 @@ class N extends O
 
     public function round($precision = 0, $mode = PHP_ROUND_HALF_UP)
     {
+        self::mustBeInteger($precision, 'Precision');
+
+        if(
+            !in_array(
+                $mode, 
+                array(
+                    PHP_ROUND_HALF_UP,
+                    PHP_ROUND_HALF_DOWN,
+                    PHP_ROUND_HALF_EVEN,
+                    PHP_ROUND_HALF_ODD
+                )
+            )
+        ){
+            throw new \InvalidArgumentException(
+                'Mode must be one of this values: PHP_ROUND_HALF_UP,  '
+                .'PHP_ROUND_HALF_DOWN, PHP_ROUND_HALF_EVEN, PHP_ROUND_HALF_ODD'
+            );
+        }
+
         return new N(round($this->value, $precision, $mode));
     }
 
@@ -600,7 +619,9 @@ class N extends O
     protected function _odd()
     {
         if (!$this->_decimal()->_zero()) {
-            throw new \RuntimeException('Testing if number is odd only if it is an integer!');
+            throw new \RuntimeException(
+                'Testing if number is odd only if it is an integer!'
+            );
         }
 
         return (boolean) ($this->value & 1);
@@ -609,7 +630,9 @@ class N extends O
     protected function _even()
     {
         if (!$this->_decimal()->_zero()) {
-            throw new \RuntimeException('Testing if number is even only if it is an integer!');
+            throw new \RuntimeException(
+                'Testing if number is even only if it is an integer!'
+            );
         }
 
         return !$this->_odd();
@@ -617,48 +640,46 @@ class N extends O
 
     public function test($what)
     {
-        if (is_string($what) || $what instanceof S) {
-            $arr = array();
+        self::mustBeString($what, 'Test argument');
+        
+        $arr = array();
 
-            if(
-                preg_match(
-                    '/^(<|>|<=|>=|=|==|eq\s+|!=|<>|no\s+|neq\s+|le\s+|ge\s+|lt\s+|gt\s+)\s*([-]{0,1}[0-9]+)$/i',
-                    trim($what),
-                    $arr
-                )
+        if(
+            preg_match(
+                '/^(<|>|<=|>=|=|==|eq\s+|!=|<>|no\s+|neq\s+|le\s+|ge\s+|lt\s+|gt\s+)\s*([-]{0,1}[0-9]+)$/i',
+                trim($what),
+                $arr
             )
-            {
-                $operator = strtolower(trim($arr[1]));
-                $num = (int) $arr[2];
+        )
+        {
+            $operator = strtolower(trim($arr[1]));
+            $num = (int) $arr[2];
 
-                if (in_array($operator, array('<','lt'))) {
-                    return $this->lt($num);
-                }
+            if (in_array($operator, array('<','lt'))) {
+                return $this->lt($num);
+            }
 
-                if (in_array($operator, array('>','gt'))) {
-                    return $this->gt($num);
-                }
+            if (in_array($operator, array('>','gt'))) {
+                return $this->gt($num);
+            }
 
-                if (in_array($operator, array('<=','le'))) {
-                    return $this->le($num);
-                }
+            if (in_array($operator, array('<=','le'))) {
+                return $this->le($num);
+            }
 
-                if (in_array($operator, array('>=','ge'))) {
-                    return $this->ge($num);
-                }
+            if (in_array($operator, array('>=','ge'))) {
+                return $this->ge($num);
+            }
 
-                if (in_array($operator, array('=', '==', 'eq'))) {
-                    return $this->eq($num);
-                }
+            if (in_array($operator, array('=', '==', 'eq'))) {
+                return $this->eq($num);
+            }
 
-                if (in_array($operator, array('!=', '<>', 'no', 'neq'))) {
-                    return $this->neq($num);
-                }
-            } else {
-                throw new \RuntimeException('Not valid test expression.');
+            if (in_array($operator, array('!=', '<>', 'no', 'neq'))) {
+                return $this->neq($num);
             }
         } else {
-            throw new \InvalidArgumentException('Test argument must be a string or a S object.');
+            throw new \RuntimeException('Not valid test expression.');
         }
     }
 
@@ -672,15 +693,11 @@ class N extends O
      */
     public function plus($number)
     {
-        if (is_numeric($number) || $number instanceof N) {
-            if (is_numeric($number)) {
-                return new self($this->value + $number);
-            } else {
-                return new self($this->value + $number->value);
-            }
-        } else {
-            throw new \InvalidArgumentException('To addition a value, you must use number or \Malenki\Bah\N instance.');
-        }
+        self::mustBeNumeric($number, 'Value to add');
+        
+        $number = is_object($number) ? $number->value : $number;
+
+        return new self($this->value + $number);
     }
 
     /**
@@ -693,15 +710,11 @@ class N extends O
      */
     public function minus($number)
     {
-        if (is_numeric($number) || $number instanceof N) {
-            if (is_numeric($number)) {
-                return new self($this->value - $number);
-            } else {
-                return new self($this->value - $number->value);
-            }
-        } else {
-            throw new \InvalidArgumentException('To substract a value, you must use number or \Malenki\Bah\N instance.');
-        }
+        self::mustBeNumeric($number, 'Value to substract');
+        
+        $number = is_object($number) ? $number->value : $number;
+        
+        return new self($this->value - $number);
     }
 
     /**
@@ -714,15 +727,11 @@ class N extends O
      */
     public function multiply($number)
     {
-        if (is_numeric($number) || $number instanceof N) {
-            if (is_numeric($number)) {
-                return new self($this->value * $number);
-            } else {
-                return new self($this->value * $number->value);
-            }
-        } else {
-            throw new \InvalidArgumentException('To substract a value, you must use number or \Malenki\Bah\N instance.');
-        }
+        self::mustBeNumeric($number, 'Value to multiply');
+        
+        $number = is_object($number) ? $number->value : $number;
+        
+        return new self($this->value * $number);
     }
 
     /**
@@ -736,23 +745,25 @@ class N extends O
      */
     public function divide($number)
     {
-        if (is_numeric($number) || $number instanceof N) {
-            if (is_object($number)) {
-                $number = $number->value;
-            }
-
-            if ($number == 0) {
-                throw new \InvalidArgumentException('You cannot divide by zero!');
-            }
-
-            return new self($this->value / $number);
-        } else {
-            throw new \InvalidArgumentException('To addition a value, you must use number or \Malenki\Bah\N instance.');
+        self::mustBeNumeric($number, 'Value to divide');
+        
+        $number = is_object($number) ? $number->value : $number;
+        
+        if ($number == 0) {
+            throw new \InvalidArgumentException('You cannot divide by zero!');
         }
+
+        return new self($this->value / $number);
     }
 
     protected function _roman()
     {
+        if(!$this->_decimal()->zero || $this->value < 0){
+            throw new \InvalidArgumentException(
+                'Converting into roman numerals uses only positive integers.'
+            );
+        }
+
         $arr_numerals = array(
             (object) array(
                 'integer' => 1000,
@@ -838,6 +849,11 @@ class N extends O
      */
     public function greek($digamma = true)
     {
+        if(!$this->_decimal()->zero || $this->value < 0){
+            throw new \InvalidArgumentException(
+                'Converting into greek uses only positive integers.'
+            );
+        }
 
         if ($this->value > 9999) {
             throw new \InvalidArgumentException(
@@ -984,16 +1000,23 @@ class N extends O
     public function chinese($use_simple_zero = false)
     {
         // n myriads, so indexed using that.
-        $arr_myriads = array('兆', '吉', '太', '拍', '艾', '泽', '尧');
-        $arr_multiplicators = array('千', '百', '十');
-        $arr_units = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
+        $arr_myriads = array(
+            '兆', '吉', '太', '拍', '艾', '泽', '尧'
+        );
+        $arr_multiplicators = array(
+            '千', '百', '十'
+        );
+        $arr_units = array(
+            '零', '一', '二', '三', '四', '五', '六', '七', '八', '九'
+        );
 
         if($use_simple_zero){
             $arr_units[0] = '〇';
         }
 
         if($this->_decimal()->zero){
-            $arr_groups = str_split(strrev((string) abs($this->value)), 4); // split into reversed myriads
+            // split into reversed myriads
+            $arr_groups = str_split(strrev((string) abs($this->value)), 4); 
             $arr_groups = array_values(array_reverse($arr_groups));
 
             // reordering all
@@ -1008,7 +1031,6 @@ class N extends O
             // ok, we have our divisions, so, let's do it into chinese!
             foreach($arr_groups as $k => $v){
 
-
                 $out_prov = '';
                 $int_abslen = strlen(abs($v));
 
@@ -1021,7 +1043,10 @@ class N extends O
                         $arr_prov = $arr_multiplicators;
 
                         if($int_abslen != 4){
-                            $arr_prov = array_slice($arr_multiplicators, 4 - $int_abslen);
+                            $arr_prov = array_slice(
+                                $arr_multiplicators,
+                                4 - $int_abslen
+                            );
                         }
 
                         if(isset($arr_prov[$i])){
@@ -1031,14 +1056,26 @@ class N extends O
                 }
 
                 if(in_array((int) ltrim($v, 0), range(11, 19))){
-                    $out_prov = preg_replace('/一十/ui', '十', $out_prov);
+                    $out_prov = preg_replace(
+                        '/一十/ui', 
+                        '十', 
+                        $out_prov
+                    );
                 }
 
                 if(mb_strlen($out_prov, 'UTF-8') > 1){
-                    $out_prov = preg_replace('/'.$arr_units[0].'+$/ui', '', $out_prov);
+                    $out_prov = preg_replace(
+                        '/'.$arr_units[0].'+$/ui', 
+                        '',
+                        $out_prov
+                    );
                 }
 
-                $out .= preg_replace('/'.$arr_units[0].'+/ui', $arr_units[0], $out_prov);
+                $out .= preg_replace(
+                    '/'.$arr_units[0].'+/ui',
+                    $arr_units[0],
+                    $out_prov
+                );
 
 
 
@@ -1047,7 +1084,10 @@ class N extends O
                     if(isset($arr_myriads[$int_count])){
                         $out .= $arr_myriads[$int_count];
                     } else {
-                        throw new \RuntimeException('Myriads for this number does not exists, cannot create number!');
+                        throw new \RuntimeException(
+                            'Myriads for this number does not exists, cannot '
+                            .'create number!'
+                        );
                     }
 
                     $int_count--;
@@ -1058,7 +1098,8 @@ class N extends O
             $part_int = new N(floor(abs($this->value)));
             $part_decimal = substr((string) abs($this->_decimal()->float), 2);
 
-            $out = $part_int->chinese($use_simple_zero) . '点' . strtr($part_decimal, $arr_units);
+            $out = $part_int->chinese($use_simple_zero);
+            $out .= '点' . strtr($part_decimal, $arr_units);
         }
         
         if($this->value < 0){
@@ -1093,16 +1134,28 @@ class N extends O
 
     protected function _hex()
     {
+        if(!$this->_decimal()->zero) {
+            throw new \RuntimeException('Cannot get hexadecimal numbers from non integer.');
+        }
+
         return new S(dechex($this->value));
     }
 
     protected function _oct()
     {
+        if(!$this->_decimal()->zero) {
+            throw new \RuntimeException('Cannot get octal numbers from non integer.');
+        }
+
         return new S(decoct($this->value));
     }
 
     protected function _bin()
     {
+        if(!$this->_decimal()->zero) {
+            throw new \RuntimeException('Cannot get binary numbers from non integer.');
+        }
+
         return new S(decbin($this->value));
     }
 
@@ -1132,9 +1185,9 @@ class N extends O
             throw new \RuntimeException('Cannot get decimal numbers into another base.');
         }
 
-        if ($n instanceof N) {
-            $n = $n->int;
-        }
+        self::mustBeInteger($n, 'Base');
+
+        $n = is_object($n) ? $n->int : $n;
 
         if (!is_numeric($n) || $n < 2 || $n > 36) {
             throw new \InvalidArgumentException('Base must be a integer or N value from 2 to 36 inclusive.');
@@ -1147,15 +1200,21 @@ class N extends O
     public function times($callback)
     {
         if(!$this->_decimal()->zero) {
-            throw new \RuntimeException('Cannot iterate given callback when number is not integer.');
+            throw new \RuntimeException(
+                'Cannot iterate given callback when number is not integer.'
+            );
         }
 
         if($this->value == 0){
-            throw new \RuntimeException('Cannot iterate given callback on a void range.');
+            throw new \RuntimeException(
+                'Cannot iterate given callback on a void range.'
+            );
         }
 
         if(!is_callable($callback)){
-            throw new \InvalidArgumentException('Argument must be a callback!');
+            throw new \InvalidArgumentException(
+                'Argument must be a callback!'
+            );
         }
 
         if($this->value > 0){
