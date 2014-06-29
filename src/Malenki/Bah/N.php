@@ -142,6 +142,12 @@ class N extends O
 
     public function __construct($num = 0)
     {
+        self::mustBeNumeric($num);
+
+        if(is_object($num)){
+            $num = $num->value;
+        }
+
         $this->value = $num;
     }
 
@@ -190,17 +196,13 @@ class N extends O
      */
     public function less($num)
     {
-        if (is_numeric($num)) {
-            $n = $num;
-        } elseif ($num instanceof N) {
-            $n = $num->value;
-        } else {
-            throw new \InvalidArgumentException(
-                'Testing must be done with numeric value or N object!'
-            );
-        }
+        self::mustBeNumeric($num, 'Tested number');
 
-        return $this->value < $n;
+        if(is_object($num)){
+            return $this->value < $num->value;
+        } else {
+            return $this->value < $num;
+        }
     }
 
     /**
@@ -226,17 +228,13 @@ class N extends O
      */
     public function lte($num)
     {
-        if (is_numeric($num)) {
-            $n = $num;
-        } elseif ($num instanceof N) {
-            $n = $num->value;
-        } else {
-            throw new \InvalidArgumentException(
-                'Testing must be done with numeric value or N object!'
-            );
-        }
+        self::mustBeNumeric($num, 'Tested number');
 
-        return $this->value <= $n;
+        if(is_object($num)){
+            return $this->value <= $num->value;
+        } else {
+            return $this->value <= $num;
+        }
     }
 
     public function le($num)
@@ -254,17 +252,13 @@ class N extends O
      */
     public function greater($num)
     {
-        if (is_numeric($num)) {
-            $n = $num;
-        } elseif ($num instanceof N) {
-            $n = $num->value;
-        } else {
-            throw new \InvalidArgumentException(
-                'Testing must be done with numeric value or N object!'
-            );
-        }
+        self::mustBeNumeric($num, 'Tested number');
 
-        return $this->value > $n;
+        if(is_object($num)){
+            return $this->value > $num->value;
+        } else {
+            return $this->value > $num;
+        }
     }
 
     /**
@@ -290,17 +284,13 @@ class N extends O
      */
     public function gte($num)
     {
-        if (is_numeric($num)) {
-            $n = $num;
-        } elseif ($num instanceof N) {
-            $n = $num->value;
-        } else {
-            throw new \InvalidArgumentException(
-                'Testing must be done with numeric value or N object!'
-            );
-        }
+        self::mustBeNumeric($num, 'Tested number');
 
-        return $this->value >= $n;
+        if(is_object($num)){
+            return $this->value >= $num->value;
+        } else {
+            return $this->value >= $num;
+        }
     }
 
     public function ge($num)
@@ -349,9 +339,7 @@ class N extends O
 
     public function mod($mod)
     {
-        if (!is_numeric($mod) && !($mod instanceof N)) {
-            throw new \InvalidArgumentException('Divisor must be a valid number or N object!');
-        }
+        self::mustBeNumeric($mod, 'Divisor');
 
         if ($mod instanceof N) {
             $mod = $mod->double;
@@ -421,17 +409,14 @@ class N extends O
 
     public function pow($num)
     {
-        if (is_numeric($num)) {
-            $n = $num;
-        } elseif ($num instanceof N) {
-            $n = $num->value;
-        } else {
-            throw new \InvalidArgumentException(
-                'Power calculus must be done with numeric value or N object!'
-            );
-        }
+        self::mustBeNumeric($num, 'Power calculus');
 
-        return new N(pow($this->value, $n));
+        return new N(
+            pow(
+                $this->value, 
+                is_object($num) ? $num->value : $num
+            )
+        );
     }
 
     public function power($num)
@@ -451,21 +436,15 @@ class N extends O
 
     public function log($base = M_E)
     {
-        if (is_numeric($base)) {
-            $n = $base;
-        } elseif ($base instanceof N) {
-            $n = $base->value;
-        } else {
-            throw new \InvalidArgumentException(
-                'Log base must be numeric value or N object!'
-            );
-        }
+        self::mustBeNumeric($base, 'Log base');
+
+        $n = is_object($base) ? $base->value : $base;
 
         if ($n == 1 || $n <= 0) {
             throw new \InvalidArgumentException('Log base must be positive number different of one.');
         }
 
-        return new N(log($this->value, $n));
+        return new N(log( $this->value, $n));
     }
 
     protected function _ln()
@@ -475,15 +454,9 @@ class N extends O
 
     public function root($num)
     {
-        if (is_numeric($num)) {
-            $n = $num;
-        } elseif ($num instanceof N) {
-            $n = $num->value;
-        } else {
-            throw new \InvalidArgumentException(
-                'Root must be numeric value or N object!'
-            );
-        }
+        self::mustBeNumeric($num, 'Root');
+        
+        $n = is_object($num) ? $num->value : $num;
 
         if ($n == 0) {
             throw new \InvalidArgumentException('Root must be not nul');
@@ -553,17 +526,13 @@ class N extends O
      */
     public function equal($num)
     {
-        if (is_numeric($num)) {
-            $n = $num;
-        } elseif ($num instanceof N) {
-            $n = $num->value;
-        } else {
-            throw new \InvalidArgumentException(
-                'Testing equality must be done with numeric value or N object!'
-            );
-        }
+        self::mustBeNumeric($num, 'Test of equality');
 
-        return $this->value == $n;
+        if(is_object($num)){
+            return $this->value == $num->value;
+        } else {
+            return $this->value == $num;
+        }
     }
 
     public function notEqual($num)

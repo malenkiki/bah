@@ -185,7 +185,8 @@ class S extends O implements \Countable
 
     public function __construct($str = '')
     {
-        $this->value = $str;
+        self::mustBeStringOrScalar($str);
+        $this->value = (string) $str;
     }
 
     
