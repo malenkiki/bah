@@ -779,4 +779,117 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S('Ceci est une phrase assez longue à partir de laquelle un extrait va être pris avec un radius de 10.');
         $s->excerpt('est', 10.5);
     }
+
+
+
+
+    public function testDeletingPartsFromTheStringShouldSuccess()
+    {
+        $s = new S('This string will loose some parts…');
+        $this->assertEquals('This will loose some parts…', $s->delete(4, 7));
+    }
+    
+    public function testDeletingPartsFromTheStringUsingNoArgsShouldRemoveFirstCharWithSuccess()
+    {
+        $s = new S('This string will loose some parts…');
+        $this->assertEquals('his string will loose some parts…', $s->delete());
+    }
+    
+    public function testDeletingPartsFromTheStringUsingMagicGetterShouldRemoveFirstCharWithSuccess()
+    {
+        $s = new S('This string will loose some parts…');
+        $this->assertEquals('his string will loose some parts…', $s->delete);
+    }
+    
+    public function testDeletingPartsFromTheStringUsingTooBigLengthShouldSuccess()
+    {
+        $s = new S('This string will loose some parts…');
+        $this->assertEquals('This string will loose some', $s->delete(27, 10));
+    }
+
+
+    public function testDeletingPartsFromTheStringUsingAliasDelShouldSuccess()
+    {
+        $s = new S('This string will loose some parts…');
+        $this->assertEquals('This will loose some parts…', $s->del(4, 7));
+    }
+
+
+    public function testDeletingPartsFromTheStringUsingAliasRemoveShouldSuccess()
+    {
+        $s = new S('This string will loose some parts…');
+        $this->assertEquals('This will loose some parts…', $s->remove(4, 7));
+    }
+    
+    
+    public function testDeletingPartsFromTheStringUsingAliasRmShouldSuccess()
+    {
+        $s = new S('This string will loose some parts…');
+        $this->assertEquals('This will loose some parts…', $s->rm(4, 7));
+    }
+
+    public function testDeletingPartsUsingAliasShouldHaveSameBehaviourAsOriginal()
+    {
+        $s = new S('This string will loose some parts…');
+        $this->assertEquals($s->delete(4, 7), $s->del(4, 7));
+        $this->assertEquals($s->delete(), $s->del());
+        $this->assertEquals($s->delete(27, 10), $s->del(27, 10));
+        $this->assertEquals($s->delete(4, 7), $s->remove(4, 7));
+        $this->assertEquals($s->delete(), $s->remove());
+        $this->assertEquals($s->delete(27, 10), $s->remove(27, 10));
+        $this->assertEquals($s->delete(4, 7), $s->rm(4, 7));
+        $this->assertEquals($s->delete(), $s->rm());
+        $this->assertEquals($s->delete(27, 10), $s->rm(27, 10));
+    }
+
+    public function testDeletingPartsUsingMagicGetterShouldHaveSameBehaviourAsOriginal()
+    {
+        $s = new S('This string will loose some parts…');
+        $this->assertEquals($s->delete(), $s->delete);
+        $this->assertEquals($s->del(), $s->del);
+        $this->assertEquals($s->remove(), $s->remove);
+        $this->assertEquals($s->rm(), $s->rm);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDeletingSubStringUsingNonIntegerAsOffsetShouldFail()
+    {
+        $s = new S('This string will loose some parts…');
+        $s->delete(1.2, 4);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDeletingSubStringUsingNonIntegerAsLengthShouldFail()
+    {
+        $s = new S('This string will loose some parts…');
+        $s->delete(1, 4.3);
+    }
+    
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDeletingSubStringUsingNegativeOffsetShouldFail()
+    {
+        $s = new S('This string will loose some parts…');
+        $s->delete(-3, 4);
+    }
+
+    
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDeletingSubStringUsingLessThanOneLengthShouldFail()
+    {
+        $s = new S('This string will loose some parts…');
+        $s->delete(3, 0);
+    }
+
 }

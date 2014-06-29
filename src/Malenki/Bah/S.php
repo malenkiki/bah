@@ -114,14 +114,25 @@ class S extends O implements \Countable
             return $this->isVoid();
         }
 
-        if (in_array($name, array('strip', 'lstrip', 'rstrip'))) {
+        if (
+            in_array(
+                $name,
+                array(
+                    'strip',
+                    'lstrip',
+                    'rstrip',
+                    'sub',
+                    'chunk',
+                    'delete',
+                    'remove',
+                    'del', 
+                    'rm'
+                )
+            )
+        ) {
             return $this->$name();
         }
 
-
-        if ($name == 'chunk') {
-            return $this->chunk();
-        }
 
         if ($name == 'underscore' || $name == '_') {
             return $this->_underscore();
@@ -529,16 +540,72 @@ class S extends O implements \Countable
         if($limit instanceof N) $limit = $limit->int;
 
         if ($offset < 0) {
-            throw new \InvalidArgumentException('Offset must be a null or positive integer');
+            throw new \InvalidArgumentException(
+                'Offset must be a null or positive integer'
+            );
         }
 
         if ($limit < 1) {
-            throw new \InvalidArgumentException('Limit must be an intger equal to or greater than one.');
+            throw new \InvalidArgumentException(
+                'Limit must be an intger equal to or greater than one.'
+            );
         }
 
         return new S(mb_substr($this->value, $offset, $limit, C::ENCODING));
     }
 
+
+    public function delete($offset = 0, $limit = 1)
+    {
+        self::mustBeInteger($offset, 'Offset');
+        self::mustBeInteger($limit, 'Limit');
+
+        if($offset instanceof N) $offset = $offset->int;
+        if($limit instanceof N) $limit = $limit->int;
+
+        if ($offset < 0) {
+            throw new \InvalidArgumentException(
+                'Offset must be a null or positive integer'
+            );
+        }
+
+        if ($limit < 1) {
+            throw new \InvalidArgumentException(
+                'Limit must be an intger equal to or greater than one.'
+            );
+        }
+
+        $s = new S('');
+
+        $a = $this->chunk(1);
+
+        while($a->valid){
+            if($a->key->gte($offset) && $limit > 0){
+                $limit--;
+            } else {
+                $s = $s->append($a->current);
+            }
+
+            $a->next;
+        }
+
+        return $s;
+    }
+    
+    public function del($offset = 0, $limit = 1)
+    {
+        return $this->delete($offset, $limit);
+    }
+    
+    public function remove($offset = 0, $limit = 1)
+    {
+        return $this->delete($offset, $limit);
+    }
+
+    public function rm($offset = 0, $limit = 1)
+    {
+        return $this->delete($offset, $limit);
+    }
 
 
     protected function _first()
