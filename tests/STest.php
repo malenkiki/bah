@@ -893,11 +893,19 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testGettingPositionFromVoidStringShouldReturnVoidCollection()
+    {
+        $s = new S('');
+        $this->assertCount(0, $s->position('me'));
+    }
+
+
+
     public function testGettingPositionsOfOneOccurenceShouldSuccess()
     {
         $s = new S('Catch me if you can!');
         $this->assertInstanceOf('\Malenki\Bah\A', $s->position('me'));
-        $this->assertEquals(1, count($s->position('me')));
+        $this->assertCount(1, $s->position('me'));
         $this->assertEquals(6, $s->position('me')->first->int);
     }
     
@@ -905,9 +913,26 @@ class STest extends PHPUnit_Framework_TestCase
     {
         $s = new S('Catch me if you can!');
         $this->assertInstanceOf('\Malenki\Bah\A', $s->position('a'));
-        $this->assertEquals(2, count($s->position('a')));
+        $this->assertCount(2, $s->position('a'));
         $this->assertEquals(1, $s->position('a')->first->int);
         $this->assertEquals(17, $s->position('a')->last->int);
+    }
+
+
+    public function testGettingPositionUsingItsAliasShouldSuccess()
+    {
+        $s = new S('Catch me if you can!');
+        $this->assertInstanceOf('\Malenki\Bah\A', $s->pos('me'));
+    }
+
+    public function testGettingpositionUsingItsAliasShouldHaveSameResult()
+    {
+        $s = new S('Catch me if you can!');
+        $this->assertEquals(count($s->position('me')), count($s->pos('me')));
+        $this->assertEquals($s->position('me')->first, $s->pos('me')->first);
+        $this->assertEquals(count($s->position('a')), count($s->pos('a')));
+        $this->assertEquals($s->position('a')->first, $s->pos('a')->first);
+        $this->assertEquals($s->position('a')->last, $s->pos('a')->last);
     }
     
     

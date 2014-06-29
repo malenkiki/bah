@@ -586,6 +586,14 @@ class S extends O implements \Countable
         return $a;
     }
 
+
+    public function pos($needle)
+    {
+        return $this->position($needle);
+    }
+
+
+
     public function delete($offset = 0, $limit = 1)
     {
         self::mustBeInteger($offset, 'Offset');
