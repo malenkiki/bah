@@ -42,6 +42,15 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I am a string!', $s->string);
     }
 
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSInstanciatingUsingNotUTF8StringShouldFail()
+    {
+        $s = new S(chr(0xA4)); // € in ISO-8859-15
+    }
+
     public function testSCountShouldBeRight()
     {
         $s = new S('J’écris en français !');

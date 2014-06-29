@@ -197,6 +197,13 @@ class S extends O implements \Countable
     public function __construct($str = '')
     {
         self::mustBeStringOrScalar($str);
+        
+        if(!mb_check_encoding($str, C::ENCODING)){
+            throw new \InvalidArgumentException(
+                '`\Malenki\Bah\S` must be instanciated using valid UTF-8 string!'
+            );
+        }
+        
         $this->value = (string) $str;
     }
 
