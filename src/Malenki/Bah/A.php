@@ -165,6 +165,8 @@ class A extends O implements \Iterator, \Countable
      */
     public function take($idx)
     {
+        self::mustBeInteger($idx, 'Index');
+
         if ($idx instanceof N) {
             $idx = $idx->int;
         }
@@ -204,6 +206,8 @@ class A extends O implements \Iterator, \Countable
 
     public function exist($idx)
     {
+        self::mustBeInteger($idx);
+
         if ($idx instanceof N) {
             $idx = $idx->int;
         }
@@ -274,6 +278,8 @@ class A extends O implements \Iterator, \Countable
 
     public function delete($idx)
     {
+        self::mustBeInteger($idx);
+
         if ($idx instanceof N) {
             $idx = $idx->int;
         }
@@ -327,6 +333,8 @@ class A extends O implements \Iterator, \Countable
 
     public function replace($idx, $thing)
     {
+        self::mustBeInteger($idx, 'Index');
+
         if ($idx instanceof N) {
             $idx = $idx->int;
         }
@@ -342,6 +350,8 @@ class A extends O implements \Iterator, \Countable
 
     public function implode($sep = '')
     {
+        self::mustBeString($sep, 'Separator');
+
         $arr = $this->value;
 
         foreach ($this->value as $idx => $item) {
@@ -426,6 +436,8 @@ class A extends O implements \Iterator, \Countable
 
     public function pad($size, $value = null)
     {
+        self::mustBeInteger($size, 'Size');
+
         if ($size instanceof N) {
             $size = $size->int;
         }
@@ -435,9 +447,7 @@ class A extends O implements \Iterator, \Countable
 
     public function find($what)
     {
-        if (!is_string($what) && !($what instanceof S)) {
-            throw new \InvalidArgumentException('Find expression must be a valid string');
-        }
+        self::mustBeString($what, 'Find expression');
 
         $a = new self();
 
@@ -463,11 +473,13 @@ class A extends O implements \Iterator, \Countable
 
     public function map($func)
     {
+        //TODO check callable type
         return new self(array_map($func, $this->value));
     }
 
     public function walk($func, $other = null)
     {
+        //TODO check callable type
         $arr = $this->value;
 
         array_walk($arr, $func, $other);
@@ -477,11 +489,14 @@ class A extends O implements \Iterator, \Countable
 
     public function filter($func)
     {
+        //TODO check callable type
         return new self(array_filter($this->value, $func));
     }
 
     public function random($n = 1)
     {
+        self::mustBeInteger($n, 'Number of random items');
+
         if ($n instanceof N) {
             $n = $n->int;
         }
@@ -511,6 +526,7 @@ class A extends O implements \Iterator, \Countable
 
     public function diff($arr)
     {
+        //TODO check types
         if ($arr instanceof A) {
             $arr = $arr->array;
         }
@@ -524,6 +540,7 @@ class A extends O implements \Iterator, \Countable
 
     public function inter($arr)
     {
+        //TODO check types
         if ($arr instanceof A) {
             $arr = $arr->array;
         }
@@ -537,6 +554,7 @@ class A extends O implements \Iterator, \Countable
 
     public function merge($arr)
     {
+        //TODO check types
         if ($arr instanceof A) {
             $arr = $arr->array;
         }
@@ -550,6 +568,8 @@ class A extends O implements \Iterator, \Countable
 
     public function chunk($size)
     {
+        self::mustBeInteger($size, 'Size');
+
         if ($size instanceof N) {
             $size = $size->int;
         }
@@ -571,6 +591,12 @@ class A extends O implements \Iterator, \Countable
 
     public function slice($offset, $length = null)
     {
+        self::mustBeInteger($offset);
+        
+        if(!is_null($length)){
+            self::mustBeInteger($length);
+        }
+
         if ($offset instanceof N) {
             $offset = $offset->int;
         }
