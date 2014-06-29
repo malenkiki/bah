@@ -146,6 +146,16 @@ class H extends O implements \Iterator, \Countable
 
     public function set($key, $value)
     {
+        if(is_object($key) && method_exists($key, '__toString()')){
+            $key = "$key";
+        }
+
+        if(!is_string($key)){
+            throw new \InvalidArgumentException(
+                'Key’s name to use while setting new key/value pair must be string.'
+            );
+        }
+
         if(
             in_array(
                 $key,
@@ -230,6 +240,8 @@ class H extends O implements \Iterator, \Countable
 
     public function chunk($size)
     {
+        self::mustBeInteger($size, 'Size');
+
         if ($size instanceof N) {
             $size = $size->int;
         }
@@ -254,6 +266,7 @@ class H extends O implements \Iterator, \Countable
 
     public function map($func)
     {
+        // todo check callable type
         $arr = array_map($func, $this->_keys()->array, $this->value);
 
         $out = new self();
@@ -267,6 +280,7 @@ class H extends O implements \Iterator, \Countable
 
     public function walk($func, $other = null)
     {
+        // todo check callable type
         $arr = $this->value;
 
         array_walk($arr, $func, $other);
@@ -300,27 +314,31 @@ class H extends O implements \Iterator, \Countable
 
     public function find($pattern)
     {
-        if (is_string($pattern) || $pattern instanceof S) {
-            if (strlen($pattern) == 0) {
-                throw new \InvalidArgumentException('Pattern must be a not null string.');
-            }
+        self::mustBeString($pattern, 'Pattern');
 
-            $h = new self();
-
-            foreach ($this->value as $k => $v) {
-                if (preg_match($pattern, $k)) {
-                    $h->set($k, $v);
-                }
-            }
-
-            return $h;
-        } else {
-            throw new \InvalidArgumentException('Pattern must be a string or a S instance.');
+        if (strlen($pattern) == 0) {
+            throw new \InvalidArgumentException('Pattern must be a not null string.');
         }
+
+        $h = new self();
+
+        foreach ($this->value as $k => $v) {
+            if (preg_match($pattern, $k)) {
+                $h->set($k, $v);
+            }
+        }
+
+        return $h;
     }
 
     public function slice($offset, $length = null)
     {
+        self::mustBeInteger($offset, 'Offset');
+
+        if(!is_null($length)){
+            self::mustBeInteger($length, 'Length');
+        }
+
         if ($offset instanceof N) {
             $offset = $offset->int;
         }
