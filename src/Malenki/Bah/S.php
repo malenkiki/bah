@@ -554,6 +554,37 @@ class S extends O implements \Countable
         return new S(mb_substr($this->value, $offset, $limit, C::ENCODING));
     }
 
+    public function position($needle)
+    {
+        self::mustBeString($needle, 'Needle');
+
+        if(is_object($needle)){
+            $needle = "$needle";
+        }
+
+        if(empty($needle)){
+            throw new \InvalidArgumentException('Needle must be not empty!');
+        }
+
+        $length = mb_strlen($needle, C::ENCODING);
+        $offset = 0;
+
+        $a = new A();
+
+        while($offset < count($this)){
+            $pos = mb_strpos($this->value, $needle, $offset, C::ENCODING);
+
+            if($pos !== false){
+                $a->add(new N($pos));
+            } else {
+                break;
+            }
+
+            $offset = $pos + $length;
+        }
+
+        return $a;
+    }
 
     public function delete($offset = 0, $limit = 1)
     {

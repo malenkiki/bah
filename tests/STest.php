@@ -892,4 +892,42 @@ class STest extends PHPUnit_Framework_TestCase
         $s->delete(3, 0);
     }
 
+
+    public function testGettingPositionsOfOneOccurenceShouldSuccess()
+    {
+        $s = new S('Catch me if you can!');
+        $this->assertInstanceOf('\Malenki\Bah\A', $s->position('me'));
+        $this->assertEquals(1, count($s->position('me')));
+        $this->assertEquals(6, $s->position('me')->first->int);
+    }
+    
+    public function testGettingPositionsOfSeveralOccurencesShouldSuccess()
+    {
+        $s = new S('Catch me if you can!');
+        $this->assertInstanceOf('\Malenki\Bah\A', $s->position('a'));
+        $this->assertEquals(2, count($s->position('a')));
+        $this->assertEquals(1, $s->position('a')->first->int);
+        $this->assertEquals(17, $s->position('a')->last->int);
+    }
+    
+    
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingPositionsUsingBadArgumentTypeShouldFail()
+    {
+        $s = new S('Catch me if you can!');
+        $s->position(null);
+    }
+    
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingPositionsUsingVoidNeedleShouldFail()
+    {
+        $s = new S('Catch me if you can!');
+        $s->position('');
+    }
 }
