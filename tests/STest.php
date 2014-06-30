@@ -29,17 +29,12 @@ use Malenki\Bah\A;
 
 class STest extends PHPUnit_Framework_TestCase
 {
-    public function testBasis()
+    public function testUsingToStringFeatureShouldSuccess()
     {
-        $s = new S('Je suis une chaîne !');
-        $this->assertEquals((string) $s, 'Je suis une chaîne !');
-        $this->assertEquals((string) $s->title, 'Je Suis Une Chaîne !');
-
-        $s = new S('!');
-        $this->assertEquals((string) $s->times(3), '!!!');
-
         $s = new S('I am a string!');
         $this->assertEquals('I am a string!', $s->string);
+        $this->assertEquals('I am a string!', $s);
+        $this->assertEquals('I am a string!', "$s");
     }
 
 
@@ -51,45 +46,71 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S(chr(0xA4)); // € in ISO-8859-15
     }
 
-    public function testSCountShouldBeRight()
+    public function testGettingCountFromInterfaceShouldSuccess()
     {
         $s = new S('J’écris en français !');
         $this->assertEquals(21, count($s));
-        $this->assertEquals(21, $s->length->int);
         $s = new S('J\'ecris en francais !');
         $this->assertEquals(21, count($s));
+    }
+
+    public function testGettingCountUsingObjectShouldSuccess()
+    {
+        $s = new S('J’écris en français !');
+        $this->assertEquals(21, $s->length->int);
+        $s = new S('J\'ecris en francais !');
         $this->assertEquals(21, $s->length->int);
     }
 
-    public function testUppercaseMustBeOk()
+    public function testGettingCountFromInterfaceOrObjectShouldHasEqualResults()
     {
-        $s = new S('Je suis une chaîne !');
-        $this->assertEquals('JE SUIS UNE CHAÎNE !', (string) $s->upper);
-        $s = new S('JE SUIS UNE CHAÎNE !');
-        $this->assertEquals('JE SUIS UNE CHAÎNE !', (string) $s->upper);
+        $s = new S('J’écris en français !');
+        $this->assertEquals(count($s), $s->length->int);
+        $s = new S('J\'ecris en francais !');
+        $this->assertEquals(count($s), $s->length->int);
     }
 
-    public function testLowercaseMustBeOk()
+    public function testGettingUppercaseShouldSuccess()
     {
         $s = new S('Je suis une chaîne !');
-        $this->assertEquals('je suis une chaîne !', (string) $s->lower);
+        $this->assertEquals('JE SUIS UNE CHAÎNE !', $s->upper);
         $s = new S('JE SUIS UNE CHAÎNE !');
-        $this->assertEquals('je suis une chaîne !', (string) $s->lower);
+        $this->assertEquals('JE SUIS UNE CHAÎNE !', $s->upper);
+    }
+
+    public function testGettingLowercaseShouldSuccess()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('je suis une chaîne !', $s->lower);
+        $s = new S('JE SUIS UNE CHAÎNE !');
+        $this->assertEquals('je suis une chaîne !', $s->lower);
         $s = new S('je suis une chaîne !');
-        $this->assertEquals('je suis une chaîne !', (string) $s->lower);
+        $this->assertEquals('je suis une chaîne !', $s->lower);
     }
 
-    public function testCheckingStringShouldBeVoidOrNot()
+    public function testGettingTitleShouldSuccess()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('Je Suis Une Chaîne !', $s->title);
+        $s = new S('JE SUIS UNE CHAÎNE !');
+        $this->assertEquals('Je Suis Une Chaîne !', $s->title);
+        $s = new S('je suis une chaîne !');
+        $this->assertEquals('Je Suis Une Chaîne !', $s->title);
+    }
+
+    public function testCheckingStringShouldBeVoidOrNotShouldSuccess()
     {
         $s = new S('');
-        $this->assertTrue($s->isVoid());
         $this->assertTrue($s->void);
+        $this->assertTrue($s->is_void);
         $this->assertTrue($s->empty);
+        $this->assertTrue($s->is_empty);
 
         $s = new S('something');
-        $this->assertFalse($s->isVoid());
         $this->assertFalse($s->void);
         $this->assertFalse($s->empty);
+        $this->assertFalse($s->is_void);
+        $this->assertFalse($s->is_empty);
     }
 
     public function testStringMatchingShouldBeTrue()
@@ -122,22 +143,37 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->re(new S('/ern/')));
     }
 
-    public function testChars()
+    public function testGettingCharsCollectionShouldBeAObjectSuccess()
     {
         $s = new S('Je suis une chaîne !');
-        $this->assertEquals(new N(20), $s->chars->length);
+        $this->assertInstanceOf('\Malenki\Bah\A', $s->chars);
+    }
+
+
+    public function testGettingCharsCountShouldBeNObject()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertInstanceOf('\Malenki\Bah\N', $s->chars->length);
+    }
+
+    public function testWhetherCharsCountIsSameAsStringLength()
+    {
+        $s = new S('Je suis une chaîne !');
         $this->assertEquals($s->length, $s->chars->length);
-        $this->assertEquals("20", $s->chars->length->s);
-        $this->assertEquals(20, $s->chars->length->int);
+        $this->assertEquals(count($s), $s->chars->length->int);
+        $this->assertEquals(count($s), count($s->chars));
+    }
+
+
+    public function testGettingSomeCharsAtSomeIndexMustBeSameAsStringIndex()
+    {
+        $s = new S('Je suis une chaîne !');
         $this->assertEquals(new C('J'), $s->chars->first);
         $this->assertEquals(new C('!'), $s->chars->last);
         $this->assertEquals(new C(' '), $s->chars->last_but_one);
         $this->assertEquals(new C('s'), $s->charAt(3));
-        $this->assertEquals(new C('s'), $s->charAt(new N(3)));
         $this->assertEquals(new C('s'), $s->take(3));
-        $this->assertEquals(new C('s'), $s->take(new N(3)));
         $this->assertEquals(new C('s'), $s->at(3));
-        $this->assertEquals(new C('s'), $s->at(new N(3)));
     }
 
     public function testSubstringShouldSuccess()
@@ -184,7 +220,7 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Je suis', $s->sub(new N(0), new N(-7)));
     }
 
-    public function testLeftMarginShouldBeOk()
+    public function testGettingOneLineLeftMarginShouldSuccess()
     {
         //TODO: test multiline and alinea
         $s = new S('something');
@@ -243,7 +279,26 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->test("no digit"));
     }
 
-    public function testGettingChunksShouldSuccess()
+    public function testUsingMethodToGetChunksAsAObjectShouldSuccess()
+    {
+        $s = new S('abcde');
+        $this->assertInstanceOf('\Malenki\Bah\A', $s->chunk());
+    }
+
+
+    public function testUsingMagicGetterToGetChunksAsAObjectShouldSuccess()
+    {
+        $s = new S('abcde');
+        $this->assertInstanceOf('\Malenki\Bah\A', $s->chunk);
+    }
+
+    public function testGettingChunkWithoutArgShouldBeEqualdToUseMagicGetter()
+    {
+        $s = new S('abcde');
+        $this->assertEquals($s->chunk(), $s->chunk);
+    }
+
+    public function testGettingChunksWithoutArgShouldReturnCollectionOfOneLetterStrings()
     {
         $s = new S('abcde');
         $must = new A();
@@ -253,8 +308,22 @@ class STest extends PHPUnit_Framework_TestCase
         $must->add(new S('d'));
         $must->add(new S('e'));
         $this->assertEquals($must, $s->chunk());
-        $this->assertEquals($must, $s->chunk);
+    }
 
+    public function testGettingChunksUsingMagicGetterShouldReturnCollectionOfOneLetterStrings()
+    {
+        $s = new S('abcde');
+        $must = new A();
+        $must->add(new S('a'));
+        $must->add(new S('b'));
+        $must->add(new S('c'));
+        $must->add(new S('d'));
+        $must->add(new S('e'));
+        $this->assertEquals($must, $s->chunk);
+    }
+
+    public function testGettingChunksShouldSuccess()
+    {
         $s = new S('C’est une chaîne qu’on va découper !');
         $must = new A();
         $must->add(new S('C’est u'));
@@ -264,16 +333,56 @@ class STest extends PHPUnit_Framework_TestCase
         $must->add(new S('couper '));
         $must->add(new S('!'));
         $this->assertEquals($must, $s->chunk(7));
+    }
+
+
+    public function testGettingChunksUsingArgAsObjectShouldSuccess()
+    {
+        $s = new S('C’est une chaîne qu’on va découper !');
+        $must = new A();
+        $must->add(new S('C’est u'));
+        $must->add(new S('ne chaî'));
+        $must->add(new S('ne qu’o'));
+        $must->add(new S('n va dé'));
+        $must->add(new S('couper '));
+        $must->add(new S('!'));
         $this->assertEquals($must, $s->chunk(new N(7)));
     }
+
+    public function testGettingChunksUsingIntOrObjectArgShouldGiveSameResult()
+    {
+        $s = new S('C’est une chaîne qu’on va découper !');
+        $this->assertEquals($s->chunk(7), $s->chunk(new N(7)));
+    }
+
     
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testGettingChunksHavingBadSizeShouldFail()
+    public function testGettingChunksHavingBadSizeAsIntegerShouldFail()
     {
         $s = new S('abcde');
         $s->chunk(0);
+    }
+
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingChunksHavingBadSizeAsObjectShouldFail()
+    {
+        $s = new S('abcde');
+        $s->chunk(new N(0));
+    }
+
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingChunksHavingBadSizeTypeShouldFail()
+    {
+        $s = new S('abcde');
+        $s->chunk("zero");
     }
 
     public function testGettingReplacementStringUsingStringShouldSuccess()

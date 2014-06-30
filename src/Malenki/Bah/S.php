@@ -110,8 +110,8 @@ class S extends O implements \Countable
             return $this->$name();
         }
 
-        if (in_array($name, array('void', 'empty'))) {
-            return $this->isVoid();
+        if (in_array($name, array('is_void', 'void', 'is_empty', 'empty'))) {
+            return $this->_isVoid();
         }
 
         if (
@@ -795,7 +795,7 @@ class S extends O implements \Countable
 
     protected function _upperCaseFirst()
     {
-        if (!$this->isVoid()) {
+        if (!$this->_isVoid()) {
             $first_char = $this->_first()->_upper();
             $other_chars = $this->sub(1, $this->length->value);
 
@@ -864,9 +864,9 @@ class S extends O implements \Countable
         return $this->_length()->int;
     }
 
-    public function isVoid()
+    protected function _isVoid()
     {
-        return $this->_length()->zero;
+        return mb_strlen($this->value, C::ENCODING) == 0;
     }
 
     /**
