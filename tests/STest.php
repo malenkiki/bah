@@ -70,6 +70,19 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals(count($s), $s->length->int);
     }
 
+    public function testGettingUppercaseValueShouldBeSObject()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->upper);
+    }
+
+
+    public function testGettingLowercaseValueShouldBeSObject()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->lower);
+    }
+
     public function testGettingUppercaseShouldSuccess()
     {
         $s = new S('Je suis une chaîne !');
@@ -86,6 +99,13 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('je suis une chaîne !', $s->lower);
         $s = new S('je suis une chaîne !');
         $this->assertEquals('je suis une chaîne !', $s->lower);
+    }
+
+
+    public function testGettingTitleValueShouldBeSObject()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->title);
     }
 
     public function testGettingTitleShouldSuccess()
@@ -113,7 +133,7 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->is_empty);
     }
 
-    public function testStringMatchingShouldBeTrue()
+    public function testStringMatchingUsingStringShouldBeTrue()
     {
         $s = new S('az/erty');
         $this->assertTrue($s->startsWith('az/'));
@@ -121,6 +141,11 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertTrue($s->match('/ert/'));
         $this->assertTrue($s->regexp('/ert/'));
         $this->assertTrue($s->re('/ert/'));
+    }
+
+    public function testStringMatchingUsingSObjectShouldBeTrue()
+    {
+        $s = new S('az/erty');
         $this->assertTrue($s->startsWith(new S('az/')));
         $this->assertTrue($s->endsWith(new S('ty')));
         $this->assertTrue($s->match(new S('/ert/')));
@@ -128,7 +153,7 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertTrue($s->re(new S('/ert/')));
     }
 
-    public function testStringMatchingShouldBeFalse()
+    public function testStringMatchingUsingStringShouldBeFalse()
     {
         $s = new S('az/erty');
         $this->assertFalse($s->startsWith('z/'));
@@ -136,6 +161,11 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->match('/ern/'));
         $this->assertFalse($s->regexp('/ern/'));
         $this->assertFalse($s->re('/ern/'));
+    }
+
+    public function testStringMatchingUsingSObjectShouldBeFalse()
+    {
+        $s = new S('az/erty');
         $this->assertFalse($s->startsWith(new S('z/')));
         $this->assertFalse($s->endsWith(new S('t')));
         $this->assertFalse($s->match(new S('/ern/')));
@@ -143,7 +173,7 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->re(new S('/ern/')));
     }
 
-    public function testGettingCharsCollectionShouldBeAObjectSuccess()
+    public function testGettingCharsCollectionShouldReturnAObject()
     {
         $s = new S('Je suis une chaîne !');
         $this->assertInstanceOf('\Malenki\Bah\A', $s->chars);
@@ -168,12 +198,10 @@ class STest extends PHPUnit_Framework_TestCase
     public function testGettingSomeCharsAtSomeIndexMustBeSameAsStringIndex()
     {
         $s = new S('Je suis une chaîne !');
-        $this->assertEquals(new C('J'), $s->chars->first);
-        $this->assertEquals(new C('!'), $s->chars->last);
-        $this->assertEquals(new C(' '), $s->chars->last_but_one);
-        $this->assertEquals(new C('s'), $s->charAt(3));
-        $this->assertEquals(new C('s'), $s->take(3));
-        $this->assertEquals(new C('s'), $s->at(3));
+        $this->assertEquals($s->charAt(0), $s->chars->first);
+        $this->assertEquals($s->charAt(19), $s->chars->last);
+        $this->assertEquals($s->charAt(18), $s->chars->last_but_one);
+        $this->assertEquals($s->charAt(3), $s->chars->take(3));
     }
 
     public function testSubstringShouldSuccess()
