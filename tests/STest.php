@@ -638,30 +638,129 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('abcdefghi', $s->insert(new S('def'), new N(3)));
     }
 
+
+
+
+
+    public function testConvertStringToUnderscoreNotationShouldReturnSObject()
+    {
+        $s = new S('I will be translated to UnderScore notation!');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->underscore);
+    }
+
+    public function testConvertStringToUnderscoreNotationiUsingAliasShouldReturnSObject()
+    {
+        $s = new S('I will be translated to UnderScore notation!');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->_);
+    }
+
     public function testConvertStringToUnderscoreNotationShouldSuccess()
     {
         $s = new S('I will be translated to UnderScore notation!');
         $this->assertEquals('i_will_be_translated_to_underscore_notation', $s->underscore);
+    }
+
+    public function testConvertStringToUnderscoreNotationUsingAliasShouldSuccess()
+    {
+        $s = new S('I will be translated to UnderScore notation!');
         $this->assertEquals('i_will_be_translated_to_underscore_notation', $s->_);
+    }
+
+
+    public function testIfConvertingStringToUnderscoreNotationUsingAliasOrNotShouldHaveSameResult()
+    {
+        $s = new S('I will be translated to UnderScore notation!');
+        $this->assertEquals($s->underscore, $s->_);
+    }
+
+
+
+
+    public function testConvertintStringToLowerCamelCaseShouldReturnSObject()
+    {
+        $s = new S('Je vais être en « lowerCamelCase »');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->camelCase());
+    }
+
+    public function testConvertingStringToLowerCamelCaseUsingAliasShouldReturnSObject()
+    {
+        $s = new S('Je vais être en « lowerCamelCase »');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->lowerCamelCase());
+    }
+
+    public function testConvertStringToLowerCamelCaseiUsingAliasOrNotShouldReturnSameResult()
+    {
+        $s = new S('Je vais être en « lowerCamelCase »');
+        $this->assertEquals($s->lowerCamelCase(), $s->camelCase());
+    }
+    
+    public function testConvertStringToLowerCamelCaseiUsingMagicGettersShouldHaveSameResultAsMethodWay()
+    {
+        $s = new S('Je vais être en « lowerCamelCase »');
+        $this->assertEquals($s->lowerCamelCase(), $s->lower_camel_case);
+        $this->assertEquals($s->lowerCamelCase(), $s->lcc);
     }
 
     public function testConvertStringTolowerCamelCaseShouldSuccess()
     {
         $s = new S('Je vais être en « lowerCamelCase »');
-        $this->assertEquals('jeVaisÊtreEnLowerCamelCase', $s->camelCase());
-        $this->assertEquals('jeVaisÊtreEnLowerCamelCase', $s->lowerCamelCase());
-        $this->assertEquals('jeVaisÊtreEnLowerCamelCase', $s->lower_camel_case);
         $this->assertEquals('jeVaisÊtreEnLowerCamelCase', $s->lcc);
+    }
+
+
+
+
+    public function testConvertintStringToUpperCamelCaseShouldReturnSObject()
+    {
+        $s = new S('Je vais être en « UpperCamelCase »');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->camelCase(true));
+    }
+
+    public function testConvertingStringToUpperCamelCaseUsingAliasShouldReturnSObject()
+    {
+        $s = new S('Je vais être en « UpperCamelCase »');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->upperCamelCase());
+    }
+
+    public function testConvertStringToUpperCamelCaseiUsingAliasOrNotShouldReturnSameResult()
+    {
+        $s = new S('Je vais être en « UpperCamelCase »');
+        $this->assertEquals($s->upperCamelCase(), $s->camelCase(true));
+    }
+    
+    public function testConvertStringToUpperCamelCaseiUsingMagicGettersShouldHaveSameResultAsMethodWay()
+    {
+        $s = new S('Je vais être en « UpperCamelCase »');
+        $this->assertEquals($s->upperCamelCase(), $s->upper_camel_case);
+        $this->assertEquals($s->upperCamelCase(), $s->ucc);
     }
 
     public function testConvertStringToUpperCamelCaseShouldSuccess()
     {
         $s = new S('Je vais être en « UpperCamelCase »');
-        $this->assertEquals('JeVaisÊtreEnUpperCamelCase', $s->camelCase(true));
-        $this->assertEquals('JeVaisÊtreEnUpperCamelCase', $s->upperCamelCase());
-        $this->assertEquals('JeVaisÊtreEnUpperCamelCase', $s->upper_camel_case);
         $this->assertEquals('JeVaisÊtreEnUpperCamelCase', $s->ucc);
     }
+
+
+
+
+
+    public function testSwapingCaseShouldReturnSObject()
+    {
+        $s = new S('Je SuiS aVec dEs maJuScUleS eT Des MinUScUles !');
+
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->swap_case);
+    }
+
+    public function testSwapingCaseShouldSuccess()
+    {
+        $s = new S('Je SuiS aVec dEs maJuScUleS eT Des MinUScUles !');
+        $should = new S('jE sUIs AvEC DeS MAjUsCuLEs Et dES mINusCuLES !');
+
+        $this->assertEquals($should, $s->swap_case);
+    }
+
+
 
     public function testCenteringStringShouldSuccess()
     {
@@ -680,15 +779,6 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($should, $s->center);
         
     }
-
-    public function testSwapingCaseShouldSuccess()
-    {
-        $s = new S('Je SuiS aVec dEs maJuScUleS eT Des MinUScUles !');
-        $should = new S('jE sUIs AvEC DeS MAjUsCuLEs Et dES mINusCuLES !');
-
-        $this->assertEquals($should, $s->swap_case);
-    }
-
 
     public function testLeftJustifyingStringShouldSuccess()
     {
@@ -788,6 +878,7 @@ class STest extends PHPUnit_Framework_TestCase
 
 
 
+
     public function testGettingMd5SumShouldReturnSObject()
     {
         $s = new S('I am not a number! I am free man!');
@@ -799,7 +890,6 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S('I am not a number! I am free man!');
         $this->assertCount(32, $s->md5);
     }
-
 
     public function testGettingMd5SumShouldHaveOnlyHexadecimalCharacters()
     {
