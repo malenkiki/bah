@@ -801,15 +801,46 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertRegExp('/^[a-f0-9]{40}$/', $s->sha1->string);
     }
 
-    public function testSettingCharacterShouldSuccess()
+
+
+
+
+    public function testSettingCharacterUsingPrimitiveTypesShouldSuccess()
     {
         $s = new S('abcdef');
         $this->assertEquals('abCdef', $s->set(2, 'C'));
+    }
+    
+    public function testSettingCharacterUsingIndexAsNObjectShouldSuccess()
+    {
+        $s = new S('abcdef');
         $this->assertEquals('abCdef', $s->set(new N(2), 'C'));
-        $this->assertEquals('abCdef', $s->set(new N(2), new S('C')));
-        $this->assertEquals('abCdef', $s->set(new N(2), new C('C')));
     }
 
+    public function testSettingCharacterUsingIndexAsNObjectAndCharacterAsSObjectShouldSuccess()
+    {
+        $s = new S('abcdef');
+        $this->assertEquals('abCdef', $s->set(new N(2), new S('C')));
+    }
+
+
+    public function testSettingCharacterUsingIndexAsNObjectAndCharacterAsObjectHavingToStringShouldSuccess()
+    {
+        $s = new S('abcdef');
+        $this->assertEquals('ab9def', $s->set(new N(2), new N(9)));
+    }
+
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSettingCharacterUsingVoidCahracterShouldFail()
+    {
+        $s = new S('abcdef');
+        $s->set(array(2), '');
+    }
+    
 
     /**
      * @expectedException \InvalidArgumentException
