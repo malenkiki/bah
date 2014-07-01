@@ -785,21 +785,58 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testGettingMd5SumShouldSuccess()
+
+
+
+    public function testGettingMd5SumShouldReturnSObject()
     {
         $s = new S('I am not a number! I am free man!');
         $this->assertInstanceOf('\Malenki\Bah\S', $s->md5);
+    }
+
+    public function testGettingMd5SumShouldReturnSObjectHavingSizeOf32Characters()
+    {
+        $s = new S('I am not a number! I am free man!');
         $this->assertCount(32, $s->md5);
+    }
+
+
+    public function testGettingMd5SumShouldHaveOnlyHexadecimalCharacters()
+    {
+        $s = new S('I am not a number! I am free man!');
         $this->assertRegExp('/^[a-f0-9]{32}$/', $s->md5->string);
     }
 
-    public function testGettingSha1SumShouldSuccess()
+    public function testGettingMd5SumShouldHaveSameResultAsNativePHPFunction()
+    {
+        $s = new S('I am not a number! I am free man!');
+        $this->assertEquals(md5('I am not a number! I am free man!'), $s->md5->string);
+    }
+
+    public function testGettingSha1SumShouldReturnSObject()
     {
         $s = new S('I am not a number! I am free man!');
         $this->assertInstanceOf('\Malenki\Bah\S', $s->sha1);
+    }
+
+    public function testGettingSha1SumShouldReturnSObjectHaving40Characters()
+    {
+        $s = new S('I am not a number! I am free man!');
         $this->assertCount(40, $s->sha1);
+    }
+
+    public function testGettingSha1SumShouldHaveOnlyHexadecimalCharacters()
+    {
+        $s = new S('I am not a number! I am free man!');
         $this->assertRegExp('/^[a-f0-9]{40}$/', $s->sha1->string);
     }
+
+    public function testGettingSha1SumShouldHaveSameResultAsNativePHPFunction()
+    {
+        $s = new S('I am not a number! I am free man!');
+        $this->assertEquals(sha1('I am not a number! I am free man!'), $s->sha1->string);
+    }
+
 
 
 
@@ -809,6 +846,12 @@ class STest extends PHPUnit_Framework_TestCase
     {
         $s = new S('abcdef');
         $this->assertEquals('abCdef', $s->set(2, 'C'));
+    }
+    
+    public function testSettingCharacterShouldReturnSObject()
+    {
+        $s = new S('abcdef');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->set(2, 'C'));
     }
     
     public function testSettingCharacterUsingIndexAsNObjectShouldSuccess()
@@ -829,8 +872,6 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S('abcdef');
         $this->assertEquals('ab9def', $s->set(new N(2), new N(9)));
     }
-
-
 
     /**
      * @expectedException \InvalidArgumentException
