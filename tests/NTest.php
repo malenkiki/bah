@@ -29,6 +29,30 @@ use \Malenki\Bah\C;
 
 class NTest extends PHPUnit_Framework_TestCase
 {
+    public function testDivisioniUsingPrimitivePHPTypeShouldReturnNObject()
+    {
+        $six = new N(6);
+
+        $this->assertInstanceOf('\Malenki\Bah\N', $six->divide(2));
+    }
+
+    public function testDivisioniUsingOnlyObjectsShouldReturnNObject()
+    {
+        $six = new N(6);
+        $two = new N(2);
+
+        $this->assertInstanceOf('\Malenki\Bah\N', $six->divide($two));
+    }
+
+    public function testDivisionUsingObjectOrPRimitiveTypeShouldReturnSameResult()
+    {
+        $six = new N(6);
+        $two = new N(2);
+
+        $this->assertEquals($six->divide($two), $six->divide(2));
+        $this->assertEquals(new N(3), $six->divide(2));
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -46,6 +70,26 @@ class NTest extends PHPUnit_Framework_TestCase
     {
         $five = new N(5);
         $result = $five->divide(0);
+    }
+
+    public function testAddNumberUsingObjectShouldReturnNObject()
+    {
+        $two = new N(2);
+        $this->assertInstanceOf('\Malenki\Bah\N', $two->plus(new N(5)));
+    }
+
+
+    public function testAddNumberUsingPrimitiveTypeShouldReturnNObject()
+    {
+        $two = new N(2);
+        $this->assertInstanceOf('\Malenki\Bah\N', $two->plus(5));
+    }
+
+    public function testIfAddingNumberUsingObjectOrPrimitiveTypeReturnsSameResult()
+    {
+        $two = new N(2);
+        $this->assertEquals($two->plus(new N(5)), $two->plus(5));
+        $this->assertEquals(new N(7), $two->plus(5));
     }
 
     public function testAddNumberShouldSuccess()
