@@ -194,6 +194,14 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals(count($s), count($s->chars));
     }
 
+    public function testWhetheriExtractedCharsFromStringAreCObjects()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertInstanceOf('\Malenki\Bah\C', $s->chars->first);
+        $this->assertInstanceOf('\Malenki\Bah\C', $s->chars->last);
+        $this->assertInstanceOf('\Malenki\Bah\C', $s->chars->last_but_one);
+        $this->assertInstanceOf('\Malenki\Bah\C', $s->chars->take(3));
+    }
 
     public function testGettingSomeCharsAtSomeIndexMustBeSameAsStringIndex()
     {
@@ -204,11 +212,22 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->charAt(3), $s->chars->take(3));
     }
 
-    public function testSubstringShouldSuccess()
+    public function testiGettingSubstringShouldReturnSObject()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->sub(0, 7));
+    }
+
+    public function testiGettingSubstringUsingIntegerAsParamsShouldSuccess()
     {
         $s = new S('Je suis une chaîne !');
         $this->assertEquals('Je suis', $s->sub(0, 7));
         $this->assertEquals('suis', $s->sub(3, 4));
+    }
+
+    public function testiGettingSubstringUsingNObjectsAsParamsShouldSuccess()
+    {
+        $s = new S('Je suis une chaîne !');
         $this->assertEquals('Je suis', $s->sub(new N(0), new N(7)));
         $this->assertEquals('suis', $s->sub(new N(3), new N(4)));
     }
@@ -248,16 +267,71 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Je suis', $s->sub(new N(0), new N(-7)));
     }
 
-    public function testGettingOneLineLeftMarginShouldSuccess()
+    public function testGettingMarginShouldReturnSObject()
+    {
+        //TODO: test multiline and alinea
+        $s = new S('something');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->margin(5));
+    }
+
+    public function testGettingLeftMarginUsingIntegerArgsShouldSuccess()
     {
         //TODO: test multiline and alinea
         $s = new S('something');
         $this->assertEquals('     something', $s->margin(5));
+    }
+
+    public function testGettingLeftMarginUsingNObjectsAsArgsShouldSuccess()
+    {
+        //TODO: test multiline and alinea
+        $s = new S('something');
         $this->assertEquals('     something', $s->margin(new N(5)));
+    }
+
+    public function testGettingRightMarginUsingIntegerArgsShouldSuccess()
+    {
+        //TODO: test multiline and alinea
+        $s = new S('something');
         $this->assertEquals('something     ', $s->margin(0, 5));
+    }
+
+    public function testGettingRightMarginUsingNObjectAsArgsShouldSuccess()
+    {
+        //TODO: test multiline and alinea
+        $s = new S('something');
         $this->assertEquals('something     ', $s->margin(new N(0), new N(5)));
+    }
+
+    public function testGettingLeftAndRightMarginsUsingIntegerArgsShouldSuccess()
+    {
+        //TODO: test multiline and alinea
+        $s = new S('something');
         $this->assertEquals('     something     ', $s->margin(5, 5));
+        $this->assertEquals('     something          ', $s->margin(5, 10));
+    }
+
+    public function testGettingLeftAndRightMarginsUsingNOjectsAsArgsShouldSuccess()
+    {
+        //TODO: test multiline and alinea
+        $s = new S('something');
         $this->assertEquals('     something     ', $s->margin(new N(5), new N(5)));
+        $this->assertEquals('     something          ', $s->margin(new N(5), new N(10)));
+    }
+
+    public function testWhetherSplitingStringReturnsAObject()
+    {
+        $s = new S('one, two, three, four');
+        $this->assertInstanceOf('\Malenki\Bah\A', $s->split('/[\s,]+/'));
+    }
+
+    public function testWhetherSplittingStringReturnsCollectionOfSObjects()
+    {
+        $s = new S('one, two, three, four');
+        $a = $s->split('/[\s,]+/');
+        $this->assertInstanceOf('\Malenki\Bah\S', $a->first);
+        $this->assertInstanceOf('\Malenki\Bah\S', $a->take(2));
+        $this->assertInstanceOf('\Malenki\Bah\S', $a->last_but_one);
+        $this->assertInstanceOf('\Malenki\Bah\S', $a->last);
     }
 
     public function testSplitingStringShouldSuccess()
@@ -288,6 +362,10 @@ class STest extends PHPUnit_Framework_TestCase
             $s->explode(new S('/[\s,]+/'))->array
         );
     }
+
+
+
+
 
     public function testStringActAsRegexpShouldSuccess()
     {
@@ -320,11 +398,20 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\A', $s->chunk);
     }
 
-    public function testGettingChunkWithoutArgShouldBeEqualdToUseMagicGetter()
+    public function testGettingChunkWithoutArgShouldBeEqualToUseMagicGetter()
     {
         $s = new S('abcde');
         $this->assertEquals($s->chunk(), $s->chunk);
     }
+    
+    public function testWhetherGettingChunksReturnsCollectionOfSObjects()
+    {
+        $s = new S('abc');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->chunk->first);
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->chunk->last_but_one);
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->chunk->last);
+    }
+
 
     public function testGettingChunksWithoutArgShouldReturnCollectionOfOneLetterStrings()
     {
@@ -413,18 +500,27 @@ class STest extends PHPUnit_Framework_TestCase
         $s->chunk("zero");
     }
 
+
+
+
+    public function testIfUsingChangeFeatureReturnsSObject()
+    {
+        $s = new S('This string must change a little');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->change('/ a little$/', '!'));
+    }
+
+    public function testIfUsingChangeFeatureAliasReturnsSObject()
+    {
+        $s = new S('This string must change a little');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->replace('/ a little$/', '!'));
+    }
+
+
     public function testGettingReplacementStringUsingStringShouldSuccess()
     {
         $s = new S('This string must change a little');
         $this->assertEquals('This string must change!', $s->change('/ a little$/', '!'));
         $this->assertEquals('This string must change!', $s->replace('/ a little$/', '!'));
-    }
-    
-    public function testGettingReplacementStringShouldReturnSInstanceWithSuccess()
-    {
-        $s = new S('This string must change a little');
-        $this->assertInstanceOf('\Malenki\Bah\S', $s->change('/ a little$/', '!'));
-        $this->assertInstanceOf('\Malenki\Bah\S', $s->replace('/ a little$/', '!'));
     }
     
     public function testGettingReplacementStringUsingSObjectShouldSuccess()
@@ -452,8 +548,6 @@ class STest extends PHPUnit_Framework_TestCase
         $s->change(array('/ a little$/'), '!');
     }
 
-
-
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -462,6 +556,11 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S('This string must change a little');
         $s->change('/ a little$/', null);
     }
+
+
+
+
+
 
     public function testIfStringIsFullLeftToRightShouldSuccess()
     {
@@ -527,6 +626,28 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->is_ltr);
         $this->assertFalse($s->is_left_to_right);
         $this->assertFalse($s->left_to_right);
+    }
+
+
+
+    public function testIfRightStripCallReturnsSObject()
+    {
+        $s = new S('I have some spaces                 ');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->rstrip());
+    }
+
+
+    public function testIfLeftStripCallReturnsSObject()
+    {
+        $s = new S('             I have some spaces');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->lstrip());
+    }
+
+
+    public function testIfStripCallReturnsSObject()
+    {
+        $s = new S('        I have some spaces                 ');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->strip());
     }
 
 
