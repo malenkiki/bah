@@ -116,6 +116,16 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(42, $h->fourty_two);
     }
 
+
+    public function testLoopingUsingIteratorAggregateShouldSuccess()
+    {
+        $h = new H(array('one' => 1, 'two' => 2, 'twenty-one' => 21, 'fourty_two' => 42));
+
+        foreach($h as $k => $v){
+            $this->assertEquals($h->take($k), $v);
+        }
+    }
+
     public function testWhetherKeyExistsUsingMethodShouldSuccess()
     {
         $h = new H(array('one' => 1, 'two' => 2, 'three' => 3, 'four' => 4, 'five' => 5));

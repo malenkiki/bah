@@ -24,7 +24,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Malenki\Bah;
 
-class H extends O implements \Iterator, \Countable
+class H extends O implements \Countable, \IteratorAggregate
 {
     protected $count = 0;
     protected $position = null;
@@ -81,6 +81,12 @@ class H extends O implements \Iterator, \Countable
         $this->count = count($arr);
         $this->position = new N(0);
     }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->value);
+    }
+
 
     protected function _array()
     {
