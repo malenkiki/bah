@@ -54,6 +54,7 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A(new H(array('foo' => 'something', 'bar' => 'thing')));
         $this->assertInstanceOf('\Malenki\Bah\A', $a);
     }
+
     public function testGettingNumberOfItem()
     {
         $a = new A();
@@ -228,6 +229,16 @@ class ATest extends PHPUnit_Framework_TestCase
         $a->last_but_one;
 
     }
+
+    public function testLoopingUsingIteratorAggregateShouldSuccess()
+    {
+        $a = new A(array('foo', 'bar'));
+
+        foreach($a as $k => $v){
+            $this->assertEquals($a->take($k), $v);
+        }
+    }
+
 
     public function testGettingCollectionJoinIntoString()
     {

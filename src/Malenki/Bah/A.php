@@ -55,7 +55,7 @@ namespace Malenki\Bah;
  * @author Michel Petit <petit.michel@gmail.com>
  * @license MIT
  */
-class A extends O implements \Iterator, \Countable
+class A extends O implements \Countable, \IteratorAggregate
 {
     protected $count = 0;
     protected $position = null;
@@ -118,6 +118,11 @@ class A extends O implements \Iterator, \Countable
         $this->value = $arr;
         $this->count = count($arr);
         $this->position = new N(0);
+    }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->value);
     }
 
     public function current()
