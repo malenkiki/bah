@@ -548,7 +548,6 @@ class C extends O
                 $str_bin = (string) decbin($src->value);
             }
 
-            //var_dump($str_bin);
             if (count($this->bytes) > 1) {
                 if ($k == 0) {
                     $str_unicode .= substr($str_bin, count($this->bytes) + 1);
@@ -558,7 +557,6 @@ class C extends O
             } else {
                 $str_unicode .= substr($str_bin, 0);
             }
-            //var_dump($str_unicode);
         }
 
         return new N(bindec($str_unicode));
