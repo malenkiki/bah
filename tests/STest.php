@@ -1496,4 +1496,14 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S('Catch me if you can!');
         $s->position('');
     }
+
+    public function testLoopingUsingIteratorAggregateShouldSuccess()
+    {
+        $s = new S('abc');
+
+        foreach($s as $k => $v){
+            $this->assertEquals($s->charAt($k), $v);
+        }
+    }
+
 }

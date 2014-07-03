@@ -33,7 +33,7 @@ namespace Malenki\Bah;
  * @property-read Malenki\Bah\N $length The strings length
  * @license MIT
  */
-class S extends O implements \Countable
+class S extends O implements \Countable, \IteratorAggregate
 {
     /**
      * Stocks characters when a call is done for that.
@@ -276,8 +276,13 @@ class S extends O implements \Countable
         return (string) $this->value;
     }
 
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->_chars()->array);
+    }
 
 
+    // TODO Deprecated? Or must create `to_a`? Must use chunk feature as ref.
     protected function _a()
     {
         $a = new A();
