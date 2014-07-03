@@ -732,30 +732,65 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->lstrip('-=')->rstrip('-='), $s->strip($a));
     }
 
-    public function testAppendingStringShouldSuccess()
+    public function testAppendingStringShouldReturnSObject()
+    {
+        $s = new S('foo');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->append(' bar'));
+    }
+
+    public function testAppendingStringiUsingPrimitivesTypeShouldSuccess()
     {
         $s = new S('foo');
         $this->assertEquals('foo bar', $s->append(' bar'));
         $this->assertEquals('foo bar', $s->append(' ')->append('bar'));
+    }
+
+    public function testAppendingStringiUsingObjectsShouldSuccess()
+    {
+        $s = new S('foo');
         $this->assertEquals('foo bar', $s->append(new S(' bar')));
         $this->assertEquals('foo bar', $s->append(new S(' '))->append(new S('bar')));
         $this->assertEquals('foo bar', $s->append(new C(' '))->append(new S('bar')));
     }
 
-    public function testPrependingStringShouldSuccess()
+    public function testPrependingStringShouldReturnSObject()
+    {
+        $s = new S('foo');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->prepend('bar '));
+    }
+
+
+    public function testPrependingStringUsingPrimitiveTypesShouldSuccess()
     {
         $s = new S('bar');
         $this->assertEquals('foo bar', $s->prepend('foo '));
         $this->assertEquals('foo bar', $s->prepend(' ')->prepend('foo'));
+    }
+
+    public function testPrependingStringUsingObjectsShouldSuccess()
+    {
+        $s = new S('bar');
         $this->assertEquals('foo bar', $s->prepend(new S('foo ')));
         $this->assertEquals('foo bar', $s->prepend(new S(' '))->prepend(new S('foo')));
         $this->assertEquals('foo bar', $s->prepend(new C(' '))->prepend(new S('foo')));
     }
 
-    public function testInsertingStringShouldSuccess()
+    public function testInsertingStringShouldReturnSObject()
+    {
+        $s = new S('abcghi');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->insert(' def', 3));
+    }
+
+
+    public function testInsertingStringUsingPrimitiveTypesShouldSuccess()
     {
         $s = new S('abcghi');
         $this->assertEquals('abcdefghi', $s->insert('def', 3));
+    }
+
+    public function testInsertingStringUsingObjectsShouldSuccess()
+    {
+        $s = new S('abcghi');
         $this->assertEquals('abcdefghi', $s->insert(new S('def'), new N(3)));
     }
 
