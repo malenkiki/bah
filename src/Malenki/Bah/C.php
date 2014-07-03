@@ -291,6 +291,22 @@ class C extends O
             return $this->bytes;
         }
 
+        if($name == 'to_s'){
+            return new S($this->value);
+        }
+
+
+        if($name == 'to_n'){
+            if(!is_numeric($this->value)){
+                throw new \RuntimeException(
+                    'Cannot cast C object to N object if characters does not stand for integer.'
+                );
+            }
+
+            return new N((integer) $this->value);
+        }
+
+
         if (in_array($name, array('string', 'upper', 'lower', 'block', 'trans', 'unicode', 'rtl', 'ltr', 'family'))) {
             $name = '_'.$name;
 

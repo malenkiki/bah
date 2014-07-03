@@ -36,6 +36,31 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('a', $c->string);
     }
 
+
+    public function testConvertingObjectToSObjectShouldSuccess()
+    {
+        $c = new C('a');
+        $this->assertEquals(new S('a'), $c->to_s);
+    }
+
+
+    public function testConvertingObjectToNObjectShouldSuccess()
+    {
+        $c = new C('9');
+        $this->assertEquals(new N(9), $c->to_n);
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testConvertingObjectToNObjectShouldFailIfCharacterIsNotNumeric()
+    {
+        $c = new C('A');
+        $c->to_n;
+    }
+
+
     public function testInstanciateFromCode()
     {
         $n = new N(948);
