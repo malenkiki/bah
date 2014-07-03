@@ -37,6 +37,38 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I am a string!', "$s");
     }
 
+    public function testConvertingStringHavingOneCharToCObjectShouldSuccess()
+    {
+        $s = new S('ç');
+
+        $this->assertEquals(new C('ç'), $s->to_c);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testConvertingStringHavingMoreThanOneCharactersToCObjectShouldFail()
+    {
+        $s = new S('Hello!');
+        $s->to_c;
+    }
+
+
+    public function testConvertingStringToNObjectShouldSuccess()
+    {
+        $s = new S('42');
+
+        $this->assertEquals(new N(42), $s->to_n);
+    }
+
+
+    public function testConvertingStringHavingFloatToNObjectShouldSuccess()
+    {
+        $s = new S('3.14');
+
+        $this->assertEquals(new N(3.14), $s->to_n);
+    }
+
 
     /**
      * @expectedException \InvalidArgumentException

@@ -102,6 +102,21 @@ class S extends O implements \Countable
             return $this->bytes;
         }
 
+
+        if($name == 'to_c'){
+            if(count($this) != 1){
+                throw new \RuntimeException(
+                    'Cannot converting S object having length not equal to one to C object.'
+                );
+            }
+
+            return new C($this->value);
+        }
+
+        if($name == 'to_n'){
+            return new N((double) $this->value);
+        }
+
         if (in_array($name, array('n', 'r'))) {
             return $this->$name();
         }
