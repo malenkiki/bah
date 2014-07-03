@@ -65,6 +65,13 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\H', $a);
     }
 
+    public function testConvertingToAObjectShouldSuccess()
+    {
+        $h = new H(array('foo' => 'bar', 'something' => 'thing'));
+
+        $this->assertEquals(new A(array('bar', 'thing')), $h->to_a);
+    }
+
     public function testGettingNumberOfItem()
     {
         $h = new H();

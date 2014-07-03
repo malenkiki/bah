@@ -39,6 +39,8 @@ class H extends O implements \Countable, \IteratorAggregate
             return $this->$name();
         } elseif ($this->exist($name)) {
             return $this->get($name);
+        } elseif($name == 'to_a'){
+            return new A(array_values($this->value));
         }
     }
 
@@ -177,7 +179,8 @@ class H extends O implements \Countable, \IteratorAggregate
                     'key',
                     'next',
                     'rewind',
-                    'valid'
+                    'valid',
+                    'to_a'
                 )
             )
         )
