@@ -58,13 +58,13 @@ echo $greek->sub(4)->n;
 Characters amount, as a string, new line added:
 
 ```php
-echo $greek->chars->length->s->n;
+echo $greek->chars->length->to_s->n;
 ```
 
 Bytes amount, as a string, new line added:
 
 ```php
-echo $greek->bytes->length->s->n;
+echo $greek->bytes->length->to_s->n;
 ```
 
 Wrapping and margin a long string:
