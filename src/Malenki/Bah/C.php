@@ -537,12 +537,10 @@ class C extends O
     protected function _unicode()
     {
         $str_unicode = '';
-        $k = 0;
 
         $this->__get('bytes');
         $this->bytes->rewind();
-        while ($this->bytes->valid()) {
-            $src = $this->bytes->current();
+        foreach ($this->bytes as $k => $src) {
 
             if (is_string($src)) {
                 $str_bin = (string) decbin(hexdec($src));
@@ -550,6 +548,7 @@ class C extends O
                 $str_bin = (string) decbin($src->value);
             }
 
+            //var_dump($str_bin);
             if (count($this->bytes) > 1) {
                 if ($k == 0) {
                     $str_unicode .= substr($str_bin, count($this->bytes) + 1);
@@ -557,11 +556,9 @@ class C extends O
                     $str_unicode .= substr($str_bin, 2);
                 }
             } else {
-                $str_unicode .= substr($str_bin, 1);
+                $str_unicode .= substr($str_bin, 0);
             }
-
-            $k++;
-            $this->bytes->next();
+            //var_dump($str_unicode);
         }
 
         return new N(bindec($str_unicode));

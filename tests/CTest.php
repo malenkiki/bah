@@ -277,6 +277,29 @@ class CTest extends PHPUnit_Framework_TestCase
 
     public function testUnicodeCodePoint()
     {
+        $c = new C('0');
+        $n = new N(0x30);
+        $this->assertEquals($n, $c->unicode);
+        
+        $c = new C('9');
+        $n = new N(0x39);
+        $this->assertEquals($n, $c->unicode);
+        
+        $c = new C('A');
+        $n = new N(0x41);
+        $this->assertEquals($n, $c->unicode);
+        
+        $c = new C('Z');
+        $n = new N(0x5A);
+        $this->assertEquals($n, $c->unicode);
+
+        $c = new C('I');
+        $n = new N(0x49);
+        $this->assertEquals($n, $c->unicode);
+        
+        $c = new C('!');
+        $n = new N(0x21);
+        $this->assertEquals($n, $c->unicode);
         $c = new C('é');
         $n = new N(233);
         $this->assertEquals($n, $c->unicode);
@@ -287,6 +310,10 @@ class CTest extends PHPUnit_Framework_TestCase
 
         $c = new C('æ');
         $n = new N(230);
+        $this->assertEquals($n, $c->unicode);
+
+        $c = new C('Ա');
+        $n = new N(0x531);
         $this->assertEquals($n, $c->unicode);
     }
 
