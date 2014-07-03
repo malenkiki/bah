@@ -116,7 +116,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $n->minus(new N(5))->int);
     }
 
-    public function testMultiplyNumberiUsingPrimitiveTypesShouldSuccess()
+    public function testMultiplyNumberUsingPrimitiveTypesShouldSuccess()
     {
         $n = new N(5);
         $this->assertEquals(20, $n->multiply(4)->int);
@@ -160,67 +160,96 @@ class NTest extends PHPUnit_Framework_TestCase
     {
         $three = new N(3);
         $this->assertEquals(3, $three->int);
+        $this->assertInternalType('integer', $three->int);
         $three = new N(3.0);
         $this->assertEquals(3, $three->int);
+        $this->assertInternalType('integer', $three->int);
     }
 
     public function testObjectConvertedToPrimitiveFloat()
     {
         $three = new N(3);
         $this->assertEquals(3.0, $three->float);
+        $this->assertInternalType('float', $three->float);
         $three = new N(3.0);
         $this->assertEquals(3.0, $three->float);
+        $this->assertInternalType('float', $three->float);
     }
-
-    public function testObjectConvertedToPrimitiveDouble()
-    {
-        $three = new N(3);
-        $this->assertEquals((double) 3.0, $three->double);
-        $three = new N(3.0);
-        $this->assertEquals((double) 3.0, $three->double);
-    }
-
-    public function testGreaterThaniUsingPrimitiveTypesShouldBeTrue()
+    
+    public function testGreaterThanUsingPrimitiveTypesShouldBeTrue()
     {
         $n = new N(4);
         $this->assertTrue($n->gt(2));
         $this->assertTrue($n->gte(4));
     }
 
-    public function testGreaterThaniUsingObjectsShouldBeTrue()
+    public function testGreaterThanUsingObjectsShouldBeTrue()
     {
         $n = new N(4);
         $this->assertTrue($n->gt(new N(2)));
         $this->assertTrue($n->gte(new N(4)));
     }
 
-    public function testGreaterThanShouldBeFalse()
+    public function testGreaterThanUsingPrimitiveTypeShouldBeFalse()
     {
         $n = new N(4);
         $this->assertFalse($n->gt(5));
-        $this->assertFalse($n->gt(new N(5)));
         $this->assertFalse($n->gte(6));
+    }
+
+    public function testGreaterThanUsingObjectShouldBeFalse()
+    {
+        $n = new N(4);
+        $this->assertFalse($n->gt(new N(5)));
         $this->assertFalse($n->gte(new N(6)));
     }
 
-    public function testLessThanShouldBeTrue()
+    public function testLessThanUsingPrimitiveTypeShouldBeTrue()
     {
         $n = new N(4);
         $this->assertTrue($n->lt(6));
-        $this->assertTrue($n->lt(new N(6)));
         $this->assertTrue($n->lte(4));
+    }
+
+
+    public function testLessThanUsingObjectShouldBeTrue()
+    {
+        $n = new N(4);
+        $this->assertTrue($n->lt(new N(6)));
         $this->assertTrue($n->lte(new N(4)));
     }
 
-    public function testLessThanShouldBeFalse()
+    public function testLessThanUsingPrimitiveTypeShouldBeFalse()
     {
         $n = new N(4);
         $this->assertFalse($n->lt(2));
-        $this->assertFalse($n->lt(new N(-5)));
         $this->assertFalse($n->lte(-6));
+    }
+
+    public function testLessThanUsingObjectShouldBeFalse()
+    {
+        $n = new N(4);
+        $this->assertFalse($n->lt(new N(-5)));
         $this->assertFalse($n->lte(new N(0)));
     }
-    public function testGreekNumerals()
+
+
+
+    public function testGettingGreekNumeralsUsingMethodShouldReturnSObject()
+    {
+        $one = new N(1);
+        $this->assertInstanceOf('\Malenki\Bah\S', $one->greek());
+    }
+
+
+    public function testGettingGreekNumeralsUsingMagicGetterShouldReturnSObject()
+    {
+        $one = new N(1);
+        $this->assertInstanceOf('\Malenki\Bah\S', $one->greek);
+    }
+
+    //TODO create test that use one arg into the method
+    public function testGettingGreekNumeralsUsingMethodShouldSuccess()
     {
         // single digit
         $one = new N(1);
@@ -238,8 +267,10 @@ class NTest extends PHPUnit_Framework_TestCase
 
         $number269 = new N(269);
         $this->assertEquals('σξθ', $number269->greek());
+    }
 
-        //now, as magic getter
+    public function testGettingGreekNumeralsUsingMagicGetterShouldSuccess()
+    {
         // single digit
         $one = new N(1);
         $this->assertEquals('α', $one->greek);
@@ -258,7 +289,35 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('σξθ', $number269->greek);
     }
 
-    public function testRomanNumerals()
+    public function testGettingGreekumeralsFromMagicGetterShouldHaveSameResultAsFromMethodWay()
+    {
+        // single digit
+        $one = new N(1);
+        $this->assertEquals($one->greek(), $one->greek);
+
+        // ten and followers…
+        $ten = new N(10);
+        $this->assertEquals($ten->greek(), $ten->greek);
+
+        $hundred = new N(100);
+        $this->assertEquals($hundred->greek(), $hundred->greek);
+
+        $thousand = new N(1000);
+        $this->assertEquals($thousand->greek(), $thousand->greek);
+
+        $number269 = new N(269);
+        $this->assertEquals($number269->greek(), $number269->greek);
+    }
+
+
+    public function testGettingRomanNumeralsShouldReturnSObject()
+    {
+        $one = new N(1);
+        $this->assertInstanceOf('\Malenki\Bah\S', $one->roman);
+    }
+
+
+    public function testGettingRomanNumeralsShouldSuccess()
     {
         $one = new N(1);
         $this->assertEquals('i', $one->roman);
@@ -297,11 +356,23 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('mcmlxxviii', $number1978->roman);
     }
 
+    public function testGettingHindiNumeralsUsingMethodShouldReturnSObject()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\S', $n->hindi());
+    }
+
+
+    public function testGettingHindiNumeralsUsingMagicGetterShouldReturnSObject()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\S', $n->hindi);
+    }
+
     public function testGettingHindiNumeralsShouldSuccess()
     {
         $n = new N(0);
         $this->assertEquals('०', $n->hindi);
-        $this->assertEquals('०', $n->hindi());
         $n = new N(1);
         $this->assertEquals('१', $n->hindi);
         $n = new N(2);
@@ -344,6 +415,55 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('१०००', $n->hindi);
         $n = new N(123456789);
         $this->assertEquals('१२३४५६७८९', $n->hindi);
+    }
+
+
+    public function testGettingHindiNumeralsUsingMagicGetterShouldHaveSameResultAsUsingMethodWithoutAnyArg()
+    {
+        $n = new N(0);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(1);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(2);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(3);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(4);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(5);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(6);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(7);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(8);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(9);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(10);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(20);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(30);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(40);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(50);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(60);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(70);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(80);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(90);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(100);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(1000);
+        $this->assertEquals($n->hindi(), $n->hindi);
+        $n = new N(123456789);
+        $this->assertEquals($n->hindi(), $n->hindi);
     }
 
     public function testGettingHindiNumeralsUsingSeparatorShouldSuccess()

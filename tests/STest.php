@@ -916,9 +916,30 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($should, $s->swap_case);
     }
 
+    public function testWhetherSwapAliasesReturnSObject()
+    {
+        $s = new S('Je SuiS aVec dEs maJuScUleS eT Des MinUScUles !');
+
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->swapcase);
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->swap);
+    }
+
+    public function testSwappingCasesUsingAliasShouldHaveSameResultAsOriginal()
+    {
+        $s = new S('Je SuiS aVec dEs maJuScUleS eT Des MinUScUles !');
+
+        $this->assertEquals($s->swap_case, $s->swapcase);
+        $this->assertEquals($s->swap_case, $s->swap);
+    }
 
 
-    public function testCenteringStringShouldSuccess()
+    public function testCenteringStringShouldReturnSObject()
+    {
+        $s = new S('foo');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->center(20));
+    }
+
+    public function testCenteringStringUsingPrimitiveTypeShouldSuccess()
     {
         $s = new S('foo');
         $should = new S('  foo   ');
@@ -930,10 +951,34 @@ class STest extends PHPUnit_Framework_TestCase
         $should = new S('  foo   '."\n".'   bar  '. "\n". ' thing  ');
         $this->assertEquals($should, $s->center(8));
         
+    }
+
+
+    public function testCenteringWithoutArgShouldReturnsStringHavingLengthOf79Chars()
+    {
+        $s = new S('I will be centered!');
+        $should = new S('                              I will be centered!                              ');
+        $this->assertEquals($should, $s->center());
+    }
+
+    public function testIfCenteringWorksUsingMagicGetterLikeMethodCallWithoutArg()
+    {
         $s = new S('I will be centered!');
         $should = new S('                              I will be centered!                              ');
         $this->assertEquals($should, $s->center);
-        
+    }
+
+    public function testCenteringStringUsingNObjectShouldSuccess()
+    {
+        $s = new S('foo');
+        $should = new S('  foo   ');
+        $this->assertEquals($should, $s->center(new N(8)));
+        $sp = new S('             foo        ');
+        $this->assertEquals($should, $sp->center(new N(8)));
+
+        $s = new S("foo\nbar\nthing");
+        $should = new S('  foo   '."\n".'   bar  '. "\n". ' thing  ');
+        $this->assertEquals($should, $s->center(new N(8)));
     }
 
     public function testLeftJustifyingStringShouldSuccess()
