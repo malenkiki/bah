@@ -1506,4 +1506,25 @@ class STest extends PHPUnit_Framework_TestCase
         }
     }
 
+
+    public function testLoopingUsingIteratorMethodsShouldSuccess()
+    {
+        $s = new S('abc');
+
+        while($s->valid()){
+            $this->assertEquals($s->charAt($s->key()), $s->current());
+            $s->next();
+        }
+    }
+
+
+    public function testLoopingUsingIteratorMagicGettersShouldSuccess()
+    {
+        $s = new S('abc');
+
+        while($s->valid){
+            $this->assertEquals($s->charAt($s->key), $s->current);
+            $s->next;
+        }
+    }
 }

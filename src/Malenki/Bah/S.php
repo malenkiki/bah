@@ -56,6 +56,8 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     protected $length = null;
 
+    protected $position = 0;
+
     public static function concat()
     {
         $args = func_get_args();
@@ -160,6 +162,10 @@ class S extends O implements \Countable, \IteratorAggregate
 
         if ($name == 'ucf') {
             return $this->_upperCaseFirst();
+        }
+
+        if(in_array($name, array('current', 'key', 'next', 'rewind', 'valid'))){
+            return $this->$name();
         }
 
         if (in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans', 'rtl', 'ltr', 'md5', 'sha1'))) {
@@ -279,6 +285,37 @@ class S extends O implements \Countable, \IteratorAggregate
     public function getIterator()
     {
         return new \ArrayIterator($this->_chars()->array);
+    }
+
+
+    public function current()
+    {
+        return $this->charAt($this->position);
+    }
+
+    public function key()
+    {
+        return new N($this->position);
+    }
+    public function next()
+    {
+        $this->position++;
+
+        return $this;
+    }
+
+    public function rewind()
+    {
+        $this->position = 0;
+
+        return $this;
+    }
+
+    public function valid()
+    {
+        return $this->position >= 0 
+            && 
+            $this->position < count($this);
     }
 
 
