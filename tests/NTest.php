@@ -29,6 +29,39 @@ use \Malenki\Bah\C;
 
 class NTest extends PHPUnit_Framework_TestCase
 {
+    public function testConvertingToSObjectShouldSuccess()
+    {
+        $n = new N(101);
+        $this->assertEquals(new S('101'), $n->to_s);
+    }
+
+    public function testConvertingToCObjectShouldSuccess()
+    {
+        $n = new N(9);
+        $this->assertEquals(new C('9'), $n->to_c);
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testConvertingToCObjectUsingFloatNumberShouldFail()
+    {
+        $n = new N(1.5);
+        $n->to_c;
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testConvertingToCObjectUsingNumberGreaterThanNineShouldFail()
+    {
+        $n = new N(10);
+        $n->to_c;
+    }
+
+
     public function testDivisioniUsingPrimitivePHPTypeShouldReturnNObject()
     {
         $six = new N(6);
@@ -36,7 +69,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\N', $six->divide(2));
     }
 
-    public function testDivisioniUsingOnlyObjectsShouldReturnNObject()
+    public function testDivisionUsingOnlyObjectsShouldReturnNObject()
     {
         $six = new N(6);
         $two = new N(2);

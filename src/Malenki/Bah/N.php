@@ -80,6 +80,25 @@ class N extends O
             return $this->$str_method();
         }
 
+        if($name == 'to_s'){
+            return new S((string) $this->value);
+        }
+
+        if($name == 'to_c'){
+            if(
+                $this->value < 0 
+                ||
+                $this->value > 9
+                ||
+                !$this->_decimal()->zero
+            ){
+                throw new \RuntimeException(
+                    'Cannot convert N object to C object if N is not single digit.'
+                );
+            }
+            return new C($this->value);
+        }
+
         if(in_array($name, array('nan', 'is_nan', 'is_not_a_number'))){
             return is_nan($this->value);
         }
