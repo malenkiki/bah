@@ -72,14 +72,14 @@ class NTest extends PHPUnit_Framework_TestCase
         $result = $five->divide(0);
     }
 
-    public function testAddNumberUsingObjectShouldReturnNObject()
+    public function testAddingNumberUsingObjectShouldReturnNObject()
     {
         $two = new N(2);
         $this->assertInstanceOf('\Malenki\Bah\N', $two->plus(new N(5)));
     }
 
 
-    public function testAddNumberUsingPrimitiveTypeShouldReturnNObject()
+    public function testAddingNumberUsingPrimitiveTypeShouldReturnNObject()
     {
         $two = new N(2);
         $this->assertInstanceOf('\Malenki\Bah\N', $two->plus(5));
@@ -92,26 +92,38 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(new N(7), $two->plus(5));
     }
 
-    public function testAddNumberShouldSuccess()
+    public function testAddNumberUsingPrimitiveTypesShouldSuccess()
     {
         $n = new N(2.3);
         $this->assertEquals((float) 5.4, $n->plus(3.1)->float);
+    }
+
+    public function testAddNumberUsingObjectsShouldSuccess()
+    {
         $n = new N(2.3);
         $this->assertEquals((float) 5.4, $n->plus(new N(3.1))->float);
     }
 
-    public function testMinusNumberShouldSuccess()
+    public function testMinusNumberUsingPrimitiveTypesShouldSuccess()
     {
         $n = new N(5);
         $this->assertEquals(0, $n->minus(5)->int);
+    }
+
+    public function testMinusNumberUsingObjectsShouldSuccess()
+    {
         $n = new N(5);
         $this->assertEquals(0, $n->minus(new N(5))->int);
     }
 
-    public function testMultiplyNumberShouldSuccess()
+    public function testMultiplyNumberiUsingPrimitiveTypesShouldSuccess()
     {
         $n = new N(5);
         $this->assertEquals(20, $n->multiply(4)->int);
+    }
+
+    public function testMultiplyNumberiUsingObjectsShouldSuccess()
+    {
         $n = new N(5);
         $this->assertEquals(20, $n->multiply(new N(4))->int);
     }
@@ -168,12 +180,17 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals((double) 3.0, $three->double);
     }
 
-    public function testGreaterThanShouldBeTrue()
+    public function testGreaterThaniUsingPrimitiveTypesShouldBeTrue()
     {
         $n = new N(4);
         $this->assertTrue($n->gt(2));
-        $this->assertTrue($n->gt(new N(2)));
         $this->assertTrue($n->gte(4));
+    }
+
+    public function testGreaterThaniUsingObjectsShouldBeTrue()
+    {
+        $n = new N(4);
+        $this->assertTrue($n->gt(new N(2)));
         $this->assertTrue($n->gte(new N(4)));
     }
 
