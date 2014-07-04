@@ -307,7 +307,7 @@ class C extends O
         }
 
 
-        if (in_array($name, array('string', 'upper', 'lower', 'block', 'trans', 'unicode', 'rtl', 'ltr', 'family'))) {
+        if (in_array($name, array('string', 'str', 'integer', 'int', 'upper', 'lower', 'block', 'trans', 'unicode', 'rtl', 'ltr', 'family'))) {
             $name = '_'.$name;
 
             return $this->$name();
@@ -348,6 +348,27 @@ class C extends O
     protected function _string()
     {
         return (string) $this->value;
+    }
+
+    protected function _str()
+    {
+        return $this->_string();
+    }
+
+    protected function _integer()
+    {
+        if(!is_numeric($this->value)){
+            throw new \RuntimeException(
+                'Cannot cast C object to primitive integer if characters does not stand for integer.'
+            );
+        }
+
+        return (integer) $this->value;
+    }
+
+    protected function _int()
+    {
+        return $this->_integer();
     }
 
     protected function _trans()

@@ -30,10 +30,35 @@ use \Malenki\Bah\C;
 class CTest extends PHPUnit_Framework_TestCase
 {
 
-    public function testConvertingObjectToPrimitiveString()
+    public function testConvertingObjectToPrimitiveStringShouldSuccess()
     {
         $c = new C('a');
+        $this->assertInternalType('string', $c->string);
         $this->assertEquals('a', $c->string);
+    }
+
+
+    public function testConvertingObjectToPrimitiveStringUsingShortFormShouldSuccess()
+    {
+        $c = new C('a');
+        $this->assertInternalType('string', $c->str);
+        $this->assertEquals('a', $c->str);
+    }
+
+
+    public function testConvertingObjectToPrimitiveIntegerShouldSuccess()
+    {
+        $c = new C('3');
+        $this->assertInternalType('integer', $c->integer);
+        $this->assertEquals(3, $c->integer);
+    }
+
+
+    public function testConvertingObjectToPrimitiveIntegerUsingShortFormShouldSuccess()
+    {
+        $c = new C('3');
+        $this->assertInternalType('integer', $c->int);
+        $this->assertEquals(3, $c->int);
     }
 
 
