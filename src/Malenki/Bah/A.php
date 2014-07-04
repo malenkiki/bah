@@ -241,7 +241,7 @@ class A extends O implements \Countable, \IteratorAggregate
 
     protected function _lastButOne()
     {
-        if ($this->count < 2) {
+        if (count($this) <= 2) {
             throw new \RuntimeException(_('This collection is too small to have last but one value.'));
         }
 
