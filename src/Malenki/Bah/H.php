@@ -31,7 +31,7 @@ class H extends O implements \Countable, \IteratorAggregate
 
     public function __get($name)
     {
-        if (in_array($name, array('array', 'length', 'keys', 'values', 'reverse', 'sort', 'unique'))) {
+        if (in_array($name, array('array', 'arr', 'length', 'keys', 'values', 'reverse', 'sort', 'unique'))) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
@@ -94,6 +94,12 @@ class H extends O implements \Countable, \IteratorAggregate
     {
         return $this->value;
     }
+
+    protected function _arr()
+    {
+        return $this->_array();
+    }
+
 
     protected function _length()
     {

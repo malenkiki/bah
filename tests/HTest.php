@@ -72,6 +72,27 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(new A(array('bar', 'thing')), $h->to_a);
     }
 
+    public function testConvertingObjectToPrimitiveArrayShouldReturnArray()
+    {
+        $h = new H(array('foo' => 'bar', 'something' => 'thing'));
+        $this->assertInternalType('array', $h->array);
+    }
+
+
+    public function testConvertingObjectToPrimitiveArrayUsingShortFormShouldReturnArray()
+    {
+        $h = new H(array('foo' => 'bar', 'something' => 'thing'));
+        $this->assertInternalType('array', $h->arr);
+    }
+
+    public function testConvertingObjectToPrimitiveArrayShouldSuccess()
+    {
+        $arr = array('foo' => 'bar', 'something' => 'thing');
+        $h = new H($arr);
+        $this->assertEquals($arr, $h->array);
+        $this->assertEquals($arr, $h->arr);
+    }
+
     public function testGettingNumberOfItem()
     {
         $h = new H();
