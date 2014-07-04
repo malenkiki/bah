@@ -947,6 +947,14 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals((float) 6.4, $n->absolute->float);
     }
 
+
+    public function testGettingOppositeValueShouldReturnNObject()
+    {
+        $n = new N(-6);
+
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->opposite);
+    }
+
     public function testGettingOppositeValueShouldSuccess()
     {
         $n = new N(-6);
@@ -961,6 +969,33 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $n->opposite->int);
     }
 
+    public function testGettingModuloUsingPrimitiveTypeShouldReturnNobject()
+    {
+        $n = new N(3);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->mod(2));
+    }
+
+
+    public function testGettingModuloUsingObjectShouldReturnNobject()
+    {
+        $n = new N(3);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->mod(new N(2)));
+    }
+
+
+    public function testGettingModuloAliasUsingPrimitiveTypeShouldReturnNobject()
+    {
+        $n = new N(3);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->modulo(2));
+    }
+
+
+    public function testGettingModuloAliasUsingObjectShouldReturnNobject()
+    {
+        $n = new N(3);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->modulo(new N(2)));
+    }
+
     public function testGettingModuloShouldSuccess()
     {
         $n = new N(3);
@@ -970,6 +1005,19 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(3.3);
         $this->assertEquals((double) 1.3, $n->mod(2)->double);
     }
+
+    public function testWhetherModuloAliasHasSameResultsAsOriginalOne()
+    {
+        $n = new N(3);
+        $this->assertEquals($n->modulo(2), $n->mod(2));
+        $this->assertEquals($n->modulo(new N(2)), $n->mod(new N(2)));
+
+        $n = new N(3.3);
+        $this->assertEquals($n->modulo(2), $n->mod(2));
+        $this->assertEquals($n->modulo(new N(2)), $n->mod(new N(2)));
+
+    }
+
 
     /**
      * @expectedException \RuntimeException
@@ -989,33 +1037,78 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->mod("one");
     }
 
+    public function testGettingPowerUsingPrimitiveTypeShouldReturnNObject()
+    {
+        $n = new N(3);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->pow(2));
+    }
+
+
+    public function testGettingPowerUsingObjectShouldReturnNObject()
+    {
+        $n = new N(3);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->pow(new N(2)));
+    }
+
+    public function testGettingSquareShouldReturnNObject()
+    {
+        $n = new N(3);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->square);
+    }
+
+
+    public function testGettingCubeShouldReturnNObject()
+    {
+        $n = new N(3);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->cube);
+    }
+
+
     public function testGettingPowerShouldsuccess()
     {
         $n = new N(3);
         $this->assertEquals(9, $n->pow(2)->int);
-        $this->assertEquals(9, $n->square->int);
         $this->assertEquals(81, $n->pow(2)->pow(2)->int);
-        $this->assertEquals(81, $n->square->square->int);
         $this->assertEquals(27, $n->pow(3)->int);
-        $this->assertEquals(27, $n->cube->int);
 
         $n = new N(-3);
         $this->assertEquals(9, $n->pow(2)->int);
-        $this->assertEquals(9, $n->square->int);
         $this->assertEquals(81, $n->pow(2)->pow(2)->int);
-        $this->assertEquals(81, $n->square->square->int);
         $this->assertEquals(-27, $n->pow(3)->int);
-        $this->assertEquals(-27, $n->cube->int);
 
         $n = new N(2);
         $this->assertEquals(4, $n->pow(2)->int);
-        $this->assertEquals(4, $n->square->int);
-        $this->assertEquals(8, $n->cube->int);
 
         $n = new N(-2);
         $this->assertEquals(4, $n->pow(2)->int);
-        $this->assertEquals(4, $n->square->int);
-        $this->assertEquals(-8, $n->cube->int);
+    }
+    
+    
+    public function testWhetherPowerHasSameResultAsItsAlias()
+    {
+        $n = new N(3);
+        $this->assertEquals($n->square, $n->pow(2));
+        $this->assertEquals($n->square->square, $n->pow(2)->pow(2));
+        $this->assertEquals($n->cube, $n->pow(3));
+        $this->assertEquals($n->cube->cube, $n->pow(3)->pow(3));
+
+        $n = new N(-3);
+        $this->assertEquals($n->square, $n->pow(2));
+        $this->assertEquals($n->square->square, $n->pow(2)->pow(2));
+        $this->assertEquals($n->cube, $n->pow(3));
+        $this->assertEquals($n->cube->cube, $n->pow(3)->pow(3));
+
+        $n = new N(2);
+        $this->assertEquals($n->square, $n->pow(2));
+        $this->assertEquals($n->square->square, $n->pow(2)->pow(2));
+        $this->assertEquals($n->cube, $n->pow(3));
+        $this->assertEquals($n->cube->cube, $n->pow(3)->pow(3));
+
+        $n = new N(-2);
+        $this->assertEquals($n->square, $n->pow(2));
+        $this->assertEquals($n->square->square, $n->pow(2)->pow(2));
+        $this->assertEquals($n->cube, $n->pow(3));
+        $this->assertEquals($n->cube->cube, $n->pow(3)->pow(3));
     }
 
     /**
@@ -1076,6 +1169,19 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->log(-3);
     }
 
+    public function testGettingRootUsingPrimitiveTypeShouldReturnNObject()
+    {
+        $n = new N(8);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->root(3));
+    }
+
+    public function testGettingRootUsingObjectShouldReturnNObject()
+    {
+        $n = new N(8);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->root(new N(3)));
+    }
+
+
     public function testGettingRootShouldSuccess()
     {
         $n = new N(8);
@@ -1087,7 +1193,6 @@ class NTest extends PHPUnit_Framework_TestCase
 
         $n = new N(9);
 
-        $this->assertEquals(3, $n->sqrt->int);
         $this->assertEquals(3, $n->root(new N(2))->int);
     }
 
@@ -1100,7 +1205,7 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->root(0);
     }
 
-    public function testGetSignShouldSuccess()
+    public function testGettingSignShouldSuccess()
     {
         $n = new N(0);
         $this->assertEquals(0, $n->sign->int);
@@ -1110,17 +1215,38 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $n->sign->int);
     }
 
+
+    public function testFactorialShouldReturnNObject()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->factorial);
+    }
+
+
+    public function testFactorialAliasShouldReturnNObject()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->fact);
+    }
+
     public function testFactorialShouldSuccess()
     {
         $n = new N(0);
         $this->assertEquals(1, $n->factorial->int);
-        $this->assertEquals(1, $n->fact->int);
         $n = new N(5);
         $this->assertEquals(120, $n->factorial->int);
-        $this->assertEquals(120, $n->fact->int);
         $n = new N(4);
         $this->assertEquals(24, $n->factorial->int);
-        $this->assertEquals(24, $n->fact->int);
+    }
+
+    public function testFactorialAliasShouldHaveSameResultAsOriginal()
+    {
+        $n = new N(0);
+        $this->assertEquals($n->fact, $n->factorial);
+        $n = new N(5);
+        $this->assertEquals($n->fact, $n->factorial);
+        $n = new N(4);
+        $this->assertEquals($n->fact, $n->factorial);
     }
 
     /**
@@ -1139,6 +1265,12 @@ class NTest extends PHPUnit_Framework_TestCase
     {
         $n = new N(5.6);
         $n->factorial;
+    }
+    
+    public function testGettingTriangularNumberShouldReturnNObject()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->triangular);
     }
 
     public function testGettingTriangularNumberShouldSuccess()
@@ -1169,6 +1301,12 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->triangular;
     }
 
+    public function testGettingInverseNumberShouldReturnNObject()
+    {
+        $n = new N(2);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->inverse);
+    }
+
     public function testGettingInverseNumberShouldSuccess()
     {
         $n = new N(2);
@@ -1192,6 +1330,19 @@ class NTest extends PHPUnit_Framework_TestCase
     {
         $n = new N(0);
         $n->inverse;
+    }
+
+    public function TestGettingNumberIntoAnotherBaseUsingPrimitiveIntegerShouldReturnSObject()
+    {
+        $n = new N(19);
+        $this->assertInstanceOf('\Malenki\Bah\S', $n->base(20));
+    }
+
+
+    public function TestGettingNumberIntoAnotherBaseUsingObjectShouldReturnSObject()
+    {
+        $n = new N(19);
+        $this->assertInstanceOf('\Malenki\Bah\S', $n->base(new N(20)));
     }
 
     public function TestGettingNumberIntoAnotherBaseUsingPrimitiveIntegerShouldSuccess()
@@ -1488,10 +1639,16 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($n->is_not_a_number);
     }
 
-    public function testGettingCosineShouldSuccess()
+
+    public function testGettingCosineShouldReturnNObject()
     {
         $n = new N(0);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->cos);
+    }
+
+    public function testGettingCosineShouldSuccess()
+    {
+        $n = new N(0);
         $this->assertEquals((double) cos(0), $n->cos->double);
         $n = new N(M_PI);
         $this->assertEquals((double) cos(M_PI), $n->cos->double);
@@ -1500,10 +1657,15 @@ class NTest extends PHPUnit_Framework_TestCase
     }
     
 
-    public function testGettingSineShouldSuccess()
+    public function testGettingSineShouldReturnNObject()
     {
         $n = new N(0);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->sin);
+    }
+
+    public function testGettingSineShouldSuccess()
+    {
+        $n = new N(0);
         $this->assertEquals((double) sin(0), $n->sin->double);
         $n = new N(M_PI);
         $this->assertEquals((double) sin(M_PI), $n->sin->double);
@@ -1512,22 +1674,32 @@ class NTest extends PHPUnit_Framework_TestCase
     }
     
 
-    public function testGettingTangentShouldSuccess()
+    public function testGettingTangentShouldReturnNObject()
     {
         $n = new N(0);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->tan);
+    }
+
+    public function testGettingTangentShouldSuccess()
+    {
+        $n = new N(0);
         $this->assertEquals((double) tan(0), $n->tan->double);
         $n = new N(M_PI);
         $this->assertEquals((double) tan(M_PI), $n->tan->double);
         $n = new N(M_PI / 2);
         $this->assertEquals((double) tan(M_PI / 2), $n->tan->double);
     }
+
+    public function testGettingHyperbolicCosineShouldReturnNObject()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->cosh);
+    }
     
 
     public function testGettingHyperbolicCosineShouldSuccess()
     {
         $n = new N(0);
-        $this->assertInstanceOf('\Malenki\Bah\N', $n->cosh);
         $this->assertEquals((double) cosh(0), $n->cosh->double);
         $n = new N(M_PI);
         $this->assertEquals((double) cosh(M_PI), $n->cosh->double);
@@ -1536,10 +1708,15 @@ class NTest extends PHPUnit_Framework_TestCase
     }
     
 
-    public function testGettingHyperbolicSineShouldSuccess()
+    public function testGettingHyperbolicSineShouldReturnNObject()
     {
         $n = new N(0);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->sinh);
+    }
+
+    public function testGettingHyperbolicSineShouldSuccess()
+    {
+        $n = new N(0);
         $this->assertEquals((double) sinh(0), $n->sinh->double);
         $n = new N(M_PI);
         $this->assertEquals((double) sinh(M_PI), $n->sinh->double);
@@ -1548,10 +1725,15 @@ class NTest extends PHPUnit_Framework_TestCase
     }
     
 
-    public function testGettingHyperbolicTangentShouldSuccess()
+    public function testGettingHyperbolicTangentShouldReturnNObject()
     {
         $n = new N(0);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->tanh);
+    }
+
+    public function testGettingHyperbolicTangentShouldSuccess()
+    {
+        $n = new N(0);
         $this->assertEquals((double) tanh(0), $n->tanh->double);
         $n = new N(M_PI);
         $this->assertEquals((double) tanh(M_PI), $n->tanh->double);
@@ -1560,10 +1742,15 @@ class NTest extends PHPUnit_Framework_TestCase
     }
     
 
-    public function testGettingArcCosineShouldSuccess()
+    public function testGettingArcCosineShouldReturnNObject()
     {
         $n = new N(0);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->acos);
+    }
+
+    public function testGettingArcCosineShouldSuccess()
+    {
+        $n = new N(0);
         $this->assertEquals((double) acos(0), $n->acos->double);
         $n = new N(M_PI);
         $this->assertTrue($n->acos->nan); //NaN
@@ -1572,10 +1759,15 @@ class NTest extends PHPUnit_Framework_TestCase
     }
     
 
-    public function testGettingArcSineShouldSuccess()
+    public function testGettingArcSineShouldReturnNObject()
     {
         $n = new N(0);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->asin);
+    }
+
+    public function testGettingArcSineShouldSuccess()
+    {
+        $n = new N(0);
         $this->assertEquals((double) asin(0), $n->asin->double);
         $n = new N(M_PI);
         $this->assertTrue($n->asin->nan); // NaN
@@ -1584,10 +1776,15 @@ class NTest extends PHPUnit_Framework_TestCase
     }
     
 
-    public function testGettingArcTangentShouldSuccess()
+    public function testGettingArcTangentShouldReturnNObject()
     {
         $n = new N(0);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->atan);
+    }
+
+    public function testGettingArcTangentShouldSuccess()
+    {
+        $n = new N(0);
         $this->assertEquals((double) atan(0), $n->atan->double);
         $n = new N(M_PI);
         $this->assertEquals((double) atan(M_PI), $n->atan->double);
@@ -1595,11 +1792,15 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals((double) atan(M_PI / 2), $n->atan->double);
     }
     
+    public function testGettingInverseHyperbolicCosineShouldReturnNObject()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->acosh);
+    }
 
     public function testGettingInverseHyperbolicCosineShouldSuccess()
     {
         $n = new N(0);
-        $this->assertInstanceOf('\Malenki\Bah\N', $n->acosh);
         $this->assertTrue($n->acosh->nan); //NaN
         $n = new N(M_PI);
         $this->assertEquals((double) acosh(M_PI), $n->acosh->double);
@@ -1607,11 +1808,15 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals((double) acosh(M_PI / 2), $n->acosh->double);
     }
     
+    public function testGettingInverseHyperbolicSineShouldReturnNObject()
+    {
+        $n = new N(0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->asinh);
+    }
 
     public function testGettingInverseHyperbolicSineShouldSuccess()
     {
         $n = new N(0);
-        $this->assertInstanceOf('\Malenki\Bah\N', $n->asinh);
         $this->assertEquals((double) asinh(0), $n->asinh->double);
         $n = new N(M_PI);
         $this->assertEquals((double) asinh(M_PI), $n->asinh->double);
@@ -1620,10 +1825,15 @@ class NTest extends PHPUnit_Framework_TestCase
     }
     
 
-    public function testGettingInverseHyperbolicTangentShouldSuccess()
+    public function testGettingInverseHyperbolicTangentShouldreturnNObject()
     {
         $n = new N(0);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->atanh);
+    }
+
+    public function testGettingInverseHyperbolicTangentShouldSuccess()
+    {
+        $n = new N(0);
         $this->assertEquals((double) atanh(0), $n->atanh->double);
         $n = new N(M_PI);
         $this->assertTrue($n->atanh->nan); //NaN
@@ -1631,16 +1841,32 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($n->atanh->nan);
     }
 
-    public function testGettingExponentialShouldSucces()
+    public function testGettingExponentialShouldReturnNObject()
     {
         $n = new N(1);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->exp);
+    }
+
+    public function testGettingExponentialUsingAliasShouldReturnNObject()
+    {
+        $n = new N(1);
         $this->assertInstanceOf('\Malenki\Bah\N', $n->exponent);
+    }
+
+    public function testWhetherEpxonentialFeatureAndItsAliasAreSameResults()
+    {
+        $n = new N(1);
+        $this->assertEquals($n->exponent->double, $n->exp->double);
+        $n = new N(0);
+        $this->assertEquals($n->exponent->double, $n->exp->double);
+    }
+
+    public function testGettingExponentialShouldSucces()
+    {
+        $n = new N(1);
         $this->assertEquals(M_E, $n->exp->double);
-        $this->assertEquals(M_E, $n->exponent->double);
         $n = new N(0);
         $this->assertEquals((double) 1, $n->exp->double);
-        $this->assertEquals((double) 1, $n->exponent->double);
     }
 
     public function testIfNumberIsFiniteShouldSuccess()
