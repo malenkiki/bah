@@ -223,6 +223,9 @@ class ATest extends PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @expectedException \RuntimeException
+     */
     public function testGettingLastButOneItemShouldRaiseException()
     {
         $a = new A(array('one', 'two'));
