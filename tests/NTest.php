@@ -779,8 +779,14 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(4.1);
         $n->even;
     }
+    
+    public function testGettingDecimalPartShouldReturnNObject()
+    {
+        $n = new N(4.0);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->decimal);
+    }
 
-    public function testNumberGetDecimalPart()
+    public function testNumberGetDecimalPartShouldSuccess()
     {
         $n = new N(4.0);
         $this->assertEquals(0, $n->decimal->float);
@@ -859,6 +865,12 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($n->prime);
     }
 
+    public function testGettingDivisorsShouldReturnAObject()
+    {
+        $n = new N(3);
+        $this->assertInstanceOf('\Malenki\Bah\A', $n->divisors);
+    }
+
     public function testGettingDivisorsShouldSuccess()
     {
         $n = new N(3);
@@ -927,6 +939,22 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->divisors;
     }
 
+
+    public function testGettingAbsoluteValueShouldReturnNObject()
+    {
+        $n = new N(-6);
+
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->abs);
+    }
+
+
+    public function testGettingAbsoluteValueAliasShouldReturnNObject()
+    {
+        $n = new N(-6);
+
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->absolute);
+    }
+
     public function testGettingAbsoluteValueShouldSuccess()
     {
         $n = new N(-6);
@@ -937,16 +965,20 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals((float) 6.4, $n->abs->float);
         $n = new N(6.4);
         $this->assertEquals((float) 6.4, $n->abs->float);
-        $n = new N(-6);
-        $this->assertEquals(6, $n->absolute->int);
-        $n = new N(6);
-        $this->assertEquals(6, $n->absolute->int);
-        $n = new N(-6.4);
-        $this->assertEquals((float) 6.4, $n->absolute->float);
-        $n = new N(6.4);
-        $this->assertEquals((float) 6.4, $n->absolute->float);
     }
 
+
+    public function testGettingAbsoluteValueUsingAliasShouldHaveSameResultAsOriginalOne()
+    {
+        $n = new N(-6);
+        $this->assertEquals($n->absolute, $n->abs);
+        $n = new N(6);
+        $this->assertEquals($n->absolute, $n->abs);
+        $n = new N(-6.4);
+        $this->assertEquals($n->absolute, $n->abs);
+        $n = new N(6.4);
+        $this->assertEquals($n->absolute, $n->abs);
+    }
 
     public function testGettingOppositeValueShouldReturnNObject()
     {
