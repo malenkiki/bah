@@ -75,6 +75,44 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals(12.34, $c->float);
     }
 
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testConvertingObjectToIntegerShouldFail()
+    {
+        $c = new S('Le 31 décembre.');
+        $c->integer;
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testConvertingObjectToIntegerUsingAliasShouldFail()
+    {
+        $c = new S('Le 31 décembre.');
+        $c->int;
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testConvertingObjectToFloatShouldFail()
+    {
+        $c = new S('Le 31 décembre.');
+        $c->float;
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testConvertingObjectTodoubleShouldFail()
+    {
+        $c = new S('Le 31 décembre.');
+        $c->double;
+    }
+
+
 
     public function testConvertingObjectToPrimitiveDoubleShouldSuccess()
     {
