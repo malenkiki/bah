@@ -74,7 +74,7 @@ class N extends O
 {
     public function __get($name)
     {
-        if (in_array($name, array('hex','oct','bin','h', 'o', 'b', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'int', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial', 'triangular', 'inverse', 'ceil', 'floor', 'cos', 'sin', 'tan', 'cosh', 'sinh', 'tanh', 'acos', 'asin', 'atan', 'acosh', 'asinh', 'atanh', ))) {
+        if (in_array($name, array('hex','oct','bin','h', 'o', 'b', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'string', 'str', 'int', 'integer', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial', 'triangular', 'inverse', 'ceil', 'floor', 'cos', 'sin', 'tan', 'cosh', 'sinh', 'tanh', 'acos', 'asin', 'atan', 'acosh', 'asinh', 'atanh', ))) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
@@ -169,10 +169,24 @@ class N extends O
 
         $this->value = $num;
     }
+    protected function _string()
+    {
+        return (string) $this->value;
+    }
+
+    protected function _str()
+    {
+        return $this->_string();
+    }
+
+    protected function _integer()
+    {
+        return (integer) $this->value;
+    }
 
     protected function _int()
     {
-        return (integer) $this->value;
+        return $this->_integer();
     }
 
     protected function _float()
