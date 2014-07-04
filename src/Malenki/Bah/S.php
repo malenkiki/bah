@@ -168,7 +168,7 @@ class S extends O implements \Countable, \IteratorAggregate
             return $this->$name();
         }
 
-        if (in_array($name, array('string', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans', 'rtl', 'ltr', 'md5', 'sha1'))) {
+        if (in_array($name, array('string', 'str', 'integer', 'int', 'float', 'double', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans', 'rtl', 'ltr', 'md5', 'sha1'))) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
@@ -281,6 +281,45 @@ class S extends O implements \Countable, \IteratorAggregate
     {
         return (string) $this->value;
     }
+
+    protected function _str()
+    {
+        return $this->_string();
+    }
+
+
+    protected function _integer()
+    {
+        if(!is_numeric($this->value)){
+            throw new \RuntimeException('Current string has not numeric content: cannot cast it to integer!');
+        }
+
+        return (int) $this->value;
+    }
+
+    protected function _int()
+    {
+        return $this->_integer();
+    }
+
+    protected function _float()
+    {
+        if(!is_numeric($this->value)){
+            throw new \RuntimeException('Current string has not numeric content: cannot cast it to float!');
+        }
+
+        return (float) $this->value;
+    }
+    
+    protected function _double()
+    {
+        if(!is_numeric($this->value)){
+            throw new \RuntimeException('Current string has not numeric content: cannot cast it to double!');
+        }
+
+        return (double) $this->value;
+    }
+
 
     public function getIterator()
     {

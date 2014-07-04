@@ -37,6 +37,52 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I am a string!', "$s");
     }
 
+    public function testConvertingObjectToPrimitiveStringShouldSuccess()
+    {
+        $c = new S('abc');
+        $this->assertInternalType('string', $c->string);
+        $this->assertEquals('abc', $c->string);
+    }
+
+
+    public function testConvertingObjectToPrimitiveStringUsingShortFormShouldSuccess()
+    {
+        $c = new S('abc');
+        $this->assertInternalType('string', $c->str);
+        $this->assertEquals('abc', $c->str);
+    }
+
+
+    public function testConvertingObjectToPrimitiveIntegerShouldSuccess()
+    {
+        $c = new S('42');
+        $this->assertInternalType('integer', $c->integer);
+        $this->assertEquals(42, $c->integer);
+    }
+
+
+    public function testConvertingObjectToPrimitiveIntegerUsingShortFormShouldSuccess()
+    {
+        $c = new S('42');
+        $this->assertInternalType('integer', $c->int);
+        $this->assertEquals(42, $c->int);
+    }
+
+    public function testConvertingObjectToPrimitiveFloatShouldSuccess()
+    {
+        $c = new S('12.34');
+        $this->assertInternalType('float', $c->float);
+        $this->assertEquals(12.34, $c->float);
+    }
+
+
+    public function testConvertingObjectToPrimitiveDoubleShouldSuccess()
+    {
+        $c = new S('12.34');
+        $this->assertEquals((double) 12.34, $c->double);
+    }
+
+
     public function testConvertingStringHavingOneCharToCObjectShouldSuccess()
     {
         $s = new S('ç');
