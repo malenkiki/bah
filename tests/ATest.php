@@ -167,11 +167,25 @@ class ATest extends PHPUnit_Framework_TestCase
         $value = $a->pop;
     }
 
-    public function testConvertingObjectToPrimitiveArray()
+    public function testConvertingObjectToPrimitiveArrayShouldReturnArray()
+    {
+        $a = new A(array('foo', 'bar'));
+        $this->assertInternalType('array', $a->array);
+    }
+
+
+    public function testConvertingObjectToPrimitiveArrayUsingShortFormShouldReturnArray()
+    {
+        $a = new A(array('foo', 'bar'));
+        $this->assertInternalType('array', $a->arr);
+    }
+
+    public function testConvertingObjectToPrimitiveArrayShouldSuccess()
     {
         $arr = array('one', 'two', 'three', 'four', 'five');
         $a = new A($arr);
         $this->assertEquals($arr, $a->array);
+        $this->assertEquals($arr, $a->arr);
     }
 
     public function testGettingOneAvailableItem()

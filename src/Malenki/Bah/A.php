@@ -75,7 +75,7 @@ class A extends O implements \Countable, \IteratorAggregate
             return $this->$name();
         } elseif (in_array($name, array('min', 'max'))) {
             return $this->_maxOrMin($name);
-        } elseif (in_array($name, array('array', 'length', 'last', 'first', 'shift', 'pop', 'shuffle', 'reverse', 'sort', 'unique'))) {
+        } elseif (in_array($name, array('array', 'arr', 'length', 'last', 'first', 'shift', 'pop', 'shuffle', 'reverse', 'sort', 'unique'))) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
@@ -415,6 +415,11 @@ class A extends O implements \Countable, \IteratorAggregate
         }
 
         return $arr;
+    }
+
+    protected function _arr()
+    {
+        return $this->_array();
     }
 
     protected function _shuffle()
