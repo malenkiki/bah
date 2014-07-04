@@ -62,6 +62,17 @@ class CTest extends PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testConvertingObjectToPrimitiveIntegerShouldFail()
+    {
+        $c = new C('A');
+        $c->integer;
+    }
+
+
+
     public function testConvertingObjectToSObjectShouldSuccess()
     {
         $c = new C('a');
