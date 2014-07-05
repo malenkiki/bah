@@ -22,32 +22,90 @@ $greek = new S('Τα ελληνικά σου είναι καλύτερα απο 
 Shorthand method to have return at the end of the string:
 
 ```php
-echo $greek->n;
+echo $greek; // 'Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!'
 ```
 
-Uppercases + new line:
+Uppercases:
 
 ```php
-echo $greek->upper->n;
+echo $greek->upper; // ΤΑ ΕΛΛΗΝΙΚΆ ΣΟΥ ΕΊΝΑΙ ΚΑΛΎΤΕΡΑ ΑΠΟ ΤΑ ΓΑΛΛΙΚΆ ΜΟΥ!
 ```
 
-Lowercases + new line:
+Lowercases:
 
 ```php
-echo $greek->lower->n;
+echo $greek->lower; // τα ελληνικά σου είναι καλύτερα απο τα γαλλικά μου!
 ```
 
-Capitalize first letter of each words + new line:
+Capitalize first letter of each words:
 
 ```php
-echo $greek->title->n;
+echo $greek->title; // Τα Ελληνικά Σου Είναι Καλύτερα Απο Τα Γαλλικά Μου!
 ```
 
-Get string length, convert to string and then add new line:
+Swap cases from previous returned string:
+```php
+echo $greek->title->swap; // τΑ εΛΛΗΝΙΚΆ σΟΥ εΊΝΑΙ κΑΛΎΤΕΡΑ αΠΟ τΑ γΑΛΛΙΚΆ μΟΥ!
+```
+
+Get string length. The returned object is \Malenki\Bah\N having `toString()` method, so can be used too into string context:
 
 ```php
-echo $greek->length->s->n;
+echo $greek->length; // 50
 ```
+
+Get lower Camel Case:
+```php
+echo $greek->lcc; // ταΕλληνικάΣουΕίναιΚαλύτεραΑποΤαΓαλλικάΜου
+```
+
+Get Upper Camel Case:
+```php
+echo $greek->ucc; // ΤαΕλληνικάΣουΕίναιΚαλύτεραΑποΤαΓαλλικάΜου
+```
+
+Get dashed version:
+```php
+echo $greek->dash; // τα-ελληνικά-σου-είναι-καλύτερα-απο-τα-γαλλικά-μου
+```
+
+Get underscore version:
+```php
+echo $greek->underscore; // τα_ελληνικά_σου_είναι_καλύτερα_απο_τα_γαλλικά_μου
+```
+
+Get transliterated version:
+```php
+$greek->trans; // Ta ellenika sou einai kalytera apo ta Gallika mou!
+```
+
+Get some combined previous effects together:
+```php
+echo $greek->lcc->trans; // taEllenikaSouEinaiKalyteraApoTaGallikaMou 
+```
+
+Get first character:
+```php
+echo $greek->first; // Τ
+```
+
+Get last character:
+```php
+echo $greek->last; // !
+```
+
+Squeeze duplicate characters:
+```php
+$s = new S('azzertyy');
+echo $s->squeeze; // azerty
+```
+
+Choose characters to squeeze:
+```php
+$s = new S('aaazzertyy');
+echo $s->squeeze('za'); // azertyy
+```
+
 
 Takes first four chars and add new line:
 
@@ -135,25 +193,27 @@ while($c->bytes->valid())
 }
 ```
 
-Get all chars of the unicode block of the current char:
+Get all chars of the unicode block of the current char, joined by comma:
 
 ```php
 $c = new C("Œ");
-$all = $c->family;
-
-while($all->valid())
-{
-    echo $all->current();
-    echo ' ';
-    $all->next();
-}
+echo $c->family->join(', ');
+/*
+Ā, ā, Ă, ă, Ą, ą, Ć, ć, Ĉ, ĉ, Ċ, ċ, Č, č, Ď, ď, Đ, đ, Ē, ē,
+Ĕ, ĕ, Ė, ė, Ę, ę, Ě, ě, Ĝ, ĝ, Ğ, ğ, Ġ, ġ, Ģ, ģ, Ĥ, ĥ, Ħ, ħ,
+Ĩ, ĩ, Ī, ī, Ĭ, ĭ, Į, į, İ, ı, Ĳ, ĳ, Ĵ, ĵ, Ķ, ķ, ĸ, Ĺ, ĺ, Ļ,
+ļ, Ľ, ľ, Ŀ, ŀ, Ł, ł, Ń, ń, Ņ, ņ, Ň, ň, ŉ, Ŋ, ŋ, Ō, ō, Ŏ, ŏ,
+Ő, ő, Œ, œ, Ŕ, ŕ, Ŗ, ŗ, Ř, ř, Ś, ś, Ŝ, ŝ, Ş, ş, Š, š, Ţ, ţ,
+Ť, ť, Ŧ, ŧ, Ũ, ũ, Ū, ū, Ŭ, ŭ, Ů, ů, Ű, ű, Ų, ų, Ŵ, ŵ, Ŷ, ŷ,
+Ÿ, Ź, ź, Ż, ż, Ž, ž, ſ
+*/
 ```
 
 Get Unicode Block name of the current char:
 
 ```php
 $c = new C("Œ");
-echo $c->block->n;
+echo $c->block; // Latin Extended-A
 ```
 
 You can transliterate character to simple one:

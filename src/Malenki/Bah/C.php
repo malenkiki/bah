@@ -544,7 +544,7 @@ class C extends O
     }
 
 
-    public function _family()
+    protected function _family()
     {
         $arr = array();
         $int_code = $this->_unicode()->value;
