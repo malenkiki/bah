@@ -1266,33 +1266,33 @@ class N extends O
         return $a;
     }
 
-    public function _cos()
+    protected function _cos()
     {
         return new static(cos($this->value));
     }
 
-    public function _sin()
+    protected function _sin()
     {
         return new static(sin($this->value));
     }
 
-    public function _tan()
+    protected function _tan()
     {
         return new static(tan($this->value));
     }
 
 
-    public function _cosh()
+    protected function _cosh()
     {
         return new static(cosh($this->value));
     }
 
-    public function _sinh()
+    protected function _sinh()
     {
         return new static(sinh($this->value));
     }
 
-    public function _tanh()
+    protected function _tanh()
     {
         return new static(tanh($this->value));
     }
@@ -1301,33 +1301,33 @@ class N extends O
 
 
 
-    public function _acos()
+    protected function _acos()
     {
         return new static(acos($this->value));
     }
 
-    public function _asin()
+    protected function _asin()
     {
         return new static(asin($this->value));
     }
 
-    public function _atan()
+    protected function _atan()
     {
         return new static(atan($this->value));
     }
 
 
-    public function _acosh()
+    protected function _acosh()
     {
         return new static(acosh($this->value));
     }
 
-    public function _asinh()
+    protected function _asinh()
     {
         return new static(asinh($this->value));
     }
 
-    public function _atanh()
+    protected function _atanh()
     {
         return new static(atanh($this->value));
     }
