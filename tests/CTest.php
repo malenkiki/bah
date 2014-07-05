@@ -97,12 +97,30 @@ class CTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testInstanciateFromCode()
+    public function testInstanciateFromCodeShouldSuccess()
     {
         $n = new N(948);
         $c = new C($n);
 
         $this->assertEquals('δ', $c->string);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInstanciateFromNonUtf8CharShouldFail()
+    {
+        $c = new C(chr(0xA4));
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInstanciateFromNonUtf8CodeShouldFail()
+    {
+        $c = new C(new N(0x11FFFF));
     }
 
     public function testInstanciateFormHtmlEntityShouldSuccess()

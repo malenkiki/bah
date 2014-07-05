@@ -258,6 +258,13 @@ class C extends O
     public function __construct($char = '')
     {
         if ($char instanceof N) {
+
+            if($char->negative || $char->gt(0x10FFFF)){
+                throw new \InvalidArgumentException(
+                    'This character is not a valid UTF-8 code point!'
+                );
+            }
+
             if($char->gte(0xD800) && $char->lte(0xDFFF)){
                 $this->bool_is_surrogate = true;
             }
@@ -277,6 +284,10 @@ class C extends O
             } else {
                 throw new \InvalidArgumentException('Invalid character!');
             }
+        }
+
+        if(!mb_check_encoding($char, self::ENCODING)){
+            throw new \InvalidArgumentException('This character is not a valid UTF-8 character!');
         }
 
         $this->value = $char;
