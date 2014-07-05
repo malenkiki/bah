@@ -160,6 +160,11 @@ class S extends O implements \Countable, \IteratorAggregate
             return $this->_dash();
         }
 
+
+        if ($name == 'squeeze') {
+            return $this->squeeze();
+        }
+
         if ($name == 'ucw') {
             return $this->_upperCaseWords();
         }
@@ -460,6 +465,38 @@ class S extends O implements \Countable, \IteratorAggregate
         );
     }
 
+
+
+    public function squeeze($seq = null)
+    {
+        $str_pattern = '/(.)\1+/';
+
+        if(!is_null($seq)){
+            if(is_array($seq)){
+                $seq = new A($seq);
+                $seq = $seq->join;
+            } elseif($seq instanceof A){
+                $seq = $seq->join;
+            } elseif($seq instanceof H){
+                $seq = $seq->to_a->join;
+            } elseif(
+                (is_object($seq) && method_exists($seq, '__toString')) 
+                ||
+                is_scalar($seq)
+            )
+            {
+                $seq = (string) $seq;
+            } else {
+                throw new \InvalidArgumentException(
+                    'Bad type provided for squeeze method!'
+                );
+            }
+
+            $str_pattern = sprintf('/([%s])\1+/', preg_quote($seq, '/'));
+        }
+
+        return new S(preg_replace($str_pattern,'$1',$this->value));
+    }
 
 
 

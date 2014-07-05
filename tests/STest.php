@@ -26,6 +26,7 @@ use Malenki\Bah\S;
 use Malenki\Bah\N;
 use Malenki\Bah\C;
 use Malenki\Bah\A;
+use Malenki\Bah\H;
 
 class STest extends PHPUnit_Framework_TestCase
 {
@@ -1073,6 +1074,101 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->swap_case, $s->swapcase);
         $this->assertEquals($s->swap_case, $s->swap);
     }
+
+
+    
+    public function testSqueezingCharactersShouldReturnSObject()
+    {
+        $s = new S('I havve some doubllle characterss!');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->squeeze);
+    }
+
+
+    public function testSqueezingCharactersShouldSuccess()
+    {
+        $s = new S('I havve some doubllle characterss!');
+        $this->assertEquals('I have some double characters!', $s->squeeze);
+    }
+
+
+    public function testSqueezingCharactersUsingPrimitiveStringSequenceShouldSuccess()
+    {
+        $s = new S('I havve some doubllle characterss!');
+        $this->assertEquals('I have some doubllle characters!', $s->squeeze('vs'));
+    }
+
+
+    public function testSqueezingCharactersUsingSObjectOrObjectHavingToStringMethodSequenceShouldSuccess()
+    {
+        $s = new S('I havve some doubllle characterss!');
+        $this->assertEquals('I have some doubllle characters!', $s->squeeze(new S('vs')));
+        $this->assertEquals('I havve some doubllle characters!', $s->squeeze(new C('s')));
+    }
+
+
+    public function testSqueezingCharactersUsingArrayOfStringSequenceShouldSuccess()
+    {
+        $s = new S('I havve some doubllle characterss!');
+        $this->assertEquals('I have some doubllle characters!', $s->squeeze(array('v','s')));
+    }
+
+
+    public function testSqueezingCharactersUsingArrayOfObjectsHavingToStringMethodSequenceShouldSuccess()
+    {
+        $s = new S('I havve some doubllle characterss!');
+        $this->assertEquals('I have some doubllle characters!', $s->squeeze(array(new S('v'), new C('s'))));
+    }
+
+
+    public function testSqueezingCharactersUsingAObjectHavingStringSequenceShouldSuccess()
+    {
+        $s = new S('I havve some doubllle characterss!');
+        $this->assertEquals('I have some doubllle characters!', $s->squeeze(new A(array('v','s'))));
+    }
+
+
+    public function testSqueezingCharactersUsingAObjectHavingObjectWithToStringMethodSequenceShouldSuccess()
+    {
+        $s = new S('I havve some doubllle characterss!');
+        $this->assertEquals('I have some doubllle characters!', $s->squeeze(new A(array(new S('v'), new C('s')))));
+        
+        $s = new S('aazzerr//tyyy');
+        $this->assertEquals('azzerr/ty', $s->squeeze(new A(array(new S('a'), new C('/'), 'y'))));
+    }
+
+
+
+    public function testSqueezingCharactersUsingHObjectHavingStringSequenceShouldSuccess()
+    {
+        $s = new S('I havve some doubllle characterss!');
+        $this->assertEquals('I have some doubllle characters!', $s->squeeze(new H(array('foo' => 'v', 'bar' => 's'))));
+    }
+
+
+    public function testSqueezingCharactersUsingHObjectHavingObjectWithToStringMethodSequenceShouldSuccess()
+    {
+        $s = new S('I havve some doubllle characterss!');
+        $this->assertEquals('I have some doubllle characters!', $s->squeeze(new H(array('foo' => new S('v'), 'bar' => new C('s')))));
+        
+        $s = new S('aazzerr//tyyy');
+        $this->assertEquals('azzer/ty', $s->squeeze(new H(array('foo' => new S('ar'), 'bar' => new C('/'), 'thing' => 'y'))));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSqueezingUsingNotValidArgumentShouldFail()
+    {
+        $s = new S('aazzerr//tyyy');
+        $o = new \stdClass();
+        $o->foo = 'a';
+        $o->bar = 'z';
+
+        $s->squeeze($o);
+    }
+
+
+
 
 
     public function testCenteringStringShouldReturnSObject()
