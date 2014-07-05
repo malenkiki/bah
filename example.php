@@ -43,7 +43,14 @@ echo $greek->n;
 echo $greek->upper->n;
 echo $greek->lower->n;
 echo $greek->title->n;
-echo $greek->length->s->n;
+echo $greek->title->swap->n;
+echo $greek->length->to_s->n;
+echo $greek->lcc->n;
+echo $greek->ucc->n;
+echo $greek->dash->n;
+echo $greek->underscore->n;
+echo $greek->trans->n;
+echo $greek->lcc->trans->n;
 echo $greek->sub(4)->n;
 echo $greek->chars->length->s->n;
 echo $greek->bytes->length->s->n;
@@ -115,6 +122,7 @@ while($c->bytes->valid)
 
 $c = new C("Œ");
 $all = $c->family;
+echo $c->family->join(', ')->n;
 
 while($all->valid)
 {
