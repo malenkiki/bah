@@ -317,9 +317,12 @@ class CTest extends PHPUnit_Framework_TestCase
 
     public function testSurrogateDetection()
     {
-        $this->markTestSkipped("Must find right caracters to test with");
-        $c = new C();
+        $c = new C(new N(0xD800));
         $this->assertTrue($c->is_surrogate);
+        $c = new C(new N(0xDFFF));
+        $this->assertTrue($c->is_surrogate);
+        $c = new C('A');
+        $this->assertFalse($c->is_surrogate);
     }
 
     public function testControlDetection()

@@ -253,10 +253,14 @@ class C extends O
 
     protected $bytes = null;
 
+    protected $bool_is_surrogate = false; // due to PHP issue about \p{Cs}…
 
     public function __construct($char = '')
     {
         if ($char instanceof N) {
+            if($char->gte(0xD800) && $char->lte(0xDFFF)){
+                $this->bool_is_surrogate = true;
+            }
             // Clean way found here: http://ftzdomino.blogspot.fr/2009/06/php-utf-8-chr-and-ord-equivalents.html
             $char = mb_convert_encoding(
                 pack('n', $char->int),
@@ -447,7 +451,9 @@ class C extends O
 
     protected function _isSurrogate()
     {
-        return (boolean) preg_match("/^\p{Cs}+$/ui", $this->value);
+        // Stupid PHP bug, \p{Cs} just doesn't work at all!
+        //return (boolean) preg_match("/^\p{Cs}+$/ui", $this->value);
+        return $this->bool_is_surrogate;
     }
 
     protected function _isMark()
