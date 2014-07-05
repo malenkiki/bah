@@ -257,7 +257,12 @@ class C extends O
     public function __construct($char = '')
     {
         if ($char instanceof N) {
-            $char = sprintf('&#%d;', $char->int);
+            // Clean way found here: http://ftzdomino.blogspot.fr/2009/06/php-utf-8-chr-and-ord-equivalents.html
+            $char = mb_convert_encoding(
+                pack('n', $char->int),
+                self::ENCODING,
+                'UTF-16BE'
+            );
         }
 
         if (mb_strlen($char, self::ENCODING) > 1) {

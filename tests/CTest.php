@@ -240,9 +240,63 @@ class CTest extends PHPUnit_Framework_TestCase
 
     public function testFormatDetection()
     {
-        $this->markTestSkipped("Must find right caracters to test with");
-        $c = new C(new N(0x9B));
+        $c = new C(new N(0xAD));
         $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x600));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x601));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x602));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x603));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x604));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x200B));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x200C));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x200D));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x200E));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x200F));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x202A));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x202B));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x202C));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x202D));
+        $this->assertTrue($c->is_format);
+        
+        $c = new C(new N(0x202E));
+        $this->assertTrue($c->is_format);
+
+        foreach(range(0x2060, 0x2064) as $cp){
+            $c = new C(new N($cp));
+            $this->assertTrue($c->is_format);
+        }
+
+        foreach(range(0x206A, 0x206F) as $cp){
+            $c = new C(new N($cp));
+            $this->assertTrue($c->is_format);
+        }
     }
 
     public function testUnassignedDetection()
