@@ -156,6 +156,10 @@ class S extends O implements \Countable, \IteratorAggregate
         }
 
 
+        if ($name == 'dash') {
+            return $this->_dash();
+        }
+
         if ($name == 'ucw') {
             return $this->_upperCaseWords();
         }
@@ -585,6 +589,18 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
 
+    public function _dash()
+    {
+        return $this->strip()
+            ->lower
+            ->replace('/[\s]+/', '-')
+            ->replace('/[^\p{Ll}\p{Lu}0-9-]/u', '-')
+            ->replace('/-+/', '-')
+            ->strip('-')
+            ;
+    }
+
+
     public function camelCase($is_upper = false)
     {
         $func = function(&$v, $k, $is_upper){
@@ -606,7 +622,8 @@ class S extends O implements \Countable, \IteratorAggregate
             ->replace('/_+/', '_')
             ->strip('_')
             ->split('/_/')
-            ->walk($func, $is_upper)->join
+            ->walk($func, $is_upper)
+            ->join
             ;
     }
 

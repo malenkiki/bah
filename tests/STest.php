@@ -951,6 +951,23 @@ class STest extends PHPUnit_Framework_TestCase
 
 
 
+    public function testConvertStringToDashNotationShouldReturnSObject()
+    {
+        $s = new S('I will be translated to dash notation!');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->dash);
+    }
+
+    public function testConvertStringToDashNotationShouldSuccess()
+    {
+        $s = new S('I will be translated to dash notation!');
+        $this->assertEquals('i-will-be-translated-to-dash-notation', $s->dash);
+        
+        $s = new S('cos(1/exp(pi^2)) result is: 0.99999999866236');
+        $this->assertEquals('cos-1-exp-pi-2-result-is-0-99999999866236', $s->dash);
+    }
+
+
+
     public function testConvertintStringToLowerCamelCaseShouldReturnSObject()
     {
         $s = new S('Je vais être en « lowerCamelCase »');
