@@ -614,7 +614,7 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
-    public function _underscore()
+    protected function _underscore()
     {
         return $this->strip()
             ->lower
@@ -626,7 +626,7 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
 
-    public function _dash()
+    protected function _dash()
     {
         return $this->strip()
             ->lower
