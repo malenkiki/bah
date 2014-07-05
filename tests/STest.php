@@ -930,6 +930,9 @@ class STest extends PHPUnit_Framework_TestCase
     {
         $s = new S('I will be translated to UnderScore notation!');
         $this->assertEquals('i_will_be_translated_to_underscore_notation', $s->underscore);
+        
+        $s = new S('cos(1/exp(pi^2)) result is: 0.99999999866236');
+        $this->assertEquals('cos_1_exp_pi_2_result_is_0_99999999866236', $s->underscore);
     }
 
     public function testConvertStringToUnderscoreNotationUsingAliasShouldSuccess()
@@ -977,6 +980,9 @@ class STest extends PHPUnit_Framework_TestCase
     {
         $s = new S('Je vais être en « lowerCamelCase »');
         $this->assertEquals('jeVaisÊtreEnLowerCamelCase', $s->lcc);
+        
+        $s = new S('cos(1/exp(pi^2)) result is: 0.99999999866236');
+        $this->assertEquals('cos1ExpPi2ResultIs099999999866236', $s->lcc);
     }
 
 
@@ -1011,6 +1017,9 @@ class STest extends PHPUnit_Framework_TestCase
     {
         $s = new S('Je vais être en « UpperCamelCase »');
         $this->assertEquals('JeVaisÊtreEnUpperCamelCase', $s->ucc);
+        
+        $s = new S('cos(1/exp(pi^2)) result is: 0.99999999866236');
+        $this->assertEquals('Cos1ExpPi2ResultIs099999999866236', $s->ucc);
     }
 
 
