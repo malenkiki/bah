@@ -31,6 +31,51 @@ namespace Malenki\Bah;
  * @property-read Malenki\Bah\A $chars A collection of Malenki\Bah\C objects
  * @property-read Malenki\Bah\A $bytes A collection of Malenki\bah\N objects
  * @property-read Malenki\Bah\N $length The strings length
+ * @property-read Malenki\Bah\C $to_c If string as only one character, convert it to \Malenki\Bah\C object.
+ * @property-read Malenki\Bah\N $to_n If string contents numeric value, try to export it to \Malenki\Bah\N object.
+ * @property-read Malenki\Bah\S $n Return itself + new line '\n'
+ * @property-read Malenki\Bah\S $r Return itself + new line '\r'
+ * @property-read boolean $is_void Tests whether the current string is void or not.
+ * @property-read boolean $void Tests whether the current string is void or not.
+ * @property-read boolean $is_empty Tests whether the current string is void or not.
+ * @property-read boolean $empty Tests whether the current string is void or not.
+ * @property-read \Malenki\Bah\S $strip Remove white spaces surrounding the string. See \Malenki\Bah\S::strip() for more actions.
+ * @property-read \Malenki\Bah\S $lstrip Remove white spaces at the left of the string. See \Malenki\Bah\S::lstrip() for more actions.
+ * @property-read \Malenki\Bah\S $rstrip Remove white spaces at the right of the string. See \Malenki\Bah\S::rstrip() for more actions.
+ * @property-read \Malenki\Bah\S $sub Take first character as string. See \Malenki\Bah\S::sub() for more actions.
+ * @property-read \Malenki\Bah\S $chunk Get exploded string as collection of characters. See \Malenki\Bah\S::chunk() for more actions.
+ * @property-read \Malenki\Bah\S $delete Remove first character. See \Malenki\Bah\S::delete() for more actions.
+ * @property-read \Malenki\Bah\S $remove Remove first character. See \Malenki\Bah\S::delete() for more actions.
+ * @property-read \Malenki\Bah\S $del Remove first character. See \Malenki\Bah\S::delete() for more actions.
+ * @property-read \Malenki\Bah\S $rm Remove first character. See \Malenki\Bah\S::delete() for more actions.
+ *
+ * @property-read Malenki\Bah\S $center Center the string on line having width of 79 chars.
+ * @property-read Malenki\Bah\S $left Align on left the string on line having width of 79 chars.
+ * @property-read Malenki\Bah\S $left_justify Align on left the string on line having width of 79 chars.
+ * @property-read Malenki\Bah\S $left_align Align on left the string on line having width of 79 chars.
+ * @property-read Malenki\Bah\S $ljust Align on left the string on line having width of 79 chars.
+ * @property-read Malenki\Bah\S $right Align on right the string on line having width of 79 chars.
+ * @property-read Malenki\Bah\S $right_justify Align on right the string on line having width of 79 chars.
+ * @property-read Malenki\Bah\S $right_align Align on right the string on line having width of 79 chars.
+ * @property-read Malenki\Bah\S $rjust Align on right the string on line having width of 79 chars.
+ * @property-read Malenki\Bah\S $justify Justify the string on line having width of 79 chars.
+ * @property-read Malenki\Bah\S $just Justify the string on line having width of 79 chars.
+ *
+ * @property-read Malenki\Bah\S $wrap Get wrapped version of the string, width of 79 chars
+ *
+ * @property-read Malenki\Bah\S $underscore Get underscorized version (`some_words_into_sentence`)
+ * @property-read Malenki\Bah\S $_ Get underscorized version (`some_words_into_sentence`)
+ * @property-read Malenki\Bah\S $dash Get dashrized version (`some-words-into-sentence`)
+ * @property-read Malenki\Bah\S $upper_camel_case Get lower camel case version
+ * @property-read Malenki\Bah\S $lower_camel_case Get upper camel case version
+ * @property-read Malenki\Bah\S $lcc Get lower camel case version
+ * @property-read Malenki\Bah\S $ucc Get upper camel case version
+ * @property-read Malenki\Bah\S $swap_case Get swapped case version
+ * @property-read Malenki\Bah\S $swapcase Get swapped case version
+ * @property-read Malenki\Bah\S $swap Get swapped case version
+ * @property-read Malenki\Bah\S $squeeze Remove duplicates sequences of characters. See \Malenki\Bah\S::squeeze() methods to have other features
+ * @property-read Malenki\Bah\S $ucw Get upper case words
+ * @property-read Malenki\Bah\S $ucf Get upper case first
  * @license MIT
  */
 class S extends O implements \Countable, \IteratorAggregate
