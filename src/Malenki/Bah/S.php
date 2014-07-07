@@ -612,11 +612,20 @@ class S extends O implements \Countable, \IteratorAggregate
         return static::concat($this, $str);
     }
 
+    public function after($str)
+    {
+        return $this->append($str);
+    }
 
 
     public function prepend($str)
     {
         return static::concat($str, $this);
+    }
+
+    public function before($str)
+    {
+        return $this->prepend($str);
     }
 
 
