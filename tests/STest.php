@@ -892,6 +892,59 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo bar', $s->prepend(new C(' '))->prepend(new S('foo')));
     }
 
+    public function testPutContentBeforeShouldReturnSObject()
+    {
+        $s = new S('bar');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->before('foo '));
+    }
+    
+
+    public function testPutContentBeforeUsingStringShouldSuccess()
+    {
+        $s = new S('bar');
+        $this->assertEquals('foo bar', $s->before('foo '));
+    }
+    
+
+    public function testPutContentBeforeUsingObjectShouldSuccess()
+    {
+        $s = new S('bar');
+        $this->assertEquals('foo bar', $s->before(new S('foo ')));
+    }
+    
+    public function testPutContentBeforeShouldHaveSameResultAsPrependFeadure()
+    {
+        $s = new S('bar');
+        $this->assertEquals($s->prepend('foo '), $s->before('foo '));
+    }
+
+
+    public function testPutContentAfterShouldReturnSObject()
+    {
+        $s = new S('bar');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->after(' foo'));
+    }
+
+    public function testPutContentAfterUsingStringShouldSuccess()
+    {
+        $s = new S('bar');
+        $this->assertEquals('bar foo', $s->after(' foo'));
+    }
+    
+
+    public function testPutContentAfterUsingObjectShouldSuccess()
+    {
+        $s = new S('bar');
+        $this->assertEquals('bar foo', $s->after(new S(' foo')));
+    }
+    
+    public function testPutContentAfterShouldHaveSameResultAsappendFeadure()
+    {
+        $s = new S('bar');
+        $this->assertEquals($s->append(' foo'), $s->after(' foo'));
+    }
+
+
     public function testInsertingStringShouldReturnSObject()
     {
         $s = new S('abcghi');
