@@ -801,8 +801,10 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * By default, returns the first character as a substring.
      *
-     * @param mixed $offset Where to start the substring, 0 by default, as N or integer
-     * @param mixed $limit  Size of the substring, 1 by default, as N or integer
+     * @param mixed $offset Where to start the substring, 0 by default, as N or 
+     * integer
+     * @param mixed $limit  Size of the substring, 1 by default, as N or 
+     * integer
      *
      * @return S
      */
@@ -1025,21 +1027,21 @@ class S extends O implements \Countable, \IteratorAggregate
     {
         $str_prov = mb_convert_case(
             mb_strtolower(
-                mb_strtolower($this->value, 'UTF-8'),
-                'UTF-8'
+                mb_strtolower($this->value, C::ENCODING),
+                C::ENCODING
             ),
             MB_CASE_TITLE,
-            'UTF-8'
+            C::ENCODING
         );
 
         $str_out  = $str_prov;
-        $int_length  = mb_strlen($str_prov, 'UTF-8');
+        $int_length  = mb_strlen($str_prov, C::ENCODING);
 
         $prev_idx = null;
         $arr_to_change = array();
 
         for ($i = 0; $i < $int_length; $i++) {
-            $letter = mb_substr($str_prov, $i, 1, 'UTF-8');
+            $letter = mb_substr($str_prov, $i, 1, C::ENCODING);
 
             if ($letter == "'") {
                 $prev_idx = $i;
@@ -1051,11 +1053,12 @@ class S extends O implements \Countable, \IteratorAggregate
         }
 
         foreach ($arr_to_change as $idx => $letter) {
-            $str_tmp  = mb_substr($str_out, 0, $idx, 'UTF-8'); // On prend ce qu’il y a avant le caractère sans modification
-            $str_tmp .= mb_strtoupper($letter, 'UTF-8'); // On met en majuscule la lettre
-            $str_tmp .= mb_substr($str_out, $idx + 1, $int_length, 'UTF-8'); // On prend le reste de la chaîne…
+            $str_tmp  = mb_substr($str_out, 0, $idx, C::ENCODING);
+            $str_tmp .= mb_strtoupper($letter, C::ENCODING);
+            $str_tmp .= mb_substr($str_out, $idx+1, $int_length, C::ENCODING);
 
             $str_out = $str_tmp;
+            unset($str_tmp);
         }
 
         return new self($str_out);
@@ -1076,7 +1079,7 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Get character at the given position.
      *
-     * @param mixed $idx The index where the cahracter is, as N or integer.
+     * @param mixed $idx The index where the character is, as N or integer.
      *
      * @return C
      */
@@ -1186,7 +1189,8 @@ class S extends O implements \Countable, \IteratorAggregate
      * Wrap the string to have given width.
      *
      * @param  integer $width Width the text must have
-     * @param  mixed   $cut   Optional string to put at each linebreak, as string or S
+     * @param  mixed   $cut   Optional string to put at each linebreak, as 
+     * string or S
      * @access public
      * @return S
      */
@@ -1545,7 +1549,9 @@ class S extends O implements \Countable, \IteratorAggregate
         if($size instanceof N) $size = $size->int;
         
         if($size < 1) {
-            throw new \InvalidArgumentException('Chunk’s size must be equal at least to 1.');
+            throw new \InvalidArgumentException(
+                'Chunk’s size must be equal at least to 1.'
+            );
         }
 
         $a = new A();
