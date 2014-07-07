@@ -68,6 +68,14 @@ namespace Malenki\Bah;
  * @property-read Malenki\Bah\S $dash Get dashrized version (`some-words-into-sentence`)
  * @property-read Malenki\Bah\S $upper_camel_case Get lower camel case version
  * @property-read Malenki\Bah\S $lower_camel_case Get upper camel case version
+ * @property-read Malenki\Bah\S $lower Get string into lower case
+ * @property-read Malenki\Bah\S $upper Get string into upper case
+ * @property-read Malenki\Bah\S $first Get first character
+ * @property-read Malenki\Bah\S $last Get last character
+ * @property-read Malenki\Bah\S $title Get "title" version of the string
+ * @property-read Malenki\Bah\S $trans Get translitterated version of the string
+ * @property-read Malenki\Bah\S $md5 Get MD5 sum of the string
+ * @property-read Malenki\Bah\S $sha1 Get SHA1 sum of the string
  * @property-read Malenki\Bah\S $lcc Get lower camel case version
  * @property-read Malenki\Bah\S $ucc Get upper camel case version
  * @property-read Malenki\Bah\S $swap_case Get swapped case version
@@ -76,6 +84,12 @@ namespace Malenki\Bah;
  * @property-read Malenki\Bah\S $squeeze Remove duplicates sequences of characters. See \Malenki\Bah\S::squeeze() methods to have other features
  * @property-read Malenki\Bah\S $ucw Get upper case words
  * @property-read Malenki\Bah\S $ucf Get upper case first
+ * @property-read string $string Get current string as primitive PHP type string
+ * @property-read string $str Get current string as primitive PHP type string
+ * @property-read integer $integer Get current string as primitive PHP type integer, if possible.
+ * @property-read integer $int Get current string as primitive PHP type integer, if possible.
+ * @property-read float $float Get current string as primitive PHP type float, if possible.
+ * @property-read double $double Get current string as primitive PHP type double, if possible.
  * @license MIT
  */
 class S extends O implements \Countable, \IteratorAggregate
