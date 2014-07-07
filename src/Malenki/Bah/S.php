@@ -216,7 +216,6 @@ class S extends O implements \Countable, \IteratorAggregate
                     'r',
                     'first', 
                     'last', 
-                    'a', //DEPRECATED to delete
                     'trans',
                     'rtl',
                     'ltr', 
@@ -489,21 +488,6 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->position >= 0 
             && 
             $this->position < count($this);
-    }
-
-
-    // TODO Deprecated? Or must create `to_a`? Must use chunk feature as ref.
-    protected function _a()
-    {
-        $a = new A();
-        $i = new N(0);
-
-        while ($i->less($this->_length())) {
-            $a->add($this->sub($i->value));
-            $i->incr;
-        }
-
-        return  $a;
     }
 
 
