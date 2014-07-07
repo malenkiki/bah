@@ -143,54 +143,22 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     public function __get($name)
     {
-        if ($name == 'length') {
-            if (is_null($this->length)) {
-                $this->_length();
-            }
 
-            return $this->length;
-        }
-
-        if ($name == 'chars') {
-            return $this->_chars();
-        }
-
-        if ($name == 'bytes') {
-            if (is_null($this->bytes)) {
-                $this->_bytes();
-            }
-
-            return $this->bytes;
-        }
-
-
-        if($name == 'to_c'){
-            if(count($this) != 1){
-                throw new \RuntimeException(
-                    'Cannot converting S object having length not equal to one to C object.'
-                );
-            }
-
-            return new C($this->value);
-        }
-
-        if($name == 'to_n'){
-            return new N((double) $this->value);
-        }
-
-        if (in_array($name, array('n', 'r'))) {
-            return $this->$name();
-        }
-
-        if (in_array($name, array('center', 'wrap'))) {
-            return $this->$name();
-        }
-
-        if (in_array($name, array('is_void', 'void', 'is_empty', 'empty'))) {
+        if($name == 'to_c' || $name == 'to_n'){
+            return $this->_to($name);
+        } elseif (
+            in_array(
+                $name,
+                array(
+                    'is_void',
+                    'void',
+                    'is_empty', 
+                    'empty'
+                )
+            )
+        ) {
             return $this->_isVoid();
-        }
-
-        if (
+        } elseif (
             in_array(
                 $name,
                 array(
@@ -202,80 +170,153 @@ class S extends O implements \Countable, \IteratorAggregate
                     'delete',
                     'remove',
                     'del', 
-                    'rm'
+                    'rm',
+                    'center', 
+                    'wrap',
+                    'n',
+                    'r',
+                    'squeeze',
+                    'current',
+                    'key', 
+                    'next',
+                    'rewind',
+                    'valid',
+                    'left', 
+                    'right',
+                    'justify'
                 )
             )
         ) {
             return $this->$name();
-        }
-
-
-        if ($name == 'underscore' || $name == '_') {
+        } elseif ($name == '_') {
             return $this->_underscore();
-        }
-
-
-        if ($name == 'dash') {
-            return $this->_dash();
-        }
-
-
-        if ($name == 'squeeze') {
-            return $this->squeeze();
-        }
-
-        if ($name == 'ucw') {
+        } elseif ($name == 'ucw') {
             return $this->_upperCaseWords();
-        }
-
-        if ($name == 'ucf') {
+        } elseif ($name == 'ucf') {
             return $this->_upperCaseFirst();
-        }
-
-        if(in_array($name, array('current', 'key', 'next', 'rewind', 'valid'))){
-            return $this->$name();
-        }
-
-        if (in_array($name, array('string', 'str', 'integer', 'int', 'float', 'double', 'title', 'upper', 'lower', 'n', 'r', 'first', 'last', 'a', 'trans', 'rtl', 'ltr', 'md5', 'sha1'))) {
+        } elseif (
+            in_array(
+                $name, 
+                array(
+                    'length',
+                    'chars',
+                    'bytes',
+                    'dash', 
+                    'underscore',
+                    'string', 
+                    'str', 
+                    'integer',
+                    'int',
+                    'float',
+                    'double', 
+                    'title', 
+                    'upper',
+                    'lower', 
+                    'n', 
+                    'r',
+                    'first', 
+                    'last', 
+                    'trans',
+                    'rtl',
+                    'ltr', 
+                    'md5',
+                    'sha1'
+                )
+            )
+        ) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
-        }
-
-        if(in_array($name, array('is_ltr', 'left_to_right', 'is_left_to_right'))){
+        } elseif(
+            in_array(
+                $name, 
+                array(
+                    'is_ltr',
+                    'left_to_right',
+                    'is_left_to_right'
+                )
+            )
+        ){
             return $this->_ltr();
-        }
-        
-        if(in_array($name, array('is_rtl', 'right_to_left', 'is_right_to_left'))){
+        } elseif(
+            in_array(
+                $name,
+                array(
+                    'is_rtl',
+                    'right_to_left',
+                    'is_right_to_left'
+                )
+            )
+        ){
             return $this->_rtl();
-        }
-        
-        if(in_array($name, array('has_mixed_direction', 'mixed_direction', 'is_rtl_and_ltr', 'rtl_and_ltr', 'is_ltr_and_rtl', 'ltr_and_rtl'))){
+        } elseif(
+            in_array(
+                $name, 
+                array(
+                    'has_mixed_direction',
+                    'mixed_direction', 
+                    'is_rtl_and_ltr',
+                    'rtl_and_ltr', 
+                    'is_ltr_and_rtl', 
+                    'ltr_and_rtl'
+                )
+            )
+        ){
             return $this->_hasMixedDirection();
-        }
-        
-        if(in_array($name, array('lower_camel_case', 'lcc'))){
+        } elseif(
+            in_array(
+                $name,
+                array(
+                    'lower_camel_case',
+                    'lcc'
+                )
+            )
+        ){
             return $this->camelCase();
-        }
-        
-        
-        if(in_array($name, array('upper_camel_case', 'ucc'))){
+        } elseif(
+            in_array(
+                $name, 
+                array(
+                    'upper_camel_case',
+                    'ucc'
+                )
+            )
+        ){
             return $this->camelCase(true);
-        }
-        
-        if($name == 'swap_case' || $name == 'swapcase' || $name == 'swap'){
+        } elseif(
+            in_array(
+                $name, 
+                array(
+                    'swap_case', 
+                    'swapcase', 
+                    'swap'
+                )
+            )
+        ){
             return $this->_swapCase();
-        }
-
-        if(in_array($name, array('left', 'left_justify', 'left_align', 'ljust'))){
+        } elseif(
+            in_array(
+                $name,
+                array(
+                    'left_justify',
+                    'left_align',
+                    'ljust'
+                )
+            )
+        ){
             return $this->left();
-        }
-
-        if(in_array($name, array('right', 'right_justify', 'right_align', 'rjust'))){
+        } elseif(
+            in_array(
+                $name,
+                array(
+                    'right_justify',
+                    'right_align',
+                    'rjust'
+                )
+            )
+        ){
             return $this->right();
-        }
-
-        if($name == 'justify' || $name == 'just'){
+        } elseif($name == 'just'){
             return $this->justify();
         }
 
@@ -310,6 +351,8 @@ class S extends O implements \Countable, \IteratorAggregate
             }
 
             $this->chars = $a;
+            unset($a);
+            unset($i);
         }
 
         return $this->chars;
@@ -317,32 +360,54 @@ class S extends O implements \Countable, \IteratorAggregate
 
     protected function _bytes()
     {
-        $a = new A();
+        if(is_null($this->bytes)){
+            $a = new A();
 
-        $this->_chars();
+            $this->_chars();
 
-        while ($this->chars->valid()) {
-            //$bytes = $this->chars->current()->bytes;
+            while ($this->chars->valid()) {
+                //$bytes = $this->chars->current()->bytes;
 
-            while ($this->chars->current()->bytes->valid()) {
-                $a->add($this->chars->current()->bytes->current());
-                $this->chars->current()->bytes->next();
+                while ($this->chars->current()->bytes->valid()) {
+                    $a->add($this->chars->current()->bytes->current());
+                    $this->chars->current()->bytes->next();
+                }
+
+                $this->chars->next();
             }
-
-            $this->chars->next();
+            $this->bytes = $a;
+            unset($a);
         }
-        $this->bytes = $a;
 
         return $this->bytes;
     }
 
     protected function _length()
     {
-        $this->length = new N(mb_strlen($this, C::ENCODING));
+        if(is_null($this->length)){
+            $this->length = new N(mb_strlen($this, C::ENCODING));
+        }
 
         return $this->length;
     }
 
+
+    protected function _to($name)
+    {
+        if($name == 'to_c'){
+            if(count($this) != 1){
+                throw new \RuntimeException(
+                    'Cannot converting S object having length not equal to one to C object.'
+                );
+            }
+
+            return new C($this->value);
+        }
+
+        if($name == 'to_n'){
+            return new N((double) $this->value);
+        }
+    }
 
 
     protected function _string()
@@ -423,21 +488,6 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->position >= 0 
             && 
             $this->position < count($this);
-    }
-
-
-    // TODO Deprecated? Or must create `to_a`? Must use chunk feature as ref.
-    protected function _a()
-    {
-        $a = new A();
-        $i = new N(0);
-
-        while ($i->less($this->_length())) {
-            $a->add($this->sub($i->value));
-            $i->incr;
-        }
-
-        return  $a;
     }
 
 
@@ -751,8 +801,10 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * By default, returns the first character as a substring.
      *
-     * @param mixed $offset Where to start the substring, 0 by default, as N or integer
-     * @param mixed $limit  Size of the substring, 1 by default, as N or integer
+     * @param mixed $offset Where to start the substring, 0 by default, as N or 
+     * integer
+     * @param mixed $limit  Size of the substring, 1 by default, as N or 
+     * integer
      *
      * @return S
      */
@@ -975,21 +1027,21 @@ class S extends O implements \Countable, \IteratorAggregate
     {
         $str_prov = mb_convert_case(
             mb_strtolower(
-                mb_strtolower($this->value, 'UTF-8'),
-                'UTF-8'
+                mb_strtolower($this->value, C::ENCODING),
+                C::ENCODING
             ),
             MB_CASE_TITLE,
-            'UTF-8'
+            C::ENCODING
         );
 
         $str_out  = $str_prov;
-        $int_length  = mb_strlen($str_prov, 'UTF-8');
+        $int_length  = mb_strlen($str_prov, C::ENCODING);
 
         $prev_idx = null;
         $arr_to_change = array();
 
         for ($i = 0; $i < $int_length; $i++) {
-            $letter = mb_substr($str_prov, $i, 1, 'UTF-8');
+            $letter = mb_substr($str_prov, $i, 1, C::ENCODING);
 
             if ($letter == "'") {
                 $prev_idx = $i;
@@ -1001,11 +1053,12 @@ class S extends O implements \Countable, \IteratorAggregate
         }
 
         foreach ($arr_to_change as $idx => $letter) {
-            $str_tmp  = mb_substr($str_out, 0, $idx, 'UTF-8'); // On prend ce qu’il y a avant le caractère sans modification
-            $str_tmp .= mb_strtoupper($letter, 'UTF-8'); // On met en majuscule la lettre
-            $str_tmp .= mb_substr($str_out, $idx + 1, $int_length, 'UTF-8'); // On prend le reste de la chaîne…
+            $str_tmp  = mb_substr($str_out, 0, $idx, C::ENCODING);
+            $str_tmp .= mb_strtoupper($letter, C::ENCODING);
+            $str_tmp .= mb_substr($str_out, $idx+1, $int_length, C::ENCODING);
 
             $str_out = $str_tmp;
+            unset($str_tmp);
         }
 
         return new self($str_out);
@@ -1026,7 +1079,7 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Get character at the given position.
      *
-     * @param mixed $idx The index where the cahracter is, as N or integer.
+     * @param mixed $idx The index where the character is, as N or integer.
      *
      * @return C
      */
@@ -1136,7 +1189,8 @@ class S extends O implements \Countable, \IteratorAggregate
      * Wrap the string to have given width.
      *
      * @param  integer $width Width the text must have
-     * @param  mixed   $cut   Optional string to put at each linebreak, as string or S
+     * @param  mixed   $cut   Optional string to put at each linebreak, as 
+     * string or S
      * @access public
      * @return S
      */
@@ -1495,7 +1549,9 @@ class S extends O implements \Countable, \IteratorAggregate
         if($size instanceof N) $size = $size->int;
         
         if($size < 1) {
-            throw new \InvalidArgumentException('Chunk’s size must be equal at least to 1.');
+            throw new \InvalidArgumentException(
+                'Chunk’s size must be equal at least to 1.'
+            );
         }
 
         $a = new A();
