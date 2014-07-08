@@ -1357,8 +1357,8 @@ class S extends O implements \Countable, \IteratorAggregate
             );
         } else {
             //Thanks to: http://www.php.net/manual/fr/function.wordwrap.php#104811
-            $str_prov = $this->value;
-            $int_length = mb_strlen($str_prov, 'UTF-8');
+            $str_prov = preg_replace('/\s+/', ' ', trim($this->value));
+            $int_length = mb_strlen($str_prov, C::ENCODING);
             $int_width = $width;
 
             if ($int_length <= $int_width) {
@@ -1369,11 +1369,11 @@ class S extends O implements \Countable, \IteratorAggregate
             $i = 0;
 
             do {
-                if (mb_substr($str_prov, $i, 1, 'UTF-8') == ' ') {
+                if (mb_substr($str_prov, $i, 1, c::ENCODING) == ' ') {
                     $int_last_space = $i;
                 }
 
-                if ($i > $int_width) {
+                if ($i >= $int_width) {
                     if ($int_last_space == 0) {
                         $int_last_space = $int_width;
                     }
@@ -1383,17 +1383,18 @@ class S extends O implements \Countable, \IteratorAggregate
                             $str_prov,
                             0,
                             $int_last_space,
-                            'UTF-8')
-                        );
+                            C::ENCODING
+                        )
+                    );
 
                     $str_prov = mb_substr(
                         $str_prov,
                         $int_last_space,
                         $int_length,
-                        'UTF-8'
+                        C::ENCODING
                     );
 
-                    $int_length = mb_strlen($str_prov, 'UTF-8');
+                    $int_length = mb_strlen($str_prov, C::ENCODING);
 
                     $i = 0;
                 }
@@ -1544,13 +1545,14 @@ class S extends O implements \Countable, \IteratorAggregate
 
         $s = '';
 
-        $pad = new N($width - count($a->current));
 
         while ($a->valid()) {
             if ($type == 'left') {
+                $pad = $width - count($a->current);
                 $s .= $a->current->margin(0, $pad);
             } else {
-                $s .= $a->current->margin($pad);
+                $pad = $width - count($a->current->strip);
+                $s .= $a->current->strip->margin($pad);
             }
 
             if (!$a->is_last) {
@@ -1670,6 +1672,14 @@ class S extends O implements \Countable, \IteratorAggregate
      * This method is usefull for text into console, pure text output or 
      * content to place into `PRE` balise in HTML.
      *
+     * One example of string output by this method using width of 40 could be:
+     *
+     *     Tous les êtres humains naissent libres
+     *      et égaux en dignité et en droits. Ils
+     *      sont doués de raison et de conscience
+     *         et doivent agir les uns envers les
+     *       autres dans un esprit de fraternité.
+     *
      * @see S::left() To align text on the left
      * @see S::justify() To justify text
      * @see S::rjust() Alias
@@ -1747,6 +1757,40 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->right($width, $cut);
     }
 
+    /**
+     * Justify text, into given width.
+     *
+     * This allows you to justify text. To do that, you can call it without any 
+     * argument, so, the default width is 79 characters, last line is align on 
+     * the left and line end is `PHP_EOL`.
+     *
+     * If you want customize the justifying, then, width is an integer-like, 
+     * last line type must be either `left` or `right`, and end of line can be 
+     * any string-like you want.
+     *
+     * Spaces are added to reproduce this justifying effect. Very great for 
+     * non-HTML text ouputs, like email, text file, log, console…
+     *
+     * One example with a long string justifying into width of 40 chars:
+     *
+     *     Tous  les  êtres humains naissent libres
+     *     et  égaux  en  dignité et en droits. Ils
+     *     sont  doués  de  raison et de conscience
+     *     et  doivent  agir  les  uns  envers  les
+     *     autres dans un esprit de fraternité. 
+     * 
+     * @param mixed $width Width as integer-like to fit resulting string in. 
+     * Optional, default is 79 characters.
+     * @param string $last_line Last line type as string-like. Optional, by 
+     * default set to `left`
+     * @param mixed $cut End of line string-like. Optional, set by default at 
+     * `PHP_EOL`
+     * @return S
+     * @throws \InvalidArgumentException If given type is not `left` or `right`.
+     * @throws \InvalidArgumentException If width is not an integer-like.
+     * @throws \InvalidArgumentException If width is negative or null.
+     * @throws \InvalidArgumentException If cut end of line string is not string-like.
+     */
     public function justify($width = 79, $last_line = 'left', $cut = PHP_EOL)
     {
         self::mustBeInteger($width, 'Width');
@@ -1767,7 +1811,11 @@ class S extends O implements \Countable, \IteratorAggregate
         }
 
 
-        $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
+        $a = $this
+            ->strip()
+            ->replace('/\s+/', ' ')
+            ->wrap($width, $cut)
+            ->split('/'.preg_quote($cut, '/').'/u');
 
         $s = '';
         $sp = new S(' ');
@@ -1780,11 +1828,10 @@ class S extends O implements \Countable, \IteratorAggregate
             if ($a->is_last) {
                 $s .= $a->current->$last_line($width, $cut);
             } else {
-                $line = $a->current->strip->replace('/\s+/', ' ');
+                $line = $a->current->strip;
                 $diff = new N($width - count($line));
                 $words = $line->split('/\s/u');
                 $nb_spaces = count($words) - 1 + $diff->int;
-
                 $div = new N($nb_spaces / (count($words) - 1));
                 $div_floor = $div->floor->int;
 

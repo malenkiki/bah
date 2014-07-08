@@ -52,8 +52,8 @@ echo $greek->underscore->n;
 echo $greek->trans->n;
 echo $greek->lcc->trans->n;
 echo $greek->sub(4)->n;
-echo $greek->chars->length->s->n;
-echo $greek->bytes->length->s->n;
+echo $greek->chars->length->to_s->n;
+echo $greek->bytes->length->to_s->n;
 
 $abc = new S('abcdefghijklmnopqrstuvwxyz');
 echo $abc->first->n;
@@ -70,6 +70,10 @@ echo $long->wrap(80)->n->n;
 echo $long->wrap(80)->ucw->n->n;
 echo 'First: ';
 echo $long->wrap(40)->margin(10, 0, -7)->n->n;
+
+echo $long->left(40)->n->n;
+echo $long->right(40)->n->n;
+echo $long->justify(40)->n->n;
 
 $filter_vowel = function($item)
 {
@@ -90,8 +94,8 @@ $filter_upper_consons = function($item)
     }
 };
 $s = new S('abcdef');
-echo $s->a->filter($filter_vowel)->join("\n")->n;
-echo $s->a->map($filter_upper_consons)->join("\n")->n;
+echo $s->chunk->filter($filter_vowel)->join("\n")->n;
+echo $s->chunk->map($filter_upper_consons)->join("\n")->n;
 
 $s = new S('C’est rigolo d’écrire en français !');
 echo $s->trans->n;
