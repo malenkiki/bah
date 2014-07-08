@@ -117,6 +117,21 @@ class S extends O implements \Countable, \IteratorAggregate
 
     protected $position = 0;
 
+
+    /**
+     * Concatenates string or object having toString feature together. 
+     * 
+     * This can take any number of arguments. You can mix string primitive type 
+     * and oject having `toString()` method implemented, like `\Malenki\Bah\S` 
+     * or other classes…
+     *
+     * The returned object is from `\Malenki\Bah\S` class.
+     *
+     * @static
+     * @throw \Exception If one of the arguments is not string or object having `__toString()` method.
+     * @access public
+     * @return \Malenki\Bah\S
+     */
     public static function concat()
     {
         $args = func_get_args();
@@ -143,7 +158,10 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
     /**
+     * Manage available magic getters.
+     *
      * @params string $name
+     * @return mixed
      */
     public function __get($name)
     {
@@ -328,6 +346,15 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
 
+    /**
+     * Create new S object. 
+     * 
+     * @param string $str 
+     * @throw \InvalidArgumentException If argument if not valid UTF-8 string.
+     * @uses 0::mustBeStringOrScalar() To check if string is string or scalar or \Malenki\Bah\S
+     * @access public
+     * @return void
+     */
     public function __construct($str = '')
     {
         self::mustBeStringOrScalar($str);
