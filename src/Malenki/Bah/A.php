@@ -408,9 +408,13 @@ class A extends O implements \Countable, \IteratorAggregate
     {
         $arr = array_values($this->value);
 
-        foreach ($arr as $k => $v) {
+        $cnt = count($arr);
+
+        for ($i = 0; $i < $cnt; $i++) {
+            $v = $arr[$i];
+
             if ($v instanceof A || $v instanceof H) {
-                $arr[$k] = $v->array;
+                $arr[$i] = $v->array;
             }
         }
 
@@ -590,9 +594,13 @@ class A extends O implements \Countable, \IteratorAggregate
 
         $arr = array_chunk($this->value, $size);
 
-        foreach ($arr as $k => $v) {
+        $cnt = count($arr);
+
+        for ($i = 0; $i < $cnt; $i++) {
+            $v = $arr[$i];
+
             if (is_array($v)) {
-                $arr[$k] = new self($v);
+                $arr[$i] = new self($v);
             }
         }
 
@@ -675,7 +683,8 @@ class A extends O implements \Countable, \IteratorAggregate
         } else {
             foreach($arr_idx as $idx){
                 $j = 1;
-                for($i = $idx + 1; $i < (count($arr) + $idx); $i++){
+                $cnt = (count($arr) + $idx);
+                for($i = $idx + 1; $i < $cnt; $i++){
                     if(!array_key_exists($i, $this->value)){
                         return false;
                     }
