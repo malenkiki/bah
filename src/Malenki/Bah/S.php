@@ -1510,15 +1510,16 @@ class S extends O implements \Countable, \IteratorAggregate
 
     /**
      * Justify text on the left or on the right, to fit on given width padding with spaces. 
+     * This is usefull for pure text output (email, console, content on `PRE` HTML tag…)
      * 
      * @param string $type Must be either `left` or `right`
      * @param int $width Width to fit. If not given, default used is 79 chars width.
      * @param string $cut Optional string at end of line to use. Default is `PHP_EOL`.
      * @return S
      * @throws \InvalidArgumentException If given type is not `left` or `right`.
-     * @throws \InvalidArgumentException If Width is not an integer-like.
+     * @throws \InvalidArgumentException If width is not an integer-like.
+     * @throws \InvalidArgumentException If width is negative or null.
      * @throws \InvalidArgumentException If cut end of line string is not string-like.
-     * @todo test width, it must be positive only!
      */
     protected function _leftOrRightJustify($type = 'left', $width = 79, $cut = PHP_EOL)
     {
@@ -1533,6 +1534,10 @@ class S extends O implements \Countable, \IteratorAggregate
 
         if (is_object($width)) {
             $width = $width->int;
+        }
+
+        if($width <= 0){
+            throw new \InvalidArgumentException('Width cannot be null!');
         }
 
         $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
@@ -1573,12 +1578,15 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * @see S::right() To align text on the right
      * @see S::justify() To justify text
+     * @see S::ljust() Alias
+     * @see S::leftAlign() Other alias
+     * @see S::leftJustify() Last but not the least alias :)
      *
-     * @param mixed $width 
-     * @param mixed $cut 
+     * @param mixed $width Width to fit in, an integer-like. Default is 79. 
+     * @param mixed $cut String at the end of each line, by default it is `PHP_EOL`.
      * @return S
-     * @throws \InvalidArgumentException If given type is not `left` or `right`.
      * @throws \InvalidArgumentException If Width is not an integer-like.
+     * @throws \InvalidArgumentException If width is negative or null.
      * @throws \InvalidArgumentException If cut end of line string is not string-like.
      */
     public function left($width = 79, $cut = PHP_EOL)
@@ -1586,36 +1594,154 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->_leftOrRightJustify('left', $width, $cut);
     }
 
+
+    /**
+     * Left aligns text to fit it into the given width (alias).
+     *
+     * @see S::right() To align text on the right
+     * @see S::justify() To justify text
+     * @see S::left() Original method of this alias.
+     *
+     * @param mixed $width Width to fit in, an integer-like. Default is 79. 
+     * @param mixed $cut String at the end of each line, by default it is `PHP_EOL`.
+     * @return S
+     * @throws \InvalidArgumentException If Width is not an integer-like.
+     * @throws \InvalidArgumentException If width is negative or null.
+     * @throws \InvalidArgumentException If cut end of line string is not string-like.
+     */
     public function ljust($width = 79, $cut = PHP_EOL)
     {
         return $this->left($width, $cut);
     }
 
+
+
+    /**
+     * Left aligns text to fit it into the given width (alias).
+     *
+     * @see S::right() To align text on the right
+     * @see S::justify() To justify text
+     * @see S::left() Original method of this alias.
+     *
+     * @param mixed $width Width to fit in, an integer-like. Default is 79. 
+     * @param mixed $cut String at the end of each line, by default it is `PHP_EOL`.
+     * @return S
+     * @throws \InvalidArgumentException If Width is not an integer-like.
+     * @throws \InvalidArgumentException If width is negative or null.
+     * @throws \InvalidArgumentException If cut end of line string is not string-like.
+     */
     public function leftAlign($width = 79, $cut = PHP_EOL)
     {
         return $this->left($width, $cut);
     }
 
+
+
+    /**
+     * Left aligns text to fit it into the given width (alias).
+     *
+     * @see S::right() To align text on the right
+     * @see S::justify() To justify text
+     * @see S::left() Original method of this alias.
+     *
+     * @param mixed $width Width to fit in, an integer-like. Default is 79. 
+     * @param mixed $cut String at the end of each line, by default it is `PHP_EOL`.
+     * @return S
+     * @throws \InvalidArgumentException If Width is not an integer-like.
+     * @throws \InvalidArgumentException If width is negative or null.
+     * @throws \InvalidArgumentException If cut end of line string is not string-like.
+     */
     public function leftJustify($width = 79, $cut = PHP_EOL)
     {
         return $this->left($width, $cut);
     }
 
+
+    /**
+     * Right aligns text to fit it into the given width.
+     *
+     * If width is not set, then width is set to 79 characters.
+     *
+     * Gap is filled with spaces.
+     *
+     * An optional string can be set to have 
+     * different end of line, by default, `PHP_EOL` is used. 
+     * 
+     * This method is usefull for text into console, pure text output or 
+     * content to place into `PRE` balise in HTML.
+     *
+     * @see S::left() To align text on the left
+     * @see S::justify() To justify text
+     * @see S::rjust() Alias
+     * @see S::rightAlign() Other alias
+     * @see S::rightJustify() Last but not the least alias :)
+     *
+     * @param mixed $width Width to fit in, an integer-like. Default is 79. 
+     * @param mixed $cut String at the end of each line, by default it is `PHP_EOL`.
+     * @return S
+     * @throws \InvalidArgumentException If Width is not an integer-like.
+     * @throws \InvalidArgumentException If width is negative or null.
+     * @throws \InvalidArgumentException If cut end of line string is not string-like.
+     */
     public function right($width = 79, $cut = PHP_EOL)
     {
         return $this->_leftOrRightJustify('right', $width, $cut);
     }
 
+    /**
+     * Right aligns text to fit it into the given width (alias).
+     *
+     * @see S::left() To align text on the left
+     * @see S::justify() To justify text
+     * @see S::right() Original method of this alias.
+     *
+     * @param mixed $width Width to fit in, an integer-like. Default is 79. 
+     * @param mixed $cut String at the end of each line, by default it is `PHP_EOL`.
+     * @return S
+     * @throws \InvalidArgumentException If Width is not an integer-like.
+     * @throws \InvalidArgumentException If width is negative or null.
+     * @throws \InvalidArgumentException If cut end of line string is not string-like.
+     */
     public function rjust($width = 79, $cut = PHP_EOL)
     {
         return $this->right($width, $cut);
     }
 
+
+    /**
+     * Right aligns text to fit it into the given width (alias).
+     *
+     * @see S::left() To align text on the left
+     * @see S::justify() To justify text
+     * @see S::right() Original method of this alias.
+     *
+     * @param mixed $width Width to fit in, an integer-like. Default is 79. 
+     * @param mixed $cut String at the end of each line, by default it is `PHP_EOL`.
+     * @return S
+     * @throws \InvalidArgumentException If Width is not an integer-like.
+     * @throws \InvalidArgumentException If width is negative or null.
+     * @throws \InvalidArgumentException If cut end of line string is not string-like.
+     */
     public function rightAlign($width = 79, $cut = PHP_EOL)
     {
         return $this->right($width, $cut);
     }
 
+
+    /**
+     * Right aligns text to fit it into the given width (alias).
+     *
+     * @see S::left() To align text on the left
+     * @see S::justify() To justify text
+     * @see S::right() Original method of this alias.
+     *
+     * @param mixed $width Width to fit in, an integer-like. Default is 79. 
+     * @param mixed $cut String at the end of each line, by default it is `PHP_EOL`.
+     * @return S
+     * @throws \InvalidArgumentException If Width is not an integer-like.
+     * @throws \InvalidArgumentException If width is negative or null.
+     * @throws \InvalidArgumentException If cut end of line string is not string-like.
+     */
     public function rightJustify($width = 79, $cut = PHP_EOL)
     {
         return $this->right($width, $cut);
@@ -1635,6 +1761,11 @@ class S extends O implements \Countable, \IteratorAggregate
         if (is_object($width)) {
             $width = $width->int;
         }
+
+        if($width <= 0){
+            throw new \InvalidArgumentException('Width cannot be null or negative!');
+        }
+
 
         $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
 

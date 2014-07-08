@@ -1309,6 +1309,36 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testLeftJustifyingUsingBadWidthTypeShouldFail()
+    {
+        $s = new S('Je ne vais pas être alignée sur la gauche !');
+        $s->left(null);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testLeftJustifyingUsingNegativeWidthShouldFail()
+    {
+        $s = new S('Je ne vais pas être alignée sur la gauche !');
+        $s->left(-10);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testLeftJustifyingUsingZeroWidthShouldFail()
+    {
+        $s = new S('Je ne vais pas être alignée sur la gauche !');
+        $s->left(0);
+    }
+
+
     public function testRightJustifyingStringShouldSuccess()
     {
         $s = new S('Je vais être alignée sur la droite !');
@@ -1345,6 +1375,36 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($shouldPad, $sp->right(new N(40)));
     }
 
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testRightJustifyingUsingBadWidthTypeShouldFail()
+    {
+        $s = new S('Je ne vais pas être alignée sur la gauche !');
+        $s->right(null);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testRightJustifyingUsingNegativeWidthShouldFail()
+    {
+        $s = new S('Je ne vais pas être alignée sur la gauche !');
+        $s->right(-10);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testRightJustifyingUsingZeroWidthShouldFail()
+    {
+        $s = new S('Je ne vais pas être alignée sur la gauche !');
+        $s->right(0);
+    }
+
     public function testJustifyingStringShouldSuccess()
     {
         $s = new S('Cogito ergo sum, alea jacta est !?');
@@ -1366,6 +1426,46 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($should, $s->justify(15, 'right'));
     }
 
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testJustifyingUsingBadWidthTypeShouldFail()
+    {
+        $s = new S('Je ne vais pas être alignée sur la gauche !');
+        $s->justify(null);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testJustifyingUsingNegativeWidthShouldFail()
+    {
+        $s = new S('Je ne vais pas être alignée sur la gauche !');
+        $s->justify(-10);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testJustifyingUsingZeroWidthShouldFail()
+    {
+        $s = new S('Je ne vais pas être alignée sur la gauche !');
+        $s->justify(0);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testJustifyingUsingBadLastLineAlignTypeShouldFail()
+    {
+        $s = new S('Je ne vais pas être alignée sur la gauche !');
+        $s->justify(50, 'foo');
+    }
 
 
 
