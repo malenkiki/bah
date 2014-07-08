@@ -1081,13 +1081,15 @@ class N extends O
             $arr_groups = str_split(strrev((string) abs($this->value)), 4); 
             $arr_groups = array_values(array_reverse($arr_groups));
 
+            $int_groups_cnt = count($arr_groups);
+
             // reordering all
-            foreach($arr_groups as $k => $v){
-                $arr_groups[$k] = strrev($v);
+            for($i = 0; $i < $int_groups_cnt; $i++){
+                $arr_groups[$i] = strrev($arr_groups[$i]);
             }
 
             $out = '';
-            $int_count = count($arr_groups) - 2;
+            $int_count = $int_groups_cnt - 2;
 
 
             // ok, we have our divisions, so, let's do it into chinese!
