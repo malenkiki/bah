@@ -1506,6 +1506,20 @@ class S extends O implements \Countable, \IteratorAggregate
         return new S($s);
     }
 
+
+
+    /**
+     * Justify text on the left or on the right, to fit on given width padding with spaces. 
+     * 
+     * @param string $type Must be either `left` or `right`
+     * @param int $width Width to fit. If not given, default used is 79 chars width.
+     * @param string $cut Optional string at end of line to use. Default is `PHP_EOL`.
+     * @return S
+     * @throws \InvalidArgumentException If given type is not `left` or `right`.
+     * @throws \InvalidArgumentException If Width is not an integer-like.
+     * @throws \InvalidArgumentException If cut end of line string is not string-like.
+     * @todo test width, it must be positive only!
+     */
     protected function _leftOrRightJustify($type = 'left', $width = 79, $cut = PHP_EOL)
     {
         self::mustBeInteger($width, 'Width');
@@ -1544,6 +1558,29 @@ class S extends O implements \Countable, \IteratorAggregate
         return new S($s);
     }
 
+    /**
+     * Left aligns text to fit it into the given width.
+     *
+     * If width is not set, then width is set to 79 characters.
+     *
+     * Gap is filled with spaces.
+     *
+     * An optional string can be set to have 
+     * different end of line, by default, `PHP_EOL` is used. 
+     * 
+     * This method is usefull for text into console, pure text output or 
+     * content to place into `PRE` balise in HTML.
+     *
+     * @see S::right() To align text on the right
+     * @see S::justify() To justify text
+     *
+     * @param mixed $width 
+     * @param mixed $cut 
+     * @return S
+     * @throws \InvalidArgumentException If given type is not `left` or `right`.
+     * @throws \InvalidArgumentException If Width is not an integer-like.
+     * @throws \InvalidArgumentException If cut end of line string is not string-like.
+     */
     public function left($width = 79, $cut = PHP_EOL)
     {
         return $this->_leftOrRightJustify('left', $width, $cut);
