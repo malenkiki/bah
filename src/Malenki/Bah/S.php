@@ -117,17 +117,16 @@ class S extends O implements \Countable, \IteratorAggregate
 
     protected $position = 0;
 
-
     /**
-     * Concatenates string or object having toString feature together. 
-     * 
-     * This can take any number of arguments. You can mix string primitive type 
-     * and oject having `toString()` method implemented, like `\Malenki\Bah\S` 
+     * Concatenates string or object having toString feature together.
+     *
+     * This can take any number of arguments. You can mix string primitive type
+     * and oject having `toString()` method implemented, like `\Malenki\Bah\S`
      * or other classes…
      *
      * The returned object is from `\Malenki\Bah\S` class.
      *
-     * @throws \Exception If one of the arguments is not string or object having `__toString()` method.
+     * @throws \Exception     If one of the arguments is not string or object having `__toString()` method.
      * @return \Malenki\Bah\S
      */
     public static function concat()
@@ -138,7 +137,7 @@ class S extends O implements \Countable, \IteratorAggregate
 
         foreach ($args as $s) {
             if (
-                (is_object($s) 
+                (is_object($s)
                 &&
                 method_exists($s, '__toString')) || is_string($s)
             ) {
@@ -153,8 +152,6 @@ class S extends O implements \Countable, \IteratorAggregate
         return new S($str_out);
     }
 
-
-
     /**
      * Manage available magic getters.
      *
@@ -164,7 +161,7 @@ class S extends O implements \Countable, \IteratorAggregate
     public function __get($name)
     {
 
-        if($name == 'to_c' || $name == 'to_n'){
+        if ($name == 'to_c' || $name == 'to_n') {
             return $this->_to($name);
         } elseif (
             in_array(
@@ -172,7 +169,7 @@ class S extends O implements \Countable, \IteratorAggregate
                 array(
                     'is_void',
                     'void',
-                    'is_empty', 
+                    'is_empty',
                     'empty'
                 )
             )
@@ -189,19 +186,19 @@ class S extends O implements \Countable, \IteratorAggregate
                     'chunk',
                     'delete',
                     'remove',
-                    'del', 
+                    'del',
                     'rm',
-                    'center', 
+                    'center',
                     'wrap',
                     'n',
                     'r',
                     'squeeze',
                     'current',
-                    'key', 
+                    'key',
                     'next',
                     'rewind',
                     'valid',
-                    'left', 
+                    'left',
                     'right',
                     'justify'
                 )
@@ -216,29 +213,29 @@ class S extends O implements \Countable, \IteratorAggregate
             return $this->_upperCaseFirst();
         } elseif (
             in_array(
-                $name, 
+                $name,
                 array(
                     'length',
                     'chars',
                     'bytes',
-                    'dash', 
+                    'dash',
                     'underscore',
-                    'string', 
-                    'str', 
+                    'string',
+                    'str',
                     'integer',
                     'int',
                     'float',
-                    'double', 
-                    'title', 
+                    'double',
+                    'title',
                     'upper',
-                    'lower', 
-                    'n', 
+                    'lower',
+                    'n',
                     'r',
-                    'first', 
-                    'last', 
+                    'first',
+                    'last',
                     'trans',
                     'rtl',
-                    'ltr', 
+                    'ltr',
                     'md5',
                     'sha1'
                 )
@@ -249,7 +246,7 @@ class S extends O implements \Countable, \IteratorAggregate
             return $this->$str_method();
         } elseif(
             in_array(
-                $name, 
+                $name,
                 array(
                     'is_ltr',
                     'left_to_right',
@@ -271,13 +268,13 @@ class S extends O implements \Countable, \IteratorAggregate
             return $this->_rtl();
         } elseif(
             in_array(
-                $name, 
+                $name,
                 array(
                     'has_mixed_direction',
-                    'mixed_direction', 
+                    'mixed_direction',
                     'is_rtl_and_ltr',
-                    'rtl_and_ltr', 
-                    'is_ltr_and_rtl', 
+                    'rtl_and_ltr',
+                    'is_ltr_and_rtl',
                     'ltr_and_rtl'
                 )
             )
@@ -295,7 +292,7 @@ class S extends O implements \Countable, \IteratorAggregate
             return $this->camelCase();
         } elseif(
             in_array(
-                $name, 
+                $name,
                 array(
                     'upper_camel_case',
                     'ucc'
@@ -305,10 +302,10 @@ class S extends O implements \Countable, \IteratorAggregate
             return $this->camelCase(true);
         } elseif(
             in_array(
-                $name, 
+                $name,
                 array(
-                    'swap_case', 
-                    'swapcase', 
+                    'swap_case',
+                    'swapcase',
                     'swap'
                 )
             )
@@ -336,18 +333,17 @@ class S extends O implements \Countable, \IteratorAggregate
             )
         ){
             return $this->right();
-        } elseif($name == 'just'){
+        } elseif ($name == 'just') {
             return $this->justify();
         }
 
         return parent::__get($name);
     }
 
-
     /**
-     * Create new S object. 
-     * 
-     * @param string $str 
+     * Create new S object.
+     *
+     * @param  string $str
      * @throw \InvalidArgumentException If argument if not valid UTF-8 string.
      * @see \Malenki\Bah\O::mustBeStringOrScalar() To check if string is string or scalar or \Malenki\Bah\S
      * @access public
@@ -356,18 +352,16 @@ class S extends O implements \Countable, \IteratorAggregate
     public function __construct($str = '')
     {
         self::mustBeStringOrScalar($str);
-        
-        if(!mb_check_encoding($str, C::ENCODING)){
+
+        if (!mb_check_encoding($str, C::ENCODING)) {
             throw new \InvalidArgumentException(
                 '`\Malenki\Bah\S` must be instanciated using valid UTF-8 string!'
             );
         }
-        
+
         $this->value = (string) $str;
     }
 
-    
-    
     protected function _chars()
     {
         if (is_null($this->chars)) {
@@ -389,7 +383,7 @@ class S extends O implements \Countable, \IteratorAggregate
 
     protected function _bytes()
     {
-        if(is_null($this->bytes)){
+        if (is_null($this->bytes)) {
             $a = new A();
 
             $this->_chars();
@@ -413,18 +407,17 @@ class S extends O implements \Countable, \IteratorAggregate
 
     protected function _length()
     {
-        if(is_null($this->length)){
+        if (is_null($this->length)) {
             $this->length = new N(mb_strlen($this, C::ENCODING));
         }
 
         return $this->length;
     }
 
-
     protected function _to($name)
     {
-        if($name == 'to_c'){
-            if(count($this) != 1){
+        if ($name == 'to_c') {
+            if (count($this) != 1) {
                 throw new \RuntimeException(
                     'Cannot converting S object having length not equal to one to C object.'
                 );
@@ -433,11 +426,10 @@ class S extends O implements \Countable, \IteratorAggregate
             return new C($this->value);
         }
 
-        if($name == 'to_n'){
+        if ($name == 'to_n') {
             return new N((double) $this->value);
         }
     }
-
 
     protected function _string()
     {
@@ -449,10 +441,9 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->_string();
     }
 
-
     protected function _integer()
     {
-        if(!is_numeric($this->value)){
+        if (!is_numeric($this->value)) {
             throw new \RuntimeException('Current string has not numeric content: cannot cast it to integer!');
         }
 
@@ -466,28 +457,26 @@ class S extends O implements \Countable, \IteratorAggregate
 
     protected function _float()
     {
-        if(!is_numeric($this->value)){
+        if (!is_numeric($this->value)) {
             throw new \RuntimeException('Current string has not numeric content: cannot cast it to float!');
         }
 
         return (float) $this->value;
     }
-    
+
     protected function _double()
     {
-        if(!is_numeric($this->value)){
+        if (!is_numeric($this->value)) {
             throw new \RuntimeException('Current string has not numeric content: cannot cast it to double!');
         }
 
         return (double) $this->value;
     }
 
-
     public function getIterator()
     {
         return new \ArrayIterator($this->_chars()->array);
     }
-
 
     public function current()
     {
@@ -514,12 +503,10 @@ class S extends O implements \Countable, \IteratorAggregate
 
     public function valid()
     {
-        return $this->position >= 0 
-            && 
+        return $this->position >= 0
+            &&
             $this->position < count($this);
     }
-
-
 
     protected function _trans()
     {
@@ -537,8 +524,6 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self($str);
     }
 
-
-
     protected function _swapCase()
     {
         $coll_upper = $this->_upper()->chunk();
@@ -546,11 +531,11 @@ class S extends O implements \Countable, \IteratorAggregate
 
         $out = '';
 
-        while($coll_original->valid()){
+        while ($coll_original->valid()) {
             $c_upper = $coll_upper->take($coll_original->key);
             $c_orig = $coll_original->current();
 
-            if($c_upper->string === $c_orig->string){
+            if ($c_upper->string === $c_orig->string) {
                 $out .= $c_orig->lower;
             } else {
                 $out .= $c_upper;
@@ -562,21 +547,18 @@ class S extends O implements \Countable, \IteratorAggregate
         return new S($out);
     }
 
-
-
-
     /**
      * Get an excerpt from the string surrounding by some additionnal characters.
      *
-     * If searched string is into the string, the returned excerpt will have 
-     * the searched string surrounded by some additional chars on its left and 
-     * on its right. But if the string is closed to the beginning or to the 
-     * end, then, number of character may be less than you want or even be 
-     * zero. This two last cases are rare, because excerpt method is used into 
+     * If searched string is into the string, the returned excerpt will have
+     * the searched string surrounded by some additional chars on its left and
+     * on its right. But if the string is closed to the beginning or to the
+     * end, then, number of character may be less than you want or even be
+     * zero. This two last cases are rare, because excerpt method is used into
      * big string.
      *
-     * @param mixed $phrase The searched string
-     * @param mixed $radius Numbers of characters to display in addition of the searched string, on the left, and on the right.
+     * @param  mixed                     $phrase The searched string
+     * @param  mixed                     $radius Numbers of characters to display in addition of the searched string, on the left, and on the right.
      * @access public
      * @return S
      * @throws \InvalidArgumentException If searched string is not string or object having `__toString()` method
@@ -590,7 +572,7 @@ class S extends O implements \Countable, \IteratorAggregate
         $phrase_len = mb_strlen($phrase, C::ENCODING);
 
         $pos = mb_strpos(
-            $this->_lower()->string, 
+            $this->_lower()->string,
             mb_strtolower($phrase, C::ENCODING),
             0,
             C::ENCODING
@@ -613,31 +595,29 @@ class S extends O implements \Countable, \IteratorAggregate
         }
 
         return mb_substr(
-            $this->value, 
-            $start_pos, 
-            $end_pos - $start_pos, 
+            $this->value,
+            $start_pos,
+            $end_pos - $start_pos,
             C::ENCODING
         );
     }
 
-
-
     /**
      * Removes duplicate sequance of characters.
      *
-     * This method changes, for example, `aazzzzerrtyy`  to `azerty`. Without 
-     * argument, it removes all found duplicates. If argument is provided, then 
+     * This method changes, for example, `aazzzzerrtyy`  to `azerty`. Without
+     * argument, it removes all found duplicates. If argument is provided, then
      * only given characters will be removed.
      *
-     * Argument can be a string, an object having `__toString()` method, an 
+     * Argument can be a string, an object having `__toString()` method, an
      * array, a \Malenki\Bah\A or \Malenki\Bah\H objects.
      *
      * If a collection is choosen, then each item must has size of one character.
      *
-     * If a string-like is provided, then the string will be explode to get 
+     * If a string-like is provided, then the string will be explode to get
      * each characters independently.
-     * 
-     * @param mixed $seq Optionnal set of characters to squeeze
+     *
+     * @param  mixed $seq Optionnal set of characters to squeeze
      * @access public
      * @return S
      */
@@ -645,16 +625,16 @@ class S extends O implements \Countable, \IteratorAggregate
     {
         $str_pattern = '/(.)\1+/';
 
-        if(!is_null($seq)){
-            if(is_array($seq)){
+        if (!is_null($seq)) {
+            if (is_array($seq)) {
                 $seq = new A($seq);
                 $seq = $seq->join;
-            } elseif($seq instanceof A){
+            } elseif ($seq instanceof A) {
                 $seq = $seq->join;
-            } elseif($seq instanceof H){
+            } elseif ($seq instanceof H) {
                 $seq = $seq->to_a->join;
             } elseif(
-                (is_object($seq) && method_exists($seq, '__toString')) 
+                (is_object($seq) && method_exists($seq, '__toString'))
                 ||
                 is_scalar($seq)
             )
@@ -672,107 +652,92 @@ class S extends O implements \Countable, \IteratorAggregate
         return new S(preg_replace($str_pattern,'$1',$this->value));
     }
 
-
-
     /**
-     * Trim the string, by default removing white spaces on the left and on the 
+     * Trim the string, by default removing white spaces on the left and on the
      * right.
      *
-     * You can give as argument string-like or collection-like to set 
+     * You can give as argument string-like or collection-like to set
      * character(s) to strip.
-     * 
-     * @param mixed $str Optionnal set of characters to strip.
+     *
+     * @param  mixed $str Optionnal set of characters to strip.
      * @access public
      * @return S
      */
     public function strip($str = null)
     {
-        if(is_array($str)){
+        if (is_array($str)) {
             $str = new A($str);
         }
 
-        if($str instanceof A) {
+        if ($str instanceof A) {
             return new S(trim($this->value, $str->join));
         }
-    
-        if(is_string($str) || (is_object($str) && method_exists($str, '__toString'))){
+
+        if (is_string($str) || (is_object($str) && method_exists($str, '__toString'))) {
             return new S(trim($this->value, $str));
         }
 
-    
         return new S(trim($this->value));
     }
 
-
-
     /**
-     * Trim the string, by default removing white spaces on the left. 
+     * Trim the string, by default removing white spaces on the left.
      *
-     * You can give as argument string-like or collection-like to set 
+     * You can give as argument string-like or collection-like to set
      * character(s) to strip.
-     * 
-     * @param mixed $str Optional set of characters to strip.
+     *
+     * @param  mixed $str Optional set of characters to strip.
      * @access public
      * @return S
      */
     public function lstrip($str = null)
     {
-        if(is_array($str)){
+        if (is_array($str)) {
             $str = new A($str);
         }
 
-
-        if($str instanceof A) {
+        if ($str instanceof A) {
             return new S(ltrim($this->value, $str->join));
         }
-        
-        if(is_string($str) || (is_object($str) && method_exists($str, '__toString'))){
+
+        if (is_string($str) || (is_object($str) && method_exists($str, '__toString'))) {
             return new S(ltrim($this->value, $str));
         }
 
-    
         return new S(ltrim($this->value));
     }
 
-
-
-
     /**
-     * Trim the string on its right side, by default removing white spaces. 
+     * Trim the string on its right side, by default removing white spaces.
      *
-     * You can give as argument string-like or collection-like to set 
+     * You can give as argument string-like or collection-like to set
      * character(s) to strip.
-     * 
-     * @param mixed $str Optional set of characters to strip.
+     *
+     * @param  mixed $str Optional set of characters to strip.
      * @access public
      * @return S
      */
     public function rstrip($str = null)
     {
-        if(is_array($str)){
+        if (is_array($str)) {
             $str = new A($str);
         }
 
-
-        if($str instanceof A) {
+        if ($str instanceof A) {
             return new S(rtrim($this->value, $str->join));
         }
-    
-        if(is_string($str) || (is_object($str) && method_exists($str, '__toString'))){
+
+        if (is_string($str) || (is_object($str) && method_exists($str, '__toString'))) {
             return new S(rtrim($this->value, $str));
         }
 
-    
         return new S(rtrim($this->value));
     }
 
-
-
-
     /**
      * Adds string content to the end of current string.
-     * 
-     * @param mixed $str String-like content
+     *
+     * @param  mixed $str String-like content
      * @access public
      * @return S
      */
@@ -781,15 +746,13 @@ class S extends O implements \Countable, \IteratorAggregate
         return static::concat($this, $str);
     }
 
-
-
     /**
      * Adds content after the string.
      *
      * This is an alias for \Malenki\Bah\S::append() method.
-     * 
+     *
      * @see S::append() Original method of this alias.
-     * @param mixed $str 
+     * @param  mixed $str
      * @return S
      */
     public function after($str)
@@ -797,12 +760,10 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->append($str);
     }
 
-
-
     /**
      * Adds string content to the beginning of current string.
-     * 
-     * @param mixed $str String-like content
+     *
+     * @param  mixed $str String-like content
      * @access public
      * @return S
      */
@@ -811,15 +772,13 @@ class S extends O implements \Countable, \IteratorAggregate
         return static::concat($str, $this);
     }
 
-    
-    
     /**
      * Adds content before the string.
      *
      * This is an alias for \Malenki\Bah\S::prepend() method.
-     * 
+     *
      * @see S::prepend() Original method of this alias.
-     * @param mixed $str 
+     * @param  mixed $str
      * @return S
      */
     public function before($str)
@@ -827,13 +786,11 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->prepend($str);
     }
 
-
-
     /**
      * Insert new content at given position.
-     * 
-     * @param mixed $str String-like content
-     * @param mixed $pos Integer-like content (integer or \Malenki\Bah\N object)
+     *
+     * @param  mixed                     $str String-like content
+     * @param  mixed                     $pos Integer-like content (integer or \Malenki\Bah\N object)
      * @return S
      * @throws \InvalidArgumentException If given position is not valid.
      */
@@ -842,38 +799,35 @@ class S extends O implements \Countable, \IteratorAggregate
         self::mustBeString($str, 'String to insert');
         self::mustBeInteger($pos, 'Position');
 
-        if($pos instanceof N){
+        if ($pos instanceof N) {
             $pos = $pos->int;
         }
 
-        if($pos < 0){
+        if ($pos < 0) {
             throw new \InvalidArgumentException(
                 'Position must be positive or null integer.'
             );
         }
 
-        if($pos > count($this)){
+        if ($pos > count($this)) {
             throw new \InvalidArgumentException(
                 'Position must not be greater than length of current string.'
             );
         }
 
-        if($pos == count($this)){
+        if ($pos == count($this)) {
             return $this->append($str);
         }
 
-        if($pos == 0){
+        if ($pos == 0) {
             return $this->prepend($str);
         }
 
         $str1 = $this->sub(0, $pos);
         $str2 = $this->sub($pos, count($this) - 1);
 
-        
         return static::concat($str1, $str, $str2);
     }
-
-
 
     protected function _underscore()
     {
@@ -886,7 +840,6 @@ class S extends O implements \Countable, \IteratorAggregate
             ;
     }
 
-
     protected function _dash()
     {
         return $this->strip()
@@ -898,21 +851,20 @@ class S extends O implements \Countable, \IteratorAggregate
             ;
     }
 
-
     /**
      * Convert current string in camelCase or CamelCase.
-     * 
-     * By default, this will create new string as lower camel case. But if 
+     *
+     * By default, this will create new string as lower camel case. But if
      * argument is `true`, then returned string wil be in upper camel case.
      *
-     * @param boolean $is_upper `true` to have upper camel case, `false` to have lower camel case. Optional.
+     * @param  boolean $is_upper `true` to have upper camel case, `false` to have lower camel case. Optional.
      * @return S
      */
     public function camelCase($is_upper = false)
     {
-        $func = function(&$v, $k, $is_upper){
+        $func = function (&$v, $k, $is_upper) {
             $c = $v->chunk;
-            if($is_upper || $k != 0) {
+            if ($is_upper || $k != 0) {
                 $first = $c->key_0->upper;
             } else {
                 $first = $c->key_0->lower;
@@ -938,7 +890,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * Gets string converted in lower camel case.
      *
      * This is an alias of `\Malenki\Bah\S::camelCase()`.
-     * 
+     *
      * @see S::camelCase() Orignal method of this alias
      * @return S
      */
@@ -947,14 +899,11 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->camelCase();
     }
 
-
-
-
     /**
      * Gets string converted in upper camel case.
      *
      * This is an alias of \Malenki\Bah\S::camelCase()true.
-     * 
+     *
      * @see S::camelCase() This calls original method with argument `true`
      * @return S
      */
@@ -963,17 +912,15 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->camelCase(true);
     }
 
-
-
     /**
      * Get substring from the original string.
      *
      * By default, returns the first character as a substring.
      *
-     * @param mixed $offset Where to start the substring, 0 by default, as N or 
-     * integer
-     * @param mixed $limit  Size of the substring, 1 by default, as N or 
-     * integer
+     * @param mixed $offset Where to start the substring, 0 by default, as N or
+     *                      integer
+     * @param mixed $limit  Size of the substring, 1 by default, as N or
+     *                      integer
      * @todo Missing exception for offset too big
      *
      * @return S
@@ -1002,24 +949,24 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Gets all available positions of given string needle. 
-     * 
-     * Unlike its PHP equivalent function, it returns __all__ found positions 
-     * as a \Malenki\Bah\A object. If no position found, this return object has 
+     * Gets all available positions of given string needle.
+     *
+     * Unlike its PHP equivalent function, it returns __all__ found positions
+     * as a \Malenki\Bah\A object. If no position found, this return object has
      * void collection.
      *
-     * @param mixed $needle The searched string-like content
+     * @param  mixed $needle The searched string-like content
      * @return A
      */
     public function position($needle)
     {
         self::mustBeString($needle, 'Needle');
 
-        if(is_object($needle)){
+        if (is_object($needle)) {
             $needle = "$needle";
         }
 
-        if(empty($needle)){
+        if (empty($needle)) {
             throw new \InvalidArgumentException('Needle must be not empty!');
         }
 
@@ -1029,10 +976,10 @@ class S extends O implements \Countable, \IteratorAggregate
         $a = new A();
 
         $cnt = count($this);
-        while($offset < $cnt){
+        while ($offset < $cnt) {
             $pos = mb_strpos($this->value, $needle, $offset, C::ENCODING);
 
-            if($pos !== false){
+            if ($pos !== false) {
                 $a->add(new N($pos));
             } else {
                 break;
@@ -1044,13 +991,11 @@ class S extends O implements \Countable, \IteratorAggregate
         return $a;
     }
 
-
-
     /**
-     * Gets all available positions of given string needle (Alias). 
-     * 
+     * Gets all available positions of given string needle (Alias).
+     *
      * @see S::position() Original method of this alias
-     * @param mixed $needle The searched string-like content
+     * @param  mixed $needle The searched string-like content
      * @return A
      */
     public function pos($needle)
@@ -1058,13 +1003,11 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->position($needle);
     }
 
-
-
     /**
-     * Removes string part using offset and limit size. 
-     * 
-     * @param mixed $offset Integer-like offset
-     * @param mixed $limit Integer-like limit size
+     * Removes string part using offset and limit size.
+     *
+     * @param  mixed $offset Integer-like offset
+     * @param  mixed $limit  Integer-like limit size
      * @return S
      */
     public function delete($offset = 0, $limit = 1)
@@ -1091,8 +1034,8 @@ class S extends O implements \Countable, \IteratorAggregate
 
         $a = $this->chunk(1);
 
-        while($a->valid){
-            if($a->key->gte($offset) && $limit > 0){
+        while ($a->valid) {
+            if ($a->key->gte($offset) && $limit > 0) {
                 $limit--;
             } else {
                 $s = $s->append($a->current);
@@ -1103,27 +1046,26 @@ class S extends O implements \Countable, \IteratorAggregate
 
         return $s;
     }
-    
+
     /**
-     * Removes string part using offset and limit size (Alias).  
-     * 
+     * Removes string part using offset and limit size (Alias).
+     *
      * @see S::delete() Original method of this alias
-     * @param mixed $offset Integer-like offset
-     * @param mixed $limit Integer-like limit size
+     * @param  mixed $offset Integer-like offset
+     * @param  mixed $limit  Integer-like limit size
      * @return S
      */
     public function del($offset = 0, $limit = 1)
     {
         return $this->delete($offset, $limit);
     }
-    
-    
+
     /**
-     * Removes string part using offset and limit size (Alias).  
-     * 
+     * Removes string part using offset and limit size (Alias).
+     *
      * @see S::delete() Original method of this alias
-     * @param mixed $offset Integer-like offset
-     * @param mixed $limit Integer-like limit size
+     * @param  mixed $offset Integer-like offset
+     * @param  mixed $limit  Integer-like limit size
      * @return S
      */
     public function remove($offset = 0, $limit = 1)
@@ -1131,13 +1073,12 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->delete($offset, $limit);
     }
 
-    
     /**
-     * Removes string part using offset and limit size (Alias).  
-     * 
+     * Removes string part using offset and limit size (Alias).
+     *
      * @see S::delete() Original method of this alias
-     * @param mixed $offset Integer-like offset
-     * @param mixed $limit Integer-like limit size
+     * @param  mixed $offset Integer-like offset
+     * @param  mixed $limit  Integer-like limit size
      * @return S
      */
     public function rm($offset = 0, $limit = 1)
@@ -1145,20 +1086,15 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->delete($offset, $limit);
     }
 
-
     protected function _first()
     {
         return $this->sub();
     }
 
-
-
     protected function _last()
     {
         return $this->sub($this->_length()->value - 1, 1);
     }
-
-
 
     /**
      * Checks that current string starts with the given string or not
@@ -1170,14 +1106,11 @@ class S extends O implements \Countable, \IteratorAggregate
     public function startsWith($str)
     {
         self::mustBeString($str, 'Searched starting string');
-        
+
         $str = preg_quote($str, '/');
 
         return (boolean) preg_match("/^$str/", $this->value);
     }
-
-
-
 
     /**
      * Checks that current string ends with the given string or not
@@ -1189,13 +1122,11 @@ class S extends O implements \Countable, \IteratorAggregate
     public function endsWith($str)
     {
         self::mustBeString($str, 'Searched ending string');
-        
+
         $str = preg_quote($str, '/');
 
         return (boolean) preg_match("/$str\$/", $this->value);
     }
-
-
 
     /**
      * Check whether current string match the given regular expression.
@@ -1210,9 +1141,6 @@ class S extends O implements \Countable, \IteratorAggregate
 
         return (boolean) preg_match($expr, $this->value);
     }
-
-
-
 
     /**
      * Shorthand for match method
@@ -1241,7 +1169,7 @@ class S extends O implements \Countable, \IteratorAggregate
     public function test($str)
     {
         self::mustBeStringOrScalar($str, 'String to test');
-        
+
         return (boolean) preg_match($this->value, $str);
     }
 
@@ -1316,13 +1244,11 @@ class S extends O implements \Countable, \IteratorAggregate
         return new C(mb_substr($this->value, $idx, 1, C::ENCODING));
     }
 
-
-
     /**
-     * Alias of charAt() method 
-     * 
+     * Alias of charAt() method
+     *
      * @uses S::charAt()
-     * @param mixed $idx Position as integer-like  
+     * @param  mixed $idx Position as integer-like
      * @return C
      */
     public function take($idx)
@@ -1330,20 +1256,17 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->charAt($idx);
     }
 
-
-
     /**
-     * Alias of charAt() method 
-     * 
+     * Alias of charAt() method
+     *
      * @uses S::charAt()
-     * @param mixed $idx Position as integer-like  
+     * @param  mixed $idx Position as integer-like
      * @return C
      */
     public function at($idx)
     {
         return $this->charAt($idx);
     }
-
 
     /**
      * Implements Countable interface.
@@ -1410,9 +1333,9 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Wraps the string to fit given width.
      *
-     * @param  mixed   $width Width the text must have
-     * @param  mixed   $cut   Optional string to put at each linebreak, as 
-     * string or S
+     * @param  mixed $width Width the text must have
+     * @param  mixed $cut   Optional string to put at each linebreak, as
+     *                      string or S
      * @access public
      * @return S
      */
@@ -1545,15 +1468,12 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self(implode("\n", $arr));
     }
 
-
-
-
     public function center($width = 79, $cut = PHP_EOL)
     {
         self::mustBeInteger($width, 'Width');
         self::mustBeString($cut, 'Cut character');
 
-        if(is_object($width)){
+        if (is_object($width)) {
             $width = $width->int;
         }
 
@@ -1561,13 +1481,13 @@ class S extends O implements \Countable, \IteratorAggregate
 
         $s = '';
 
-        while($a->valid()){
+        while ($a->valid()) {
             $diff = new N(($width - count($a->current)) / 2);
 
-            if($diff->decimal->zero){
+            if ($diff->decimal->zero) {
                 $left = $right = $diff->int;
             } else {
-                if($a->index->odd){
+                if ($a->index->odd) {
                     $left = $diff->ceil;
                     $right = $diff->floor;
                 } else {
@@ -1577,7 +1497,7 @@ class S extends O implements \Countable, \IteratorAggregate
             }
             $s .= $a->current->margin($left, $right);
 
-            if(!$a->is_last){
+            if (!$a->is_last) {
                 $s .= $cut;
             }
             $a->next();
@@ -1586,20 +1506,18 @@ class S extends O implements \Countable, \IteratorAggregate
         return new S($s);
     }
 
-
     protected function _leftOrRightJustify($type = 'left', $width = 79, $cut = PHP_EOL)
     {
         self::mustBeInteger($width, 'Width');
         self::mustBeString($cut, 'Cut character');
 
-        if(!in_array($type, array('left', 'right'))){
+        if (!in_array($type, array('left', 'right'))) {
             throw new \InvalidArgumentException(
                 'Alignment must be "left" or "right"'
             );
         }
 
-
-        if(is_object($width)){
+        if (is_object($width)) {
             $width = $width->int;
         }
 
@@ -1609,14 +1527,14 @@ class S extends O implements \Countable, \IteratorAggregate
 
         $pad = new N($width - count($a->current));
 
-        while($a->valid()){
-            if($type == 'left'){
+        while ($a->valid()) {
+            if ($type == 'left') {
                 $s .= $a->current->margin(0, $pad);
             } else {
                 $s .= $a->current->margin($pad);
             }
 
-            if(!$a->is_last){
+            if (!$a->is_last) {
                 $s .= $cut;
             }
 
@@ -1625,7 +1543,6 @@ class S extends O implements \Countable, \IteratorAggregate
 
         return new S($s);
     }
-
 
     public function left($width = 79, $cut = PHP_EOL)
     {
@@ -1637,18 +1554,15 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->left($width, $cut);
     }
 
-
     public function leftAlign($width = 79, $cut = PHP_EOL)
     {
         return $this->left($width, $cut);
     }
 
-
     public function leftJustify($width = 79, $cut = PHP_EOL)
     {
         return $this->left($width, $cut);
     }
-
 
     public function right($width = 79, $cut = PHP_EOL)
     {
@@ -1660,31 +1574,28 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->right($width, $cut);
     }
 
-
     public function rightAlign($width = 79, $cut = PHP_EOL)
     {
         return $this->right($width, $cut);
     }
 
-
     public function rightJustify($width = 79, $cut = PHP_EOL)
     {
         return $this->right($width, $cut);
     }
-    
+
     public function justify($width = 79, $last_line = 'left', $cut = PHP_EOL)
     {
         self::mustBeInteger($width, 'Width');
         self::mustBeString($cut, 'Cut character');
 
-        if(!in_array($last_line, array('left', 'right'))){
+        if (!in_array($last_line, array('left', 'right'))) {
             throw new \InvalidArgumentException(
                 'Alignment of last line must be "left" or "right"'
             );
         }
 
-
-        if(is_object($width)){
+        if (is_object($width)) {
             $width = $width->int;
         }
 
@@ -1693,13 +1604,12 @@ class S extends O implements \Countable, \IteratorAggregate
         $s = '';
         $sp = new S(' ');
 
-        if(count($a) == 1){
+        if (count($a) == 1) {
             unset($a);
-            return $this->$last_line($width, $cut);
-        }
 
-        while($a->valid()){
-            if($a->is_last){
+            return $this->$last_line($width, $cut);
+        } while ($a->valid()) {
+            if ($a->is_last) {
                 $s .= $a->current->$last_line($width, $cut);
             } else {
                 $line = $a->current->strip->replace('/\s+/', ' ');
@@ -1713,11 +1623,11 @@ class S extends O implements \Countable, \IteratorAggregate
                 $missing = new N((count($words) - 1) * ($div->double - $div_floor));
                 $sp_pad = $sp->times($div_floor);
 
-                while($words->valid()){
-                    if(!$words->is_last && count($sp_pad)){
+                while ($words->valid()) {
+                    if (!$words->is_last && count($sp_pad)) {
                         $s .= $words->current->append($sp_pad);
 
-                        if($missing->test('> 0')){
+                        if ($missing->test('> 0')) {
                             $s .= $sp;
                             $missing->decr;
                         }
@@ -1773,8 +1683,8 @@ class S extends O implements \Countable, \IteratorAggregate
         self::mustBeInteger($size, 'Chunk’s size');
 
         if($size instanceof N) $size = $size->int;
-        
-        if($size < 1) {
+
+        if ($size < 1) {
             throw new \InvalidArgumentException(
                 'Chunk’s size must be equal at least to 1.'
             );
@@ -1783,13 +1693,12 @@ class S extends O implements \Countable, \IteratorAggregate
         $a = new A();
 
         $cnt = count($this);
-        for($i = 0; $i < $cnt; $i += $size){
+        for ($i = 0; $i < $cnt; $i += $size) {
             $a->add($this->sub($i, $size));
         }
 
         return $a;
     }
-
 
     public function replace($pattern, $string)
     {
@@ -1798,29 +1707,25 @@ class S extends O implements \Countable, \IteratorAggregate
 
         return new S(preg_replace($pattern, $string, $this->value));
     }
-    
+
     public function change($pattern, $string)
     {
         return $this->replace($pattern, $string);
     }
-
-
 
     public function format()
     {
         $args_cnt = func_num_args();
         $args = func_get_args();
 
-        for($i = 0; $i < $args_cnt; $i++){
+        for ($i = 0; $i < $args_cnt; $i++) {
             $v = $args[$i];
 
-            if($v instanceof N){
+            if ($v instanceof N) {
                 $args[$i] = $v->value;
-            }
-            elseif(is_object($v) && method_exists($v, '__toString')){
+            } elseif (is_object($v) && method_exists($v, '__toString')) {
                 $args[$i] = "$v";
-            }
-            elseif(!is_scalar($v)){
+            } elseif (!is_scalar($v)) {
                 throw new \InvalidArgumentException(
                     'Arguments to use with S::format() must be scalar values i'
                     .'or object having __toString() method.'
@@ -1833,30 +1738,26 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self(call_user_func_array('sprintf', $args));
     }
 
-
-
     public function set($idx, $char)
     {
         self::mustBeInteger($idx, 'Index');
-        
+
         if($idx instanceof N) $idx = $idx->int;
 
-        if($idx < 0 || $idx >= count($this)){
+        if ($idx < 0 || $idx >= count($this)) {
             throw new \RuntimeException(
                 sprintf('Index %d is not defined into this string!', $idx)
             );
         }
 
-
         self::mustBeString($char, 'New character');
-        
 
-        if(mb_strlen($char, C::ENCODING) != 1){
+        if (mb_strlen($char, C::ENCODING) != 1) {
             throw new \InvalidArgumentException(
                 'Given string must be a only ONE character.'
             );
         }
-        
+
         return $this->_chars()->replace($idx, $char)->join;
     }
 
@@ -1864,7 +1765,7 @@ class S extends O implements \Countable, \IteratorAggregate
     {
         $this->_chars()->rewind();
 
-        while($this->_chars()->valid){
+        while ($this->_chars()->valid) {
             if($this->_chars()->current()->ltr) return false;
             $this->_chars()->next;
         }
@@ -1876,7 +1777,7 @@ class S extends O implements \Countable, \IteratorAggregate
     {
         $this->_chars()->rewind();
 
-        while($this->_chars()->valid){
+        while ($this->_chars()->valid) {
             if($this->_chars()->current()->rtl) return false;
             $this->_chars()->next;
         }
@@ -1893,7 +1794,6 @@ class S extends O implements \Countable, \IteratorAggregate
     {
         return new S(md5($this->value));
     }
-
 
     protected function _sha1()
     {
