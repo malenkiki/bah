@@ -124,12 +124,16 @@ class S extends O implements \Countable, \IteratorAggregate
         $str_out = '';
 
         foreach ($args as $s) {
-            if (is_object($s) && method_exists($s, '__toString')) {
-                $str_out .= $s;
-            } elseif (is_string($s)) {
+            if (
+                (is_object($s) 
+                &&
+                method_exists($s, '__toString')) || is_string($s)
+            ) {
                 $str_out .= $s;
             } else {
-                throw new \Exception('All args must be string or Malenki\Bah\S instance!');
+                throw new \Exception(
+                    'All args must be string or Malenki\Bah\S instance!'
+                );
             }
         }
 
@@ -848,7 +852,8 @@ class S extends O implements \Countable, \IteratorAggregate
 
         $a = new A();
 
-        while($offset < count($this)){
+        $cnt = count($this);
+        while($offset < $cnt){
             $pos = mb_strpos($this->value, $needle, $offset, C::ENCODING);
 
             if($pos !== false){
@@ -1301,11 +1306,15 @@ class S extends O implements \Countable, \IteratorAggregate
 
         $arr = explode("\n", $this->value);
 
-        foreach ($arr as $k => $v) {
+        $cnt = count($arr);
+
+        for ($i = 0; $i < $cnt; $i++) {
+            $v = $arr[$i];
+
             $int_margin_left = $int_left;
             $int_margin_right = $int_right;
 
-            if ($k == 0) {
+            if ($i == 0) {
                 $int_margin_left = $int_left + $int_alinea;
 
                 if ($int_margin_left < 0) {
@@ -1313,8 +1322,8 @@ class S extends O implements \Countable, \IteratorAggregate
                 }
             }
 
-            $arr[$k] = str_repeat(' ', $int_margin_left);
-            $arr[$k] .= $v . str_repeat(' ', $int_margin_right);
+            $arr[$i] = str_repeat(' ', $int_margin_left);
+            $arr[$i] .= $v . str_repeat(' ', $int_margin_right);
         }
 
         return new self(implode("\n", $arr));
@@ -1525,8 +1534,9 @@ class S extends O implements \Countable, \IteratorAggregate
 
         $arr = preg_split($sep, $this->value);
 
-        foreach ($arr as $k => $str) {
-            $arr[$k] = new S($str);
+        $cnt = count($arr);
+        for ($i = 0; $i < $cnt; $i++) {
+            $arr[$i] = new S($arr[$i]);
         }
 
         return new A($arr);
@@ -1556,7 +1566,8 @@ class S extends O implements \Countable, \IteratorAggregate
 
         $a = new A();
 
-        for($i = 0; $i < count($this); $i += $size){
+        $cnt = count($this);
+        for($i = 0; $i < $cnt; $i += $size){
             $a->add($this->sub($i, $size));
         }
 
@@ -1581,14 +1592,17 @@ class S extends O implements \Countable, \IteratorAggregate
 
     public function format()
     {
+        $args_cnt = func_num_args();
         $args = func_get_args();
 
-        foreach($args as $k => $v){
+        for($i = 0; $i < $args_cnt; $i++){
+            $v = $args[$i];
+
             if($v instanceof N){
-                $args[$k] = $v->value;
+                $args[$i] = $v->value;
             }
             elseif(is_object($v) && method_exists($v, '__toString')){
-                $args[$k] = "$v";
+                $args[$i] = "$v";
             }
             elseif(!is_scalar($v)){
                 throw new \InvalidArgumentException(
