@@ -74,17 +74,71 @@ class N extends O
 {
     public function __get($name)
     {
-        if (in_array($name, array('hex','oct','bin','h', 'o', 'b', 'n', 'p', 'incr', 'decr', 'negative', 'zero', 'sign', 'prime', 'divisors', 'positive', 'roman', 'string', 'str', 'int', 'integer', 'float', 'double', 'decimal', 'even', 'odd', 'abs', 'absolute', 'opposite', 'square', 'cube', 'ln', 'sqrt', 'fact', 'factorial', 'triangular', 'inverse', 'ceil', 'floor', 'cos', 'sin', 'tan', 'cosh', 'sinh', 'tanh', 'acos', 'asin', 'atan', 'acosh', 'asinh', 'atanh', ))) {
+        if (
+            in_array(
+                $name, 
+                array(
+                    'hex',
+                    'oct',
+                    'bin',
+                    'h', 
+                    'o', 
+                    'b', 
+                    'n', 
+                    'p', 
+                    'incr', 
+                    'decr', 
+                    'negative', 
+                    'zero', 
+                    'sign', 
+                    'prime', 
+                    'divisors', 
+                    'positive', 
+                    'roman',
+                    'string',
+                    'str',
+                    'int',
+                    'integer', 
+                    'float',
+                    'double',
+                    'decimal',
+                    'even',
+                    'odd',
+                    'abs',
+                    'absolute', 
+                    'opposite', 
+                    'square', 
+                    'cube',
+                    'ln',
+                    'sqrt',
+                    'fact',
+                    'factorial',
+                    'triangular', 
+                    'inverse',
+                    'ceil', 
+                    'floor', 
+                    'cos', 
+                    'sin', 
+                    'tan', 
+                    'cosh',
+                    'sinh', 
+                    'tanh', 
+                    'acos', 
+                    'asin',
+                    'atan',
+                    'acosh',
+                    'asinh',
+                    'atanh',
+                    'arabic'
+                )
+            )
+        ) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
-        }
-
-        if($name == 'to_s'){
+        } elseif($name == 'to_s'){
             return new S((string) $this->value);
-        }
-
-        if($name == 'to_c'){
+        } elseif($name == 'to_c'){
             if(
                 $this->value < 0 
                 ||
@@ -93,47 +147,24 @@ class N extends O
                 !$this->_decimal()->zero
             ){
                 throw new \RuntimeException(
-                    'Cannot convert N object to C object if N is not single digit.'
+                    'Cannot convert \Malenki\Bah\N object to \Malenki\Bah\Ci'
+                   .' object if it is not single digit.'
                 );
             }
             return new C($this->value);
-        }
-
-        if(in_array($name, array('nan', 'is_nan', 'is_not_a_number'))){
+        } elseif(in_array($name, array('nan', 'is_nan', 'is_not_a_number'))){
             return is_nan($this->value);
-        }
-        
-        if(in_array($name, array('finite', 'is_finite'))){
+        } elseif(in_array($name, array('finite', 'is_finite'))){
             return is_finite($this->value);
-        }
-        
-        
-        if(in_array($name, array('infinite', 'is_infinite'))){
+        } elseif(in_array($name, array('infinite', 'is_infinite'))){
             return is_infinite($this->value);
-        }
-
-        if($name == 'exp' || $name == 'exponent'){
+        } elseif($name == 'exp' || $name == 'exponent'){
             return new static(exp($this->value));
-        }
-        
-        if ($name == 'round') {
-            return $this->round();
-        }
-        
-
-        if ($name == 'greek') {
-            return $this->greek();
-        }
-        
-        if ($name == 'hindi') {
-            return $this->hindi();
-        }
-        
-        if (in_array($name, array('chinese', 'mandarin', 'putonghua'))) {
+        } elseif (in_array($name, array('round', 'greek', 'hindi', 'chinese'))){
+            return $this->$name();
+        } elseif (in_array($name, array('mandarin', 'putonghua'))){
             return $this->chinese();
-        }
-
-        if (
+        } elseif (
             in_array(
                 $name, 
                 array(
@@ -144,9 +175,7 @@ class N extends O
             )
         ) {
             return $this->chinese(true);
-        }
-
-        if (in_array($name, array('arabic', 'perso_arabic', 'persian'))) {
+        } elseif (in_array($name, array('perso_arabic', 'persian'))) {
             return $this->_arabic($name);
         }
 
@@ -1052,13 +1081,15 @@ class N extends O
             $arr_groups = str_split(strrev((string) abs($this->value)), 4); 
             $arr_groups = array_values(array_reverse($arr_groups));
 
+            $int_groups_cnt = count($arr_groups);
+
             // reordering all
-            foreach($arr_groups as $k => $v){
-                $arr_groups[$k] = strrev($v);
+            for($i = 0; $i < $int_groups_cnt; $i++){
+                $arr_groups[$i] = strrev($arr_groups[$i]);
             }
 
             $out = '';
-            $int_count = count($arr_groups) - 2;
+            $int_count = $int_groups_cnt - 2;
 
 
             // ok, we have our divisions, so, let's do it into chinese!
