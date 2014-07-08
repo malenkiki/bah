@@ -28,7 +28,7 @@ namespace Malenki\Bah;
  * String class.
  *
  * @package Malenki\Bah
- * @property-read Malenki\Bah\A $chars A collection of Malenki\Bah\C objects
+ * @property-read Malenki\Bah\A $chars A collection of Malenki\Bah\C objects.
  * @property-read Malenki\Bah\A $bytes A collection of Malenki\bah\N objects
  * @property-read Malenki\Bah\N $length The strings length
  * @property-read Malenki\Bah\C $to_c If string as only one character, convert it to \Malenki\Bah\C object.
@@ -127,9 +127,7 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * The returned object is from `\Malenki\Bah\S` class.
      *
-     * @static
-     * @throw \Exception If one of the arguments is not string or object having `__toString()` method.
-     * @access public
+     * @throws \Exception If one of the arguments is not string or object having `__toString()` method.
      * @return \Malenki\Bah\S
      */
     public static function concat()
@@ -351,7 +349,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * 
      * @param string $str 
      * @throw \InvalidArgumentException If argument if not valid UTF-8 string.
-     * @uses 0::mustBeStringOrScalar() To check if string is string or scalar or \Malenki\Bah\S
+     * @see \Malenki\Bah\O::mustBeStringOrScalar() To check if string is string or scalar or \Malenki\Bah\S
      * @access public
      * @return void
      */
@@ -567,6 +565,23 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
+    /**
+     * Get an excerpt from the string surrounding by some additionnal characters.
+     *
+     * If searched string is into the string, the returned excerpt will have 
+     * the searched string surrounded by some additional chars on its left and 
+     * on its right. But if the string is closed to the beginning or to the 
+     * end, then, number of character may be less than you want or even be 
+     * zero. This two last cases are rare, because excerpt method is used into 
+     * big string.
+     *
+     * @param mixed $phrase The searched string
+     * @param mixed $radius Numbers of characters to display in addition of the searched string, on the left, and on the right.
+     * @access public
+     * @return S
+     * @throws \InvalidArgumentException If searched string is not string or object having `__toString()` method
+     * @throws \InvalidArgumentException If radius is not either integer of \Malenki\Bah\N object.
+     */
     public function excerpt($phrase, $radius = 100)
     {
         self::mustBeString($phrase, 'String to detect');
@@ -607,6 +622,25 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
+    /**
+     * Removes duplicate sequance of characters.
+     *
+     * This method changes, for example, `aazzzzerrtyy`  to `azerty`. Without 
+     * argument, it removes all found duplicates. If argument is provided, then 
+     * only given characters will be removed.
+     *
+     * Argument can be a string, an object having `__toString()` method, an 
+     * array, a \Malenki\Bah\A or \Malenki\Bah\H objects.
+     *
+     * If a collection is choosen, then each item must has size of one character.
+     *
+     * If a string-like is provided, then the string will be explode to get 
+     * each characters independently.
+     * 
+     * @param mixed $seq Optionnal set of characters to squeeze
+     * @access public
+     * @return S
+     */
     public function squeeze($seq = null)
     {
         $str_pattern = '/(.)\1+/';
@@ -640,6 +674,17 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
+    /**
+     * Trim the string, by default removing white spaces on the left and on the 
+     * right.
+     *
+     * You can give as argument string-like or collection-like to set 
+     * character(s) to strip.
+     * 
+     * @param mixed $str Optionnal set of characters to strip.
+     * @access public
+     * @return S
+     */
     public function strip($str = null)
     {
         if(is_array($str)){
@@ -659,6 +704,17 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
 
+
+    /**
+     * Trim the string, by default removing white spaces on the left. 
+     *
+     * You can give as argument string-like or collection-like to set 
+     * character(s) to strip.
+     * 
+     * @param mixed $str Optional set of characters to strip.
+     * @access public
+     * @return S
+     */
     public function lstrip($str = null)
     {
         if(is_array($str)){
@@ -680,6 +736,17 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
+
+    /**
+     * Trim the string on its right side, by default removing white spaces. 
+     *
+     * You can give as argument string-like or collection-like to set 
+     * character(s) to strip.
+     * 
+     * @param mixed $str Optional set of characters to strip.
+     * @access public
+     * @return S
+     */
     public function rstrip($str = null)
     {
         if(is_array($str)){
@@ -702,22 +769,59 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
+    /**
+     * Adds string content to the end of current string.
+     * 
+     * @param mixed $str String-like content
+     * @access public
+     * @return S
+     */
     public function append($str)
     {
         return static::concat($this, $str);
     }
 
+
+
+    /**
+     * Adds content after the string.
+     *
+     * This is an alias for \Malenki\Bah\S::append() method.
+     * 
+     * @see S::append() Original method of this alias.
+     * @param mixed $str 
+     * @return S
+     */
     public function after($str)
     {
         return $this->append($str);
     }
 
 
+
+    /**
+     * Adds string content to the beginning of current string.
+     * 
+     * @param mixed $str String-like content
+     * @access public
+     * @return S
+     */
     public function prepend($str)
     {
         return static::concat($str, $this);
     }
 
+    
+    
+    /**
+     * Adds content before the string.
+     *
+     * This is an alias for \Malenki\Bah\S::prepend() method.
+     * 
+     * @see S::prepend() Original method of this alias.
+     * @param mixed $str 
+     * @return S
+     */
     public function before($str)
     {
         return $this->prepend($str);
@@ -725,6 +829,14 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
+    /**
+     * Insert new content at given position.
+     * 
+     * @param mixed $str String-like content
+     * @param mixed $pos Integer-like content (integer or \Malenki\Bah\N object)
+     * @return S
+     * @throws \InvalidArgumentException If given position is not valid.
+     */
     public function insert($str, $pos)
     {
         self::mustBeString($str, 'String to insert');
@@ -787,6 +899,15 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
 
+    /**
+     * Convert current string in camelCase or CamelCase.
+     * 
+     * By default, this will create new string as lower camel case. But if 
+     * argument is `true`, then returned string wil be in upper camel case.
+     *
+     * @param boolean $is_upper `true` to have upper camel case, `false` to have lower camel case. Optional.
+     * @return S
+     */
     public function camelCase($is_upper = false)
     {
         $func = function(&$v, $k, $is_upper){
@@ -813,6 +934,14 @@ class S extends O implements \Countable, \IteratorAggregate
             ;
     }
 
+    /**
+     * Gets string converted in lower camel case.
+     *
+     * This is an alias of `\Malenki\Bah\S::camelCase()`.
+     * 
+     * @see S::camelCase() Orignal method of this alias
+     * @return S
+     */
     public function lowerCamelCase()
     {
         return $this->camelCase();
@@ -820,6 +949,15 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
+
+    /**
+     * Gets string converted in upper camel case.
+     *
+     * This is an alias of \Malenki\Bah\S::camelCase()true.
+     * 
+     * @see S::camelCase() This calls original method with argument `true`
+     * @return S
+     */
     public function upperCamelCase()
     {
         return $this->camelCase(true);
@@ -836,6 +974,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * integer
      * @param mixed $limit  Size of the substring, 1 by default, as N or 
      * integer
+     * @todo Missing exception for offset too big
      *
      * @return S
      */
@@ -862,6 +1001,16 @@ class S extends O implements \Countable, \IteratorAggregate
         return new S(mb_substr($this->value, $offset, $limit, C::ENCODING));
     }
 
+    /**
+     * Gets all available positions of given string needle. 
+     * 
+     * Unlike its PHP equivalent function, it returns __all__ found positions 
+     * as a \Malenki\Bah\A object. If no position found, this return object has 
+     * void collection.
+     *
+     * @param mixed $needle The searched string-like content
+     * @return A
+     */
     public function position($needle)
     {
         self::mustBeString($needle, 'Needle');
@@ -896,6 +1045,14 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
 
+
+    /**
+     * Gets all available positions of given string needle (Alias). 
+     * 
+     * @see S::position() Original method of this alias
+     * @param mixed $needle The searched string-like content
+     * @return A
+     */
     public function pos($needle)
     {
         return $this->position($needle);
@@ -903,6 +1060,13 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
+    /**
+     * Removes string part using offset and limit size. 
+     * 
+     * @param mixed $offset Integer-like offset
+     * @param mixed $limit Integer-like limit size
+     * @return S
+     */
     public function delete($offset = 0, $limit = 1)
     {
         self::mustBeInteger($offset, 'Offset');
@@ -940,16 +1104,42 @@ class S extends O implements \Countable, \IteratorAggregate
         return $s;
     }
     
+    /**
+     * Removes string part using offset and limit size (Alias).  
+     * 
+     * @see S::delete() Original method of this alias
+     * @param mixed $offset Integer-like offset
+     * @param mixed $limit Integer-like limit size
+     * @return S
+     */
     public function del($offset = 0, $limit = 1)
     {
         return $this->delete($offset, $limit);
     }
     
+    
+    /**
+     * Removes string part using offset and limit size (Alias).  
+     * 
+     * @see S::delete() Original method of this alias
+     * @param mixed $offset Integer-like offset
+     * @param mixed $limit Integer-like limit size
+     * @return S
+     */
     public function remove($offset = 0, $limit = 1)
     {
         return $this->delete($offset, $limit);
     }
 
+    
+    /**
+     * Removes string part using offset and limit size (Alias).  
+     * 
+     * @see S::delete() Original method of this alias
+     * @param mixed $offset Integer-like offset
+     * @param mixed $limit Integer-like limit size
+     * @return S
+     */
     public function rm($offset = 0, $limit = 1)
     {
         return $this->delete($offset, $limit);
@@ -1131,9 +1321,8 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Alias of charAt() method 
      * 
-     * @see charAt()
-     * @param mixed $idx 
-     * @access public
+     * @uses S::charAt()
+     * @param mixed $idx Position as integer-like  
      * @return C
      */
     public function take($idx)
@@ -1146,9 +1335,8 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Alias of charAt() method 
      * 
-     * @see charAt()
-     * @param mixed $idx 
-     * @access public
+     * @uses S::charAt()
+     * @param mixed $idx Position as integer-like  
      * @return C
      */
     public function at($idx)
@@ -1161,6 +1349,8 @@ class S extends O implements \Countable, \IteratorAggregate
      * Implements Countable interface.
      *
      * @see \Countable
+     *
+     * @return integer
      */
     public function count()
     {
@@ -1175,7 +1365,7 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Returns new string object converted to uppercase.
      *
-     * @return Malenki\Bah\S
+     * @return S
      */
     protected function _upper()
     {
@@ -1185,7 +1375,7 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Returns new string object converted to lowercase.
      *
-     * @return Malenki\Bah\S
+     * @return S
      */
     protected function _lower()
     {
@@ -1195,7 +1385,7 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Returns new String object with capital letters
      *
-     * @return Malenki\Bah\S
+     * @return S
      */
     protected function _title()
     {
@@ -1203,10 +1393,10 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Returns current string as an new string object repeated N times.
+     * Repeats N times current string.
      *
-     * @param  mixed         $n N or integer
-     * @return Malenki\Bah\S
+     * @param  mixed Integer-like value
+     * @return S
      */
     public function times($n = 1)
     {
@@ -1218,9 +1408,9 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Wrap the string to have given width.
+     * Wraps the string to fit given width.
      *
-     * @param  integer $width Width the text must have
+     * @param  mixed   $width Width the text must have
      * @param  mixed   $cut   Optional string to put at each linebreak, as 
      * string or S
      * @access public
@@ -1302,7 +1492,6 @@ class S extends O implements \Countable, \IteratorAggregate
      * @param  mixed $left   Margin left (N or integer)
      * @param  mixed $right  Margin right, optional (N or integer)
      * @param  mixed $alinea First line, optional (N or integer)
-     * @access public
      * @return S
      */
     public function margin($left = 5, $right = 0, $alinea = 0)
