@@ -1642,7 +1642,6 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals(sprintf($fmt, M_PI), $s->format(new N(M_PI))->string);
     }
 
-
     public function testGettingFormatedStringUsingSetOfParamsAsArrayShouldSuccess()
     {
         $s = new S('This will have %s value');
@@ -1716,6 +1715,31 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('This will have formated value', $s->format((object) array('formated'))->string);
     }
         
+
+    public function testGettingFormattedStringUsingAliasShouldHaveSameResultAsOriginalMethod()
+    {
+        $s = new S('This will have %s value');
+
+        $this->assertEquals($s->format('formated'), $s->sprintf('formated'));
+        $this->assertEquals($s->format('formated'), $s->fmt('formated'));
+        
+        $fmt = 'This will have %d formated %s';
+        $s = new S($fmt);
+
+        $this->assertEquals($s->format(2, 'values'), $s->sprintf(2, 'values'));
+        $this->assertEquals($s->format(new N(2), new S('values')), $s->sprintf(new N(2), new S('values')));
+        $this->assertEquals($s->format(2, 'values'), $s->fmt(2, 'values'));
+        $this->assertEquals($s->format(new N(2), new S('values')), $s->fmt(new N(2), new S('values')));
+
+        $fmt = 'Pi is %.2f';
+        $s = new S($fmt);
+        $this->assertEquals($s->format(M_PI), $s->sprintf(M_PI));
+        $this->assertEquals($s->format(new N(M_PI)), $s->sprintf(new N(M_PI)));
+        $this->assertEquals($s->format(M_PI), $s->fmt(M_PI));
+        $this->assertEquals($s->format(new N(M_PI)), $s->fmt(new N(M_PI)));
+    }
+
+
 
 
     public function testGettingExcerptShouldSuccess()
