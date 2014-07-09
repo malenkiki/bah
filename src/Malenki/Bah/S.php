@@ -68,6 +68,7 @@ namespace Malenki\Bah;
  * @property-read Malenki\Bah\S $dash Get dashrized version (`some-words-into-sentence`)
  * @property-read Malenki\Bah\S $upper_camel_case Get lower camel case version
  * @property-read Malenki\Bah\S $lower_camel_case Get upper camel case version
+ * @property-read Malenki\Bah\S $cc Get camel case versioni (lower case for first letter)
  * @property-read Malenki\Bah\S $lcc Get lower camel case version
  * @property-read Malenki\Bah\S $ucc Get upper camel case version
  * @property-read Malenki\Bah\S $lower Get string into lower case
@@ -286,7 +287,8 @@ class S extends O implements \Countable, \IteratorAggregate
                 $name,
                 array(
                     'lower_camel_case',
-                    'lcc'
+                    'lcc',
+                    'cc'
                 )
             )
         ){
@@ -874,6 +876,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * In this previous example, I used one magic getter alias `lcc` of this 
      * method.
      *
+     * @see S::$cc Magic getter alias to get default camel case version
      * @see S::upperCamelCase() Method alias to have upper camel case version
      * @see S::lowerCamelCase() Method alias to have lower camel case version
      * @see S::$upper_camel_case Magic getter alias to get upper camel case version
@@ -882,7 +885,6 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::$lcc Other magic getter alias to get lower camel case version
      * @param  boolean $is_upper `true` to have upper camel case, `false` to have lower camel case. Optional.
      * @return S
-     * @todo create new magic getter alias `cc` for default lower camel case.
      */
     public function camelCase($is_upper = false)
     {
@@ -916,6 +918,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * This is an alias of `\Malenki\Bah\S::camelCase()`.
      *
      * @see S::camelCase() Orignal method of this alias
+     * @see S::$cc Magic getter alias to get default camel case version
      * @see S::lowerCamelCase() Method alias to have lower camel case version
      * @see S::$lower_camel_case Magic getter alias to get lower camel case version
      * @see S::$lcc Other magic getter alias to get lower camel case version

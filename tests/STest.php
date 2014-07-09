@@ -1034,17 +1034,25 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\S', $s->lowerCamelCase());
     }
 
-    public function testConvertStringToLowerCamelCaseiUsingAliasOrNotShouldReturnSameResult()
+    public function testConvertStringToLowerCamelCaseUsingAliasOrNotShouldReturnSameResult()
     {
         $s = new S('Je vais être en « lowerCamelCase »');
         $this->assertEquals($s->lowerCamelCase(), $s->camelCase());
     }
+
+    public function testConvertStringToCamelCaseUsingMagicGetterAliasShouldReturnSameResult()
+    {
+        $s = new S('Je vais être en « lowerCamelCase »');
+        $this->assertEquals($s->camelCase(), $s->cc);
+    }
+    
     
     public function testConvertStringToLowerCamelCaseiUsingMagicGettersShouldHaveSameResultAsMethodWay()
     {
         $s = new S('Je vais être en « lowerCamelCase »');
         $this->assertEquals($s->lowerCamelCase(), $s->lower_camel_case);
         $this->assertEquals($s->lowerCamelCase(), $s->lcc);
+        $this->assertEquals($s->lowerCamelCase(), $s->cc);
     }
 
     public function testConvertStringTolowerCamelCaseShouldSuccess()
