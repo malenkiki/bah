@@ -2022,6 +2022,29 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->replace($pattern, $string);
     }
 
+    private function _formatEngine($args){
+        $args_cnt = count($args);
+
+        for ($i = 0; $i < $args_cnt; $i++) {
+            $v = $args[$i];
+
+            if ($v instanceof N) {
+                $args[$i] = $v->value;
+            } elseif (is_object($v) && method_exists($v, '__toString')) {
+                $args[$i] = "$v";
+            } elseif (!is_scalar($v)) {
+                throw new \InvalidArgumentException(
+                    'Arguments to use with S::format() must be scalar values i'
+                    .'or object having __toString() method.'
+                );
+            }
+        }
+
+        array_unshift($args, $this->value);
+
+        return new self(call_user_func_array('sprintf', $args));
+    }
+
     /**
      * Use current string as format for given params, it is a `sprintf`-like
      * 
@@ -2045,44 +2068,76 @@ class S extends O implements \Countable, \IteratorAggregate
      *     $s = new S('I am pi: %1.3f')
      *     echo $s->format($n); // 'I am pi: 3.142'
      *
-     * @param mixed $params Named of set of params to use if you want use other way than multi params. 
+     * @see S::sprintf() Alias method
+     * @see S::fmt() Other alias method
+     * @param array|A|H $params Named of set of params to use if you want use other way than multi params. 
      * @return S
      * @throws \InvalidArgumentException If at least one argument is not a 
      * scalar or an object having `__toString()` method.
      */
     public function format($params = null)
     {
-        $args_cnt = func_num_args();
         $args = func_get_args();
 
         if(!is_null($params)){
             if($params instanceof A || $params instanceof H){
                 $args = array_values($params->array); //beware of H case
-                $args_cnt = count($args);
             } elseif(is_array($params)){
                 $args = $params;
-                $args_cnt = count($args);
             } 
         }
 
-        for ($i = 0; $i < $args_cnt; $i++) {
-            $v = $args[$i];
+        return $this->_formatEngine($args);
+    }
 
-            if ($v instanceof N) {
-                $args[$i] = $v->value;
-            } elseif (is_object($v) && method_exists($v, '__toString')) {
-                $args[$i] = "$v";
-            } elseif (!is_scalar($v)) {
-                throw new \InvalidArgumentException(
-                    'Arguments to use with S::format() must be scalar values i'
-                    .'or object having __toString() method.'
-                );
-            }
+
+    /**
+     * Use current string as format for given params, it is a `sprintf`-like (Alias).
+     * 
+     * @see S::format() Original method
+     * @param array|A|H $params Named of set of params to use if you want use other way than multi params. 
+     * @return S
+     * @throws \InvalidArgumentException If at least one argument is not a 
+     * scalar or an object having `__toString()` method.
+     */
+    public function sprintf($params = null)
+    {
+        $args = func_get_args();
+
+        if(!is_null($params)){
+            if($params instanceof A || $params instanceof H){
+                $args = array_values($params->array); //beware of H case
+            } elseif(is_array($params)){
+                $args = $params;
+            } 
         }
 
-        array_unshift($args, $this->value);
+        return $this->_formatEngine($args);
+    }
 
-        return new self(call_user_func_array('sprintf', $args));
+
+    /**
+     * Use current string as format for given params, it is a `sprintf`-like (Alias).
+     * 
+     * @see S::format() Original method
+     * @param array|A|H $params Named of set of params to use if you want use other way than multi params. 
+     * @return S
+     * @throws \InvalidArgumentException If at least one argument is not a 
+     * scalar or an object having `__toString()` method.
+     */
+    public function fmt($params = null)
+    {
+        $args = func_get_args();
+
+        if(!is_null($params)){
+            if($params instanceof A || $params instanceof H){
+                $args = array_values($params->array); //beware of H case
+            } elseif(is_array($params)){
+                $args = $params;
+            } 
+        }
+
+        return $this->_formatEngine($args);
     }
 
     /**
