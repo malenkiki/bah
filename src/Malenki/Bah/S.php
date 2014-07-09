@@ -2026,12 +2026,18 @@ class S extends O implements \Countable, \IteratorAggregate
      * Use current string as format for given params, it is a `sprintf`-like
      * 
      * This method acts as `sprintf()`, using current string as format string. 
-     * So, it can takes any number of arguments of any "stringable" type.
+     * So, it can take any number of arguments of any "stringable" type. But 
+     * you can also use one argument if this is a set of params. So, you have 
+     * two different ways to use it.
      *
      * A litle example to show it in action:
      *
      *     $s = new S('I will have %s data to %s.');
      *     echo $s->format('some', new S('show')); // 'I will have some data to show.'
+     *     // or
+     *     $s = new S('I will have %s data to %s.');
+     *     $params = array('some', new S('show')); // or A or H object too
+     *     echo $s->format($params); // 'I will have some data to show.'
      *
      * __Note:__ Object of type `\Malenki\Bah\N` can be used too.
      *
@@ -2039,15 +2045,25 @@ class S extends O implements \Countable, \IteratorAggregate
      *     $s = new S('I am pi: %1.3f')
      *     echo $s->format($n); // 'I am pi: 3.142'
      *
+     * @param mixed $params Named of set of params to use if you want use other way than multi params. 
      * @return S
      * @throws \InvalidArgumentException If at least one argument is not a 
      * scalar or an object having `__toString()` method.
-     * @todo allow use of array-like as one arg to set collection of elements to format.
      */
-    public function format()
+    public function format($params = null)
     {
         $args_cnt = func_num_args();
         $args = func_get_args();
+
+        if(!is_null($params)){
+            if($params instanceof A || $params instanceof H){
+                $args = array_values($params->array); //beware of H case
+                $args_cnt = count($args);
+            } elseif(is_array($params)){
+                $args = $params;
+                $args_cnt = count($args);
+            } 
+        }
 
         for ($i = 0; $i < $args_cnt; $i++) {
             $v = $args[$i];
