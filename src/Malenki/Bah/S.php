@@ -68,6 +68,8 @@ namespace Malenki\Bah;
  * @property-read Malenki\Bah\S $dash Get dashrized version (`some-words-into-sentence`)
  * @property-read Malenki\Bah\S $upper_camel_case Get lower camel case version
  * @property-read Malenki\Bah\S $lower_camel_case Get upper camel case version
+ * @property-read Malenki\Bah\S $lcc Get lower camel case version
+ * @property-read Malenki\Bah\S $ucc Get upper camel case version
  * @property-read Malenki\Bah\S $lower Get string into lower case
  * @property-read Malenki\Bah\S $upper Get string into upper case
  * @property-read Malenki\Bah\S $first Get first character
@@ -76,8 +78,6 @@ namespace Malenki\Bah;
  * @property-read Malenki\Bah\S $trans Get translitterated version of the string
  * @property-read Malenki\Bah\S $md5 Get MD5 sum of the string
  * @property-read Malenki\Bah\S $sha1 Get SHA1 sum of the string
- * @property-read Malenki\Bah\S $lcc Get lower camel case version
- * @property-read Malenki\Bah\S $ucc Get upper camel case version
  * @property-read Malenki\Bah\S $swap_case Get swapped case version
  * @property-read Malenki\Bah\S $swapcase Get swapped case version
  * @property-read Malenki\Bah\S $swap Get swapped case version
@@ -127,7 +127,8 @@ class S extends O implements \Countable, \IteratorAggregate
      * The returned object is from `\Malenki\Bah\S` class.
      *
      * @throws \Exception     If one of the arguments is not string or object having `__toString()` method.
-     * @return \Malenki\Bah\S
+     * @return S
+     * @todo allow use of array-like as one arg to set collection of elements to concatenate.
      */
     public static function concat()
     {
@@ -855,10 +856,33 @@ class S extends O implements \Countable, \IteratorAggregate
      * Convert current string in camelCase or CamelCase.
      *
      * By default, this will create new string as lower camel case. But if
-     * argument is `true`, then returned string wil be in upper camel case.
+     * argument is `true`, then returned string will be in upper camel case.
      *
+     * Examples:
+     * 
+     *     $s = new S('Helloi World!');
+     *     echo $s->camelCase(); // 'helloWorld'
+     *     echo $s->camelCase(true); // 'HelloWorld'
+     *
+     * __Note:__ This does not convert characters having diacritic, to to that, 
+     * call `S::$trans` magic getter before:
+     *
+     *     $s = new S('Écrit en français !');
+     *     echo $s->lcc; // 'écritEnFrançais'
+     *     echo $s->trans->lcc; // 'ecritEnFrancais'
+     *
+     * In this previous example, I used one magic getter alias `lcc` of this 
+     * method.
+     *
+     * @see S::upperCamelCase() Method alias to have upper camel case version
+     * @see S::lowerCamelCase() Method alias to have lower camel case version
+     * @see S::$upper_camel_case Magic getter alias to get upper camel case version
+     * @see S::$ucc Other magic getter alias to get upper camel case version
+     * @see S::$lower_camel_case Magic getter alias to get lower camel case version
+     * @see S::$lcc Other magic getter alias to get lower camel case version
      * @param  boolean $is_upper `true` to have upper camel case, `false` to have lower camel case. Optional.
      * @return S
+     * @todo create new magic getter alias `cc` for default lower camel case.
      */
     public function camelCase($is_upper = false)
     {
@@ -892,6 +916,9 @@ class S extends O implements \Countable, \IteratorAggregate
      * This is an alias of `\Malenki\Bah\S::camelCase()`.
      *
      * @see S::camelCase() Orignal method of this alias
+     * @see S::lowerCamelCase() Method alias to have lower camel case version
+     * @see S::$lower_camel_case Magic getter alias to get lower camel case version
+     * @see S::$lcc Other magic getter alias to get lower camel case version
      * @return S
      */
     public function lowerCamelCase()
@@ -905,6 +932,9 @@ class S extends O implements \Countable, \IteratorAggregate
      * This is an alias of \Malenki\Bah\S::camelCase()true.
      *
      * @see S::camelCase() This calls original method with argument `true`
+     * @see S::upperCamelCase() Method alias to have upper camel case version
+     * @see S::$upper_camel_case Magic getter alias to get upper camel case version
+     * @see S::$ucc Other magic getter alias to get upper camel case version
      * @return S
      */
     public function upperCamelCase()
@@ -1158,7 +1188,6 @@ class S extends O implements \Countable, \IteratorAggregate
      * Shorthand for match method
      *
      * @param  mixed   $expr primitive string or object having __toString method
-     * @access public
      * @return boolean
      */
     public function re($expr)
@@ -1166,6 +1195,12 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->match($expr);
     }
 
+    /**
+     * test 
+     * 
+     * @param mixed $str 
+     * @return boolean
+     */
     public function test($str)
     {
         self::mustBeStringOrScalar($str, 'String to test');
@@ -1893,6 +1928,32 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->explode($sep);
     }
 
+    /**
+     * Cuts the string as a set of substrings having given size.
+     *
+     * Each substring is a `\Malenki\Bah\S` object. The set of this objects is 
+     * put into an `\Malenki\Bah\A` object.
+     *
+     * So, let's chunk a string to see what we get:
+     *
+     *     $s = new S('azertyuiop');
+     *     var_dump($s->chunk(3)->array);
+     *
+     * This will give an array having the following set of `\Malenki\Bah\S`: 
+     * `aze`, `rty`, `uio` and `p`.
+     *
+     * __Note:__ This method can be used as magic getter too. In this case, it 
+     * will split the string into substring having one character. Example:
+     *
+     *     $s = new S('azerty');
+     *     echo $s->chunk->join(','); // 'a,z,e,r,t,y'
+     * 
+     * @see S::$chunk Magic getter version
+     * @param int|N $size If not given, its default value is 1.
+     * @return A
+     * @throws \InvalidArgumentException If size is not an integer-like.
+     * @throws \InvalidArgumentException If chunk's size is less than one.
+     */
     public function chunk($size = 1)
     {
         self::mustBeInteger($size, 'Chunk’s size');
@@ -1915,6 +1976,26 @@ class S extends O implements \Countable, \IteratorAggregate
         return $a;
     }
 
+    /**
+     * Replace some parts of current string using Regexp
+     *
+     * This acts like `preg_replace()` function. The first argument is the 
+     * pattern to match, the second is the replacement string. 
+     *
+     * Example:
+     *
+     *     $s = new S('azerty');
+     *     echo $s->replace('/aey/', '!'); // '!z!rt!'
+     * 
+     * Each param can be string or object having `__toString()` method.
+     *
+     * @see S::change() An alias for this method.
+     * @param mixed $pattern Pattern to match. A string-like type.
+     * @param mixed $string String to put in place of matching parts.
+     * @return S
+     * @throws \InvalidArgumentException If one of the arguments is not a 
+     * string-like type.
+     */
     public function replace($pattern, $string)
     {
         self::mustBeString($pattern, 'Pattern');
@@ -1923,11 +2004,43 @@ class S extends O implements \Countable, \IteratorAggregate
         return new S(preg_replace($pattern, $string, $this->value));
     }
 
+    /**
+     * Change matching parts of the string using Regexp (Alias). 
+     * 
+     * @see S::replace() Original method of this alias.
+     * @param mixed $pattern Pattern to match. A string-like type.
+     * @param mixed $string String to put in place of matching parts.
+     * @return S
+     * @throws \InvalidArgumentException If one of the arguments is not a 
+     * string-like type.
+     */
     public function change($pattern, $string)
     {
         return $this->replace($pattern, $string);
     }
 
+    /**
+     * Use current string as format for given params, it is a `sprintf`-like
+     * 
+     * This method acts as `sprintf()`, using current string as format string. 
+     * So, it can takes any number of arguments of any "stringable" type.
+     *
+     * A litle example to show it in action:
+     *
+     *     $s = new S('I will have %s data to %s.');
+     *     echo $s->format('some', new S('show')); // 'I will have some data to show.'
+     *
+     * __Note:__ Object of type `\Malenki\Bah\N` can be used too.
+     *
+     *     $n = new N(M_PI);
+     *     $s = new S('I am pi: %1.3f')
+     *     echo $s->format($n); // 'I am pi: 3.142'
+     *
+     * @return S
+     * @throws \InvalidArgumentException If at least one argument is not a 
+     * scalar or an object having `__toString()` method.
+     * @todo allow use of array-like as one arg to set collection of elements to format.
+     */
     public function format()
     {
         $args_cnt = func_num_args();
@@ -1953,6 +2066,22 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self(call_user_func_array('sprintf', $args));
     }
 
+    /**
+     * Sets one character at given position.
+     *
+     * This change one character of the string. Example:
+     *
+     *     $s = new S('azerty');
+     *     echo $s->set(1, 'b'); // aberty
+     * 
+     * @param int|N $idx Index of an existing position, as integer-like
+     * @param mixed $char New character to set, as string-like.
+     * @return S
+     * @throws \InvalidArgumentException If index is not an integer-like.
+     * @throws \RuntimeException If index does not exist.
+     * @throws \InvalidArgumentException If New character is not a string-like type.
+     * @throws \InvalidArgumentException If new character is not a string-like having a size of one.
+     */
     public function set($idx, $char)
     {
         self::mustBeInteger($idx, 'Index');
@@ -2016,9 +2145,9 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     *
-     * @param  boolean       $after
-     * @return Malenki\Bah\S
+     * Add new line '\n'.
+     * @param  boolean  $after If false, put new line before the string
+     * @return S
      */
     public function n($after = true)
     {
@@ -2029,6 +2158,12 @@ class S extends O implements \Countable, \IteratorAggregate
         }
     }
 
+
+    /**
+     * Add new line '\r'.
+     * @param  boolean  $after If false, put new line before the string
+     * @return S
+     */
     public function r($after = true)
     {
         if ($after) {

@@ -75,6 +75,11 @@ echo $long->left(40)->n->n;
 echo $long->right(40)->n->n;
 echo $long->justify(40)->n->n;
 
+$pi = new N(M_PI);
+
+$format = new S('I am pi: %1.3f');
+echo $format->format($pi)->n->n;
+
 $filter_vowel = function($item)
 {
     if(in_array($item, array('a', 'e', 'y', 'u', 'i', 'o')))
