@@ -1034,17 +1034,25 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\S', $s->lowerCamelCase());
     }
 
-    public function testConvertStringToLowerCamelCaseiUsingAliasOrNotShouldReturnSameResult()
+    public function testConvertStringToLowerCamelCaseUsingAliasOrNotShouldReturnSameResult()
     {
         $s = new S('Je vais être en « lowerCamelCase »');
         $this->assertEquals($s->lowerCamelCase(), $s->camelCase());
     }
+
+    public function testConvertStringToCamelCaseUsingMagicGetterAliasShouldReturnSameResult()
+    {
+        $s = new S('Je vais être en « lowerCamelCase »');
+        $this->assertEquals($s->camelCase(), $s->cc);
+    }
+    
     
     public function testConvertStringToLowerCamelCaseiUsingMagicGettersShouldHaveSameResultAsMethodWay()
     {
         $s = new S('Je vais être en « lowerCamelCase »');
         $this->assertEquals($s->lowerCamelCase(), $s->lower_camel_case);
         $this->assertEquals($s->lowerCamelCase(), $s->lcc);
+        $this->assertEquals($s->lowerCamelCase(), $s->cc);
     }
 
     public function testConvertStringTolowerCamelCaseShouldSuccess()
@@ -1635,6 +1643,67 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testGettingFormatedStringUsingSetOfParamsAsArrayShouldSuccess()
+    {
+        $s = new S('This will have %s value');
+
+        $this->assertEquals('This will have formated value', $s->format(array('formated'))->string);
+        
+        $fmt = 'This will have %d formated %s';
+        $s = new S($fmt);
+
+        $this->assertEquals(sprintf($fmt, 2, 'values'), $s->format(array(2, 'values'))->string);
+        $this->assertEquals(sprintf($fmt, 2, 'values'), $s->format(array(new N(2), new S('values')))->string);
+
+        $fmt = 'Pi is %.2f';
+        $s = new S($fmt);
+        $this->assertEquals(sprintf($fmt, M_PI), $s->format(array(M_PI))->string);
+        $this->assertEquals(sprintf($fmt, M_PI), $s->format(array(new N(M_PI)))->string);
+    }
+
+
+
+
+    public function testGettingFormatedStringUsingSetOfParamsAObjectShouldSuccess()
+    {
+        $s = new S('This will have %s value');
+
+        $this->assertEquals('This will have formated value', $s->format(new A(array('formated')))->string);
+        
+        $fmt = 'This will have %d formated %s';
+        $s = new S($fmt);
+
+        $this->assertEquals(sprintf($fmt, 2, 'values'), $s->format(new A(array(2, 'values')))->string);
+        $this->assertEquals(sprintf($fmt, 2, 'values'), $s->format(new A(array(new N(2), new S('values'))))->string);
+
+        $fmt = 'Pi is %.2f';
+        $s = new S($fmt);
+        $this->assertEquals(sprintf($fmt, M_PI), $s->format(new A(array(M_PI)))->string);
+        $this->assertEquals(sprintf($fmt, M_PI), $s->format(new A(array(new N(M_PI))))->string);
+    }
+
+
+
+
+    public function testGettingFormatedStringUsingSetOfParamsHObjectShouldSuccess()
+    {
+        $s = new S('This will have %s value');
+
+        $this->assertEquals('This will have formated value', $s->format(new H(array('foo'=> 'formated')))->string);
+        
+        $fmt = 'This will have %d formated %s';
+        $s = new S($fmt);
+
+        $this->assertEquals(sprintf($fmt, 2, 'values'), $s->format(new H(array('foo' => 2, 'bar' => 'values')))->string);
+        $this->assertEquals(sprintf($fmt, 2, 'values'), $s->format(new H(array('foo' => new N(2), 'bar' => new S('values'))))->string);
+
+        $fmt = 'Pi is %.2f';
+        $s = new S($fmt);
+        $this->assertEquals(sprintf($fmt, M_PI), $s->format(new H(array('foo' => M_PI)))->string);
+        $this->assertEquals(sprintf($fmt, M_PI), $s->format(new H(array('foo' => new N(M_PI))))->string);
+    }
+
+
 
 
     /**
@@ -1644,7 +1713,7 @@ class STest extends PHPUnit_Framework_TestCase
     {
         $s = new S('This will have %s value');
 
-        $this->assertEquals('This will have formated value', $s->format(array('formated'))->string);
+        $this->assertEquals('This will have formated value', $s->format((object) array('formated'))->string);
     }
         
 
