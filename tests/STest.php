@@ -329,6 +329,23 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->charAt(3), $s->chars->take(3));
     }
 
+    public function testGettingCharAtGivenPositionShouldSuccess()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('J', $s->charAt(0));
+        $this->assertEquals('!', $s->charAt(19));
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingCharAtGivenNotExistingPositionShouldFail()
+    {
+        $s = new S('Je suis une chaîne !');
+        $s->charAt(42);
+    }
+
     public function testiGettingSubstringShouldReturnSObject()
     {
         $s = new S('Je suis une chaîne !');
@@ -952,6 +969,13 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testInsertingStringUsingAliasShouldReturnSObject()
+    {
+        $s = new S('abcghi');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->put(' def', 3));
+    }
+
+
     public function testInsertingStringUsingPrimitiveTypesShouldSuccess()
     {
         $s = new S('abcghi');
@@ -965,6 +989,12 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testInsertingStringUsingAliasShouldHaveSameResultAsOriginal()
+    {
+        $s = new S('abcghi');
+        $this->assertEquals($s->insert('def', 3), $s->put('def', 3));
+        $this->assertEquals($s->insert(new S('def'), new N(3)), $s->put(new S('def'), new N(3)));
+    }
 
 
 
