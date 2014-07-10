@@ -1230,6 +1230,65 @@ class STest extends PHPUnit_Framework_TestCase
 
 
 
+    public function testRepeatingStringShouldRetunrsSObject()
+    {
+        $s = new S('foo');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->times(3));
+    }
+
+    public function testRepeatingStringUsingIntegerShouldSuccess()
+    {
+        $s = new S('foo');
+        $this->assertEquals('foofoofoo', $s->times(3));
+    }
+
+
+    public function testRepeatingStringUsingNObjectShouldSuccess()
+    {
+        $s = new S('foo');
+        $this->assertEquals('foofoofoo', $s->times(new N(3)));
+    }
+
+
+    public function testRepeatingStringUsingZeroShouldReturnsEmptyString()
+    {
+        $s = new S('foo');
+        $this->assertEquals('', $s->times(0));
+        $this->assertTrue($s->times(0)->void);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testRepeatingStringUsingNegativeIntegerShouldFail()
+    {
+        $s = new S('foo');
+        $s->times(-3);
+    }
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testRepeatingStringUsingNegativeNObjectShouldFail()
+    {
+        $s = new S('foo');
+        $s->times(new N(-3));
+    }
+
+
+    public function testRepeatingAliasShouldReturnSObject()
+    {
+        $s = new S('foo');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->times(3));
+    }
+
+    public function testRepeatingAliasShouldHaveSameResultsAsOriginal()
+    {
+        $s = new S('foo');
+        $this->assertEquals($s->times(3), $s->repeat(3));
+        $this->assertEquals($s->times(new N(3)), $s->repeat(new N(3)));
+        $this->assertEquals($s->times(0), $s->repeat(0));
+    }
+
 
 
     public function testCenteringStringShouldReturnSObject()
