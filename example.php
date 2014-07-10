@@ -74,6 +74,7 @@ echo $long->wrap(40)->margin(10, 0, -7)->n->n;
 echo $long->left(40)->n->n;
 echo $long->right(40)->n->n;
 echo $long->justify(40)->n->n;
+echo $long->center(40)->n->n;
 
 $pi = new N(M_PI);
 

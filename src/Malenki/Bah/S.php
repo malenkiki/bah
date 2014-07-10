@@ -1449,12 +1449,32 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Adds margin to the text. By default left, but right and alinea are possible too.
      *
-     * @throw \InvalidArgumentException If Margin left and/or right are negative
-     * @throw \InvalidArgumentException If alinea is greater than margin left
+     * This is greet for raw text outputs.
+     *
+     * This is a good complement of `S::wrap()` method.
+     *
+     * Example using all arguments, to have idea of available possibilities
+     *
+     *     $s = new S('Tous les…'); // long text
+     *     echo 'First: ';
+     *     echo $s->wrap(40)->margin(10, 0, -7)->n->n;
+     *
+     * This example will print:
+     *
+     *     First:    Tous les êtres humains naissent libres
+     *               et égaux en dignité et en droits. Ils
+     *               sont doués de raison et de conscience
+     *               et doivent agir les uns envers les
+     *               autres dans un esprit de fraternité.
+     *
+     *
      * @param  mixed $left   Margin left (N or integer)
      * @param  mixed $right  Margin right, optional (N or integer)
      * @param  mixed $alinea First line, optional (N or integer)
      * @return S
+     * @throws \InvalidArgumentException If margin left, margin right or alinea is not an integer-like.
+     * @throws \InvalidArgumentException If margin left and/or right are negative
+     * @throws \InvalidArgumentException If alinea is greater than margin left
      */
     public function margin($left = 5, $right = 0, $alinea = 0)
     {
@@ -1507,6 +1527,29 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self(implode("\n", $arr));
     }
 
+
+
+    /**
+     * Centers text to fit on given width, padding with spaces. 
+     *
+     * This is usefull for pure text output (email, console, content on `PRE` HTML tag…)
+     * 
+     * Example result:
+     *
+     *      Tous les êtres humains naissent libres 
+     *       et égaux en dignité et en droits. Ils 
+     *      sont doués de raison et de conscience  
+     *        et doivent agir les uns envers les   
+     *       autres dans un esprit de fraternité.  
+     *
+     *
+     * @param int|N $width Width to fit. If not given, default used is 79 chars width.
+     * @param mixed $cut Optional string-like at end of line to use. Default is `PHP_EOL`.
+     * @return S
+     * @throws \InvalidArgumentException If width is not an integer-like.
+     * @throws \InvalidArgumentException If width is negative or null.
+     * @throws \InvalidArgumentException If cut end of line string is not string-like.
+     */
     public function center($width = 79, $cut = PHP_EOL)
     {
         self::mustBeInteger($width, 'Width');
@@ -1515,6 +1558,11 @@ class S extends O implements \Countable, \IteratorAggregate
         if (is_object($width)) {
             $width = $width->int;
         }
+
+        if($width <= 0){
+            throw new \InvalidArgumentException('Width cannot be null or negative!');
+        }
+
 
         $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
 
@@ -1576,7 +1624,7 @@ class S extends O implements \Countable, \IteratorAggregate
         }
 
         if($width <= 0){
-            throw new \InvalidArgumentException('Width cannot be null!');
+            throw new \InvalidArgumentException('Width cannot be null or negative!');
         }
 
         $a = $this->strip()->wrap($width, $cut)->split('/'.$cut.'/u');
@@ -1897,6 +1945,23 @@ class S extends O implements \Countable, \IteratorAggregate
         return new S($s);
     }
 
+    /**
+     * Splits the string using Regexp.
+     *
+     * Argument is a string-like value containing regexp matching the separator 
+     * sued to split the string.
+     *
+     * Example:
+     *
+     *     $s = new S('This is a string to split');
+     *     $s->explode('/\s+/'); // 'This', 'is', 'a', 'string', 'to' and ' split'
+     * 
+     * @see S::split() An alias
+     * @see S::cut() Another alias
+     * @param mixed $sep String-like regex 
+     * @return A
+     * @throws \InvalidArgumentException Regexp is void
+     */
     public function explode($sep)
     {
         self::mustBeString($sep, 'Separator regexp');
@@ -1921,11 +1986,29 @@ class S extends O implements \Countable, \IteratorAggregate
         return new A($arr);
     }
 
+
+    /**
+     * Splits the string using Regexp.
+     *
+     * @see S::explode() Original method
+     * @param mixed $sep String-like regex 
+     * @return A
+     * @throws \InvalidArgumentException Regexp is void
+     */
     public function split($sep)
     {
         return $this->explode($sep);
     }
 
+
+    /**
+     * Splits the string using Regexp.
+     *
+     * @see S::explode() Original method
+     * @param mixed $sep String-like regex 
+     * @return A
+     * @throws \InvalidArgumentException Regexp is void
+     */
     public function cut($sep)
     {
         return $this->explode($sep);
