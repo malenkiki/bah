@@ -792,18 +792,30 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->prepend($str);
     }
 
+
+
+
     /**
      * Insert new content at given position.
      *
-     * @param  mixed                     $str String-like content
-     * @param  mixed                     $pos Integer-like content (integer or \Malenki\Bah\N object)
+     * It is very easy to insert string into current one, if you cannot use 
+     * `S::prepend()` or `S::append()`, then, `S::insert()` method is what you 
+     * need.
+     *
+     * Let’s see an example:
+     *
+     *     $s = new S('abcghi');
+     *     echo $s->insert('def', 3); // 'abcdefghi'
+     *
+     * @see S::put() An alias
+     * @param  mixed $str String-like content
+     * @param  mixed $pos Integer-like content (integer or \Malenki\Bah\N object)
      * @return S
+     * @throws \InvalidArgumentException If given string is not valid
      * @throws \InvalidArgumentException If given position is not valid.
-     * @todo create `put` alias
      */
     public function insert($str, $pos)
     {
-        //TODO create `put` alias
         self::mustBeString($str, 'String to insert');
         self::mustBeInteger($pos, 'Position');
 
@@ -835,6 +847,23 @@ class S extends O implements \Countable, \IteratorAggregate
         $str2 = $this->sub($pos, count($this) - 1);
 
         return static::concat($str1, $str, $str2);
+    }
+    
+    
+    
+    /**
+     * Insert new content at given position (Alias).
+     *
+     * @see S::insert() Original method
+     * @param  mixed $str String-like content
+     * @param  mixed $pos Integer-like content
+     * @return S
+     * @throws \InvalidArgumentException If given string is not valid
+     * @throws \InvalidArgumentException If given position is not valid.
+     */
+    public function put($str, $pos)
+    {
+        return $this->insert($str, $pos);
     }
 
     protected function _underscore()
