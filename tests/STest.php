@@ -329,6 +329,23 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->charAt(3), $s->chars->take(3));
     }
 
+    public function testGettingCharAtGivenPositionShouldSuccess()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('J', $s->charAt(0));
+        $this->assertEquals('!', $s->charAt(19));
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingCharAtGivenNotExistingPositionShouldFail()
+    {
+        $s = new S('Je suis une chaîne !');
+        $s->charAt(42);
+    }
+
     public function testiGettingSubstringShouldReturnSObject()
     {
         $s = new S('Je suis une chaîne !');
