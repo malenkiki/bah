@@ -25,66 +25,66 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Malenki\Bah;
 
 /**
- * String class.
+ * Play with Strings!
  *
  * @package Malenki\Bah
- * @property-read Malenki\Bah\A $chars A collection of Malenki\Bah\C objects.
- * @property-read Malenki\Bah\A $bytes A collection of Malenki\bah\N objects
- * @property-read Malenki\Bah\N $length The strings length
- * @property-read Malenki\Bah\C $to_c If string as only one character, convert it to \Malenki\Bah\C object.
- * @property-read Malenki\Bah\N $to_n If string contents numeric value, try to export it to \Malenki\Bah\N object.
- * @property-read Malenki\Bah\S $n Return itself + new line '\n'
- * @property-read Malenki\Bah\S $r Return itself + new line '\r'
+ * @property-read A $chars A collection of Malenki\Bah\C objects.
+ * @property-read A $bytes A collection of Malenki\bah\N objects
+ * @property-read N $length The strings length
+ * @property-read C $to_c If string as only one character, convert it to \Malenki\Bah\C object.
+ * @property-read N $to_n If string contents numeric value, try to export it to \Malenki\Bah\N object.
+ * @property-read S $n Return itself + new line '\n'
+ * @property-read S $r Return itself + new line '\r'
  * @property-read boolean $is_void Tests whether the current string is void or not.
  * @property-read boolean $void Tests whether the current string is void or not.
  * @property-read boolean $is_empty Tests whether the current string is void or not.
  * @property-read boolean $empty Tests whether the current string is void or not.
- * @property-read \Malenki\Bah\S $strip Remove white spaces surrounding the string. See \Malenki\Bah\S::strip() for more actions.
- * @property-read \Malenki\Bah\S $lstrip Remove white spaces at the left of the string. See \Malenki\Bah\S::lstrip() for more actions.
- * @property-read \Malenki\Bah\S $rstrip Remove white spaces at the right of the string. See \Malenki\Bah\S::rstrip() for more actions.
- * @property-read \Malenki\Bah\S $sub Take first character as string. See \Malenki\Bah\S::sub() for more actions.
- * @property-read \Malenki\Bah\S $chunk Get exploded string as collection of characters. See \Malenki\Bah\S::chunk() for more actions.
- * @property-read \Malenki\Bah\S $delete Remove first character. See \Malenki\Bah\S::delete() for more actions.
- * @property-read \Malenki\Bah\S $remove Remove first character. See \Malenki\Bah\S::delete() for more actions.
- * @property-read \Malenki\Bah\S $del Remove first character. See \Malenki\Bah\S::delete() for more actions.
- * @property-read \Malenki\Bah\S $rm Remove first character. See \Malenki\Bah\S::delete() for more actions.
+ * @property-read S $strip Remove white spaces surrounding the string. See \Malenki\Bah\S::strip() for more actions.
+ * @property-read S $lstrip Remove white spaces at the left of the string. See \Malenki\Bah\S::lstrip() for more actions.
+ * @property-read S $rstrip Remove white spaces at the right of the string. See \Malenki\Bah\S::rstrip() for more actions.
+ * @property-read S $sub Take first character as string. See \Malenki\Bah\S::sub() for more actions.
+ * @property-read S $chunk Get exploded string as collection of characters. See \Malenki\Bah\S::chunk() for more actions.
+ * @property-read S $delete Remove first character. See \Malenki\Bah\S::delete() for more actions.
+ * @property-read S $remove Remove first character. See \Malenki\Bah\S::delete() for more actions.
+ * @property-read S $del Remove first character. See \Malenki\Bah\S::delete() for more actions.
+ * @property-read S $rm Remove first character. See \Malenki\Bah\S::delete() for more actions.
  *
- * @property-read Malenki\Bah\S $center Center the string on line having width of 79 chars.
- * @property-read Malenki\Bah\S $left Align on left the string on line having width of 79 chars.
- * @property-read Malenki\Bah\S $left_justify Align on left the string on line having width of 79 chars.
- * @property-read Malenki\Bah\S $left_align Align on left the string on line having width of 79 chars.
- * @property-read Malenki\Bah\S $ljust Align on left the string on line having width of 79 chars.
- * @property-read Malenki\Bah\S $right Align on right the string on line having width of 79 chars.
- * @property-read Malenki\Bah\S $right_justify Align on right the string on line having width of 79 chars.
- * @property-read Malenki\Bah\S $right_align Align on right the string on line having width of 79 chars.
- * @property-read Malenki\Bah\S $rjust Align on right the string on line having width of 79 chars.
- * @property-read Malenki\Bah\S $justify Justify the string on line having width of 79 chars.
- * @property-read Malenki\Bah\S $just Justify the string on line having width of 79 chars.
+ * @property-read S $center Center the string on line having width of 79 chars.
+ * @property-read S $left Align on left the string on line having width of 79 chars.
+ * @property-read S $left_justify Align on left the string on line having width of 79 chars.
+ * @property-read S $left_align Align on left the string on line having width of 79 chars.
+ * @property-read S $ljust Align on left the string on line having width of 79 chars.
+ * @property-read S $right Align on right the string on line having width of 79 chars.
+ * @property-read S $right_justify Align on right the string on line having width of 79 chars.
+ * @property-read S $right_align Align on right the string on line having width of 79 chars.
+ * @property-read S $rjust Align on right the string on line having width of 79 chars.
+ * @property-read S $justify Justify the string on line having width of 79 chars.
+ * @property-read S $just Justify the string on line having width of 79 chars.
  *
- * @property-read Malenki\Bah\S $wrap Get wrapped version of the string, width of 79 chars
+ * @property-read S $wrap Get wrapped version of the string, width of 79 chars
  *
- * @property-read Malenki\Bah\S $underscore Get underscorized version (`some_words_into_sentence`)
- * @property-read Malenki\Bah\S $_ Get underscorized version (`some_words_into_sentence`)
- * @property-read Malenki\Bah\S $dash Get dashrized version (`some-words-into-sentence`)
- * @property-read Malenki\Bah\S $upper_camel_case Get lower camel case version
- * @property-read Malenki\Bah\S $lower_camel_case Get upper camel case version
- * @property-read Malenki\Bah\S $cc Get camel case versioni (lower case for first letter)
- * @property-read Malenki\Bah\S $lcc Get lower camel case version
- * @property-read Malenki\Bah\S $ucc Get upper camel case version
- * @property-read Malenki\Bah\S $lower Get string into lower case
- * @property-read Malenki\Bah\S $upper Get string into upper case
- * @property-read Malenki\Bah\S $first Get first character
- * @property-read Malenki\Bah\S $last Get last character
- * @property-read Malenki\Bah\S $title Get "title" version of the string
- * @property-read Malenki\Bah\S $trans Get translitterated version of the string
- * @property-read Malenki\Bah\S $md5 Get MD5 sum of the string
- * @property-read Malenki\Bah\S $sha1 Get SHA1 sum of the string
- * @property-read Malenki\Bah\S $swap_case Get swapped case version
- * @property-read Malenki\Bah\S $swapcase Get swapped case version
- * @property-read Malenki\Bah\S $swap Get swapped case version
- * @property-read Malenki\Bah\S $squeeze Remove duplicates sequences of characters. See \Malenki\Bah\S::squeeze() methods to have other features
- * @property-read Malenki\Bah\S $ucw Get upper case words
- * @property-read Malenki\Bah\S $ucf Get upper case first
+ * @property-read S $underscore Get underscorized version (`some_words_into_sentence`) 
+ * @property-read S $_ Get underscorized version (`some_words_into_sentence`)
+ * @property-read S $dash Get dashrized version (`some-words-into-sentence`)
+ * @property-read S $upper_camel_case Get lower camel case version
+ * @property-read S $lower_camel_case Get upper camel case version
+ * @property-read S $cc Get camel case versioni (lower case for first letter)
+ * @property-read S $lcc Get lower camel case version
+ * @property-read S $ucc Get upper camel case version
+ * @property-read S $lower Get string into lower case
+ * @property-read S $upper Get string into upper case
+ * @property-read S $first Get first character
+ * @property-read S $last Get last character
+ * @property-read S $title Get "title" version of the string
+ * @property-read S $trans Get translitterated version of the string
+ * @property-read S $md5 Get MD5 sum of the string
+ * @property-read S $sha1 Get SHA1 sum of the string
+ * @property-read S $swap_case Get swapped case version
+ * @property-read S $swapcase Get swapped case version
+ * @property-read S $swap Get swapped case version
+ * @property-read S $squeeze Remove duplicates sequences of characters. See \Malenki\Bah\S::squeeze() methods to have other features
+ * @property-read S $ucw Get upper case words
+ * @property-read S $ucf Get upper case first
  * @property-read string $string Get current string as primitive PHP type string
  * @property-read string $str Get current string as primitive PHP type string
  * @property-read integer $integer Get current string as primitive PHP type integer, if possible.
@@ -92,6 +92,7 @@ namespace Malenki\Bah;
  * @property-read float $float Get current string as primitive PHP type float, if possible.
  * @property-read double $double Get current string as primitive PHP type double, if possible.
  * @license MIT
+ * @author Michel Petit aka "Malenki" <petit.michel@gmail.com>
  */
 class S extends O implements \Countable, \IteratorAggregate
 {
@@ -665,9 +666,11 @@ class S extends O implements \Countable, \IteratorAggregate
      * @param  mixed $str Optionnal set of characters to strip.
      * @access public
      * @return S
+     * @todo create `S::trim()` alias
      */
     public function strip($str = null)
     {
+        //TOD create trim alias
         if (is_array($str)) {
             $str = new A($str);
         }
@@ -796,9 +799,11 @@ class S extends O implements \Countable, \IteratorAggregate
      * @param  mixed                     $pos Integer-like content (integer or \Malenki\Bah\N object)
      * @return S
      * @throws \InvalidArgumentException If given position is not valid.
+     * @todo create `put` alias
      */
     public function insert($str, $pos)
     {
+        //TODO create `put` alias
         self::mustBeString($str, 'String to insert');
         self::mustBeInteger($pos, 'Position');
 
@@ -1162,11 +1167,22 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Check whether current string match the given regular expression.
+     * Checks string using Regexp
      *
-     * @param  mixed   $expr primitive string or object having __toString method
+     * Checks whether current string match the given regular expression.
+     *
+     * Example:
+     *
+     *     $s = new S('azerty');
+     *     var_dump($s->match('/ty$/')); // true
+     *
+     * @see S::regexp() An alias for this method
+     * @see S::re() Another alias for this method
+     * @param  mixed $expr primitive string or object having __toString method
      * @access public
      * @return boolean
+     * @throws \InvalidArgumentException If regexp pattern is not a string-like 
+     * value.
      */
     public function match($expr)
     {
@@ -1176,11 +1192,14 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Shorthand for match method
+     * Alias of match method
      *
+     * @see S::match() The original method of this alias
      * @param  mixed   $expr primitive string or object having __toString method
      * @access public
      * @return boolean
+     * @throws \InvalidArgumentException If regexp pattern is not a string-like 
+     * value.
      */
     public function regexp($expr)
     {
@@ -1188,10 +1207,13 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Shorthand for match method
+     * Alias of match method
      *
+     * @see S::match() The original method of this alias
      * @param  mixed   $expr primitive string or object having __toString method
      * @return boolean
+     * @throws \InvalidArgumentException If regexp pattern is not a string-like 
+     * value.
      */
     public function re($expr)
     {
@@ -1199,10 +1221,21 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * test 
+     * Tests given string using regex pattern stored into current string. 
      * 
-     * @param mixed $str 
+     * Acts as current string is regex pattern, then, string passed to the 
+     * argument of this method will be tested using current string.
+     *
+     * Example:
+     *
+     *     $s = new S('/ze/');
+     *     var_dump($s->test('azerty')); // true
+     *
+     *
+     * @param mixed $str A string-like to test
      * @return boolean
+     * @throws \InvalidArgumentException If argument is not a string-like or a 
+     * scalar.
      */
     public function test($str)
     {
@@ -1273,6 +1306,7 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     public function charAt($idx)
     {
+        //TODO check if index exists!
         self::mustBeInteger($idx, 'Index');
 
         if ($idx instanceof N) {
@@ -1309,8 +1343,10 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Implements Countable interface.
      *
-     * @see \Countable
+     * __Note:__ This method does not returns an `\Malenki\Bah\N` object, but
+     * a primitive integer, to have same behaviour as its interface definition.
      *
+     * @see \Countable
      * @return integer
      */
     public function count()
@@ -1356,26 +1392,80 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Repeats N times current string.
      *
-     * @param  mixed Integer-like value
+     * Repeats N times current string. Number of times can be zero to, so 
+     * resulting string is void.
+     *
+     * Example:
+     *
+     *     $s = new S('Hello!');
+     *     echo $s->append(' ')->times(3)->strip; // 'Hello! Hello! Hello!'
+     *     echo $s->times(0); // '' (empty string)
+     *
+     * @see S::repeat() Alias of this method
+     * @param mixed $n Integer-like value
      * @return S
+     * @throws \InvalidArgumentException If N is not an integer-like.
+     * @throws \InvalidArgumentException If N is negative
      */
-    public function times($n = 1)
+    public function times($n)
     {
         self::mustBeInteger($n, 'Number of repetition');
 
         if($n instanceof N) $n = $n->int;
 
+        if($n < 0){
+            throw new \InvalidArgumentException(
+                'Number of repeats cannot be negative'
+            );
+        }
+
         return new self(str_repeat($this, $n));
+    }
+
+
+    /**
+     * Repeats N times current string (Alias).
+     *
+     * @see S::times() Original method of this alias
+     * @param  mixed $n Integer-like value
+     * @return S
+     * @throws \InvalidArgumentException If N is not an integer-like.
+     * @throws \InvalidArgumentException If N is negative
+     */
+    public function repeat($n)
+    {
+        return $this->times($n);
     }
 
     /**
      * Wraps the string to fit given width.
      *
-     * @param  mixed $width Width the text must have
+     * If the curent string’s size equals or is less than size to fit the 
+     * result, then nothing appens. If the string is greater than wanted with, 
+     * then the string is wrapped.
+     *
+     * An example resulti using this method could be:
+     *
+     *     Tous les êtres
+     *     humains naissent
+     *     libres et égaux en
+     *     dignité et en
+     *     droits. Ils sont
+     *     doués de raison et
+     *     de conscience et
+     *     doivent agir les
+     *     uns envers les
+     *     autres dans un
+     *     esprit de
+     *     fraternité.
+     *
+     * @param  int|N $width Width the text must have
      * @param  mixed $cut   Optional string to put at each linebreak, as
-     *                      string or S
+     *                      string-like
      * @access public
      * @return S
+     * @throws \InvalidArgumentException If width is not an integer-like
+     * @throws \InvalidArgumentException If cut is not a string-like
      */
     public function wrap($width = 79, $cut = PHP_EOL)
     {
@@ -1384,7 +1474,7 @@ class S extends O implements \Countable, \IteratorAggregate
 
         $arr_lines = array();
 
-        if (strlen($this->value) === mb_strlen($this->value, 'UTF-8')) {
+        if (strlen($this->value) === count($this)) {
             $arr_lines = explode(
                 $cut,
                 wordwrap(
@@ -1457,7 +1547,7 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      *     $s = new S('Tous les…'); // long text
      *     echo 'First: ';
-     *     echo $s->wrap(40)->margin(10, 0, -7)->n->n;
+     *     echo $s->wrap(40)->margin(10, 0, -7);
      *
      * This example will print:
      *
