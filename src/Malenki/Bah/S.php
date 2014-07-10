@@ -657,33 +657,82 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Trim the string, by default removing white spaces on the left and on the
-     * right.
+     * Trims the string, by default removing white spaces on the left and on 
+     * the right sides.
      *
      * You can give as argument string-like or collection-like to set
      * character(s) to strip.
      *
+     * Examples:
+     *
+     *     $s = new S('   azerty   ');
+     *     echo $s->strip(); // 'azerty'
+     
+     *     $s = new S(__._.__azerty___.___');
+     *     $a = array('_', '.');
+     *     echo $s->strip('_.'); // 'azerty'
+     *     echo $s->strip($a); // 'azerty'
+     *
+     * @see S::lstrip() To remove only on the left side
+     * @see S::rstrip() To remove only on the right side
+     * @see S::$strip The magic getter version
      * @param  mixed $str Optionnal set of characters to strip.
-     * @access public
+     * @param  mixed $str Optionnal type of strip, `left`, `right` or `both`. 
+     * By default strip on the two sides.
      * @return S
+     * @throws \InvalidArgumentException If given optional type is not a 
+     * string-like value.
+     * @throws \InvalidArgumentException If type does not exist
      * @todo create `S::trim()` alias
      */
-    public function strip($str = null)
+    public function strip($str = null, $type = null)
     {
-        //TOD create trim alias
-        if (is_array($str)) {
-            $str = new A($str);
+        //TODO create trim alias
+
+        $func = 'trim';
+
+        if(!is_null($type)){
+            self::mustBeString($type, 'Type');
+            $type = "$type";
+
+            if(!in_array($type, array('left', 'right', 'both'))){
+                throw new \InvalidArgumentException(
+                    'Type of strip must be `left`, `right` or `both`'
+                );
+            }
+
+            if($type == 'left'){
+                $func = 'ltrim';
+            }
+
+            if($type == 'right'){
+                $func = 'rtrim';
+            }
         }
 
-        if ($str instanceof A) {
-            return new S(trim($this->value, $str->join));
+
+        if(!is_null($str)){
+            if (is_array($str)) {
+                $str = new A($str);
+            }
+
+            //TODO allow H too
+            if ($str instanceof A) {
+                return new S($func($this->value, $str->join));
+            }
+
+            if (
+                is_string($str) 
+                ||
+                (is_object($str) && method_exists($str, '__toString'))
+            ) {
+                return new S($func($this->value, $str));
+            }
+
+            //TODO throw exception here
         }
 
-        if (is_string($str) || (is_object($str) && method_exists($str, '__toString'))) {
-            return new S(trim($this->value, $str));
-        }
-
-        return new S(trim($this->value));
+        return new S($func($this->value));
     }
 
     /**
@@ -692,25 +741,15 @@ class S extends O implements \Countable, \IteratorAggregate
      * You can give as argument string-like or collection-like to set
      * character(s) to strip.
      *
+     * @see S::strip() To remove both on the left and on the right.
+     * @see S::rstrip() To remove only on the right side.
+     * @see S::$lstrip The magic getter version to remove white space on the left
      * @param  mixed $str Optional set of characters to strip.
-     * @access public
      * @return S
      */
     public function lstrip($str = null)
     {
-        if (is_array($str)) {
-            $str = new A($str);
-        }
-
-        if ($str instanceof A) {
-            return new S(ltrim($this->value, $str->join));
-        }
-
-        if (is_string($str) || (is_object($str) && method_exists($str, '__toString'))) {
-            return new S(ltrim($this->value, $str));
-        }
-
-        return new S(ltrim($this->value));
+        return $this->strip($str, 'left');
     }
 
     /**
@@ -719,32 +758,21 @@ class S extends O implements \Countable, \IteratorAggregate
      * You can give as argument string-like or collection-like to set
      * character(s) to strip.
      *
+     * @see S::strip() To remove both on the left and on the right.
+     * @see S::lstrip() To remove only on the left side.
+     * @see S::$rstrip The magic getter version to remove white space on the right
      * @param  mixed $str Optional set of characters to strip.
-     * @access public
      * @return S
      */
     public function rstrip($str = null)
     {
-        if (is_array($str)) {
-            $str = new A($str);
-        }
-
-        if ($str instanceof A) {
-            return new S(rtrim($this->value, $str->join));
-        }
-
-        if (is_string($str) || (is_object($str) && method_exists($str, '__toString'))) {
-            return new S(rtrim($this->value, $str));
-        }
-
-        return new S(rtrim($this->value));
+        return $this->strip($str, 'right');
     }
 
     /**
      * Adds string content to the end of current string.
      *
      * @param  mixed $str String-like content
-     * @access public
      * @return S
      */
     public function append($str)
@@ -770,7 +798,6 @@ class S extends O implements \Countable, \IteratorAggregate
      * Adds string content to the beginning of current string.
      *
      * @param  mixed $str String-like content
-     * @access public
      * @return S
      */
     public function prepend($str)
@@ -994,6 +1021,7 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     public function sub($offset = 0, $limit = 1)
     {
+        //TODO Missing exception for offset too big
         self::mustBeInteger($offset, 'Offset');
         self::mustBeInteger($limit, 'Limit');
 
@@ -1022,8 +1050,11 @@ class S extends O implements \Countable, \IteratorAggregate
      * as a \Malenki\Bah\A object. If no position found, this return object has
      * void collection.
      *
+     * @see S::pos() Alias
      * @param  mixed $needle The searched string-like content
      * @return A
+     * @throws \InvalidArgumentException If needle is not a string-like value
+     * @throws \InvalidArgumentException If needle is empty
      */
     public function position($needle)
     {
@@ -1064,6 +1095,8 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::position() Original method of this alias
      * @param  mixed $needle The searched string-like content
      * @return A
+     * @throws \InvalidArgumentException If needle is not a string-like value
+     * @throws \InvalidArgumentException If needle is empty
      */
     public function pos($needle)
     {
@@ -1073,12 +1106,28 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Removes string part using offset and limit size.
      *
-     * @param  mixed $offset Integer-like offset
-     * @param  mixed $limit  Integer-like limit size
+     * To delete string part, you must give index from where to start, thinking 
+     * about the starting point of the string is zero. Then, you must define 
+     * the length of the part to remove.
+     *
+     * A little example show you how to do that:
+     *
+     *     $s = new S('This string will loose some parts…');
+     *     $s->delete(4, 7); // 'This will loose some parts…'
+     *
+     * @see S::del() An alias
+     * @see S::remove() Another alias
+     * @see S::rm() Last alias
+     * @param int|N $offset Integer-like offset
+     * @param int|N $limit  Integer-like limit size
      * @return S
+     * @throws \InvalidArgumentException If offset is not an integer-like
+     * @throws \InvalidArgumentException If offset is negative
+     * @throws \InvalidArgumentException If limite is not an integer-like
      */
     public function delete($offset = 0, $limit = 1)
     {
+        // TODO offset cannot be greater than length
         self::mustBeInteger($offset, 'Offset');
         self::mustBeInteger($limit, 'Limit');
 
@@ -1329,17 +1378,33 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Get character at the given position.
      *
-     * @param mixed $idx The index where the character is, as N or integer.
+     * Position start from 0 to end at string’s length less one.
      *
+     * __Note:__ Returned object is not a `\Malenki\Bah\S` object, but a 
+     * `\Malenki\Bah\C` object, to deal with all character’s features.
+     *
+     *     $s = new S('abc');
+     *     $s->charAt(0)->unicode; // print unicode value of the char 'a'
+     * 
+     * @see S::take() An alias
+     * @see S::at() Another alias
+     * @param int|N $idx The index where the character is, as N or integer.
      * @return C
+     * @throws \InvalidArgumentException If index is not an integer-like.
+     * @throws \InvalidArgumentException If index does not exist.
      */
     public function charAt($idx)
     {
-        //TODO check if index exists!
         self::mustBeInteger($idx, 'Index');
 
         if ($idx instanceof N) {
             $idx = $idx->int;
+        }
+
+        if($idx < 0 || $idx >= count($this)){
+            throw new \InvalidArgumentException(
+                'Cannot get chars at non-existing position!'
+            );
         }
 
         return new C(mb_substr($this->value, $idx, 1, C::ENCODING));
@@ -1348,8 +1413,8 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Alias of charAt() method
      *
-     * @uses S::charAt()
-     * @param  mixed $idx Position as integer-like
+     * @see S::charAt() Original method
+     * @param  int|N $idx Position as integer-like
      * @return C
      */
     public function take($idx)
@@ -1360,8 +1425,8 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Alias of charAt() method
      *
-     * @uses S::charAt()
-     * @param  mixed $idx Position as integer-like
+     * @see S::charAt() Original method
+     * @param int|N $idx Position as integer-like
      * @return C
      */
     public function at($idx)
