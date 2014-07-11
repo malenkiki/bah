@@ -42,6 +42,9 @@ namespace Malenki\Bah;
  * @property-read S $strip Remove white spaces surrounding the string. See \Malenki\Bah\S::strip() for more actions.
  * @property-read S $lstrip Remove white spaces at the left of the string. See \Malenki\Bah\S::lstrip() for more actions.
  * @property-read S $rstrip Remove white spaces at the right of the string. See \Malenki\Bah\S::rstrip() for more actions.
+ * @property-read S $trim Remove white spaces surrounding the string. Alias of \Malenki\Bah\S::strip().
+ * @property-read S $ltrim Remove white spaces at the left of the string. Alias of \Malenki\Bah\S::lstrip().
+ * @property-read S $rtrim Remove white spaces at the right of the string. Alias of \Malenki\Bah\S::rstrip().
  * @property-read S $sub Take first character as string. See \Malenki\Bah\S::sub() for more actions.
  * @property-read S $chunk Get exploded string as collection of characters. See \Malenki\Bah\S::chunk() for more actions.
  * @property-read S $delete Remove first character. See \Malenki\Bah\S::delete() for more actions.
@@ -185,6 +188,9 @@ class S extends O implements \Countable, \IteratorAggregate
                     'strip',
                     'lstrip',
                     'rstrip',
+                    'trim',
+                    'ltrim',
+                    'rtrim',
                     'sub',
                     'chunk',
                     'delete',
@@ -657,33 +663,89 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Trim the string, by default removing white spaces on the left and on the
-     * right.
+     * Trims the string, by default removing white spaces on the left and on 
+     * the right sides.
      *
      * You can give as argument string-like or collection-like to set
      * character(s) to strip.
      *
+     * Examples:
+     *
+     *     $s = new S('   azerty   ');
+     *     echo $s->strip(); // 'azerty'
+     
+     *     $s = new S(__._.__azerty___.___');
+     *     $a = array('_', '.');
+     *     $h = array('foo' => '_', 'bar' => '.');
+     *     echo $s->strip('_.'); // 'azerty'
+     *     echo $s->strip($a); // 'azerty'
+     *     echo $s->strip($h); // 'azerty'
+     *
+     * @see S::lstrip() To remove only on the left side
+     * @see S::rstrip() To remove only on the right side
+     * @see S::$strip The magic getter version
      * @param  mixed $str Optionnal set of characters to strip.
-     * @access public
+     * @param  mixed $type Optionnal type of strip, `left`, `right` or `both`. 
+     * By default strip on the two sides.
      * @return S
-     * @todo create `S::trim()` alias
+     * @throws \InvalidArgumentException If str type is not allowed
+     * @throws \InvalidArgumentException If given optional type is not a 
+     * string-like value.
+     * @throws \InvalidArgumentException If type does not exist
      */
-    public function strip($str = null)
+    public function strip($str = null, $type = null)
     {
-        //TOD create trim alias
-        if (is_array($str)) {
-            $str = new A($str);
+
+        $func = 'trim';
+
+        if(!is_null($type)){
+            self::mustBeString($type, 'Type');
+            $type = "$type";
+
+            if(!in_array($type, array('left', 'right', 'both'))){
+                throw new \InvalidArgumentException(
+                    'Type of strip must be `left`, `right` or `both`'
+                );
+            }
+
+            if($type == 'left'){
+                $func = 'ltrim';
+            }
+
+            if($type == 'right'){
+                $func = 'rtrim';
+            }
         }
 
-        if ($str instanceof A) {
-            return new S(trim($this->value, $str->join));
+
+        if(!is_null($str)){
+            if (is_array($str)) {
+                $str = new A($str);
+            }
+
+            if ($str instanceof A) {
+                return new S($func($this->value, $str->join));
+            }
+            
+            if ($str instanceof H) {
+                return new S($func($this->value, $str->to_a->join));
+            }
+
+
+            if (
+                is_string($str) 
+                ||
+                (is_object($str) && method_exists($str, '__toString'))
+            ) {
+                return new S($func($this->value, $str));
+            }
+
+            throw new \InvalidArgumentException(
+                'Invalid type given for collection of characters to strip.'
+            );
         }
 
-        if (is_string($str) || (is_object($str) && method_exists($str, '__toString'))) {
-            return new S(trim($this->value, $str));
-        }
-
-        return new S(trim($this->value));
+        return new S($func($this->value));
     }
 
     /**
@@ -692,25 +754,16 @@ class S extends O implements \Countable, \IteratorAggregate
      * You can give as argument string-like or collection-like to set
      * character(s) to strip.
      *
+     * @see S::strip() To remove both on the left and on the right.
+     * @see S::rstrip() To remove only on the right side.
+     * @see S::$lstrip The magic getter version to remove white space on the left
      * @param  mixed $str Optional set of characters to strip.
-     * @access public
      * @return S
+     * @throws \InvalidArgumentException If str type is not allowed
      */
     public function lstrip($str = null)
     {
-        if (is_array($str)) {
-            $str = new A($str);
-        }
-
-        if ($str instanceof A) {
-            return new S(ltrim($this->value, $str->join));
-        }
-
-        if (is_string($str) || (is_object($str) && method_exists($str, '__toString'))) {
-            return new S(ltrim($this->value, $str));
-        }
-
-        return new S(ltrim($this->value));
+        return $this->strip($str, 'left');
     }
 
     /**
@@ -719,32 +772,77 @@ class S extends O implements \Countable, \IteratorAggregate
      * You can give as argument string-like or collection-like to set
      * character(s) to strip.
      *
+     * @see S::strip() To remove both on the left and on the right.
+     * @see S::lstrip() To remove only on the left side.
+     * @see S::$rstrip The magic getter version to remove white space on the right
      * @param  mixed $str Optional set of characters to strip.
-     * @access public
      * @return S
+     * @throws \InvalidArgumentException If str type is not allowed
      */
     public function rstrip($str = null)
     {
-        if (is_array($str)) {
-            $str = new A($str);
-        }
+        return $this->strip($str, 'right');
+    }
 
-        if ($str instanceof A) {
-            return new S(rtrim($this->value, $str->join));
-        }
+    /**
+     * Trims the string (Alias).
+     *
+     * @see S::strip() The original method of this alias
+     * @see S::ltrim() To remove only on the left side
+     * @see S::rtrim() To remove only on the right side
+     * @see S::$trim The magic getter version
+     * @param  mixed $str Optionnal set of characters to strip.
+     * @param  mixed $type Optionnal type of strip, `left`, `right` or `both`. 
+     * By default strip on the two sides.
+     * @return S
+     * @throws \InvalidArgumentException If given optional type is not a 
+     * string-like value.
+     * @throws \InvalidArgumentException If type does not exist
+     * @throws \InvalidArgumentException If str type is not allowed
+     */
+    public function trim($str = null, $type = null)
+    {
+        return $this->strip($str, $type);
+    }
 
-        if (is_string($str) || (is_object($str) && method_exists($str, '__toString'))) {
-            return new S(rtrim($this->value, $str));
-        }
 
-        return new S(rtrim($this->value));
+    /**
+     * Trims the string on the left (Alias).
+     *
+     * @see S::lstrip() The original method of this alias
+     * @see S::rtrim() To remove only on the right side
+     * @see S::ltrim Magic getter alias
+     * @see S::$trim The magic getter version
+     * @param  mixed $str Optionnal set of characters to strip.
+     * @return S
+     * @throws \InvalidArgumentException If str type is not allowed
+     */
+    public function ltrim($str = null)
+    {
+        return $this->strip($str, 'left');
+    }
+
+
+    /**
+     * Trims the string on the right (Alias).
+     *
+     * @see S::rstrip() The original method of this alias
+     * @see S::ltrim() To remove only on the right side
+     * @see S::rtrim Magic getter alias
+     * @see S::$trim The magic getter version
+     * @param  mixed $str Optionnal set of characters to strip.
+     * @return S
+     * @throws \InvalidArgumentException If str type is not allowed
+     */
+    public function rtrim($str = null)
+    {
+        return $this->strip($str, 'right');
     }
 
     /**
      * Adds string content to the end of current string.
      *
      * @param  mixed $str String-like content
-     * @access public
      * @return S
      */
     public function append($str)
@@ -770,7 +868,6 @@ class S extends O implements \Countable, \IteratorAggregate
      * Adds string content to the beginning of current string.
      *
      * @param  mixed $str String-like content
-     * @access public
      * @return S
      */
     public function prepend($str)
@@ -792,18 +889,30 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->prepend($str);
     }
 
+
+
+
     /**
      * Insert new content at given position.
      *
-     * @param  mixed                     $str String-like content
-     * @param  mixed                     $pos Integer-like content (integer or \Malenki\Bah\N object)
+     * It is very easy to insert string into current one, if you cannot use 
+     * `S::prepend()` or `S::append()`, then, `S::insert()` method is what you 
+     * need.
+     *
+     * Let’s see an example:
+     *
+     *     $s = new S('abcghi');
+     *     echo $s->insert('def', 3); // 'abcdefghi'
+     *
+     * @see S::put() An alias
+     * @param  mixed $str String-like content
+     * @param  mixed $pos Integer-like content (integer or \Malenki\Bah\N object)
      * @return S
+     * @throws \InvalidArgumentException If given string is not valid
      * @throws \InvalidArgumentException If given position is not valid.
-     * @todo create `put` alias
      */
     public function insert($str, $pos)
     {
-        //TODO create `put` alias
         self::mustBeString($str, 'String to insert');
         self::mustBeInteger($pos, 'Position');
 
@@ -835,6 +944,23 @@ class S extends O implements \Countable, \IteratorAggregate
         $str2 = $this->sub($pos, count($this) - 1);
 
         return static::concat($str1, $str, $str2);
+    }
+    
+    
+    
+    /**
+     * Insert new content at given position (Alias).
+     *
+     * @see S::insert() Original method
+     * @param  mixed $str String-like content
+     * @param  mixed $pos Integer-like content
+     * @return S
+     * @throws \InvalidArgumentException If given string is not valid
+     * @throws \InvalidArgumentException If given position is not valid.
+     */
+    public function put($str, $pos)
+    {
+        return $this->insert($str, $pos);
     }
 
     protected function _underscore()
@@ -959,7 +1085,6 @@ class S extends O implements \Countable, \IteratorAggregate
      *                      integer
      * @param mixed $limit  Size of the substring, 1 by default, as N or
      *                      integer
-     * @todo Missing exception for offset too big
      *
      * @return S
      */
@@ -974,6 +1099,12 @@ class S extends O implements \Countable, \IteratorAggregate
         if ($offset < 0) {
             throw new \InvalidArgumentException(
                 'Offset must be a null or positive integer'
+            );
+        }
+
+        if ($offset >= count($this)) {
+            throw new \InvalidArgumentException(
+                'Offset cannot greater than the last index of the string'
             );
         }
 
@@ -993,8 +1124,11 @@ class S extends O implements \Countable, \IteratorAggregate
      * as a \Malenki\Bah\A object. If no position found, this return object has
      * void collection.
      *
+     * @see S::pos() Alias
      * @param  mixed $needle The searched string-like content
      * @return A
+     * @throws \InvalidArgumentException If needle is not a string-like value
+     * @throws \InvalidArgumentException If needle is empty
      */
     public function position($needle)
     {
@@ -1035,6 +1169,8 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::position() Original method of this alias
      * @param  mixed $needle The searched string-like content
      * @return A
+     * @throws \InvalidArgumentException If needle is not a string-like value
+     * @throws \InvalidArgumentException If needle is empty
      */
     public function pos($needle)
     {
@@ -1044,9 +1180,24 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Removes string part using offset and limit size.
      *
-     * @param  mixed $offset Integer-like offset
-     * @param  mixed $limit  Integer-like limit size
+     * To delete string part, you must give index from where to start, thinking 
+     * about the starting point of the string is zero. Then, you must define 
+     * the length of the part to remove.
+     *
+     * A little example show you how to do that:
+     *
+     *     $s = new S('This string will loose some parts…');
+     *     $s->delete(4, 7); // 'This will loose some parts…'
+     *
+     * @see S::del() An alias
+     * @see S::remove() Another alias
+     * @see S::rm() Last alias
+     * @param int|N $offset Integer-like offset
+     * @param int|N $limit  Integer-like limit size
      * @return S
+     * @throws \InvalidArgumentException If offset is not an integer-like
+     * @throws \InvalidArgumentException If offset is negative
+     * @throws \InvalidArgumentException If limite is not an integer-like
      */
     public function delete($offset = 0, $limit = 1)
     {
@@ -1059,6 +1210,13 @@ class S extends O implements \Countable, \IteratorAggregate
         if ($offset < 0) {
             throw new \InvalidArgumentException(
                 'Offset must be a null or positive integer'
+            );
+        }
+
+
+        if ($offset >= count($this)) {
+            throw new \InvalidArgumentException(
+                'Offset cannot greater than the last index of the string'
             );
         }
 
@@ -1300,17 +1458,33 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Get character at the given position.
      *
-     * @param mixed $idx The index where the character is, as N or integer.
+     * Position start from 0 to end at string’s length less one.
      *
+     * __Note:__ Returned object is not a `\Malenki\Bah\S` object, but a 
+     * `\Malenki\Bah\C` object, to deal with all character’s features.
+     *
+     *     $s = new S('abc');
+     *     $s->charAt(0)->unicode; // print unicode value of the char 'a'
+     * 
+     * @see S::take() An alias
+     * @see S::at() Another alias
+     * @param int|N $idx The index where the character is, as N or integer.
      * @return C
+     * @throws \InvalidArgumentException If index is not an integer-like.
+     * @throws \InvalidArgumentException If index does not exist.
      */
     public function charAt($idx)
     {
-        //TODO check if index exists!
         self::mustBeInteger($idx, 'Index');
 
         if ($idx instanceof N) {
             $idx = $idx->int;
+        }
+
+        if($idx < 0 || $idx >= count($this)){
+            throw new \InvalidArgumentException(
+                'Cannot get chars at non-existing position!'
+            );
         }
 
         return new C(mb_substr($this->value, $idx, 1, C::ENCODING));
@@ -1319,8 +1493,8 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Alias of charAt() method
      *
-     * @uses S::charAt()
-     * @param  mixed $idx Position as integer-like
+     * @see S::charAt() Original method
+     * @param  int|N $idx Position as integer-like
      * @return C
      */
     public function take($idx)
@@ -1331,8 +1505,8 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Alias of charAt() method
      *
-     * @uses S::charAt()
-     * @param  mixed $idx Position as integer-like
+     * @see S::charAt() Original method
+     * @param int|N $idx Position as integer-like
      * @return C
      */
     public function at($idx)

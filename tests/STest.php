@@ -329,6 +329,23 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->charAt(3), $s->chars->take(3));
     }
 
+    public function testGettingCharAtGivenPositionShouldSuccess()
+    {
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals('J', $s->charAt(0));
+        $this->assertEquals('!', $s->charAt(19));
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingCharAtGivenNotExistingPositionShouldFail()
+    {
+        $s = new S('Je suis une chaîne !');
+        $s->charAt(42);
+    }
+
     public function testiGettingSubstringShouldReturnSObject()
     {
         $s = new S('Je suis une chaîne !');
@@ -355,7 +372,17 @@ class STest extends PHPUnit_Framework_TestCase
     public function testSubstringWithNegativeOffsetShouldRaiseException()
     {
         $s = new S('Je suis une chaîne !');
-        $this->assertEquals('Je suis', $s->sub(-3, 7));
+        $s->sub(-3, 7);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSubstringWithTooBigOffsetShouldRaiseException()
+    {
+        $s = new S('Je suis une chaîne !');
+        $s->sub(50, 7);
     }
 
     /**
@@ -364,7 +391,7 @@ class STest extends PHPUnit_Framework_TestCase
     public function testSubstringWithNegativeLimitShouldRaiseException()
     {
         $s = new S('Je suis une chaîne !');
-        $this->assertEquals('Je suis', $s->sub(0, -7));
+        $s->sub(0, -7);
     }
     /**
      * @expectedException \InvalidArgumentException
@@ -372,7 +399,7 @@ class STest extends PHPUnit_Framework_TestCase
     public function testSubstringWithNegativeOffsetAsObjectShouldRaiseException()
     {
         $s = new S('Je suis une chaîne !');
-        $this->assertEquals('Je suis', $s->sub(new N(-3), new N(7)));
+        $s->sub(new N(-3), new N(7));
     }
 
     /**
@@ -381,7 +408,7 @@ class STest extends PHPUnit_Framework_TestCase
     public function testSubstringWithNegativeLimitAsObjectShouldRaiseException()
     {
         $s = new S('Je suis une chaîne !');
-        $this->assertEquals('Je suis', $s->sub(new N(0), new N(-7)));
+        $s->sub(new N(0), new N(-7));
     }
 
     public function testGettingMarginShouldReturnSObject()
@@ -790,6 +817,30 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->lstrip->rstrip, $s->strip);
     }
     
+    public function testRemovingCustomCharsFromTheStringShouldSuccess()
+    {
+        $s = new S('I have some...');
+        $this->assertEquals('I have some', $s->strip('.'));
+        $this->assertEquals('I have some', $s->strip(new S('.')));
+        $this->assertEquals('I have some', $s->strip(new C('.')));
+
+        $s = new S('I have some...!?');
+        $a = new A();
+        $a->add(new C('.'));
+        $a->add('!');
+        $a->add(new S('?'));
+        $this->assertEquals('I have some', $s->strip('.!?'));
+        $this->assertEquals('I have some', $s->strip(new S('.!?')));
+        $this->assertEquals('I have some', $s->strip($a));
+        $this->assertEquals('I have some', $s->strip(array('.', '!', '?')));
+        $this->assertEquals('I have some', $s->strip(new A(array('.', '!', '?'))));
+        $this->assertEquals('I have some', $s->strip(new H(array('foo' => '.', 'bar' => '!', 'thing' => '?'))));
+        $this->assertEquals('I have some', $s->strip(array(new S('.'), '!', new C('?'))));
+        $this->assertEquals('I have some', $s->strip(new A(array(new S('.'), '!', new C('?')))));
+        $this->assertEquals('I have some', $s->strip(new H(array('foo' => new S('.'), 'bar' => '!', 'thing' => new C('?')))));
+    }
+
+    
     public function testRemovingTrailingCustomCharsFromTheStringShouldSuccess()
     {
         $s = new S('I have some...');
@@ -806,7 +857,11 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I have some', $s->rstrip(new S('.!?')));
         $this->assertEquals('I have some', $s->rstrip($a));
         $this->assertEquals('I have some', $s->rstrip(array('.', '!', '?')));
+        $this->assertEquals('I have some', $s->rstrip(new A(array('.', '!', '?'))));
+        $this->assertEquals('I have some', $s->rstrip(new H(array('foo' => '.', 'bar' => '!', 'thing' => '?'))));
         $this->assertEquals('I have some', $s->rstrip(array(new S('.'), '!', new C('?'))));
+        $this->assertEquals('I have some', $s->rstrip(new A(array(new S('.'), '!', new C('?')))));
+        $this->assertEquals('I have some', $s->rstrip(new H(array('foo' => new S('.'), 'bar' => '!', 'thing' => new C('?')))));
     }
 
     public function testRemovingLeadingCustomCharsFromTheStringShouldSuccess()
@@ -823,7 +878,8 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I have something', $s->lstrip(new S('-_')));
         $this->assertEquals('I have something', $s->lstrip($a));
         $this->assertEquals('I have something', $s->lstrip(array('-', '_')));
-        $this->assertEquals('I have something', $s->lstrip(array(new S('-'), new C('_'))));
+        $this->assertEquals('I have something', $s->lstrip($a));
+        $this->assertEquals('I have something', $s->lstrip(new H(array('foo' => '-', 'bar' => '_'))));
     }
 
     public function testRemovingBothLeadingAndTrailingCustomCharsFromTheStringShouldSuccess()
@@ -847,6 +903,34 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->lstrip($a)->rstrip('-='), $s->strip('-='));
         $this->assertEquals($s->lstrip('-=')->rstrip($a), $s->strip('-='));
         $this->assertEquals($s->lstrip('-=')->rstrip('-='), $s->strip($a));
+    }
+
+
+    public function testGettingStrippedStringUsingAliasShouldHaveSameResultAsOriginals()
+    {
+        $s = new S('_____azerty______');
+        $this->assertEquals($s->strip('_'), $s->trim('_'));
+        $this->assertEquals($s->lstrip('_'), $s->ltrim('_'));
+        $this->assertEquals($s->rstrip('_'), $s->rtrim('_'));
+        $s = new S('    azerty     ');
+        $this->assertEquals($s->strip(), $s->trim());
+        $this->assertEquals($s->lstrip(), $s->ltrim());
+        $this->assertEquals($s->rstrip(), $s->rtrim());
+        $this->assertEquals($s->strip, $s->trim);
+        $this->assertEquals($s->lstrip, $s->ltrim);
+        $this->assertEquals($s->rstrip, $s->rtrim);
+    }
+
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testStrippingUsingBadTypeShouldFail()
+    {
+        $s = new S('    azerty     ');
+
+        $s->strip(45);
     }
 
     public function testAppendingStringShouldReturnSObject()
@@ -952,6 +1036,13 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testInsertingStringUsingAliasShouldReturnSObject()
+    {
+        $s = new S('abcghi');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->put(' def', 3));
+    }
+
+
     public function testInsertingStringUsingPrimitiveTypesShouldSuccess()
     {
         $s = new S('abcghi');
@@ -965,6 +1056,12 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testInsertingStringUsingAliasShouldHaveSameResultAsOriginal()
+    {
+        $s = new S('abcghi');
+        $this->assertEquals($s->insert('def', 3), $s->put('def', 3));
+        $this->assertEquals($s->insert(new S('def'), new N(3)), $s->put(new S('def'), new N(3)));
+    }
 
 
 
@@ -1911,6 +2008,16 @@ class STest extends PHPUnit_Framework_TestCase
     {
         $s = new S('This string will loose some parts…');
         $s->delete(1.2, 4);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDeletingSubStringUsingTooBigOffsetShouldFail()
+    {
+        $s = new S('This string will loose some parts…');
+        $s->delete(155, 4);
     }
 
 
