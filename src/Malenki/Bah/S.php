@@ -1085,13 +1085,11 @@ class S extends O implements \Countable, \IteratorAggregate
      *                      integer
      * @param mixed $limit  Size of the substring, 1 by default, as N or
      *                      integer
-     * @todo Missing exception for offset too big
      *
      * @return S
      */
     public function sub($offset = 0, $limit = 1)
     {
-        //TODO Missing exception for offset too big
         self::mustBeInteger($offset, 'Offset');
         self::mustBeInteger($limit, 'Limit');
 
@@ -1101,6 +1099,12 @@ class S extends O implements \Countable, \IteratorAggregate
         if ($offset < 0) {
             throw new \InvalidArgumentException(
                 'Offset must be a null or positive integer'
+            );
+        }
+
+        if ($offset >= count($this)) {
+            throw new \InvalidArgumentException(
+                'Offset cannot greater than the last index of the string'
             );
         }
 
@@ -1197,7 +1201,6 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     public function delete($offset = 0, $limit = 1)
     {
-        // TODO offset cannot be greater than length
         self::mustBeInteger($offset, 'Offset');
         self::mustBeInteger($limit, 'Limit');
 
@@ -1207,6 +1210,13 @@ class S extends O implements \Countable, \IteratorAggregate
         if ($offset < 0) {
             throw new \InvalidArgumentException(
                 'Offset must be a null or positive integer'
+            );
+        }
+
+
+        if ($offset >= count($this)) {
+            throw new \InvalidArgumentException(
+                'Offset cannot greater than the last index of the string'
             );
         }
 

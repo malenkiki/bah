@@ -372,7 +372,17 @@ class STest extends PHPUnit_Framework_TestCase
     public function testSubstringWithNegativeOffsetShouldRaiseException()
     {
         $s = new S('Je suis une chaîne !');
-        $this->assertEquals('Je suis', $s->sub(-3, 7));
+        $s->sub(-3, 7);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSubstringWithTooBigOffsetShouldRaiseException()
+    {
+        $s = new S('Je suis une chaîne !');
+        $s->sub(50, 7);
     }
 
     /**
@@ -381,7 +391,7 @@ class STest extends PHPUnit_Framework_TestCase
     public function testSubstringWithNegativeLimitShouldRaiseException()
     {
         $s = new S('Je suis une chaîne !');
-        $this->assertEquals('Je suis', $s->sub(0, -7));
+        $s->sub(0, -7);
     }
     /**
      * @expectedException \InvalidArgumentException
@@ -389,7 +399,7 @@ class STest extends PHPUnit_Framework_TestCase
     public function testSubstringWithNegativeOffsetAsObjectShouldRaiseException()
     {
         $s = new S('Je suis une chaîne !');
-        $this->assertEquals('Je suis', $s->sub(new N(-3), new N(7)));
+        $s->sub(new N(-3), new N(7));
     }
 
     /**
@@ -398,7 +408,7 @@ class STest extends PHPUnit_Framework_TestCase
     public function testSubstringWithNegativeLimitAsObjectShouldRaiseException()
     {
         $s = new S('Je suis une chaîne !');
-        $this->assertEquals('Je suis', $s->sub(new N(0), new N(-7)));
+        $s->sub(new N(0), new N(-7));
     }
 
     public function testGettingMarginShouldReturnSObject()
@@ -1998,6 +2008,16 @@ class STest extends PHPUnit_Framework_TestCase
     {
         $s = new S('This string will loose some parts…');
         $s->delete(1.2, 4);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDeletingSubStringUsingTooBigOffsetShouldFail()
+    {
+        $s = new S('This string will loose some parts…');
+        $s->delete(155, 4);
     }
 
 
