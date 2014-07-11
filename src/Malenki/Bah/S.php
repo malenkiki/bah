@@ -33,8 +33,10 @@ namespace Malenki\Bah;
  * @property-read N $length The strings length
  * @property-read C $to_c If string as only one character, convert it to \Malenki\Bah\C object.
  * @property-read N $to_n If string contents numeric value, try to export it to \Malenki\Bah\N object.
- * @property-read S $n Return itself + new line '\n'
- * @property-read S $r Return itself + new line '\r'
+ * @property-read S $n Return itself + LF '\n'
+ * @property-read S $r Return itself + CR '\r'
+ * @property-read S $rn Return itself + CRLF '\r\n'
+ * @property-read S $eol Return itself + PHP_EOL
  * @property-read boolean $is_void Tests whether the current string is void or not.
  * @property-read boolean $void Tests whether the current string is void or not.
  * @property-read boolean $is_empty Tests whether the current string is void or not.
@@ -201,6 +203,8 @@ class S extends O implements \Countable, \IteratorAggregate
                     'wrap',
                     'n',
                     'r',
+                    'rn',
+                    'eol',
                     'squeeze',
                     'current',
                     'key',
@@ -2742,32 +2746,126 @@ class S extends O implements \Countable, \IteratorAggregate
         return new S(sha1($this->value));
     }
 
+    private function _nl($type, $after = true)
+    {
+        if ($after) {
+            return new self($this->value . $type);
+        } else {
+            return new self($type . $this->value);
+        }
+    }
+
     /**
-     * Add new line '\n'.
+     * Add new line as LF.
+     *
+     * This is shorthand to avoid concatenating Line Feed character to the 
+     * current string.
+     *
+     * It can be used as magic getter to, in this case, appending way is used.
+     *
+     * Examples:
+     *
+     *     $s = new S('azerty');
+     *     echo "$s\n"; // "azerty\n"
+     *     echo $s . "\n"; // "azerty\n"
+     *     echo $s->n; // "azerty\n"
+     *     echo $s->n(false); // "\nazerty"
+     *
+     * @see S::$n Magic getter version
+     * @see S::r() Its brother CR
+     * @see S::eol() Its brother PHP_EOL
+     * @see S::rn() Its brother CRLF
      * @param  boolean  $after If false, put new line before the string
      * @return S
      */
     public function n($after = true)
     {
-        if ($after) {
-            return new self($this . "\n");
-        } else {
-            return new self("\n" . $this);
-        }
+        return $this->_nl("\n", $after);
     }
 
 
     /**
-     * Add new line '\r'.
+     * Add new line as CR.
+     *
+     * This is shorthand to avoid concatenating CR aka Cariage Return to the 
+     * current string.
+     *
+     * It can be used as magic getter to, in this case, appending way is used.
+     *
+     * Examples:
+     *
+     *     $s = new S('azerty');
+     *     echo "$s\r"; // "azerty\r"
+     *     echo $s . "\r"; // "azerty\r"
+     *     echo $s->r; // "azerty\r"
+     *     echo $s->r(false); // "\razerty"
+     *
+     * @see S::$r Magic getter version
+     * @see S::n() Its brother LF
+     * @see S::eol() Its brother PHP_EOL
+     * @see S::rn() Its brother CRLF
      * @param  boolean  $after If false, put new line before the string
      * @return S
      */
     public function r($after = true)
     {
-        if ($after) {
-            return new self($this . "\r");
-        } else {
-            return new self("\r" . $this);
-        }
+        return $this->_nl("\r", $after);
     }
+
+    
+    /**
+     * Add PHP_EOL at the end or at the beginning. 
+     * 
+     * This is shorthand to avoid concatenating PHP_EOL used by the system 
+     * to the current string.
+     *
+     * It can be used as magic getter to, in this case, appending way is used.
+     *
+     * Examples (`PHP_EOL == "\n"`):
+     *
+     *     $s = new S('azerty');
+     *     echo $s . PHP_EOL; // "azerty\n"
+     *     echo $s->eol; // "azerty\n"
+     *     echo $s->eol(false); // "\nazerty"
+     *
+     * @see S::$eol Magic getter version
+     * @see S::n() Its brother LF
+     * @see S::r() Its brother CR
+     * @see S::rn() Its brother CRLF
+     * @param  boolean  $after If false, put new line before the string
+     * @return S
+     */
+    public function eof($after = true)
+    {
+        return $this->_nl(PHP_EOL, $after);
+    }
+    
+    /**
+     * Add CRLF sequence at the end or at the beginning. 
+     * 
+     * This is shorthand to avoid concatenating CRLF aka Cariage Return Line 
+     * Feed to the current string.
+     *
+     * It can be used as magic getter to, in this case, appending way is used.
+     *
+     * Examples:
+     *
+     *     $s = new S('azerty');
+     *     echo "$s\r\n"; // "azerty\r\n"
+     *     echo $s . "\r\n"; // "azerty\r\n"
+     *     echo $s->rn; // "azerty\r\n"
+     *     echo $s->rn(false); // "\r\nazerty"
+     *
+     * @see S::$rn Magic getter version
+     * @see S::n() Its brother LF
+     * @see S::r() Its brother CR
+     * @see S::eol() Its brother PHP_EOL
+     * @param  boolean  $after If false, put new line before the string
+     * @return S
+     */
+    public function rn($after = true)
+    {
+        return $this->_nl("\r\n", $after);
+    }
+
 }
