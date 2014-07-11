@@ -883,6 +883,17 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testStrippingUsingBadTypeShouldFail()
+    {
+        $s = new S('    azerty     ');
+
+        $s->strip(45);
+    }
+
     public function testAppendingStringShouldReturnSObject()
     {
         $s = new S('foo');

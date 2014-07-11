@@ -683,9 +683,10 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::rstrip() To remove only on the right side
      * @see S::$strip The magic getter version
      * @param  mixed $str Optionnal set of characters to strip.
-     * @param  mixed $str Optionnal type of strip, `left`, `right` or `both`. 
+     * @param  mixed $type Optionnal type of strip, `left`, `right` or `both`. 
      * By default strip on the two sides.
      * @return S
+     * @throws \InvalidArgumentException If str type is not allowed
      * @throws \InvalidArgumentException If given optional type is not a 
      * string-like value.
      * @throws \InvalidArgumentException If type does not exist
@@ -733,7 +734,9 @@ class S extends O implements \Countable, \IteratorAggregate
                 return new S($func($this->value, $str));
             }
 
-            //TODO throw exception here
+            throw new \InvalidArgumentException(
+                'Invalid type given for collection of characters to strip.'
+            );
         }
 
         return new S($func($this->value));
@@ -750,6 +753,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::$lstrip The magic getter version to remove white space on the left
      * @param  mixed $str Optional set of characters to strip.
      * @return S
+     * @throws \InvalidArgumentException If str type is not allowed
      */
     public function lstrip($str = null)
     {
@@ -767,6 +771,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::$rstrip The magic getter version to remove white space on the right
      * @param  mixed $str Optional set of characters to strip.
      * @return S
+     * @throws \InvalidArgumentException If str type is not allowed
      */
     public function rstrip($str = null)
     {
@@ -781,12 +786,13 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::rtrim() To remove only on the right side
      * @see S::$trim The magic getter version
      * @param  mixed $str Optionnal set of characters to strip.
-     * @param  mixed $str Optionnal type of strip, `left`, `right` or `both`. 
+     * @param  mixed $type Optionnal type of strip, `left`, `right` or `both`. 
      * By default strip on the two sides.
      * @return S
      * @throws \InvalidArgumentException If given optional type is not a 
      * string-like value.
      * @throws \InvalidArgumentException If type does not exist
+     * @throws \InvalidArgumentException If str type is not allowed
      */
     public function trim($str = null, $type = null)
     {
@@ -803,6 +809,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::$trim The magic getter version
      * @param  mixed $str Optionnal set of characters to strip.
      * @return S
+     * @throws \InvalidArgumentException If str type is not allowed
      */
     public function ltrim($str = null)
     {
@@ -819,6 +826,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::$trim The magic getter version
      * @param  mixed $str Optionnal set of characters to strip.
      * @return S
+     * @throws \InvalidArgumentException If str type is not allowed
      */
     public function rtrim($str = null)
     {
