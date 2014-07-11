@@ -42,6 +42,9 @@ namespace Malenki\Bah;
  * @property-read S $strip Remove white spaces surrounding the string. See \Malenki\Bah\S::strip() for more actions.
  * @property-read S $lstrip Remove white spaces at the left of the string. See \Malenki\Bah\S::lstrip() for more actions.
  * @property-read S $rstrip Remove white spaces at the right of the string. See \Malenki\Bah\S::rstrip() for more actions.
+ * @property-read S $trim Remove white spaces surrounding the string. Alias of \Malenki\Bah\S::strip().
+ * @property-read S $ltrim Remove white spaces at the left of the string. Alias of \Malenki\Bah\S::lstrip().
+ * @property-read S $rtrim Remove white spaces at the right of the string. Alias of \Malenki\Bah\S::rstrip().
  * @property-read S $sub Take first character as string. See \Malenki\Bah\S::sub() for more actions.
  * @property-read S $chunk Get exploded string as collection of characters. See \Malenki\Bah\S::chunk() for more actions.
  * @property-read S $delete Remove first character. See \Malenki\Bah\S::delete() for more actions.
@@ -185,6 +188,9 @@ class S extends O implements \Countable, \IteratorAggregate
                     'strip',
                     'lstrip',
                     'rstrip',
+                    'trim',
+                    'ltrim',
+                    'rtrim',
                     'sub',
                     'chunk',
                     'delete',
@@ -683,11 +689,9 @@ class S extends O implements \Countable, \IteratorAggregate
      * @throws \InvalidArgumentException If given optional type is not a 
      * string-like value.
      * @throws \InvalidArgumentException If type does not exist
-     * @todo create `S::trim()` alias
      */
     public function strip($str = null, $type = null)
     {
-        //TODO create trim alias
 
         $func = 'trim';
 
@@ -765,6 +769,58 @@ class S extends O implements \Countable, \IteratorAggregate
      * @return S
      */
     public function rstrip($str = null)
+    {
+        return $this->strip($str, 'right');
+    }
+
+    /**
+     * Trims the string (Alias).
+     *
+     * @see S::strip() The original method of this alias
+     * @see S::ltrim() To remove only on the left side
+     * @see S::rtrim() To remove only on the right side
+     * @see S::$trim The magic getter version
+     * @param  mixed $str Optionnal set of characters to strip.
+     * @param  mixed $str Optionnal type of strip, `left`, `right` or `both`. 
+     * By default strip on the two sides.
+     * @return S
+     * @throws \InvalidArgumentException If given optional type is not a 
+     * string-like value.
+     * @throws \InvalidArgumentException If type does not exist
+     */
+    public function trim($str = null, $type = null)
+    {
+        return $this->strip($str, $type);
+    }
+
+
+    /**
+     * Trims the string on the left (Alias).
+     *
+     * @see S::lstrip() The original method of this alias
+     * @see S::rtrim() To remove only on the right side
+     * @see S::ltrim Magic getter alias
+     * @see S::$trim The magic getter version
+     * @param  mixed $str Optionnal set of characters to strip.
+     * @return S
+     */
+    public function ltrim($str = null)
+    {
+        return $this->strip($str, 'left');
+    }
+
+
+    /**
+     * Trims the string on the right (Alias).
+     *
+     * @see S::rstrip() The original method of this alias
+     * @see S::ltrim() To remove only on the right side
+     * @see S::rtrim Magic getter alias
+     * @see S::$trim The magic getter version
+     * @param  mixed $str Optionnal set of characters to strip.
+     * @return S
+     */
+    public function rtrim($str = null)
     {
         return $this->strip($str, 'right');
     }

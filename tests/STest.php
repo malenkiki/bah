@@ -866,6 +866,23 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->lstrip('-=')->rstrip('-='), $s->strip($a));
     }
 
+
+    public function testGettingStrippedStringUsingAliasShouldHaveSameResultAsOriginals()
+    {
+        $s = new S('_____azerty______');
+        $this->assertEquals($s->strip('_'), $s->trim('_'));
+        $this->assertEquals($s->lstrip('_'), $s->ltrim('_'));
+        $this->assertEquals($s->rstrip('_'), $s->rtrim('_'));
+        $s = new S('    azerty     ');
+        $this->assertEquals($s->strip(), $s->trim());
+        $this->assertEquals($s->lstrip(), $s->ltrim());
+        $this->assertEquals($s->rstrip(), $s->rtrim());
+        $this->assertEquals($s->strip, $s->trim);
+        $this->assertEquals($s->lstrip, $s->ltrim);
+        $this->assertEquals($s->rstrip, $s->rtrim);
+    }
+
+
     public function testAppendingStringShouldReturnSObject()
     {
         $s = new S('foo');
