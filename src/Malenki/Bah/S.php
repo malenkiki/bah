@@ -356,7 +356,6 @@ class S extends O implements \Countable, \IteratorAggregate
      * @param  string $str
      * @throw \InvalidArgumentException If argument if not valid UTF-8 string.
      * @see \Malenki\Bah\O::mustBeStringOrScalar() To check if string is string or scalar or \Malenki\Bah\S
-     * @access public
      * @return void
      */
     public function __construct($str = '')
@@ -534,6 +533,23 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self($str);
     }
 
+    /**
+     * Swaps cases.
+     *
+     * This converts lower cases to upper cases and _vice versa_.
+     *
+     * This is used only into magic getter context.
+     *
+     * Example:
+     *
+     *     $s = new S('AzeRtY');
+     *     echo $s->swap; // 'aZErTy'
+     * 
+     * @see S::$swap Magic getter `S::$swap`
+     * @see S::$swap_case Magic getter `S::$swap_case`
+     * @see S::$swapcase Magic getter `S::$swapcase`
+     * @return S
+     */
     protected function _swapCase()
     {
         $coll_upper = $this->_upper()->chunk();
@@ -568,8 +584,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * big string.
      *
      * @param  mixed                     $phrase The searched string
-     * @param  mixed                     $radius Numbers of characters to display in addition of the searched string, on the left, and on the right.
-     * @access public
+     * @param  int|N                     $radius Numbers of characters to display in addition of the searched string, on the left, and on the right.
      * @return S
      * @throws \InvalidArgumentException If searched string is not string or object having `__toString()` method
      * @throws \InvalidArgumentException If radius is not either integer of \Malenki\Bah\N object.
@@ -620,15 +635,21 @@ class S extends O implements \Countable, \IteratorAggregate
      * only given characters will be removed.
      *
      * Argument can be a string, an object having `__toString()` method, an
-     * array, a \Malenki\Bah\A or \Malenki\Bah\H objects.
+     * array, a `\Malenki\Bah\A` or `\Malenki\Bah\H` objects.
+     *
+     *     $s = new S('aazzzerrtyy');
+     *     echo $s->squeeze(); // azerty
+     *     echo $s->squeeze('az'); // azerrtyy
+     *     echo $s->squeeze(new S('az')); // azerrtyy
+     *     echo $s->squeeze(array('a','z')); // azerrtyy
      *
      * If a collection is choosen, then each item must has size of one character.
      *
-     * If a string-like is provided, then the string will be explode to get
+     * If a string-like is provided, then the string will be exploded to get
      * each characters independently.
      *
+     * @see S::$squeeze Magic getter version.
      * @param  mixed $seq Optionnal set of characters to squeeze
-     * @access public
      * @return S
      */
     public function squeeze($seq = null)
@@ -1296,7 +1317,6 @@ class S extends O implements \Countable, \IteratorAggregate
      * Checks that current string starts with the given string or not
      *
      * @param  mixed   $str primitive string or object havin __toString method
-     * @access public
      * @return boolean
      */
     public function startsWith($str)
@@ -1312,7 +1332,6 @@ class S extends O implements \Countable, \IteratorAggregate
      * Checks that current string ends with the given string or not
      *
      * @param  mixed   $str primitive string or object havin __toString method
-     * @access public
      * @return boolean
      */
     public function endsWith($str)
@@ -1337,7 +1356,6 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::regexp() An alias for this method
      * @see S::re() Another alias for this method
      * @param  mixed $expr primitive string or object having __toString method
-     * @access public
      * @return boolean
      * @throws \InvalidArgumentException If regexp pattern is not a string-like 
      * value.
@@ -1354,7 +1372,6 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * @see S::match() The original method of this alias
      * @param  mixed   $expr primitive string or object having __toString method
-     * @access public
      * @return boolean
      * @throws \InvalidArgumentException If regexp pattern is not a string-like 
      * value.
@@ -1636,7 +1653,6 @@ class S extends O implements \Countable, \IteratorAggregate
      * @param  int|N $width Width the text must have
      * @param  mixed $cut   Optional string to put at each linebreak, as
      *                      string-like
-     * @access public
      * @return S
      * @throws \InvalidArgumentException If width is not an integer-like
      * @throws \InvalidArgumentException If cut is not a string-like
