@@ -807,6 +807,30 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->lstrip->rstrip, $s->strip);
     }
     
+    public function testRemovingCustomCharsFromTheStringShouldSuccess()
+    {
+        $s = new S('I have some...');
+        $this->assertEquals('I have some', $s->strip('.'));
+        $this->assertEquals('I have some', $s->strip(new S('.')));
+        $this->assertEquals('I have some', $s->strip(new C('.')));
+
+        $s = new S('I have some...!?');
+        $a = new A();
+        $a->add(new C('.'));
+        $a->add('!');
+        $a->add(new S('?'));
+        $this->assertEquals('I have some', $s->strip('.!?'));
+        $this->assertEquals('I have some', $s->strip(new S('.!?')));
+        $this->assertEquals('I have some', $s->strip($a));
+        $this->assertEquals('I have some', $s->strip(array('.', '!', '?')));
+        $this->assertEquals('I have some', $s->strip(new A(array('.', '!', '?'))));
+        $this->assertEquals('I have some', $s->strip(new H(array('foo' => '.', 'bar' => '!', 'thing' => '?'))));
+        $this->assertEquals('I have some', $s->strip(array(new S('.'), '!', new C('?'))));
+        $this->assertEquals('I have some', $s->strip(new A(array(new S('.'), '!', new C('?')))));
+        $this->assertEquals('I have some', $s->strip(new H(array('foo' => new S('.'), 'bar' => '!', 'thing' => new C('?')))));
+    }
+
+    
     public function testRemovingTrailingCustomCharsFromTheStringShouldSuccess()
     {
         $s = new S('I have some...');
@@ -823,7 +847,11 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I have some', $s->rstrip(new S('.!?')));
         $this->assertEquals('I have some', $s->rstrip($a));
         $this->assertEquals('I have some', $s->rstrip(array('.', '!', '?')));
+        $this->assertEquals('I have some', $s->rstrip(new A(array('.', '!', '?'))));
+        $this->assertEquals('I have some', $s->rstrip(new H(array('foo' => '.', 'bar' => '!', 'thing' => '?'))));
         $this->assertEquals('I have some', $s->rstrip(array(new S('.'), '!', new C('?'))));
+        $this->assertEquals('I have some', $s->rstrip(new A(array(new S('.'), '!', new C('?')))));
+        $this->assertEquals('I have some', $s->rstrip(new H(array('foo' => new S('.'), 'bar' => '!', 'thing' => new C('?')))));
     }
 
     public function testRemovingLeadingCustomCharsFromTheStringShouldSuccess()
@@ -840,7 +868,8 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('I have something', $s->lstrip(new S('-_')));
         $this->assertEquals('I have something', $s->lstrip($a));
         $this->assertEquals('I have something', $s->lstrip(array('-', '_')));
-        $this->assertEquals('I have something', $s->lstrip(array(new S('-'), new C('_'))));
+        $this->assertEquals('I have something', $s->lstrip($a));
+        $this->assertEquals('I have something', $s->lstrip(new H(array('foo' => '-', 'bar' => '_'))));
     }
 
     public function testRemovingBothLeadingAndTrailingCustomCharsFromTheStringShouldSuccess()

@@ -676,8 +676,10 @@ class S extends O implements \Countable, \IteratorAggregate
      
      *     $s = new S(__._.__azerty___.___');
      *     $a = array('_', '.');
+     *     $h = array('foo' => '_', 'bar' => '.');
      *     echo $s->strip('_.'); // 'azerty'
      *     echo $s->strip($a); // 'azerty'
+     *     echo $s->strip($h); // 'azerty'
      *
      * @see S::lstrip() To remove only on the left side
      * @see S::rstrip() To remove only on the right side
@@ -721,10 +723,14 @@ class S extends O implements \Countable, \IteratorAggregate
                 $str = new A($str);
             }
 
-            //TODO allow H too
             if ($str instanceof A) {
                 return new S($func($this->value, $str->join));
             }
+            
+            if ($str instanceof H) {
+                return new S($func($this->value, $str->to_a->join));
+            }
+
 
             if (
                 is_string($str) 
