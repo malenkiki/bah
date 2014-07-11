@@ -355,7 +355,6 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * @param  string $str
      * @throw \InvalidArgumentException If argument if not valid UTF-8 string.
-     * @see \Malenki\Bah\O::mustBeStringOrScalar() To check if string is string or scalar or \Malenki\Bah\S
      * @return void
      */
     public function __construct($str = '')
@@ -398,7 +397,6 @@ class S extends O implements \Countable, \IteratorAggregate
             $this->_chars();
 
             while ($this->chars->valid()) {
-                //$bytes = $this->chars->current()->bytes;
 
                 while ($this->chars->current()->bytes->valid()) {
                     $a->add($this->chars->current()->bytes->current());
@@ -428,7 +426,8 @@ class S extends O implements \Countable, \IteratorAggregate
         if ($name == 'to_c') {
             if (count($this) != 1) {
                 throw new \RuntimeException(
-                    'Cannot converting S object having length not equal to one to C object.'
+                    'Cannot converting \Malenki\Bah\S object having length '
+                    .'not equal to one to C object.'
                 );
             }
 
@@ -517,6 +516,29 @@ class S extends O implements \Countable, \IteratorAggregate
             $this->position < count($this);
     }
 
+    /**
+     * Transliterates the string.
+     *
+     * This transforms the string to remove all its diacritics, to have as 
+     * result a string containing only ASCII-like characters.
+     *
+     * This feature is called by using magic getter version only.
+     *
+     * Example:
+     *
+     *     $s = new S('C’est écrit en français !');
+     *     echo $s->trans; // 'C’est ecrit en francais !'
+     * 
+     * __Warning:__ This requires the __Intl PHP extension__! If you try to use 
+     * this method without it, you will get an `\RuntimeException`. Please see 
+     * [Intl section](http://php.net/manual/en/intro.intl.php) on the PHP 
+     * official website if you have not this extension installed yet.
+     *
+     * @see S::$trans Magic getter version `S::$trans`
+     * @return S
+     * @throws \RuntimeException If this is called and intl extension is not installed.
+     * @todo use the object way for transliterator
+     */
     protected function _trans()
     {
         if (!extension_loaded('intl')) {
@@ -863,8 +885,15 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Adds string content to the end of current string.
      *
+     * Given argument, a string-like value, is put at the end of the string.
+     *
+     *     $s = new S('Tagada');
+     *     echo $s->append(' tsointsoin'); // 'Tagada tsointsoin'
+     *
+     * @see S::after() An alias
      * @param  mixed $str String-like content
      * @return S
+     * @throws \Exception If given string is not… a string-like value.
      */
     public function append($str)
     {
@@ -872,13 +901,12 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Adds content after the string.
-     *
-     * This is an alias for \Malenki\Bah\S::append() method.
+     * Adds content after the string (Alias).
      *
      * @see S::append() Original method of this alias.
-     * @param  mixed $str
+     * @param  mixed $str A string-like value to add
      * @return S
+     * @throws \Exception If given string is not… a string-like value.
      */
     public function after($str)
     {
@@ -888,8 +916,15 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Adds string content to the beginning of current string.
      *
+     * Given argument, a string-like value, is put at the beginning of the string.
+     *
+     *     $s = new S('tsointsoin !');
+     *     echo $s->prepend('Tagada '); // 'Tagada tsointsoin !'
+     *
+     * @see S::before() An alias
      * @param  mixed $str String-like content
      * @return S
+     * @throws \Exception If given string is not… a string-like value.
      */
     public function prepend($str)
     {
@@ -899,11 +934,10 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Adds content before the string.
      *
-     * This is an alias for \Malenki\Bah\S::prepend() method.
-     *
      * @see S::prepend() Original method of this alias.
-     * @param  mixed $str
+     * @param  mixed $str String-like content
      * @return S
+     * @throws \Exception If given string is not… a string-like value.
      */
     public function before($str)
     {
@@ -914,7 +948,7 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
     /**
-     * Insert new content at given position.
+     * Inserts new content at given position.
      *
      * It is very easy to insert string into current one, if you cannot use 
      * `S::prepend()` or `S::append()`, then, `S::insert()` method is what you 
@@ -970,7 +1004,7 @@ class S extends O implements \Countable, \IteratorAggregate
     
     
     /**
-     * Insert new content at given position (Alias).
+     * Inserts new content at given position (Alias).
      *
      * @see S::insert() Original method
      * @param  mixed $str String-like content
@@ -984,6 +1018,26 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->insert($str, $pos);
     }
 
+    /**
+     * Convert string using underscore 
+     *
+     * The string is converted to lower cases, each character that is not a 
+     * letter, a digit or an underscore is replaced by underscore and then 
+     * duplicate underscores are removed. Heading and trailing underscores 
+     * are removed.
+     * 
+     * This method is used only to implement magic getter versions.
+     *
+     * Example:
+     *
+     *     $s = new S('Je suis écrit en français !');
+     *     echo $s->underscore; // 'je_suis_écrit_en_français'
+     *     echo $s->_; // 'je_suis_écrit_en_français'
+     *
+     * @see S::$underscore Magic getter version `S::$underscore`
+     * @see S::$_ Other magic getter version `S::$_`
+     * @return S
+     */
     protected function _underscore()
     {
         return $this->strip()
@@ -995,6 +1049,27 @@ class S extends O implements \Countable, \IteratorAggregate
             ;
     }
 
+
+    /**
+     * Convert string using dashes 
+     *
+     * The string is converted to lower cases, each character that is not a 
+     * letter, a digit or a dash is replaced by dash and then 
+     * duplicate dashes are removed. Heading and trailing dashes are 
+     * removed.
+     *
+     * This is hyphen version of `\Malenki\Bah\S::_underscore()`.
+     * 
+     * This method is used only to implement magic getter versions.
+     *
+     * Example:
+     *
+     *     $s = new S('Je suis écrit en français !');
+     *     echo $s->dash; // 'je-suis-écrit-en-français'
+     *
+     * @see S::$dash Magic getter version `S::$dash`
+     * @return S
+     */
     protected function _dash()
     {
         return $this->strip()
@@ -1102,12 +1177,27 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * By default, returns the first character as a substring.
      *
+     * Getting substring is simple. First, set the starting point, an index 
+     * from 0 to length of the string less one. Seconde, set the size, if not 
+     * given, it is one character.
+     *
+     * Example:
+     *
+     *     $s = new S('azerty');
+     *     echo $s->sub(); // 'a'
+     *     echo $s->sub(1, 3); // 'zer'
+     *
+     * @see S::$sub Magic getter to get first character
      * @param mixed $offset Where to start the substring, 0 by default, as N or
      *                      integer
      * @param mixed $limit  Size of the substring, 1 by default, as N or
      *                      integer
      *
      * @return S
+     * @throws \InvalidArgumentException If offset is not an Integer-like
+     * @throws \InvalidArgumentException If offset is not valid
+     * @throws \InvalidArgumentException If limit is not an Integer-like
+     * @throws \InvalidArgumentException If limit is negative
      */
     public function sub($offset = 0, $limit = 1)
     {
@@ -1142,8 +1232,13 @@ class S extends O implements \Countable, \IteratorAggregate
      * Gets all available positions of given string needle.
      *
      * Unlike its PHP equivalent function, it returns __all__ found positions
-     * as a \Malenki\Bah\A object. If no position found, this return object has
+     * as a `\Malenki\Bah\A` object. If no position found, this returns object as
      * void collection.
+     *
+     * Example:
+     *
+     *     $s = new S('Tagada tsointsoin !');
+     *     $s->position('tsoin'); // Collection having 7 and 12 as \Malenki\Bah\N
      *
      * @see S::pos() Alias
      * @param  mixed $needle The searched string-like content
@@ -1271,6 +1366,9 @@ class S extends O implements \Countable, \IteratorAggregate
      * @param  mixed $offset Integer-like offset
      * @param  mixed $limit  Integer-like limit size
      * @return S
+     * @throws \InvalidArgumentException If offset is not an integer-like
+     * @throws \InvalidArgumentException If offset is negative
+     * @throws \InvalidArgumentException If limite is not an integer-like
      */
     public function del($offset = 0, $limit = 1)
     {
@@ -1284,6 +1382,9 @@ class S extends O implements \Countable, \IteratorAggregate
      * @param  mixed $offset Integer-like offset
      * @param  mixed $limit  Integer-like limit size
      * @return S
+     * @throws \InvalidArgumentException If offset is not an integer-like
+     * @throws \InvalidArgumentException If offset is negative
+     * @throws \InvalidArgumentException If limite is not an integer-like
      */
     public function remove($offset = 0, $limit = 1)
     {
@@ -1297,6 +1398,9 @@ class S extends O implements \Countable, \IteratorAggregate
      * @param  mixed $offset Integer-like offset
      * @param  mixed $limit  Integer-like limit size
      * @return S
+     * @throws \InvalidArgumentException If offset is not an integer-like
+     * @throws \InvalidArgumentException If offset is negative
+     * @throws \InvalidArgumentException If limite is not an integer-like
      */
     public function rm($offset = 0, $limit = 1)
     {
@@ -2385,6 +2489,15 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->replace($pattern, $string);
     }
 
+    /**
+     * _formatEngine 
+     * 
+     * @see S::format() Format feature is based on it
+     * @see S::fmt() Format alias feature is based on it
+     * @see S::sprintf() Format alias feature is based on it
+     * @param mixed $args 
+     * @return S
+     */
     private function _formatEngine($args){
         $args_cnt = count($args);
 
@@ -2397,7 +2510,7 @@ class S extends O implements \Countable, \IteratorAggregate
                 $args[$i] = "$v";
             } elseif (!is_scalar($v)) {
                 throw new \InvalidArgumentException(
-                    'Arguments to use with S::format() must be scalar values i'
+                    'Arguments to use with S::format() must be scalar values '
                     .'or object having __toString() method.'
                 );
             }
@@ -2542,6 +2655,30 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->_chars()->replace($idx, $char)->join;
     }
 
+    /**
+     * Checks whether the whole string is right to left.
+     *
+     * Some languages, like Arabian write their sentences from right to left. 
+     * This method allows you to check is whole content of the string is 
+     * written right to left.
+     *
+     * This method is used only throught magic getters. Let’s see some examples:
+     *
+     *     $s = new S('أبجد');
+     *     var_dump($s->rtl); // true
+     *     var_dump($s->is_rtl); // true
+     *     var_dump($s->is_right_to_left); // true
+     *     var_dump($s->right_to_left); // true
+     *     
+     * @see S::$rtl Magic getter `S::$rtl`
+     * @see S::$is_rtl Magic getter `S::$is_rtl`
+     * @see S::$is_right_to_left Magic getter `S::$is_right_to_left`
+     * @see S::$right_to_left Magic getter `S::$right_to_left`
+     *
+     * @see S::_ltr() The opposite case, left to right.
+     *
+     * @return boolean
+     */
     protected function _rtl()
     {
         $this->_chars()->rewind();
@@ -2554,6 +2691,30 @@ class S extends O implements \Countable, \IteratorAggregate
         return true;
     }
 
+
+    /**
+     * Checks whether the whole string is written from the left to the right.
+     *
+     * Many languages are written from left ot right, but some other not. So, 
+     * this method tests if the current string is LTR.
+     *
+     * This method is used only throught magic getters. Let’s see some examples:
+     *
+     *     $s = new S('Je suis écrit en français !');
+     *     var_dump($s->ltr); // true
+     *     var_dump($s->is_ltr); // true
+     *     var_dump($s->is_left_to_right); // true
+     *     var_dump($s->left_to_right); // true
+     *     
+     * @see S::$ltr Magic getter `S::$ltr`
+     * @see S::$is_ltr Magic getter `S::$is_ltr`
+     * @see S::$is_left_to_right Magic getter `S::$is_left_to_right`
+     * @see S::$left_to_right Magic getter `S::$left_to_right`
+     *
+     * @see S::_rtl() The opposite case, right to left.
+     *
+     * @return boolean
+     */
     protected function _ltr()
     {
         $this->_chars()->rewind();
