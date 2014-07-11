@@ -155,6 +155,91 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testAddingCariageReturnShouldReturnSObject()
+    {
+        $s = new S('azerty');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->r());
+    }
+
+
+    public function testAddingCariageReturnShouldSuccess()
+    {
+        $s = new S('azerty');
+        $this->assertEquals("azerty\r", $s->r());
+    }
+
+
+    public function testPrependingCariageReturnShouldSuccess()
+    {
+        $s = new S('azerty');
+        $this->assertEquals("\razerty", $s->r(false));
+    }
+
+
+    public function testAddingCariageReturnUsingMagicGetterShouldSuccess()
+    {
+        $s = new S('azerty');
+        $this->assertEquals("azerty\r", $s->r);
+    }
+
+
+
+    public function testAddingLineFeedShouldReturnSObject()
+    {
+        $s = new S('azerty');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->n());
+    }
+
+
+    public function testAddingLineFeedShouldSuccess()
+    {
+        $s = new S('azerty');
+        $this->assertEquals("azerty\n", $s->n());
+    }
+
+
+    public function testPrependingLineFeedShouldSuccess()
+    {
+        $s = new S('azerty');
+        $this->assertEquals("\nazerty", $s->n(false));
+    }
+
+
+    public function testAddingLineFeedUsingMagicGetterShouldSuccess()
+    {
+        $s = new S('azerty');
+        $this->assertEquals("azerty\n", $s->n);
+    }
+
+
+
+    public function testAddingCRLFShouldReturnSObject()
+    {
+        $s = new S('azerty');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->rn());
+    }
+
+
+    public function testAddingCRLFShouldSuccess()
+    {
+        $s = new S('azerty');
+        $this->assertEquals("azerty\r\n", $s->rn());
+    }
+
+
+    public function testPrependingCRLFShouldSuccess()
+    {
+        $s = new S('azerty');
+        $this->assertEquals("\r\nazerty", $s->rn(false));
+    }
+
+
+    public function testAddingCRLFUsingMagicGetterShouldSuccess()
+    {
+        $s = new S('azerty');
+        $this->assertEquals("azerty\r\n", $s->rn);
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */
