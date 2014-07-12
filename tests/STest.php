@@ -155,6 +155,17 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testConvertingStringHavingNotNumericValueToNObjectShouldFail()
+    {
+        $s = new S('Hello!');
+        $s->to_n;
+    }
+
+
+
     public function testAddingCariageReturnShouldReturnSObject()
     {
         $s = new S('azerty');

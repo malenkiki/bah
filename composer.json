@@ -23,5 +23,8 @@
         "psr-0": {
             "Malenki\\Bah": "src/"
         }
+    },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "2.6.1"
     }
 }
