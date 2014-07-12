@@ -546,6 +546,19 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->length;
     }
 
+    /**
+     * Convert current object to other object type. 
+     * 
+     * You can only convert to `\Malenki\Bah\C` object or `\Malenki\Bah\N` 
+     * object.
+     *
+     * @param string $name Either `to_c` or `to_n` 
+     * @return C|N
+     * @throws \RuntimeException If you try converting to \Malenki\Bah\C object 
+     * a string having more than one character.
+     * @throws \RuntimeException If you try cinverting string having not 
+     * numeric value to \Malenki\Bah\N object.
+     */
     protected function _to($name)
     {
         if ($name == 'to_c') {
@@ -559,8 +572,14 @@ class S extends O implements \Countable, \IteratorAggregate
             return new C($this->value);
         }
 
-        // TODO must test if has numeric value!
         if ($name == 'to_n') {
+            if(!is_numeric($this->value)){
+                throw new \RuntimeException(
+                    'Cannot converting \Malenki\Bah\S object to \Malenki\Bah\N'
+                   .' object, because no numeric value were found inside it!'
+                );
+            }
+
             return new N((double) $this->value);
         }
     }
