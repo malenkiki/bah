@@ -301,6 +301,14 @@ class O
 
 
 
+    /**
+     * Magic getters engine.
+     *
+     * By default, return internal `O::$value` attribute. 
+     * 
+     * @param string $name Magic getter's name.
+     * @return mixed
+     */
     public function __get($name)
     {
         if ($name == 'value') {
@@ -308,6 +316,13 @@ class O
         }
     }
 
+
+
+    /**
+     * Convert current object into string when this is in string context. 
+     * 
+     * @return string
+     */
     public function __toString()
     {
         return $this->value;

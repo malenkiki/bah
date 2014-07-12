@@ -27,6 +27,84 @@ namespace Malenki\Bah;
 /**
  * Play with Strings!
  *
+ * ## Getting parts
+ *
+ * Soon…
+ *
+ * ## Adding content to it
+ *
+ * Soon…
+ *
+ * ## Changing some parts
+ *
+ * Soon…
+ *
+ * ## Removing some parts
+ *
+ * Soon…
+ *
+ * ## Casting
+ *
+ * You can cast to two different types: objects of primitive PHP types.
+ *
+ * ### Casting to objects
+ *
+ * To cast to object, only `Malenki\Bah\C` and `\Malenki\Bah\N` are available 
+ * but under some conditions:
+ *
+ *  - To cast to `\Malenki\Bah\C`, string’s length must have exactly one character.
+ *  - To cast to `\Malenki\Bah\N`, string must have numeric value inside it
+ *
+ * Examples:
+ *
+ *     $s = new S('a');
+ *     $s->to_c; // casts to \Malenki\Bah\C possible
+ *     $s->to_n; // casts to \Malenki\Bah\N not possible: exception
+ * 
+ *     $s = new S('azerty');
+ *     $s->to_c; // casts to \Malenki\Bah\C not possible: exception
+ *     $s->to_n; // casts to \Malenki\Bah\N not possible: exception
+ *
+ *     $s = new S('3');
+ *     $s->to_c; // casts to \Malenki\Bah\C possible
+ *     $s->to_n; // casts to \Malenki\Bah\N possible
+ *
+ *     $s = new S('3.14');
+ *     $s->to_c; // casts to \Malenki\Bah\C not possible: exception
+ *     $s->to_n; // casts to \Malenki\Bah\N possible
+ *
+ * ### Casting to primitive types
+ *
+ * You can cast to primitive PHP types like `integer`, `string` and so on. But 
+ * like you have seen into previous section, the current string must follow 
+ * some conditions to do that:
+ *
+ *  - to integer: string must contain numeric value
+ *  - to float/double: string must have numeric value
+ *
+ * ## Looping
+ *
+ * You can use to different ways to get characters into loop:
+ *  - the fake `\Iterator` way
+ *  - the `\IteratorAggregate` way
+ *
+ * So, for the first case, you will do:
+ *
+ *      $s = new S('azerty');
+ *
+ *      while($s->valid()){
+ *          $s->current(); // do something with it…
+ *          $s->next();
+ *      }
+ *
+ * For the second case, you will do:
+ *
+ *      $s = new S('azerty');
+ *
+ *      foreach($s as $c){
+ *          $c; // do what you want with it…
+ *      }
+ *
  * @package Malenki\Bah
  * @property-read A $chars A collection of Malenki\Bah\C objects.
  * @property-read A $bytes A collection of Malenki\bah\N objects
@@ -122,6 +200,12 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     protected $length = null;
 
+
+    /**
+     * Current position while using methods for loop while.
+     *
+     * @var int
+     */
     protected $position = 0;
 
     /**
@@ -163,7 +247,7 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Manage available magic getters.
      *
-     * @params string $name
+     * @param string $name Attribute’s name
      * @return mixed
      */
     public function __get($name)
@@ -357,7 +441,7 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Create new S object.
      *
-     * @param  string $str
+     * @param  scalar $str Scalar value to defined as string object.
      * @throw \InvalidArgumentException If argument if not valid UTF-8 string.
      * @return void
      */
@@ -374,6 +458,17 @@ class S extends O implements \Countable, \IteratorAggregate
         $this->value = (string) $str;
     }
 
+    /**
+     * Create \Malenki\Bah\C collection from the string
+     * 
+     * This explode the string into characters, each of them is instanciated as 
+     * `\Malenki\Bah\C` object into `\Malenki\Bah\A` collection.
+     *
+     * This method is the back side of magic getter `\Malenki\Bah\S::$chars`
+     *
+     * @see S::$chars Magic getter `S::$chars`
+     * @return A
+     */
     protected function _chars()
     {
         if (is_null($this->chars)) {
@@ -393,6 +488,17 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->chars;
     }
 
+    /**
+     * Create bytes collection from the string.
+     *
+     * This create collection of bytes as `\Malenki\Bah\N` object stored into 
+     * `\Malenki\Bah\A` collection. 
+     *
+     * This method is the back side of magic getter `\Malenki\Bah\S::$bytes`
+     * 
+     * @see S::$bytes Magic getter `S::$bytes`
+     * @return A
+     */
     protected function _bytes()
     {
         if (is_null($this->bytes)) {
@@ -416,6 +522,21 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->bytes;
     }
 
+    /**
+     * Compute the string’s length as \Malenki\Bah\N object 
+     *
+     * Defines the magic getter `\Malenki\BahS::$length` to have quick access 
+     * to characters' number contained into the string as `\Malenki\Bah\N` 
+     * object.
+     * 
+     * __Note:__ This is equivalent of `\Malenki\Bah\S::count()` defined by 
+     * `\Countable` interface, but here, `\Malenki\Bah\N` object is returned, 
+     * not an `int`.
+     *
+     * @see S::$length Magic getter `S::$length`
+     * @see S::count() Same method but returns `int`
+     * @return A
+     */
     protected function _length()
     {
         if (is_null($this->length)) {
@@ -438,67 +559,215 @@ class S extends O implements \Countable, \IteratorAggregate
             return new C($this->value);
         }
 
+        // TODO must test if has numeric value!
         if ($name == 'to_n') {
             return new N((double) $this->value);
         }
     }
 
+    /**
+     * Converts current string object to string php primitive type. 
+     * 
+     * This is runtime part of magic getter `\Malenki\Bah\S::$string`.
+     *
+     * @see S::_str() Alias
+     * @see S::$string Magic getter `S::$string`
+     * @return string
+     */
     protected function _string()
     {
         return (string) $this->value;
     }
 
+
+    /**
+     * Converts current string object to string php primitive type (Alias). 
+     * 
+     * This is runtime part of magic getter `\Malenki\Bah\S::$str`.
+     *
+     * @see S::_string() Original method
+     * @see S::$str Magic getter `S::$str`
+     * @return string
+     */
     protected function _str()
     {
         return $this->_string();
     }
 
+    /**
+     * Converts current string object to integer primitive type. 
+     * 
+     * This method is the runtime part of magic getter 
+     * `\Malenki\Bah\S::$integer`.
+     *
+     * This works only if the string has numeric value inside it. If this is 
+     * not the case, then it raises `\RuntimeException`.
+     *
+     *     $s = new S('12');
+     *     var_dump($s->integer); // type 'int'
+     *
+     * If numeric value is float, then returns only its integer part.
+     *
+     *     $s = new S('3.14');
+     *     var_dump($s->integer); // 3
+     *
+     * @see S::$integer The magic getter version `S::$integer`
+     * @see S::_int() An alias
+     *
+     * @return integer
+     * @throws \RuntimeException If current string has not numeric value.
+     */
     protected function _integer()
     {
         if (!is_numeric($this->value)) {
-            throw new \RuntimeException('Current string has not numeric content: cannot cast it to integer!');
+            throw new \RuntimeException(
+                'Current string has not numeric content:'
+                .' cannot cast it to integer!'
+            );
         }
 
         return (int) $this->value;
     }
 
+    /**
+     * Converts current string object to integer primitive type. 
+     * 
+     * This runtime for magic getter is the shorter version of 
+     * `\Malenki\Bah\S::$integer` magic getter. 
+     *
+     * @see S::$int The magic getter version `S::$integer`
+     * @see S::_integer() The original method of this alias
+     *
+     * @return integer
+     * @throws \RuntimeException If current string has not numeric value.
+     */
     protected function _int()
     {
         return $this->_integer();
     }
 
+    /**
+     * Converts current string object to float primitive type. 
+     * 
+     * This method is the runtime part of magic getter 
+     * `\Malenki\Bah\S::$float`.
+     *
+     * This works only if the string has numeric value inside it. If this is 
+     * not the case, then it raises `\RuntimeException`.
+     *
+     *     $s = new S('3.14');
+     *     var_dump($s->float); // 3.14
+     *
+     * @see S::$float The magic getter version `S::$float`
+     *
+     * @return integer
+     * @throws \RuntimeException If current string has not numeric value.
+     */
     protected function _float()
     {
         if (!is_numeric($this->value)) {
-            throw new \RuntimeException('Current string has not numeric content: cannot cast it to float!');
+            throw new \RuntimeException(
+                'Current string has not numeric content: '
+                .'cannot cast it to float!'
+            );
         }
 
         return (float) $this->value;
     }
 
+
+    /**
+     * Converts current string object to double primitive type. 
+     * 
+     * This method is the runtime part of magic getter 
+     * `\Malenki\Bah\S::$float`.
+     *
+     * This works only if the string has numeric value inside it. If this is 
+     * not the case, then it raises `\RuntimeException`.
+     *
+     *     $s = new S('3.14');
+     *     var_dump($s->double); // 3.14
+     *
+     * @see S::$double The magic getter version `S::$double`
+     *
+     * @return integer
+     * @throws \RuntimeException If current string has not numeric value.
+     */
     protected function _double()
     {
         if (!is_numeric($this->value)) {
-            throw new \RuntimeException('Current string has not numeric content: cannot cast it to double!');
+            throw new \RuntimeException(
+                'Current string has not numeric content: '
+                .'cannot cast it to double!'
+            );
         }
 
         return (double) $this->value;
     }
 
+    /**
+     * Implements the \IteratorAggregate interface 
+     * 
+     * This is mandatory to allow use of `foreach` loop on current object. So, 
+     * each item is a `\Malenki\Bah\C` object.
+     *
+     * @return \ArrayIterator
+     */
     public function getIterator()
     {
         return new \ArrayIterator($this->_chars()->array);
     }
 
+    /**
+     * Current character get into while loop using fake \Iterator way.
+     *
+     * The current class does not implement `\Iterator` interface due to 
+     * conflict with `\IteratorAggregate`, but `current()` feature and its 
+     * friend are implemented without the need of implement the interface! 
+     * 
+     * @see S::key() Get the current index number as `\Malenki\Bah\N` object
+     * @see S::next() Put cursor to next item
+     * @see S::rewind() Rewind, so we can loop from the start, again
+     * @see S::valid() False is at the end of the sequence.
+     * @return C
+     */
     public function current()
     {
         return $this->charAt($this->position);
     }
 
+
+    /**
+     * Gets current item’s key into while loop using fake \Iterator way.
+     *
+     * The current class does not implement `\Iterator` interface due to 
+     * conflict with `\IteratorAggregate`, but `key()` feaure is implemented 
+     * with its friends without the use of the interface! 
+     * 
+     * @see S::current() Get the current char as `\Malenki\Bah\C` object
+     * @see S::next() Put cursor to next item
+     * @see S::rewind() Rewind, so we can loop from the start, again
+     * @see S::valid() False is at the end of the sequence.
+     * @return N
+     */
     public function key()
     {
         return new N($this->position);
     }
+
+    /**
+     * Place cursor to the next item into while loop using fake \Iterator way.
+     *
+     * The current class does not implement `\Iterator` interface due to 
+     * conflict with `\IteratorAggregate`, but `next()` feature is implemented 
+     * with its friend without the interface! 
+     * 
+     * @see S::current() Get the current char as `\Malenki\Bah\C` object
+     * @see S::key() Get the current index number as `\Malenki\Bah\N` object
+     * @see S::rewind() Rewind, so we can loop from the start, again
+     * @see S::valid() False is at the end of the sequence.
+     * @return S
+     */
     public function next()
     {
         $this->position++;
@@ -506,6 +775,22 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this;
     }
 
+
+    /**
+     * Re-initialize the counter for while loop using fake \Iterator way.
+     *
+     * Rewinds, so we can loop from the start, again.
+     *
+     * The current class does not implement `\Iterator` interface due to 
+     * conflict with `\IteratorAggregate`, but `rewind()` feature is 
+     * implemented with its friends!
+     * 
+     * @see S::current() Get the current char as `\Malenki\Bah\C` object
+     * @see S::key() Get the current index number as `\Malenki\Bah\N` object
+     * @see S::next() Put cursor to next item
+     * @see S::valid() False is at the end of the sequence.
+     * @return S
+     */
     public function rewind()
     {
         $this->position = 0;
@@ -513,6 +798,20 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this;
     }
 
+
+    /**
+     * Tests whether loop using fake \Iterator way is at the end or not.
+     *
+     * The current class does not implement `\Iterator` interface due to conflict 
+     * with `\IteratorAggregate`. But `valid()` feature is implemented with its 
+     * friends!
+     * 
+     * @see S::current() Get the current char as `\Malenki\Bah\C` object
+     * @see S::key() Get the current index number as `\Malenki\Bah\N` object
+     * @see S::next() Put cursor to next item
+     * @see S::rewind() Rewind, so we can loop from the start, again
+     * @return boolean
+     */
     public function valid()
     {
         return $this->position >= 0
@@ -1411,11 +1710,46 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->delete($offset, $limit);
     }
 
+    /**
+     * Gets the first character as \Malenki\Bah\S object.
+     *
+     * This is runtime part of magic getter `\Malenki\Bah\S::$first`.
+     *
+     *     $s = new S('azerty');
+     *     echo $s->first; // print 'a'
+     *
+     * If you want first character as `\Malenki\Bah\C` object, then, do one of the followings:
+     *
+     *     $s = new S('azerty');
+     *     $s->chars->first; // first \Malenki\Bah\C
+     *     // or
+     *     $s->first->to_c; // casting \Malenki\Bah\S to \Malenki\Bah\C
+     * 
+     * @return S
+     */
     protected function _first()
     {
         return $this->sub();
     }
 
+
+    /**
+     * Gets the last character as \Malenki\Bah\S object.
+     *
+     * This is runtime part of magic getter `\Malenki\Bah\S::$last`.
+     *
+     *     $s = new S('azerty');
+     *     echo $s->last; // print 'y'
+     *
+     * If you want last character as `\Malenki\Bah\C` object, then, do one of the followings:
+     *
+     *     $s = new S('azerty');
+     *     $s->chars->last; // last \Malenki\Bah\C
+     *     // or
+     *     $s->last->to_c; // casting \Malenki\Bah\S to \Malenki\Bah\C
+     * 
+     * @return S
+     */
     protected function _last()
     {
         return $this->sub($this->_length()->value - 1, 1);
@@ -1426,6 +1760,7 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * @param  mixed   $str primitive string or object havin __toString method
      * @return boolean
+     * @throws \InvalidArgumentException If str is not string-like value
      */
     public function startsWith($str)
     {
@@ -1441,6 +1776,7 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * @param  mixed   $str primitive string or object havin __toString method
      * @return boolean
+     * @throws \InvalidArgumentException If str is not string-like value
      */
     public function endsWith($str)
     {
@@ -1653,6 +1989,25 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->_length()->int;
     }
 
+    /**
+     * Test whether the current string is void or not. 
+     * 
+     * This is runtime part of some magic getters.
+     *
+     * Examples:
+     *
+     *     $s = new S('foo');
+     *     var_dump($s->void); // false
+     *
+     *     $s = new S('');
+     *     var_dump($s->void); // true
+     *
+     * @see S::$is_void Magic getter `S::$is_void`
+     * @see S::$void Magic getter `S::$void`
+     * @see S::$is_empty Magic getter `S::$is_empty`
+     * @see S::$empty Magic getter `S::$empty`
+     * @return boolean
+     */
     protected function _isVoid()
     {
         return mb_strlen($this->value, C::ENCODING) == 0;
@@ -2736,16 +3091,52 @@ class S extends O implements \Countable, \IteratorAggregate
         return !$this->_rtl() && !$this->_ltr();
     }
 
+    /**
+     * Compute the MD5 sum of the string.
+     *
+     * This method compute the MD5 sum of its internal value and returns the 
+     * result as a `\Malenki\Bah\S` object.
+     *
+     * @see http://php.net/manual/en/function.md5.php Orignal md5() PHP function
+     * @see S::$md5 Defines the magic getter `S::$md5`
+     * @return S
+     */
     protected function _md5()
     {
         return new S(md5($this->value));
     }
 
+
+    /**
+     * Compute the SHA1 sum of the string.
+     *
+     * This method compute the SHA1 sum of its internal value and returns the 
+     * result as a `\Malenki\Bah\S` object.
+     *
+     * @see http://php.net/manual/en/function.sha1.php Orignal sha1() PHP function
+     * @see S::$sha1 Defines the magic getter `S::$sha1`
+     * @return S
+     */
     protected function _sha1()
     {
         return new S(sha1($this->value));
     }
 
+    /**
+     * Add new CR, LF, CRLF or PHP_EOL before or after the string.
+     *
+     * This is used as engine for several methods and magic getters into this class.
+     *
+     * As first argument, it takes string to define the new line: `\n`, `\r`, 
+     * `\r\n` or `PHP_EOL`. The second argument is boolean: `true` (default) 
+     * puts the new line after the string, `false` puts he new line at the 
+     * beginning of the string.
+     * 
+     * @param string $type One of this string: `\n`, `\r`, `\r\n` or `PHP_EOL`.
+     * @param boolean $after Set to `false` to put new line before rather than 
+     * after as default.
+     * @return S
+     */
     private function _nl($type, $after = true)
     {
         if ($after) {
