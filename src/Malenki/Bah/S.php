@@ -2070,6 +2070,11 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Converts to upper case first.
      * 
+     * Converts the first character to upper case.
+     *
+     * @see S::$ucf Magic getter `S::$ucf`
+     * @see S::$ucfirst Magic getter `S::$ucfirst`
+     * @see S::$upper_case_first Magic getter `S::$upper_case_first`
      *
      * @return S
      */
