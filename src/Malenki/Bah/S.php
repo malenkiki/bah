@@ -287,6 +287,7 @@ class S extends O implements \Countable, \IteratorAggregate
                     'trim',
                     'ltrim',
                     'rtrim',
+                    'title',
                     'sub',
                     'chunk',
                     'delete',
@@ -314,8 +315,13 @@ class S extends O implements \Countable, \IteratorAggregate
             return $this->$name();
         } elseif ($name == '_') {
             return $this->_underscore();
-        } elseif ($name == 'ucw') {
-            return $this->_upperCaseWords();
+        } elseif (
+            in_array(
+                $name, 
+                array('ucw', 'ucwords', 'upper_case_words')
+            )
+        ) {
+            return $this->title();
         } elseif ($name == 'ucf') {
             return $this->_upperCaseFirst();
         } elseif (
@@ -333,7 +339,6 @@ class S extends O implements \Countable, \IteratorAggregate
                     'int',
                     'float',
                     'double',
-                    'title',
                     'upper',
                     'lower',
                     'n',
@@ -1904,8 +1909,40 @@ class S extends O implements \Countable, \IteratorAggregate
         return (boolean) preg_match($this->value, $str);
     }
 
-    protected function _upperCaseWords()
+    /**
+     * Converts the string to upper case words. 
+     * 
+     * This is equivalent of basic PHP function `ucwords()` But enhances for 
+     * UTF-8 and use of additionnal separators to split string into words.
+     *
+     * So, this feature can use magic getter or method way, and some alias are 
+     * available too.
+     *
+     * Examples:
+     *
+     *     $s = new S("C'est du français !"); // note the apos after this example…
+     *     echo $s->title; // 'C'est Du Français !'
+     *     echo $s->title("'"); // 'C'Est Du Français !'
+     *
+     * @see S::ucw() Method alias `S::ucw()`
+     * @see S::ucwords() Method alias `S::ucwords()`
+     * @see S::upperCaseWords() Method alias `S::upperCaseWords()`
+     * @see S::$ucw Magic getter alias `S::$ucw`
+     * @see S::$ucwords Magic getter alias `S::$ucwords`
+     * @see S::$upper_case_words Magic getter alias `S::$upper_case_words`
+     * @param mixed $sep Optionnal sequence of additionnal separators.
+     * @return S
+     * @throws \InvalidArgumentException If not null sep has not right type or 
+     * contains bad type.
+     */
+    public function title($sep = null)
     {
+        if(is_null($sep)){
+            return  new self(
+                mb_convert_case($this->value, MB_CASE_TITLE, C::ENCODING)
+            );
+        }
+
         $str_prov = mb_convert_case(
             mb_strtolower(
                 mb_strtolower($this->value, C::ENCODING),
@@ -1914,6 +1951,22 @@ class S extends O implements \Countable, \IteratorAggregate
             MB_CASE_TITLE,
             C::ENCODING
         );
+        
+
+        if($sep instanceof A || $sep instanceof H){
+            $arrs = array_values($sep->array); //beware of H case
+        } elseif(is_array($sep)){
+            $arrs = $sep;
+        } elseif($sep instanceof S){
+            $arrs = $sep->chunk->array;
+        } elseif(is_scalar($sep)){
+            $sep = new S((string) $sep);
+            $arrs = $sep->chunk->array;
+        } else {
+            throw \InvalidArgumentException(
+                'Given seperator has not good type.'
+            );
+        }
 
         $str_out  = $str_prov;
         $int_length  = mb_strlen($str_prov, C::ENCODING);
@@ -1924,8 +1977,11 @@ class S extends O implements \Countable, \IteratorAggregate
         for ($i = 0; $i < $int_length; $i++) {
             $letter = mb_substr($str_prov, $i, 1, C::ENCODING);
 
-            if ($letter == "'") {
-                $prev_idx = $i;
+            foreach($arrs as $new_sep){
+                if ($letter == "$new_sep") {
+                    $prev_idx = $i;
+                    break;
+                }
             }
 
             if (!is_null($prev_idx) && ($i == $prev_idx + 1)) {
@@ -1943,6 +1999,65 @@ class S extends O implements \Countable, \IteratorAggregate
         }
 
         return new self($str_out);
+    }
+
+
+    /**
+     * Converts the string to upper case words (Alias). 
+     *
+     * @see S::ucwords() Method alias `S::ucwords()`
+     * @see S::upperCaseWords() Method alias `S::upperCaseWords()`
+     * @see S::$ucw Magic getter alias `S::$ucw`
+     * @see S::$ucwords Magic getter alias `S::$ucwords`
+     * @see S::$upper_case_words Magic getter alias `S::$upper_case_words`
+     * @param mixed $sep Optionnal sequence of additionnal separators.
+     * @return S
+     * @throws \InvalidArgumentException If not null sep has not right type or 
+     * contains bad type.
+     */
+    public function ucw($sep = null)
+    {
+        return $this->title($sep);
+    }
+
+
+
+    /**
+     * Converts the string to upper case words (Alias). 
+     *
+     * @see S::ucw() Method alias `S::ucw()`
+     * @see S::upperCaseWords() Method alias `S::upperCaseWords()`
+     * @see S::$ucw Magic getter alias `S::$ucw`
+     * @see S::$ucwords Magic getter alias `S::$ucwords`
+     * @see S::$upper_case_words Magic getter alias `S::$upper_case_words`
+     * @param mixed $sep Optionnal sequence of additionnal separators.
+     * @return S
+     * @throws \InvalidArgumentException If not null sep has not right type or 
+     * contains bad type.
+     */
+    public function ucwords($sep = null)
+    {
+        return $this->title($sep);
+    }
+
+
+
+    /**
+     * Converts the string to upper case words (Alias). 
+     *
+     * @see S::ucw() Method alias `S::ucw()`
+     * @see S::ucwords() Method alias `S::upperCaseWords()`
+     * @see S::$ucw Magic getter alias `S::$ucw`
+     * @see S::$ucwords Magic getter alias `S::$ucwords`
+     * @see S::$upper_case_words Magic getter alias `S::$upper_case_words`
+     * @param mixed $sep Optionnal sequence of additionnal separators.
+     * @return S
+     * @throws \InvalidArgumentException If not null sep has not right type or 
+     * contains bad type.
+     */
+    public function upperCaseWords($sep = null)
+    {
+        return $this->title($sep);
     }
 
     protected function _upperCaseFirst()
@@ -2074,15 +2189,6 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self(mb_convert_case($this, MB_CASE_LOWER, C::ENCODING));
     }
 
-    /**
-     * Returns new String object with capital letters
-     *
-     * @return S
-     */
-    protected function _title()
-    {
-        return new self(mb_convert_case($this, MB_CASE_TITLE, C::ENCODING));
-    }
 
     /**
      * Repeats N times current string.

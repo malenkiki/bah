@@ -383,6 +383,48 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Je Suis Une Chaîne !', $s->title);
     }
 
+    public function testGettingTitleUsingAdditionnalSeparatorShouldSuccess()
+    {
+        $s = new S('C’est du français ! C\'est tout ce que j’ai à dire.');
+        $should = 'C’Est Du Français ! C\'Est Tout Ce Que J’Ai À Dire.';
+        $this->assertEquals($should, $s->title("'"));
+        $this->assertNotEquals($s->title, $s->title("'"));
+
+        $s = new S('C\'est du "français" !');
+        $should = 'C\'Est Du "Français" !';
+        $this->assertEquals($should, $s->title("'\""));
+        $this->assertEquals($should, $s->title(array("'", '"')));
+        $this->assertEquals($should, $s->title(array("'", new S('"'))));
+        $this->assertEquals($should, $s->title(array(new C("'"), new S('"'))));
+        $this->assertEquals($should, $s->title(new A(array("'", '"'))));
+        $this->assertNotEquals($s->title, $s->title("'\""));
+    }
+
+    public function testGettingTitleUsingNoArgAsSeparatorShouldSuccess()
+    {
+        $s = new S('C’est du français ! C\'est tout ce que j’ai à dire.');
+        $this->assertEquals($s->title, $s->title());
+    }
+
+
+    public function testGettingTitleUsingVoidSeparatorShouldSuccess()
+    {
+        $s = new S('C’est du français ! C\'est tout ce que j’ai à dire.');
+        $this->assertEquals($s->title, $s->title(''));
+        $this->assertEquals($s->title, $s->title(new S('')));
+        $this->assertEquals($s->title, $s->title(array('')));
+        $this->assertEquals($s->title, $s->title(new A(array(''))));
+    }
+
+    public function testGettingTitleUsingAliasShouldHaveSameResultAsOriginal()
+    {
+        
+        $s = new S('Je suis une chaîne !');
+        $this->assertEquals($s->title, $s->ucw);
+        $this->assertEquals($s->title, $s->ucwords);
+        $this->assertEquals($s->title, $s->upper_case_words);
+    }
+
     public function testCheckingStringShouldBeVoidOrNotShouldSuccess()
     {
         $s = new S('');
