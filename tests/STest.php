@@ -425,6 +425,31 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals($s->title, $s->upper_case_words);
     }
 
+    public function testGettingUcfirstShouldReturnSObject()
+    {
+        $s = new S('hello world!');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->ucf);
+    }
+
+
+    public function testGettingUcfirstShouldSuccess()
+    {
+        $s = new S('hello world!');
+        $this->assertEquals('Hello world!', $s->ucf);
+        $s = new S('œuf is egg');
+        $this->assertEquals('Œuf is egg', $s->ucf);
+    }
+
+    public function testGettingUcfirstUsingAliasShouldHaveSameResultAsOriginal()
+    {
+        $s = new S('hello world!');
+        $this->assertEquals($s->ucf, $s->ucfirst);
+        $this->assertEquals($s->ucf, $s->upper_case_first);
+        $s = new S('œuf is egg');
+        $this->assertEquals($s->ucf, $s->ucfirst);
+        $this->assertEquals($s->ucf, $s->upper_case_first);
+    }
+
     public function testCheckingStringShouldBeVoidOrNotShouldSuccess()
     {
         $s = new S('');

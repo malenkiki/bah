@@ -322,7 +322,12 @@ class S extends O implements \Countable, \IteratorAggregate
             )
         ) {
             return $this->title();
-        } elseif ($name == 'ucf') {
+        } elseif (
+            in_array(
+                $name,
+                array('ucf', 'ucfirst', 'upper_case_first')
+            )
+        ) {
             return $this->_upperCaseFirst();
         } elseif (
             in_array(
@@ -2060,6 +2065,14 @@ class S extends O implements \Countable, \IteratorAggregate
         return $this->title($sep);
     }
 
+
+
+    /**
+     * Converts to upper case first.
+     * 
+     *
+     * @return S
+     */
     protected function _upperCaseFirst()
     {
         if (!$this->_isVoid()) {
