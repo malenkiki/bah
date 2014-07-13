@@ -1,25 +1,25 @@
 <?php
-/*
-Copyright (c) 2013 Michel Petit <petit.michel@gmail.com>
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+/**
+ * Copyright (c) 2013 Michel Petit <petit.michel@gmail.com>
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 namespace Malenki\Bah;
@@ -3036,7 +3036,9 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Checks whether the whole string is right to left.
      *
-     * Some languages, like Arabian write their sentences from right to left. 
+     * Some languages, like Arabic language, writes their sentences from right 
+     * to left. 
+     *
      * This method allows you to check is whole content of the string is 
      * written right to left.
      *
@@ -3073,7 +3075,7 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Checks whether the whole string is written from the left to the right.
      *
-     * Many languages are written from left ot right, but some other not. So, 
+     * Many languages are written from left or right, but some other not. So, 
      * this method tests if the current string is LTR.
      *
      * This method is used only throught magic getters. Let’s see some examples:
@@ -3105,6 +3107,34 @@ class S extends O implements \Countable, \IteratorAggregate
         return true;
     }
 
+    /**
+     * Tests whether the current string has both RTL and LTR parts
+     *
+     * This is runtime version for some magic getters. This returns `true` if, 
+     * for example, the string contains both french and arabic text.
+     *
+     *     $s = new S(
+     *         'Ceci est du français contenant le mot '
+     *         .'arabe أبجد qui veut dire "abjad".'
+     *         );
+     *     var_dump($s->has_mixed_direction); // true
+     *     var_dump($s->mixed_direction); // true
+     *     var_dump($s->is_ltr_and_rtl); // true
+     *     var_dump($s->ltr_and_rtl); // true
+     *     var_dump($s->is_rtl_and_ltr); // true
+     *     var_dump($s->rtl_and_ltr); // true 
+     *
+     * @see S::_rtl() Checks whether it is right to left
+     * @see S::_ltr() Checks whether it is left to right
+     * @see S::$has_mixed_direction Magic getters `S::$has_mixed_direction`
+     * @see S::$mixed_direction Magic getters `S::$mixed_direction`
+     * @see S::$is_ltr_and_rtl Magic getters `S::$is_ltr_and_rtl`
+     * @see S::$ltr_and_rtl Magic getters `S::$ltr_and_rtl Magic getters`
+     * @see S::$is_rtl_and_ltr Magic getters `S::$is_rtl_and_ltr`
+     * @see S::$rtl_and_ltr Magic getters `S::$rtl_and_ltr`
+     *
+     * @return boolean
+     */
     protected function _hasMixedDirection()
     {
         return !$this->_rtl() && !$this->_ltr();
