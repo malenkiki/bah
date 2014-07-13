@@ -394,10 +394,18 @@ class C extends O
     protected function _trans()
     {
         if (!extension_loaded('intl')) {
-            throw new \RuntimeException('Missing Intl extension. This is required to use ' . __CLASS__);
+            throw new \RuntimeException('Missing Intl extension. This is required to use ' . __CLASS__ . '::trans');
         }
 
-        $str = transliterator_transliterate(
+        if(!function_exists('\transliterator_transliterate')){
+            throw new \RuntimeException(
+                'Intl extension does not provide transliterate feature '
+                .'prior PHP 5.4.0!'
+            );
+        }
+
+
+        $str = \transliterator_transliterate(
             "Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC;",
             $this->value
         );
