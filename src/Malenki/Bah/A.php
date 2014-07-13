@@ -595,7 +595,8 @@ class A extends O implements \Countable, \IteratorAggregate
 
     public function diff($arr)
     {
-        //TODO check types
+        self::mustBeArrayOrHash($arr);
+
         if ($arr instanceof A) {
             $arr = $arr->array;
         }
@@ -609,7 +610,8 @@ class A extends O implements \Countable, \IteratorAggregate
 
     public function inter($arr)
     {
-        //TODO check types
+        self::mustBeArrayOrHash($arr);
+
         if ($arr instanceof A) {
             $arr = $arr->array;
         }
@@ -623,7 +625,8 @@ class A extends O implements \Countable, \IteratorAggregate
 
     public function merge($arr)
     {
-        //TODO check types
+        self::mustBeArrayOrHash($arr);
+
         if ($arr instanceof A) {
             $arr = $arr->array;
         }

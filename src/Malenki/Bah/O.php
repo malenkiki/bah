@@ -281,7 +281,7 @@ class O
     {
         $msg = sprintf(
             '%s must be a primitive named indexed array PHP type or '
-            .'object \Malenki\Bah\A',
+            .'object \Malenki\Bah\H',
             is_null($arg_name) ? 'Argument' : $arg_name
         );
 
@@ -296,6 +296,33 @@ class O
                     throw new \InvalidArgumentException($msg);
                 }
             }
+        }
+    }
+
+
+    /**
+     * Checks whether given value is an array-like or hash-like type. 
+     * 
+     * The aim of this method is only to raise `\InvalidArgumentException` if 
+     * given value has not the good type.
+     *
+     * @param mixed $arg The value to test.
+     * @param string $arg_name Optional name of the value, used into 
+     * exception’s message.
+     * @return void
+     * @throws \InvalidArgumentException If value’s type is not valid
+     */
+    protected static function mustBeArrayOrHash($arg, $arg_name = null)
+    {
+        $msg = sprintf(
+            '%s must be a primitive named indexed array PHP type or '
+            .'object \Malenki\Bah\A or \Malenki\Bah\H',
+            is_null($arg_name) ? 'Argument' : $arg_name
+        );
+
+
+        if(!is_array($arg) && !($arg instanceof H) && !($arg instanceof A)){
+            throw new \InvalidArgumentException($msg);
         }
     }
 

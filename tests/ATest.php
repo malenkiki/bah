@@ -409,6 +409,40 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('blue', 'white', 'red'), $fr->array);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDiffUsingBadValueTypeShouldFail()
+    {
+        $a = new A(array('blue', 'white', 'red'));
+        $foo = 'foo';
+        $a->diff($foo);
+    }
+
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInterUsingBadValueTypeShouldFail()
+    {
+        $a = new A(array('blue', 'white', 'red'));
+        $foo = 'foo';
+        $a->inter($foo);
+    }
+
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMergeUsingBadValueTypeShouldFail()
+    {
+        $a = new A(array('blue', 'white', 'red'));
+        $foo = 'foo';
+        $a->merge($foo);
+    }
+
     public function testPaddingValuesShouldSuccess()
     {
         $a = new A(array('one', 2, 'something'));
