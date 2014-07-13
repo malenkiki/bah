@@ -213,32 +213,42 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * This can take any number of arguments. You can mix string primitive type
      * and oject having `toString()` method implemented, like `\Malenki\Bah\S`
-     * or other classes…
+     * or other classes… But, you can use several arguments into a collection. 
+     * As you wish!
      *
      * The returned object is from `\Malenki\Bah\S` class.
      *
-     * @throws \Exception     If one of the arguments is not string or object having `__toString()` method.
+     * If one arg is used as collection, the collection type must be `array`, 
+     * `\Malenki\Bah\A` object or `\Malenki\Bah\H` object.
+     *
+     * Examples:
+     *
+     *     S::concat('az', 'er', 'ty'); // S object 'azerty'
+     *     // or
+     *     S::concat(array('az', 'er', 'ty')); // S object 'azerty'
+     *
+     * @param array|A|H $params Named of set of params to use if you want use 
+     * other way than multi params. 
      * @return S
-     * @todo allow use of array-like as one arg to set collection of elements to concatenate.
+     * @throws \InvalidArgumentException     If one of the arguments is not 
+     * string or object having `__toString()` method.
      */
-    public static function concat()
+    public static function concat($params = null)
     {
         $args = func_get_args();
 
+        if(!is_null($params)){
+            if($params instanceof A || $params instanceof H){
+                $args = array_values($params->array); //beware of H case
+            } elseif(is_array($params)){
+                $args = $params;
+            } 
+        }
         $str_out = '';
 
         foreach ($args as $s) {
-            if (
-                (is_object($s)
-                &&
-                method_exists($s, '__toString')) || is_string($s)
-            ) {
-                $str_out .= $s;
-            } else {
-                throw new \Exception(
-                    'All args must be string or Malenki\Bah\S instance!'
-                );
-            }
+            self::mustBeStringOrScalar($s);
+            $str_out .= $s;
         }
 
         return new S($str_out);

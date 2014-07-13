@@ -154,6 +154,58 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals(new N(3.14), $s->to_n);
     }
 
+    public function testConcatenatingValuesShouldReturnSObject()
+    {
+        $this->assertInstanceOf('\Malenki\Bah\S', S::concat('foo', 'bar'));
+    }
+
+    public function testConcatenatingSeveralValuesShouldSuccess()
+    {
+        $this->assertEquals('azerty', S::concat('az', 'er', 'ty'));
+        $this->assertEquals(
+            'azerty123', 
+            S::concat(new C('a'), 'z', 'er', new S('ty'), '1', 2, new N(3))
+        );
+    }
+
+
+    public function testConcatenatingUsingArrayOfValuesShouldSuccess()
+    {
+        $this->assertEquals('azerty', S::concat(array('az', 'er', 'ty')));
+    }
+
+
+    public function testConcatenatingUsingAObjectHavingValuesShouldSuccess()
+    {
+        $this->assertEquals('azerty', S::concat(new A(array('az', 'er', 'ty'))));
+    }
+
+
+    public function testConcatenatingUsingHObjectHavingValuesShouldSuccess()
+    {
+        $this->assertEquals(
+            'azerty', 
+            S::concat(
+                new H(
+                    array(
+                        'foo'   => 'az',
+                        'bar'   => 'er',
+                        'thing' => 'ty'
+                    )
+                )
+            )
+        );
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testConcatenatingUsingNonScalarValueShouldFail()
+    {
+        S::concat('foo', (object) array('1', 3));
+    }
+
 
     /**
      * @expectedException \RuntimeException
