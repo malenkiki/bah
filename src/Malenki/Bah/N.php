@@ -1264,6 +1264,8 @@ class N extends O
 
     public function times($callback)
     {
+        self::mustBeCallable($callback);
+
         if(!$this->_decimal()->zero) {
             throw new \RuntimeException(
                 'Cannot iterate given callback when number is not integer.'
@@ -1273,12 +1275,6 @@ class N extends O
         if($this->value == 0){
             throw new \RuntimeException(
                 'Cannot iterate given callback on a void range.'
-            );
-        }
-
-        if(!is_callable($callback)){
-            throw new \InvalidArgumentException(
-                'Argument must be a callback!'
             );
         }
 

@@ -300,6 +300,31 @@ class O
     }
 
 
+    /**
+     * Checks whether the given argument is callable. 
+     * 
+     * This is usefull to test is an argument can be call as a function. If 
+     * this argument is not callable, then this raises an 
+     * `\InvalidArgumentException`.
+     *
+     * @param mixed $arg The value to test
+     * @param mixed $arg_name Optional name of the value, used into error message
+     * @return void
+     * @throws \InvalidArgumentException If arg is not callable
+     */
+    protected static function mustBeCallable($arg, $arg_name = null)
+    {
+        if(!is_callable($arg)){
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '%s must be callable!',
+                    is_null($arg_name) ? 'Argument' : $arg_name
+                )
+            );
+        }
+    }
+
+
 
 
     /**

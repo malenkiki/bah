@@ -325,6 +325,40 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(4, -11, 12, -67, 28), $a->walk($foo, 3)->array);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testFilteringUsingNotCallableArgShouldFail()
+    {
+        $a = new A(range(0, 10));
+
+        $a->filter(array());
+    }
+
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMappingUsingNotCallableArgShouldFail()
+    {
+        $a = new A(range(0, 10));
+
+        $a->map(array());
+    }
+
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testWalkingUsingNotCallableArgShouldFail()
+    {
+        $a = new A(range(0, 10));
+        
+        $a->walk(array());
+    }
+
     public function testReversingOrderShouldSuccess()
     {
         $a = new A(array('one', 'two', 'three', 'four', 'five'));

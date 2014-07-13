@@ -533,13 +533,15 @@ class A extends O implements \Countable, \IteratorAggregate
 
     public function map($func)
     {
-        //TODO check callable type
+        self::mustBeCallable($func);
+
         return new self(array_map($func, $this->value));
     }
 
     public function walk($func, $other = null)
     {
-        //TODO check callable type
+        self::mustBeCallable($func);
+
         $arr = $this->value;
 
         array_walk($arr, $func, $other);
@@ -549,7 +551,8 @@ class A extends O implements \Countable, \IteratorAggregate
 
     public function filter($func)
     {
-        //TODO check callable type
+        self::mustBeCallable($func);
+
         return new self(array_filter($this->value, $func));
     }
 

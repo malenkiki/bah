@@ -281,7 +281,8 @@ class H extends O implements \Countable, \IteratorAggregate
 
     public function map($func)
     {
-        // todo check callable type
+        self::mustBeCallable($func);
+
         $arr = array_map($func, $this->_keys()->array, $this->value);
 
         $out = new self();
@@ -295,7 +296,8 @@ class H extends O implements \Countable, \IteratorAggregate
 
     public function walk($func, $other = null)
     {
-        // todo check callable type
+        self::mustBeCallable($func);
+        
         $arr = $this->value;
 
         array_walk($arr, $func, $other);

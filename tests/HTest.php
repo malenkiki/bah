@@ -265,6 +265,29 @@ class HTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expectedValuesArray, array_values($a->walk($foo, 'I don\'t know what I am')->array));
     }
 
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMappingUsingNotCallableArgShouldFail()
+    {
+        $h = new H(array('foo' => 'something', 'bar' => 'thing'));
+
+        $h->map(array());
+    }
+
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testWalkingUsingNotCallableArgShouldFail()
+    {
+        $h = new H(array('foo' => 'something', 'bar' => 'thing'));
+        
+        $h->walk(array());
+    }
+
     public function testReversingShouldSuccess()
     {
         $h = new H();
