@@ -34,15 +34,18 @@ namespace Malenki\Bah;
  * @property-read $length Number of elements included into the collection
  * @property-read $is_last Tests if it is the last element (while context)
  * @property-read $is_first Tests if it is the first element (while context)
- * @property-read $is_last_but_one Tests if it is the last but one element (while context)
+ * @property-read $is_last_but_one Tests if it is the last but one element 
+ * (while context)
  * @property-read $last Gets last element
  * @property-read $first Gets the first element
  * @property-read $last_but_one Gets the last but one element
  * @property-read $shift Takes the first element and remove it from the collection
  * @property-read $pop Takes the last element and remove it from the collection
  * @property-read $random Gets randomly one element
- * @property-read $shuffle Gets new collection with the same content as current one, but into shuffle order.
- * @property-read $join Concatenate all element into a string if each element has toString ethod or are primitive type.
+ * @property-read $shuffle Gets new collection with the same content as current 
+ * one, but into shuffle order.
+ * @property-read $join Concatenate all element into a string if each element 
+ * has toString ethod or are primitive type.
  * @property-read $implode Same as join magic attribute
  * @property-read $max Gets max numeric value contained into collection
  * @property-read $min Gets min numeric value contained into collection
@@ -71,15 +74,39 @@ class A extends O implements \Countable, \IteratorAggregate
             return $this->_lastButOne();
         } elseif (in_array($name, array('implode', 'join'))) {
             return $this->implode();
-        } elseif (in_array($name, array('current', 'key', 'next', 'rewind', 'valid'))) {
+        } elseif (
+            in_array(
+                $name, 
+                array('current', 'key', 'next', 'rewind', 'valid')
+            )
+        ) {
             return $this->$name();
         } elseif (in_array($name, array('min', 'max'))) {
             return $this->_maxOrMin($name);
-        } elseif (in_array($name, array('array', 'arr', 'length', 'last', 'first', 'shift', 'pop', 'shuffle', 'reverse', 'sort', 'unique'))) {
+        } elseif (
+            in_array(
+                $name,
+                array(
+                    'array', 
+                    'arr', 
+                    'length', 
+                    'last', 
+                    'first', 
+                    'shift', 
+                    'pop', 
+                    'shuffle', 
+                    'reverse', 
+                    'sort', 
+                    'unique'
+                )
+            )
+        ) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
-        } elseif(in_array($name, array('is_first', 'is_last', 'is_last_but_one'))){
+        } elseif(
+            in_array($name, array('is_first', 'is_last', 'is_last_but_one'))
+        ){
             $m = '_is' . implode(
                 array_map(
                     'ucfirst',
@@ -111,7 +138,9 @@ class A extends O implements \Countable, \IteratorAggregate
             if ($arr instanceof A || $arr instanceof H) {
                 $arr = $arr->array;
             } else {
-                throw new \InvalidArgumentException('Constructor must have array, Class A or Class H instance.');
+                throw new \InvalidArgumentException(
+                    'Constructor must have array, Class A or Class H instance.'
+                );
             }
         }
 
@@ -177,7 +206,9 @@ class A extends O implements \Countable, \IteratorAggregate
         }
 
         if (!$this->exist($idx)) {
-            throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
+            throw new \OutOfRangeException(
+                'Given '. $idx .' index does not exist!'
+            );
         }
 
         return $this->value[$idx];
@@ -242,7 +273,9 @@ class A extends O implements \Countable, \IteratorAggregate
     protected function _lastButOne()
     {
         if (count($this) <= 2) {
-            throw new \RuntimeException(_('This collection is too small to have last but one value.'));
+            throw new \RuntimeException(
+                'This collection is too small to have last but one value.'
+            );
         }
 
         return $this->value[$this->count - 2];
@@ -290,7 +323,9 @@ class A extends O implements \Countable, \IteratorAggregate
         }
 
         if (!$this->exist($idx)) {
-            throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
+            throw new \OutOfRangeException(
+                'Given '. $idx .' index does not exist!'
+            );
         }
 
         unset($this->value[$idx]);
@@ -317,7 +352,9 @@ class A extends O implements \Countable, \IteratorAggregate
     protected function _shift()
     {
         if ($this->count() == 0) {
-            throw new \RuntimeException('Cannot take element from void collection!');
+            throw new \RuntimeException(
+                'Cannot take element from void collection!'
+            );
         }
 
         $this->count--;
@@ -328,7 +365,9 @@ class A extends O implements \Countable, \IteratorAggregate
     protected function _pop()
     {
         if ($this->count() == 0) {
-            throw new \RuntimeException('Cannot take element from void collection!');
+            throw new \RuntimeException(
+                'Cannot take element from void collection!'
+            );
         }
 
         $this->count--;
@@ -345,7 +384,9 @@ class A extends O implements \Countable, \IteratorAggregate
         }
 
         if (!$this->exist($idx)) {
-            throw new \OutOfRangeException('Given '. $idx .' index does not exist!');
+            throw new \OutOfRangeException(
+                'Given '. $idx .' index does not exist!'
+            );
         }
 
         $this->value[$idx] = $thing;
@@ -374,7 +415,9 @@ class A extends O implements \Countable, \IteratorAggregate
                     continue;
                 }
             } else {
-                throw new \RuntimeException('Cannot convert this item to string');
+                throw new \RuntimeException(
+                    'Cannot convert this item to string'
+                );
             }
         }
 
@@ -476,7 +519,10 @@ class A extends O implements \Countable, \IteratorAggregate
                 }
             } elseif ($k->test($what)) {
                 if (preg_match('/-[0-9]+$/', $what)) {
-                    throw new \InvalidArgumentException('Cannot test against negative integer, because their are not negative index.');
+                    throw new \InvalidArgumentException(
+                        'Cannot test against negative integer, because their'
+                        .' are not negative index.'
+                    );
                 }
                 $a->add($v);
             }
@@ -516,11 +562,17 @@ class A extends O implements \Countable, \IteratorAggregate
         }
 
         if (!is_numeric($n) || $n < 1) {
-            throw new \InvalidArgumentException('Random items amount must be an integer greater than or equal one.');
+            throw new \InvalidArgumentException(
+                'Random items amount must be an integer greater '
+                .'than or equal one.'
+            );
         }
 
         if ($n > $this->count()) {
-            throw new \RuntimeException('Cannot take more random elements than amount contained into the collection.');
+            throw new \RuntimeException(
+                'Cannot take more random elements than amount '
+                .'contained into the collection.'
+            );
         }
 
         $mix = array_rand($this->value, $n);
@@ -589,7 +641,10 @@ class A extends O implements \Countable, \IteratorAggregate
         }
 
         if ($size < 1) {
-            throw new \InvalidArgumentException('Chunk cannot have null size, please use number equal or greater than one.');
+            throw new \InvalidArgumentException(
+                'Chunk cannot have null size, please use number equal or '
+                .'greater than one.'
+            );
         }
 
         $arr = array_chunk($this->value, $size);
@@ -629,14 +684,14 @@ class A extends O implements \Countable, \IteratorAggregate
     /**
      * Search index of the given element.
      *
-     * This will return the first index found for the given element if there are several identical.
+     * This will return the first index found for the given element if there 
+     * are several identical.
      *
-     * If no element found, then return null.
+     * If no element found, then returns null.
      *
      * If element is found, then N object is returned.
      *
      * @param  mixed $foo The element to find
-     * @access public
      * @return mixed
      */
     public function search($foo)
