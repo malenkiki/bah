@@ -64,6 +64,12 @@ namespace Malenki\Bah;
  * @property-read $chinese_other_zero Get chinese mandarin number as S class (other way to print zero).
  * @property-read $mandarin_other_zero Get chinese mandarin number as S class (other way to print zero).
  * @property-read $putonghua_other_zero Get chinese mandarin number as S class (other way to print zero).
+ *
+ * @property-read $to_s Get as \Malenki\Bah\S object
+ * @property-read $to_c Get as \Malenki\Bah\C object (if possible)
+ * @property-read $string Get as primitive string
+ * @property-read $str Get as primitive string
+ * @property-read $integer Get as primitive integer
  * @property-read $int Get as primitive integer
  * @property-read $float Get as primitive float
  * @property-read $double Get as primitive double
@@ -254,7 +260,6 @@ class N extends O
      *
      * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param  mixed   $num N or primitive numeric value
-     * @access public
      * @return boolean
      */
     public function less($num)
@@ -273,7 +278,6 @@ class N extends O
      *
      * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param  mixed   $num N or numeric value
-     * @access public
      * @return boolean
      */
     public function lt($num)
@@ -286,7 +290,6 @@ class N extends O
      *
      * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param  mixed   $num N or numeric value
-     * @access public
      * @return boolean
      */
     public function lte($num)
@@ -310,7 +313,6 @@ class N extends O
      *
      * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param  mixed   $num N or numeric value.
-     * @access public
      * @return boolean
      */
     public function greater($num)
@@ -329,7 +331,6 @@ class N extends O
      *
      * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param  mixed   $num N or numeric value
-     * @access public
      * @return boolean
      */
     public function gt($num)
@@ -342,7 +343,6 @@ class N extends O
      *
      * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param  mixed   $num N or numeric value
-     * @access public
      * @return boolean
      */
     public function gte($num)
@@ -449,7 +449,6 @@ class N extends O
      * version.
      *
      * @throw \RuntimeException If current number is not an integer
-     * @access protected
      * @return A Instance of A class
      */
     protected function _divisors()
@@ -504,7 +503,9 @@ class N extends O
         $n = is_object($base) ? $base->value : $base;
 
         if ($n == 1 || $n <= 0) {
-            throw new \InvalidArgumentException('Log base must be positive number different of one.');
+            throw new \InvalidArgumentException(
+                'Log base must be positive number different of one.'
+            );
         }
 
         return new N(log( $this->value, $n));
@@ -553,11 +554,15 @@ class N extends O
     protected function _triangular()
     {
         if ($this->value < 0) {
-            throw new \RuntimeException('Cannot get triangular number of negative number!');
+            throw new \RuntimeException(
+                'Cannot get triangular number of negative number!'
+            );
         }
 
         if (!$this->_decimal()->zero) {
-            throw new \RuntimeException('Cannot get triangular number of non integer!');
+            throw new \RuntimeException(
+                'Cannot get triangular number of non integer!'
+            );
         }
 
         return new N(($this->value * ($this->value + 1)) / 2);
@@ -584,7 +589,6 @@ class N extends O
      *
      * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param  mixed   $num N or numeric value.
-     * @access public
      * @return boolean
      */
     public function equal($num)
@@ -751,7 +755,6 @@ class N extends O
      *
      * @throw \InvalidArgumentException If argument is not N or numeric value.
      * @param  mixed $number N or numeric value
-     * @access public
      * @return N
      */
     public function plus($number)
@@ -768,7 +771,6 @@ class N extends O
      *
      * @throw \InvalidArgumentException If argument is not N or numeric value.
      * @param  mixed $number N or numeric value
-     * @access public
      * @return N
      */
     public function minus($number)
@@ -785,7 +787,6 @@ class N extends O
      *
      * @throw \InvalidArgumentException If argument is not N or numeric value.
      * @param  mixed $number N or numeric value
-     * @access public
      * @return N
      */
     public function multiply($number)
@@ -803,7 +804,6 @@ class N extends O
      * @throw \InvalidArgumentException If given argument is zero
      * @throw \InvalidArgumentException If given argument is not N or numeric value.
      * @param  mixed $number N or numeric value
-     * @access public
      * @return N
      */
     public function divide($number)
@@ -907,7 +907,6 @@ class N extends O
      *
      * @todo add myriad to have more number after 9999.
      * @param  boolean $digamma
-     * @access public
      * @return s       object
      */
     public function greek($digamma = true)
@@ -1179,7 +1178,6 @@ class N extends O
      * Convert to arabian string number (equiv of roman)
      *
      * @todo to implement
-     * @access public
      * @return S
      */
     public function abjad()
@@ -1190,7 +1188,6 @@ class N extends O
      * Convert to hebrew string number
      *
      * @todo to implement
-     * @access public
      * @return S
      */
     public function hebrew()
@@ -1200,7 +1197,9 @@ class N extends O
     protected function _hex()
     {
         if(!$this->_decimal()->zero) {
-            throw new \RuntimeException('Cannot get hexadecimal numbers from non integer.');
+            throw new \RuntimeException(
+                'Cannot get hexadecimal numbers from non integer.'
+            );
         }
 
         return new S(dechex($this->value));
@@ -1209,7 +1208,9 @@ class N extends O
     protected function _oct()
     {
         if(!$this->_decimal()->zero) {
-            throw new \RuntimeException('Cannot get octal numbers from non integer.');
+            throw new \RuntimeException(
+                'Cannot get octal numbers from non integer.'
+            );
         }
 
         return new S(decoct($this->value));
@@ -1218,7 +1219,9 @@ class N extends O
     protected function _bin()
     {
         if(!$this->_decimal()->zero) {
-            throw new \RuntimeException('Cannot get binary numbers from non integer.');
+            throw new \RuntimeException(
+                'Cannot get binary numbers from non integer.'
+            );
         }
 
         return new S(decbin($this->value));
@@ -1247,7 +1250,9 @@ class N extends O
     public function base($n)
     {
         if(!$this->_decimal()->zero) {
-            throw new \RuntimeException('Cannot get decimal numbers into another base.');
+            throw new \RuntimeException(
+                'Cannot get decimal numbers into another base.'
+            );
         }
 
         self::mustBeInteger($n, 'Base');
@@ -1255,7 +1260,9 @@ class N extends O
         $n = is_object($n) ? $n->int : $n;
 
         if (!is_numeric($n) || $n < 2 || $n > 36) {
-            throw new \InvalidArgumentException('Base must be a integer or N value from 2 to 36 inclusive.');
+            throw new \InvalidArgumentException(
+                'Base must be a integer or N value from 2 to 36 inclusive.'
+            );
         }
 
         return new S(base_convert($this->value, 10, $n));

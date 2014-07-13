@@ -158,22 +158,31 @@ namespace Malenki\Bah;
  * @property-read S $upper Get string into upper case
  * @property-read S $first Get first character
  * @property-read S $last Get last character
- * @property-read S $title Get "title" version of the string
+ * @property-read S $title Get "title" version of the string like ucwords does
+ * @property-read S $ucw Get upper case words
+ * @property-read S $ucwords Get upper case words
+ * @property-read S $upper_case_words Get upper case words
  * @property-read S $trans Get translitterated version of the string
  * @property-read S $md5 Get MD5 sum of the string
  * @property-read S $sha1 Get SHA1 sum of the string
  * @property-read S $swap_case Get swapped case version
  * @property-read S $swapcase Get swapped case version
  * @property-read S $swap Get swapped case version
- * @property-read S $squeeze Remove duplicates sequences of characters. See \Malenki\Bah\S::squeeze() methods to have other features
- * @property-read S $ucw Get upper case words
+ * @property-read S $squeeze Remove duplicates sequences of characters. See 
+ * \Malenki\Bah\S::squeeze() methods to have other features
  * @property-read S $ucf Get upper case first
+ * @property-read S $ucfirst Get upper case first
+ * @property-read S $upper_case_first Get upper case first
  * @property-read string $string Get current string as primitive PHP type string
  * @property-read string $str Get current string as primitive PHP type string
- * @property-read integer $integer Get current string as primitive PHP type integer, if possible.
- * @property-read integer $int Get current string as primitive PHP type integer, if possible.
- * @property-read float $float Get current string as primitive PHP type float, if possible.
- * @property-read double $double Get current string as primitive PHP type double, if possible.
+ * @property-read integer $integer Get current string as primitive PHP type 
+ * integer, if possible.
+ * @property-read integer $int Get current string as primitive PHP type 
+ * integer, if possible.
+ * @property-read float $float Get current string as primitive PHP type float, 
+ * if possible.
+ * @property-read double $double Get current string as primitive PHP type 
+ * double, if possible.
  * @license MIT
  * @author Michel Petit aka "Malenki" <petit.michel@gmail.com>
  */
