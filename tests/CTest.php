@@ -147,6 +147,20 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('>', $c->string);
     }
 
+
+    public function testTransFeatureShouldReturnSObject()
+    {
+        $greek = new C('λ');
+        $this->assertInstanceOf('\Malenki\Bah\S', $greek->trans);
+    }
+
+
+    public function testTransFeatureShouldSuccess()
+    {
+        $greek = new S('λ');
+        $this->assertEquals('l', $greek->trans);
+    }
+
     public function testCaseDetection()
     {
         $c = new C('a');

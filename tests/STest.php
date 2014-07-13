@@ -1212,6 +1212,22 @@ class STest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testTransFeatureShouldReturnSObject()
+    {
+        $greek = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
+        $this->assertInstanceOf('\Malenki\Bah\S', $greek->trans);
+    }
+
+
+    public function testTransFeatureShouldSuccess()
+    {
+        $greek = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
+        $this->assertEquals(
+            'Ta ellenika sou einai kalytera apo ta Gallika mou!',
+            $greek->trans
+        );
+    }
+
 
     public function testConvertStringToUnderscoreNotationShouldReturnSObject()
     {

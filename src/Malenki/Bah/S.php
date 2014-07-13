@@ -866,16 +866,28 @@ class S extends O implements \Countable, \IteratorAggregate
      * [Intl section](http://php.net/manual/en/intro.intl.php) on the PHP 
      * official website if you have not this extension installed yet.
      *
+     * __Warning 2:__ This cannot work on PHP version < 5.4.0! Even if Intl is 
+     * installed, this provided translitterated feature only into PHP 5.4.0+
+     *
      * @see S::$trans Magic getter version `S::$trans`
      * @return S
-     * @throws \RuntimeException If this is called and intl extension is not installed.
-     * @todo use the object way for transliterator
+     * @throws \RuntimeException If this is called and intl extension is not 
+     * installed.
+     * @throws \RuntimeException If intl extension is installed but that uses 
+     * PHP version prior to 5.4.0.
      */
     protected function _trans()
     {
         if (!extension_loaded('intl')) {
             throw new \RuntimeException(
-                'Missing Intl extension. This is required to use ' . __CLASS__
+                'Missing Intl extension. This is required to use ' . __CLASS__ . '::trans'
+            );
+        }
+
+        if(!function_exists('\transliterator_transliterate')){
+            throw new \RuntimeException(
+                'Intl extension does not provide transliterate feature '
+                .'prior PHP 5.4.0!'
             );
         }
 
