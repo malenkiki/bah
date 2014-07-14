@@ -1426,6 +1426,25 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     protected function _underscore()
     {
+        return new self(
+            trim(
+                preg_replace(
+                    '/_+/',
+                    '_',
+                    preg_replace(
+                        '/[^\p{Ll}\p{Lu}0-9_]/u',
+                        '_',
+                        preg_replace(
+                            '/[\s]+/u',
+                            '_',
+                            mb_strtolower(trim($this->value), C::ENCODING)
+                        )
+                    )
+                ),
+                '_'
+            )
+        );
+        /*
         return $this->strip()
             ->lower
             ->replace('/[\s]+/', '_')
@@ -1433,6 +1452,7 @@ class S extends O implements \Countable, \IteratorAggregate
             ->replace('/_+/', '_')
             ->strip('_')
             ;
+         */
     }
 
 
