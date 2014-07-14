@@ -509,7 +509,7 @@ class N extends O
      * If current number is negative, divisors will be based on its positive
      * version.
      *
-     * @throw \RuntimeException If current number is not an integer
+     * @throws \RuntimeException If current number is not an integer
      * @return A Instance of A class
      */
     protected function _divisors()

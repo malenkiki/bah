@@ -148,22 +148,32 @@ class CTest extends PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @requires PHP 5.4
+     */
     public function testTransFeatureShouldReturnSObject()
     {
+        /*
         if(version_compare(PHP_VERSION, '5.4.0', '<')){
             $this->markTestSkipped('Cannot test this feature on PHP prior 5.4.0');
         }
+         */
 
         $greek = new C('λ');
         $this->assertInstanceOf('\Malenki\Bah\S', $greek->trans);
     }
 
 
+    /**
+     * @requires PHP 5.4
+     */
     public function testTransFeatureShouldSuccess()
     {
+        /*
         if(version_compare(PHP_VERSION, '5.4.0', '<')){
             $this->markTestSkipped('Cannot test this feature on PHP prior 5.4.0');
         }
+         */
 
         $greek = new S('λ');
         $this->assertEquals('l', $greek->trans);
@@ -557,4 +567,43 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($c->is_ascii);
     }
 
+
+    public function testGettingFamilyCharactersOfCurrentCharacterShouldReturnAObject()
+    {
+        $c = new C('a');
+        $this->assertInstanceOf('\Malenki\Bah\A', $c->family);
+        
+        $c = new C(new N(0x2191));
+        $this->assertInstanceOf('\Malenki\Bah\A', $c->family);
+
+        $c = new C('&eacute;');
+        $this->assertInstanceOf('\Malenki\Bah\A', $c->family);
+    }
+
+    public function testGettingFamilyCharactersOfCurrentCharacterShouldReturnAObjectContainingOnlyCObject()
+    {
+        $c = new C('a');
+        $this->assertContainsOnlyInstancesOf('\Malenki\Bah\C', $c->family->array);
+        
+        $c = new C(new N(0x2191));
+        $this->assertContainsOnlyInstancesOf('\Malenki\Bah\C', $c->family->array);
+
+        $c = new C('&eacute;');
+        $this->assertContainsOnlyInstancesOf('\Malenki\Bah\C', $c->family->array);
+    }
+
+
+    public function testGettingFamilyCharactersOfCurrentCharacterShouldContainsSomeWantedCharacters()
+    {
+        
+        $c = new C('a');
+        $this->assertTrue(in_array(new C('z'), $c->family->array));
+        
+        $c = new C(new N(0x2191));
+        $this->assertTrue(in_array(new C(new N(0x2199)), $c->family->array));
+
+        $c = new C('&eacute;');
+        $this->assertTrue(in_array(new C('è'), $c->family->array));
+       
+    }
 }

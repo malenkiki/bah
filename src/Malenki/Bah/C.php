@@ -253,8 +253,46 @@ class C extends O
 
     protected $bytes = null;
 
+    /**
+     * Store whether the current character is surrogate or not.
+     *
+     * This exists only to avoid PHP bug with `preg_match()` function and 
+     * `\p{Cs}` pattern.
+     * 
+     * @var boolean
+     */
     protected $bool_is_surrogate = false; // due to PHP issue about \p{Cs}…
 
+    /**
+     * Instanciates new character.
+     *
+     * Creates new character object using 3 different ways.
+     *
+     * You can instanciate it using:
+     *
+     *  - a `\Malenki\Bah\N` object. In this case, given object is read to be 
+     *  the UTF-8 code point of the character. So, The Bah Number must be in 
+     *  `[0, 0x10FFFF]` range to be valid.
+     *  - a string-like value having more than one characters must be an HTML entity
+     *  - a single char string-like.
+     * 
+     * Examples:
+     *
+     *     $n = new N(948);
+     *     $c = new C($n);
+     *     echo $c; //'δ'
+     *
+     *     $c = new C('&eacute;');
+     *     echo $c; // 'é'
+     *
+     *     $c = new C('z');
+     *     echo $c; // 'z'
+     *
+     * @param mixed $char A string-like or `\Malenki\Bah\N` object 
+     * @throws \InvalidArgumentException If given Bah Number is not into the valid UTF-8 range.
+     * @throws \InvalidArgumentException If given HTML entity is not valid.
+     * @throws \InvalidArgumentException If given char is not valid UTF-8 char.
+     */
     public function __construct($char = '')
     {
         if ($char instanceof N) {
@@ -295,31 +333,32 @@ class C extends O
 
     public function __get($name)
     {
-        if ($name == 'bytes') {
+        if ($name === 'bytes') {
             if (is_null($this->bytes)) {
                 $i = 0;
-                $a = new A();
+                $a = array();
 
                 while ($i < strlen($this)) {
-                    $a->add(new N(ord($this->value{$i})));
+                    $a[] = new N(ord($this->value{$i}));
                     $i++;
                 }
 
-                $this->bytes = $a;
+                $this->bytes = new A($a);
             }
 
             return $this->bytes;
         }
 
-        if($name == 'to_s'){
+        if($name === 'to_s'){
             return new S($this->value);
         }
 
 
-        if($name == 'to_n'){
+        if($name === 'to_n'){
             if(!is_numeric($this->value)){
                 throw new \RuntimeException(
-                    'Cannot cast C object to N object if characters does not stand for integer.'
+                    'Cannot cast `\Malenki\Bah\C` object to `\Malenki\Bah\N` '
+                    .'object if characters does not stand for integer.'
                 );
             }
 
@@ -327,17 +366,53 @@ class C extends O
         }
 
 
-        if (in_array($name, array('string', 'str', 'integer', 'int', 'upper', 'lower', 'block', 'trans', 'unicode', 'rtl', 'ltr', 'family'))) {
+        if (
+            $name === 'string'
+            ||
+            $name === 'str'
+            ||
+            $name === 'integer'
+            ||
+            $name === 'int'
+            ||
+            $name === 'upper'
+            ||
+            $name === 'lower'
+            ||
+            $name === 'block'
+            ||
+            $name === 'trans'
+            ||
+            $name === 'unicode'
+            ||
+            $name === 'rtl'
+            ||
+            $name === 'ltr'
+            ||
+            $name === 'family'
+        ) {
             $name = '_'.$name;
 
             return $this->$name();
         }
 
-        if($name == 'is_rtl' || $name == 'right_to_left' || $name == 'is_right_to_left'){
+        if(
+            $name === 'is_rtl'
+            ||
+            $name === 'right_to_left'
+            ||
+            $name === 'is_right_to_left'
+        ){
             return $this->_rtl();
         }
 
-        if($name == 'is_ltr' || $name == 'left_to_right' || $name == 'is_left_to_right'){
+        if(
+            $name === 'is_ltr'
+            ||
+            $name === 'left_to_right'
+            ||
+            $name === 'is_left_to_right'
+        ){
             return $this->_ltr();
         }
         
@@ -552,8 +627,15 @@ class C extends O
     }
 
 
+    /**
+     * For current character, gets all characters of its unicode block. 
+     * 
+     *
+     * @return A
+     */
     protected function _family()
     {
+        // TODO write UT for it!!!
         $arr = array();
         $int_code = $this->_unicode()->value;
 
@@ -562,11 +644,14 @@ class C extends O
                 $arr = range($b['start'], $b['end']);
 
                 foreach ($arr as $k => $v) {
+                    $arr[$k] = new self(new N($v));
+                    /*
                     if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
                         $arr[$k] = new self(html_entity_decode('&#'.$v.';', ENT_XML1, 'UTF-8'));
                     } else {
                         $arr[$k] = new self(html_entity_decode('&#'.$v.';', ENT_COMPAT | ENT_HTML401, 'UTF-8'));
                     }
+                     */
                 }
 
                 break;
