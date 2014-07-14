@@ -209,6 +209,12 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     protected $length = null;
 
+    /**
+     * Quicker access to count 
+     * 
+     * @var int
+     */
+    protected $int_count = null;
 
     /**
      * Current position while using methods for loop while.
@@ -272,195 +278,211 @@ class S extends O implements \Countable, \IteratorAggregate
     public function __get($name)
     {
 
-        if ($name == 'to_c' || $name == 'to_n') {
+        if ($name === 'to_c' || $name === 'to_n') {
             return $this->_to($name);
         } elseif (
-            in_array(
-                $name,
-                array(
-                    'is_void',
-                    'void',
-                    'is_empty',
-                    'empty'
-                )
-            )
+            $name === 'is_void'
+            ||
+            $name === 'void'
+            ||
+            $name === 'is_empty'
+            ||
+            $name === 'empty'
         ) {
             return $this->_isVoid();
         } elseif (
-            in_array(
-                $name,
-                array(
-                    'strip',
-                    'lstrip',
-                    'rstrip',
-                    'trim',
-                    'ltrim',
-                    'rtrim',
-                    'title',
-                    'sub',
-                    'chunk',
-                    'delete',
-                    'remove',
-                    'del',
-                    'rm',
-                    'center',
-                    'wrap',
-                    'n',
-                    'r',
-                    'rn',
-                    'eol',
-                    'squeeze',
-                    'current',
-                    'key',
-                    'next',
-                    'rewind',
-                    'valid',
-                    'left',
-                    'right',
-                    'justify'
-                )
-            )
+            $name === 'strip'
+            ||
+            $name === 'lstrip'
+            ||
+            $name === 'rstrip'
+            ||
+            $name === 'trim'
+            ||
+            $name === 'ltrim'
+            ||
+            $name === 'rtrim'
+            ||
+            $name === 'title'
+            ||
+            $name === 'sub'
+            ||
+            $name === 'chunk'
+            ||
+            $name === 'delete'
+            ||
+            $name === 'remove'
+            ||
+            $name === 'del'
+            ||
+            $name === 'rm'
+            ||
+            $name === 'center'
+            ||
+            $name === 'wrap'
+            ||
+            $name === 'n'
+            ||
+            $name === 'r'
+            ||
+            $name === 'rn'
+            ||
+            $name === 'eol'
+            ||
+            $name === 'squeeze'
+            ||
+            $name === 'current'
+            ||
+            $name === 'key'
+            ||
+            $name === 'next'
+            ||
+            $name === 'rewind'
+            ||
+            $name === 'valid'
+            ||
+            $name === 'left'
+            ||
+            $name === 'right'
+            ||
+            $name === 'justify'
         ) {
             return $this->$name();
         } elseif ($name == '_') {
             return $this->_underscore();
         } elseif (
-            in_array(
-                $name, 
-                array('ucw', 'ucwords', 'upper_case_words')
-            )
+            $name === 'ucw'
+            ||
+            $name === 'ucwords'
+            ||
+            $name === 'upper_case_words'
         ) {
             return $this->title();
         } elseif (
-            in_array(
-                $name,
-                array('ucf', 'ucfirst', 'upper_case_first')
-            )
+            $name === 'ucf'
+            ||
+            $name === 'ucfirst'
+            ||
+            $name === 'upper_case_first'
         ) {
             return $this->_upperCaseFirst();
         } elseif (
-            in_array(
-                $name,
-                array(
-                    'length',
-                    'chars',
-                    'bytes',
-                    'dash',
-                    'underscore',
-                    'string',
-                    'str',
-                    'integer',
-                    'int',
-                    'float',
-                    'double',
-                    'upper',
-                    'lower',
-                    'n',
-                    'r',
-                    'first',
-                    'last',
-                    'trans',
-                    'rtl',
-                    'ltr',
-                    'md5',
-                    'sha1'
-                )
-            )
+            $name === 'length'
+            ||
+            $name === 'chars'
+            ||
+            $name === 'bytes'
+            ||
+            $name === 'dash'
+            ||
+            $name === 'underscore'
+            ||
+            $name === 'string'
+            ||
+            $name === 'str'
+            ||
+            $name === 'integer'
+            ||
+            $name === 'int'
+            ||
+            $name === 'float'
+            ||
+            $name === 'double'
+            ||
+            $name === 'upper'
+            ||
+            $name === 'lower'
+            ||
+            $name === 'n'
+            ||
+            $name === 'r'
+            ||
+            $name === 'first'
+            ||
+            $name === 'last'
+            ||
+            $name === 'trans'
+            ||
+            $name === 'rtl'
+            ||
+            $name === 'ltr'
+            ||
+            $name === 'md5'
+            ||
+            $name === 'sha1'
         ) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
         } elseif(
-            in_array(
-                $name,
-                array(
-                    'is_ltr',
-                    'left_to_right',
-                    'is_left_to_right'
-                )
-            )
+            $name === 'is_ltr'
+            ||
+            $name === 'left_to_right'
+            ||
+            $name === 'is_left_to_right'
         ){
             return $this->_ltr();
         } elseif(
-            in_array(
-                $name,
-                array(
-                    'is_rtl',
-                    'right_to_left',
-                    'is_right_to_left'
-                )
-            )
+            $name === 'is_rtl'
+            ||
+            $name === 'right_to_left'
+            ||
+            $name === 'is_right_to_left'
         ){
             return $this->_rtl();
         } elseif(
-            in_array(
-                $name,
-                array(
-                    'has_mixed_direction',
-                    'mixed_direction',
-                    'is_rtl_and_ltr',
-                    'rtl_and_ltr',
-                    'is_ltr_and_rtl',
-                    'ltr_and_rtl'
-                )
-            )
+            $name === 'has_mixed_direction'
+            ||
+            $name === 'mixed_direction'
+            ||
+            $name === 'is_rtl_and_ltr'
+            ||
+            $name === 'rtl_and_ltr'
+            ||
+            $name === 'is_ltr_and_rtl'
+            ||
+            $name === 'ltr_and_rtl'
         ){
             return $this->_hasMixedDirection();
         } elseif(
-            in_array(
-                $name,
-                array(
-                    'lower_camel_case',
-                    'lcc',
-                    'cc'
-                )
-            )
+            $name === 'lower_camel_case'
+            ||
+            $name === 'lcc'
+            ||
+            $name === 'cc'
         ){
             return $this->camelCase();
         } elseif(
-            in_array(
-                $name,
-                array(
-                    'upper_camel_case',
-                    'ucc'
-                )
-            )
+            $name === 'upper_camel_case'
+            ||
+            $name === 'ucc'
         ){
             return $this->camelCase(true);
         } elseif(
-            in_array(
-                $name,
-                array(
-                    'swap_case',
-                    'swapcase',
-                    'swap'
-                )
-            )
+            $name === 'swap_case'
+            ||
+            $name === 'swapcase'
+            ||
+            $name === 'swap'
         ){
             return $this->_swapCase();
         } elseif(
-            in_array(
-                $name,
-                array(
-                    'left_justify',
-                    'left_align',
-                    'ljust'
-                )
-            )
+            $name === 'left_justify'
+            ||
+            $name === 'left_align'
+            ||
+            $name === 'ljust'
         ){
             return $this->left();
         } elseif(
-            in_array(
-                $name,
-                array(
-                    'right_justify',
-                    'right_align',
-                    'rjust'
-                )
-            )
+            $name === 'right_justify'
+            ||
+            $name === 'right_align'
+            ||
+            $name === 'rjust'
         ){
             return $this->right();
-        } elseif ($name == 'just') {
+        } elseif ($name === 'just') {
             return $this->justify();
         }
 
@@ -485,6 +507,7 @@ class S extends O implements \Countable, \IteratorAggregate
         }
 
         $this->value = (string) $str;
+        $this->count();
     }
 
     /**
@@ -2091,7 +2114,7 @@ class S extends O implements \Countable, \IteratorAggregate
     {
         if (!$this->_isVoid()) {
             $first_char = $this->_first()->_upper();
-            $other_chars = $this->sub(1, $this->length->value);
+            $other_chars = $this->sub(1, $this->int_count);
 
             return self::concat($first_char, $other_chars);
         }
@@ -2169,7 +2192,11 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     public function count()
     {
-        return $this->_length()->int;
+        if(is_null($this->int_count)){
+            $this->int_count = mb_strlen($this->value, C::ENCODING);
+        }
+
+        return $this->int_count;
     }
 
     /**
