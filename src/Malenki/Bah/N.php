@@ -82,70 +82,116 @@ class N extends O
     public function __get($name)
     {
         if (
-            in_array(
-                $name, 
-                array(
-                    'hex',
-                    'oct',
-                    'bin',
-                    'h', 
-                    'o', 
-                    'b', 
-                    'n', 
-                    'p', 
-                    'incr', 
-                    'decr', 
-                    'negative', 
-                    'zero', 
-                    'sign', 
-                    'prime', 
-                    'divisors', 
-                    'positive', 
-                    'roman',
-                    'string',
-                    'str',
-                    'int',
-                    'integer', 
-                    'float',
-                    'double',
-                    'decimal',
-                    'even',
-                    'odd',
-                    'abs',
-                    'absolute', 
-                    'opposite', 
-                    'square', 
-                    'cube',
-                    'ln',
-                    'sqrt',
-                    'fact',
-                    'factorial',
-                    'triangular', 
-                    'inverse',
-                    'ceil', 
-                    'floor', 
-                    'cos', 
-                    'sin', 
-                    'tan', 
-                    'cosh',
-                    'sinh', 
-                    'tanh', 
-                    'acos', 
-                    'asin',
-                    'atan',
-                    'acosh',
-                    'asinh',
-                    'atanh',
-                    'arabic'
-                )
-            )
+            $name === 'hex'
+            ||
+            $name === 'oct'
+            ||
+            $name === 'bin'
+            ||
+            $name === 'h' 
+            ||
+            $name === 'o' 
+            ||
+            $name === 'b' 
+            ||
+            $name === 'n' 
+            ||
+            $name === 'p' 
+            ||
+            $name === 'incr' 
+            ||
+            $name === 'decr' 
+            ||
+            $name === 'negative' 
+            ||
+            $name === 'zero' 
+            ||
+            $name === 'sign' 
+            ||
+            $name === 'prime' 
+            ||
+            $name === 'divisors' 
+            ||
+            $name === 'positive' 
+            ||
+            $name === 'roman'
+            ||
+            $name === 'string'
+            ||
+            $name === 'str'
+            ||
+            $name === 'int'
+            ||
+            $name === 'integer' 
+            ||
+            $name === 'float'
+            ||
+            $name === 'double'
+            ||
+            $name === 'decimal'
+            ||
+            $name === 'even'
+            ||
+            $name === 'odd'
+            ||
+            $name === 'abs'
+            ||
+            $name === 'absolute' 
+            ||
+            $name === 'opposite' 
+            ||
+            $name === 'square' 
+            ||
+            $name === 'cube'
+            ||
+            $name === 'ln'
+            ||
+            $name === 'sqrt'
+            ||
+            $name === 'fact'
+            ||
+            $name === 'factorial'
+            ||
+            $name === 'triangular' 
+            ||
+            $name === 'inverse'
+            ||
+            $name === 'ceil' 
+            ||
+            $name === 'floor' 
+            ||
+            $name === 'cos' 
+            ||
+            $name === 'sin' 
+            ||
+            $name === 'tan' 
+            ||
+            $name === 'cosh'
+            ||
+            $name === 'sinh' 
+            ||
+            $name === 'tanh' 
+            ||
+            $name === 'acos' 
+            ||
+            $name === 'asin'
+            ||
+            $name === 'atan'
+            ||
+            $name === 'acosh'
+            ||
+            $name === 'asinh'
+            ||
+            $name === 'atanh'
+            ||
+            $name === 'arabic'
         ) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
-        } elseif($name == 'to_s'){
+        } elseif($name === 'to_s'){
             return new S((string) $this->value);
-        } elseif($name == 'to_c'){
+        } elseif($name === 'to_c'){
             if(
                 $this->value < 0 
                 ||
@@ -159,30 +205,41 @@ class N extends O
                 );
             }
             return new C($this->value);
-        } elseif(in_array($name, array('nan', 'is_nan', 'is_not_a_number'))){
+        } elseif(
+            $name === 'nan'
+            ||
+            $name === 'is_nan'
+            ||
+            $name === 'is_not_a_number'
+        ){
             return is_nan($this->value);
-        } elseif(in_array($name, array('finite', 'is_finite'))){
+        } elseif($name === 'finite' || $name === 'is_finite'){
             return is_finite($this->value);
-        } elseif(in_array($name, array('infinite', 'is_infinite'))){
+        } elseif($name === 'infinite' || $name === 'is_infinite'){
             return is_infinite($this->value);
-        } elseif($name == 'exp' || $name == 'exponent'){
+        } elseif($name === 'exp' || $name === 'exponent'){
             return new static(exp($this->value));
-        } elseif (in_array($name, array('round', 'greek', 'hindi', 'chinese'))){
+        } elseif (
+            $name === 'round'
+            ||
+            $name === 'greek'
+            ||
+            $name === 'hindi'
+            ||
+            $name === 'chinese'
+        ){
             return $this->$name();
-        } elseif (in_array($name, array('mandarin', 'putonghua'))){
+        } elseif ($name === 'mandarin' || $name === 'putonghua'){
             return $this->chinese();
         } elseif (
-            in_array(
-                $name, 
-                array(
-                    'chinese_other_zero',
-                    'mandarin_other_zero',
-                    'putonghua_other_zero'
-                )
-            )
+            $name === 'chinese_other_zero'
+            ||
+            $name === 'mandarin_other_zero'
+            ||
+            $name === 'putonghua_other_zero'
         ) {
             return $this->chinese(true);
-        } elseif (in_array($name, array('perso_arabic', 'persian'))) {
+        } elseif ($name === 'perso_arabic' || $name === 'persian') {
             return $this->_arabic($name);
         }
 
