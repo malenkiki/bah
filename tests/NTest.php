@@ -434,6 +434,26 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('mcmlxxviii', $number1978->roman);
     }
 
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingRomanNumeralsUsingNegativeIntegerShouldFail()
+    {
+        $n = new N(-5);
+        $n->roman;
+    }
+
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingRomanNumeralsUsingFloatShouldFail()
+    {
+        $n = new N(M_PI);
+        $n->roman;
+    }
+
     public function testGettingHindiNumeralsUsingMethodShouldReturnSObject()
     {
         $n = new N(0);

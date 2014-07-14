@@ -740,6 +740,28 @@ class N extends O
         return new N($sign * (abs($this->value) - floor(abs($this->value))));
     }
 
+    /**
+     * Tests whether current number is odd. 
+     * 
+     * Tests whether current integer number is odd or not. If current number is 
+     * not an integer, then raises an `\RuntimeException`.
+     *
+     * This is used as runtime part of magic getter `S::$odd`.
+     *
+     * Example:
+     *
+     *     $n = new N(3);
+     *     $n->odd; // true
+     *     $n = new N(4);
+     *     $n->odd; // false
+     *     $n = new N(3.14);
+     *     $n->odd; // raises eception
+     *
+     * @see S::$odd The magic getter `S::$odd`
+     * $see S::_even() The opposite implementation for even number
+     * @return boolean
+     * @throws \RuntimeException If current number is not an integer
+     */
     protected function _odd()
     {
         if((abs($this->value) - floor(abs($this->value))) != 0){
@@ -751,6 +773,29 @@ class N extends O
         return (boolean) ($this->value & 1);
     }
 
+
+    /**
+     * Tests whether current number is even. 
+     * 
+     * Tests whether current integer number is even or not. If current number is 
+     * not an integer, then raises an `\RuntimeException`.
+     *
+     * This is used as runtime part of magic getter `S::$even`.
+     *
+     * Example:
+     *
+     *     $n = new N(4);
+     *     $n->even; // true
+     *     $n = new N(5);
+     *     $n->even; // false
+     *     $n = new N(3.14);
+     *     $n->even; // raises eception
+     *
+     * @see S::$even The magic getter `S::$even`
+     * $see S::_odd() The opposite implementation for odd number
+     * @return boolean
+     * @throws \RuntimeException If current number is not an integer
+     */
     protected function _even()
     {
         return !$this->_odd();
@@ -802,11 +847,14 @@ class N extends O
     }
 
     /**
-     * Create new N having the sum of given argument with current number
+     * Adds current number to given argument.
      *
-     * @throw \InvalidArgumentException If argument is not N or numeric value.
-     * @param  mixed $number N or numeric value
+     * Create new `\Malenki\Bah\N` having the sum of given argument with 
+     * current number
+     *
+     * @param  mixed $number Numeric-like value
      * @return N
+     * @throws \InvalidArgumentException If argument is not N or numeric value.
      */
     public function plus($number)
     {
@@ -818,11 +866,14 @@ class N extends O
     }
 
     /**
-     * Creates new N having the substraction of given argument with current number
+     * Substract current number with other.
      *
-     * @throw \InvalidArgumentException If argument is not N or numeric value.
+     * Creates new `\Malenki\Bah\N` having the substraction of given argument 
+     * with current number
+     *
      * @param  mixed $number N or numeric value
      * @return N
+     * @throws \InvalidArgumentException If argument is not N or numeric value.
      */
     public function minus($number)
     {
@@ -870,10 +921,16 @@ class N extends O
         return new self($this->value / $number);
     }
 
+    /**
+     * convert current number to roman number. 
+     * 
+     * @return S
+     * @throws \RuntimeException If current number is not an positive integer.
+     */
     protected function _roman()
     {
         if(!$this->_decimal()->zero || $this->value < 0){
-            throw new \InvalidArgumentException(
+            throw new \RuntimeException(
                 'Converting into roman numerals uses only positive integers.'
             );
         }
