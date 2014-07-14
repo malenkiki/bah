@@ -61,51 +61,65 @@ namespace Malenki\Bah;
 class A extends O implements \Countable, \IteratorAggregate
 {
     protected $count = 0;
-    protected $position = null;
+    protected $position = 0;
 
     public function __get($name)
     {
 
-        if ($name == 'index') {
+        if ($name === 'index') {
             return $this->key();
-        } elseif ($name == 'random') {
+        } elseif ($name === 'random') {
             return $this->random(1);
-        } elseif ($name == 'last_but_one') {
+        } elseif ($name === 'last_but_one') {
             return $this->_lastButOne();
-        } elseif (in_array($name, array('implode', 'join'))) {
+        } elseif ($name === 'implode' || $name === 'join') {
             return $this->implode();
         } elseif (
-            in_array(
-                $name, 
-                array('current', 'key', 'next', 'rewind', 'valid')
-            )
+            $name === 'current' 
+            ||
+            $name === 'key'
+            ||
+            $name === 'next'
+            ||
+            $name === 'rewind'
+            ||
+            $name === 'valid'
         ) {
             return $this->$name();
         } elseif (in_array($name, array('min', 'max'))) {
             return $this->_maxOrMin($name);
         } elseif (
-            in_array(
-                $name,
-                array(
-                    'array', 
-                    'arr', 
-                    'length', 
-                    'last', 
-                    'first', 
-                    'shift', 
-                    'pop', 
-                    'shuffle', 
-                    'reverse', 
-                    'sort', 
-                    'unique'
-                )
-            )
+            $name === 'array' 
+            ||
+            $name === 'arr' 
+            ||
+            $name === 'length'
+            ||
+            $name === 'last'
+            ||
+            $name === 'first'
+            ||
+            $name === 'shift'
+            ||
+            $name === 'pop'
+            ||
+            $name === 'shuffle'
+            ||
+            $name === 'reverse' 
+            ||
+            $name === 'sort'
+            ||
+            $name === 'unique'
         ) {
             $str_method = '_' . $name;
 
             return $this->$str_method();
         } elseif(
-            in_array($name, array('is_first', 'is_last', 'is_last_but_one'))
+            $name === 'is_first'
+            ||
+            $name === 'is_last'
+            ||
+            $name === 'is_last_but_one'
         ){
             $m = '_is' . implode(
                 array_map(
@@ -146,7 +160,6 @@ class A extends O implements \Countable, \IteratorAggregate
 
         $this->value = $arr;
         $this->count = count($arr);
-        $this->position = new N(0);
     }
 
     public function getIterator()
@@ -156,28 +169,28 @@ class A extends O implements \Countable, \IteratorAggregate
 
     public function current()
     {
-        return $this->value[$this->position->value];
+        return $this->value[$this->position];
     }
     public function key()
     {
-        return $this->position;
+        return new N($this->position);
     }
     public function next()
     {
-        $this->position->incr;
+        $this->position++;
 
         return $this;
     }
     public function rewind()
     {
-        $this->position->value = 0;
+        $this->position = 0;
 
         return $this;
     }
 
     public function valid()
     {
-        return isset($this->value[$this->position->value]);
+        return isset($this->value[$this->position]);
     }
 
     protected function _length()

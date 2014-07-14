@@ -1487,15 +1487,6 @@ class S extends O implements \Countable, \IteratorAggregate
                 '-'
             )
         );
-        /*
-        return $this->strip()
-            ->lower
-            ->replace('/[\s]+/', '-')
-            ->replace('/[^\p{Ll}\p{Lu}0-9-]/u', '-')
-            ->replace('/-+/', '-')
-            ->strip('-')
-            ;
-         */
     }
 
     /**
@@ -1533,6 +1524,7 @@ class S extends O implements \Countable, \IteratorAggregate
     public function camelCase($is_upper = false)
     {
         $func = function (&$v, $k, $is_upper) {
+            $v = new S($v);
             $c = $v->chunk;
             if ($is_upper || $k != 0) {
                 $first = $c->key_0->upper;
@@ -1545,15 +1537,28 @@ class S extends O implements \Countable, \IteratorAggregate
             $v = $c->join;
         };
 
-        return $this->strip()
-            ->replace('/[\s]+/', '_')
-            ->replace('/[^\p{Ll}\p{Lu}0-9_]/u', '_')
-            ->replace('/_+/', '_')
-            ->strip('_')
-            ->split('/_/')
-            ->walk($func, $is_upper)
-            ->join
-            ;
+        $a = new A(
+            explode(
+                '_',
+                trim(
+                    preg_replace(
+                        '/_+/',
+                        '_',
+                        preg_replace(
+                            '/[^\p{Ll}\p{Lu}0-9_]/u',
+                            '_',
+                            preg_replace(
+                                '/[\s]+/u',
+                                '_',
+                                trim($this->value)
+                            )
+                        )
+                    ),
+                    '_'
+                )
+            )
+        );
+        return $a->walk($func, $is_upper)->join;
     }
 
     /**
@@ -1678,14 +1683,13 @@ class S extends O implements \Countable, \IteratorAggregate
         $length = mb_strlen($needle, C::ENCODING);
         $offset = 0;
 
-        $a = new A();
+        $a = array();
 
-        $cnt = count($this);
-        while ($offset < $cnt) {
+        while ($offset < $this->int_count) {
             $pos = mb_strpos($this->value, $needle, $offset, C::ENCODING);
 
             if ($pos !== false) {
-                $a->add(new N($pos));
+                $a[] = new N($pos);
             } else {
                 break;
             }
@@ -1693,7 +1697,7 @@ class S extends O implements \Countable, \IteratorAggregate
             $offset = $pos + $length;
         }
 
-        return $a;
+        return new A($a);
     }
 
     /**
@@ -1866,7 +1870,7 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     protected function _last()
     {
-        return $this->sub($this->_length()->value - 1, 1);
+        return $this->sub($this->int_count - 1, 1);
     }
 
     /**
@@ -2026,10 +2030,9 @@ class S extends O implements \Countable, \IteratorAggregate
         } elseif(is_array($sep)){
             $arrs = $sep;
         } elseif($sep instanceof S){
-            $arrs = $sep->chunk->array;
+            $arrs = preg_split('//ui', $sep->string);
         } elseif(is_scalar($sep)){
-            $sep = new S((string) $sep);
-            $arrs = $sep->chunk->array;
+            $arrs = preg_split('//ui', $sep);
         } else {
             throw \InvalidArgumentException(
                 'Given seperator has not good type.'
@@ -2251,7 +2254,7 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     protected function _isVoid()
     {
-        return mb_strlen($this->value, C::ENCODING) == 0;
+        return $this->int_count == 0;
     }
 
     /**
@@ -2890,22 +2893,22 @@ class S extends O implements \Countable, \IteratorAggregate
                 $s .= $a->current->$last_line($width, $cut);
             } else {
                 $line = $a->current->strip;
-                $diff = new N($width - count($line));
+                $diff = $width - count($line);
                 $words = $line->split('/\s/u');
-                $nb_spaces = count($words) - 1 + $diff->int;
-                $div = new N($nb_spaces / (count($words) - 1));
-                $div_floor = $div->floor->int;
+                $nb_spaces = count($words) - 1 + $diff;
+                $div = (double) $nb_spaces / (count($words) - 1);
+                $div_floor = (int) floor($div);
 
-                $missing = new N((count($words) - 1) * ($div->double - $div_floor));
+                $missing = (count($words) - 1) * ($div - $div_floor);
                 $sp_pad = $sp->times($div_floor);
 
                 while ($words->valid()) {
                     if (!$words->is_last && count($sp_pad)) {
                         $s .= $words->current->append($sp_pad);
 
-                        if ($missing->test('> 0')) {
+                        if ($missing > 0) {
                             $s .= $sp;
-                            $missing->decr;
+                            $missing--;
                         }
                     } else {
                         $s .= $words->current;

@@ -733,7 +733,7 @@ class N extends O
     {
         $sign = 1;
 
-        if ($this->_negative()) {
+        if ($this->value < 0) {
             $sign = -1;
         }
 
@@ -742,9 +742,9 @@ class N extends O
 
     protected function _odd()
     {
-        if (!$this->_decimal()->_zero()) {
+        if((abs($this->value) - floor(abs($this->value))) != 0){
             throw new \RuntimeException(
-                'Testing if number is odd only if it is an integer!'
+                'Testing if number is odd or even only if it is an integer!'
             );
         }
 
@@ -753,12 +753,6 @@ class N extends O
 
     protected function _even()
     {
-        if (!$this->_decimal()->_zero()) {
-            throw new \RuntimeException(
-                'Testing if number is even only if it is an integer!'
-            );
-        }
-
         return !$this->_odd();
     }
 
