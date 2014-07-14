@@ -80,10 +80,7 @@ $s = new S('C’est du français ! C’est tout ce que j\'ai à dire.');
 echo $s->title->n->n;
 echo $s->ucw->n->n;
 echo $s->ucf->n->n;
-die();
 
-$fr = new S('tagada tsointsoin !');
-var_dump( $fr->pos('tsoin')->array);die();
 
 $pi = new N(M_PI);
 
