@@ -1444,15 +1444,6 @@ class S extends O implements \Countable, \IteratorAggregate
                 '_'
             )
         );
-        /*
-        return $this->strip()
-            ->lower
-            ->replace('/[\s]+/', '_')
-            ->replace('/[^\p{Ll}\p{Lu}0-9_]/u', '_')
-            ->replace('/_+/', '_')
-            ->strip('_')
-            ;
-         */
     }
 
 
@@ -1478,6 +1469,25 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     protected function _dash()
     {
+        return new self(
+            trim(
+                preg_replace(
+                    '/-+/',
+                    '-',
+                    preg_replace(
+                        '/[^\p{Ll}\p{Lu}0-9-]/u',
+                        '-',
+                        preg_replace(
+                            '/[\s]+/u',
+                            '-',
+                            mb_strtolower(trim($this->value), C::ENCODING)
+                        )
+                    )
+                ),
+                '-'
+            )
+        );
+        /*
         return $this->strip()
             ->lower
             ->replace('/[\s]+/', '-')
@@ -1485,6 +1495,7 @@ class S extends O implements \Countable, \IteratorAggregate
             ->replace('/-+/', '-')
             ->strip('-')
             ;
+         */
     }
 
     /**
