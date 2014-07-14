@@ -3362,6 +3362,11 @@ class S extends O implements \Countable, \IteratorAggregate
      * This method compute the MD5 sum of its internal value and returns the 
      * result as a `\Malenki\Bah\S` object.
      *
+     * Example:
+     *
+     *     $s = new S('Hello!');
+     *     print($s->md5); // '952d2c56d0485958336747bcdd98590d'
+     *
      * @see http://php.net/manual/en/function.md5.php Orignal md5() PHP function
      * @see S::$md5 Defines the magic getter `S::$md5`
      * @return S
@@ -3377,6 +3382,11 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * This method compute the SHA1 sum of its internal value and returns the 
      * result as a `\Malenki\Bah\S` object.
+     *
+     * Example:
+     *
+     *     $s = new S('Hello!');
+     *     print($s->sha1); // '69342c5c39e5ae5f0077aecc32c0f81811fb8193'
      *
      * @see http://php.net/manual/en/function.sha1.php Orignal sha1() PHP function
      * @see S::$sha1 Defines the magic getter `S::$sha1`
