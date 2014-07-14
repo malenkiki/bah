@@ -153,12 +153,6 @@ class CTest extends PHPUnit_Framework_TestCase
      */
     public function testTransFeatureShouldReturnSObject()
     {
-        /*
-        if(version_compare(PHP_VERSION, '5.4.0', '<')){
-            $this->markTestSkipped('Cannot test this feature on PHP prior 5.4.0');
-        }
-         */
-
         $greek = new C('λ');
         $this->assertInstanceOf('\Malenki\Bah\S', $greek->trans);
     }
@@ -169,12 +163,6 @@ class CTest extends PHPUnit_Framework_TestCase
      */
     public function testTransFeatureShouldSuccess()
     {
-        /*
-        if(version_compare(PHP_VERSION, '5.4.0', '<')){
-            $this->markTestSkipped('Cannot test this feature on PHP prior 5.4.0');
-        }
-         */
-
         $greek = new S('λ');
         $this->assertEquals('l', $greek->trans);
     }

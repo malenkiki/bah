@@ -469,7 +469,9 @@ class C extends O
     protected function _trans()
     {
         if (!extension_loaded('intl')) {
-            throw new \RuntimeException('Missing Intl extension. This is required to use ' . __CLASS__ . '::trans');
+            throw new \RuntimeException(
+                'Missing Intl extension. This is required to use ' . __CLASS__ . '::trans'
+            );
         }
 
         if(!function_exists('\transliterator_transliterate')){
@@ -607,20 +609,32 @@ class C extends O
         return !($this->_isLowerCase() && $this->_isUpperCase());
     }
 
+    /**
+     * Gets unicode block’s name
+     *
+     * Returns unicode block’s name of current characters as a `\Malenki\Bah\S` 
+     * object.
+     *
+     * Example:
+     *
+     *     $c = new C('a');
+     *     $c->block; // 'Basic Latin'
+     * 
+     * This methods is the runtime part of magic getter `\Malenki\Bah\C::$block`
+     *
+     * @see C::$block The magic getter `C::$block`
+     * @see C::$family To get all chars of current block 
+     * @return S
+     * @throws \Exception If current character is not into unicode block
+     */
     protected function _block()
     {
         $int_code = $this->_unicode()->value;
-        $out = null;
 
         foreach (self::$arr_blocks as $b) {
             if ($int_code >= $b['start'] && $int_code <= $b['end']) {
-                $out = new S($b['name']);
-                break;
+                return new S($b['name']);
             }
-        }
-
-        if ($out) {
-            return $out;
         }
 
         throw new \Exception('Invalid character, it is unavailable in any unicode block.');
@@ -630,12 +644,26 @@ class C extends O
     /**
      * For current character, gets all characters of its unicode block. 
      * 
+     * All characters of the same block of current character are returned into 
+     * an `\Malenki\Bah\A` collection of `\Malenki\Bah\C` objects.
      *
+     * Example:
+     *
+     *     $c = new \Malenki\Bah\C(new N(0x2191));
+     *     echo $c->family->join(',');
+     *     // print '←,↑,→,↓,↔,↕,↖,↗,↘,↙,↚,↛,↜,↝,↞,↟,↠,↡,↢,↣,↤,↥,↦,↧,↨,↩,↪,↫,
+     *     // ↬,↭,↮,↯,↰,↱,↲,↳,↴,↵,↶,↷,↸,↹,↺,↻,↼,↽,↾,↿,⇀,⇁,⇂,⇃,⇄,⇅,⇆,⇇,⇈,⇉,⇊,⇋,
+     *     //⇌,⇍,⇎,⇏,⇐,⇑,⇒,⇓,⇔,⇕,⇖,⇗,⇘,⇙,⇚,⇛,⇜,⇝,⇞,⇟,⇠,⇡,⇢,⇣,⇤
+     *
+     * This methods is the runtime part of magic getter `\Malenki\Bah\C::$family`
+     *
+     * @see C::$family The magic getter `C::$family`
+     * @see C::$block To get block’s name
      * @return A
+     * @throws \Exception If current character is not into unicode block
      */
     protected function _family()
     {
-        // TODO write UT for it!!!
         $arr = array();
         $int_code = $this->_unicode()->value;
 
@@ -645,13 +673,6 @@ class C extends O
 
                 foreach ($arr as $k => $v) {
                     $arr[$k] = new self(new N($v));
-                    /*
-                    if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
-                        $arr[$k] = new self(html_entity_decode('&#'.$v.';', ENT_XML1, 'UTF-8'));
-                    } else {
-                        $arr[$k] = new self(html_entity_decode('&#'.$v.';', ENT_COMPAT | ENT_HTML401, 'UTF-8'));
-                    }
-                     */
                 }
 
                 break;

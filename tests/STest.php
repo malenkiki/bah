@@ -1284,12 +1284,6 @@ class STest extends PHPUnit_Framework_TestCase
      */
     public function testTransFeatureShouldReturnSObject()
     {
-        /*
-        if(version_compare(PHP_VERSION, '5.4.0', '<')){
-            $this->markTestSkipped('Cannot test this feature on PHP prior 5.4.0');
-        }
-         */
-
         $greek = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
         $this->assertInstanceOf('\Malenki\Bah\S', $greek->trans);
     }
@@ -1300,12 +1294,6 @@ class STest extends PHPUnit_Framework_TestCase
      */
     public function testTransFeatureShouldSuccess()
     {
-        /*
-        if(version_compare(PHP_VERSION, '5.4.0', '<')){
-            $this->markTestSkipped('Cannot test this feature on PHP prior 5.4.0');
-        }
-         */
-
         $greek = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
         $this->assertEquals(
             'Ta ellenika sou einai kalytera apo ta Gallika mou!',
