@@ -295,11 +295,15 @@ class N extends O
     protected function _incr()
     {
         $this->value++;
+
+        return $this;
     }
 
     protected function _decr()
     {
         $this->value--;
+
+        return $this;
     }
 
     protected function _n()
@@ -591,22 +595,64 @@ class N extends O
         return $this->root(2);
     }
 
+    /**
+     * Computes the factorial of current number.
+     *
+     * Computes the factorial of current number, the product form 1 to current 
+     * integer number.
+     *
+     *     $n = new N(1);
+     *     echo $n->factorial; // 1
+     *     echo $n->incr->factorial; // 2
+     *     echo $n->incr->factorial; // 6
+     *     echo $n->incr->factorial; // 24
+     *     echo $n->incr->factorial; // 120
+     *     echo $n->incr->factorial; // 720
+     * 
+     * This method is the runtime part of magic getter `\Malenki\Bah\N::$factorial`;
+     *
+     * @see S::$factorial The magic getter `S::$factorial`
+     * @see S::$fact Magic getter alias `S::$fact`
+     * @return N
+     * @throws \RuntimeException If current number is negative or is not an 
+     * integer.
+     */
     protected function _factorial()
     {
-        if ($this->_zero()) {
+        if ($this->value == 0) {
             return new N(1);
         }
 
         if ($this->value < 0) {
-            throw new \RuntimeException('Cannot get factorial of negative number!');
+            throw new \RuntimeException(
+                'Cannot get factorial of negative number!'
+            );
         }
 
         if (!$this->_decimal()->zero) {
-            throw new \RuntimeException('Cannot get factorial of non integer!');
+            throw new \RuntimeException(
+                'Cannot get factorial of non integer!'
+            );
         }
 
         return new N(array_product(range(1, $this->value)));
     }
+
+    /**
+     * Get factorial number (Alias). 
+     * 
+     * @see S::$factorial The magic getter `S::$factorial` (original)
+     * @see S::$fact Magic getter alias `S::$fact`
+     * @see S::_factorial() Original method
+     * @return N
+     * @throws \RuntimeException If current number is negative or is not an 
+     * integer.
+     */
+    protected function _fact()
+    {
+        return $this->_factorial();
+    }
+
 
     protected function _triangular()
     {
@@ -623,11 +669,6 @@ class N extends O
         }
 
         return new N(($this->value * ($this->value + 1)) / 2);
-    }
-
-    protected function _fact()
-    {
-        return $this->_factorial();
     }
 
     protected function _sign()
@@ -922,8 +963,17 @@ class N extends O
     }
 
     /**
-     * convert current number to roman number. 
+     * Converts current number to roman number. 
      * 
+     * This converts current positive integer to roman numerals, returning 
+     * `\Malenki\Bah\S` object.
+     *
+     * Example:
+     *
+     *     $n = new N(1979);
+     *     echo $n->roman; // 'mcmlxxix'
+     *     echo $n->roman->upper; // 'MCMLXXIX'
+     *
      * @return S
      * @throws \RuntimeException If current number is not an positive integer.
      */

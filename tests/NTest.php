@@ -107,6 +107,37 @@ class NTest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testIncrementNumberShouldReturnNObject()
+    {
+        $n = new N(3);
+
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->incr);
+    }
+
+    public function testIncrementNumberShouldChangeOriginalValue()
+    {
+        $n = new N(3);
+        $n->incr;
+        $this->assertEquals(4, $n->int);
+        $this->assertEquals(5, $n->incr->int);
+    }
+
+    public function testDecrementNumberShouldReturnNObject()
+    {
+        $n = new N(3);
+
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->decr);
+    }
+
+    public function testDecrementNumberShouldChangeOriginalValue()
+    {
+        $n = new N(3);
+        $n->decr;
+        $this->assertEquals(2, $n->int);
+        $this->assertEquals(1, $n->decr->int);
+    }
+
+
     public function testDivisioniUsingPrimitivePHPTypeShouldReturnNObject()
     {
         $six = new N(6);
