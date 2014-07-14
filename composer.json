@@ -25,6 +25,7 @@
         }
     },
     "require-dev": {
-        "phpdocumentor/phpdocumentor": "2.6.1"
+        "phpdocumentor/phpdocumentor": "2.6.1",
+        "phpunit/phpunit": "4.1.3"
     }
 }
