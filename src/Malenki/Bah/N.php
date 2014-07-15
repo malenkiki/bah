@@ -1473,11 +1473,6 @@ class N extends O
         return $this->_bin();
     }
 
-    protected function _s()
-    {
-        return new S($this->__toString());
-    }
-
     public function base($n)
     {
         if(!$this->_decimal()->zero) {
