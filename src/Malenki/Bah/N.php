@@ -460,6 +460,25 @@ class N extends O
         return new N(1 / $this->value);
     }
 
+    /**
+     * Computes modulo of current number 
+     * 
+     * Computes modulo of current number using given number as divisor. Unlike 
+     * `mod()` function, this can use integer or float value, into primitive 
+     * PHP type or into `\Malenki\Bah\N` object.
+     *
+     * Example:
+     *
+     *     $n = new N(2001);
+     *     echo $n->mod(5); // '1';
+     *     echo $n->mod(3); // '0'
+     *
+     * @param int|float|double|N $mod Divisor as an integer/float/double-like 
+     * value
+     * @return N
+     * @throws \InvalidArgumentException If given number is not valid type
+     * @throws \InvalidArgumentException If given number is zero
+     */
     public function mod($mod)
     {
         self::mustBeNumeric($mod, 'Divisor');
@@ -469,7 +488,7 @@ class N extends O
         }
 
         if ($mod == 0) {
-            throw new \RuntimeException('Cannot divide by 0!');
+            throw new \InvalidArgumentException('Cannot divide by 0!');
         }
 
         return new N(fmod($this->value, $mod));
