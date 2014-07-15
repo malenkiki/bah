@@ -1333,7 +1333,7 @@ class N extends O
 
 
     /**
-     * Convert to arabian string number (equiv of roman)
+     * Convert to arabic string number (equiv of roman)
      *
      * @todo to implement
      * @return S
@@ -1352,6 +1352,20 @@ class N extends O
     {
     }
 
+
+    /**
+     * Converts to hexadecimal number.
+     *
+     * Returns current integer number converted to hexadecimal as 
+     * `\Malenki\Bah\S` object.
+     *
+     * This is runtime part of its associated magic getter.
+     * 
+     * @see N::$hex Magic getter `N::$hex`
+     * @see N::_h() Alias
+     * @return S
+     * @throws \RuntimeException If current number is not an integer.
+     */
     protected function _hex()
     {
         if(!$this->_decimal()->zero) {
@@ -1363,6 +1377,19 @@ class N extends O
         return new S(dechex($this->value));
     }
 
+    /**
+     * Converts to octal number.
+     *
+     * Returns current integer number converted to octal as `\Malenki\Bah\S` 
+     * object.
+     *
+     * This is runtime part of its associated magic getter.
+     * 
+     * @see N::$oct Magic getter `N::$oct`
+     * @see N::_o() Alias
+     * @return S
+     * @throws \RuntimeException If current number is not an integer.
+     */
     protected function _oct()
     {
         if(!$this->_decimal()->zero) {
@@ -1374,6 +1401,20 @@ class N extends O
         return new S(decoct($this->value));
     }
 
+
+    /**
+     * Converts to binary number.
+     *
+     * Returns current integer number converted to binary as `\Malenki\Bah\S` 
+     * object.
+     *
+     * This is runtime part of its associated magic getter.
+     * 
+     * @see N::$bin Magic getter `N::$bin`
+     * @see N::_b() Alias
+     * @return S
+     * @throws \RuntimeException If current number is not an integer.
+     */
     protected function _bin()
     {
         if(!$this->_decimal()->zero) {
@@ -1385,16 +1426,48 @@ class N extends O
         return new S(decbin($this->value));
     }
 
+    /**
+     * Converts to hexadecial number (Alias).
+     *
+     * This is runtime part of its associated magic getter.
+     *
+     * @see N::$h Magic getter `N::$h`
+     * @see N::_hex() Original runtime
+     * @return S
+     * @throws \RuntimeException If current number is not an integer.
+     */
     protected function _h()
     {
         return $this->_hex();
     }
 
+
+    /**
+     * Converts to octal number (Alias).
+     *
+     * This is runtime part of its associated magic getter.
+     *
+     * @see N::$o Magic getter `N::$o`
+     * @see N::_oct() Original runtime
+     * @return S
+     * @throws \RuntimeException If current number is not an integer.
+     */
     protected function _o()
     {
         return $this->_oct();
     }
 
+
+    /**
+     * Converts to binary number (Alias)
+     *
+     * This is runtime part of its associated magic getter.
+     *
+     * @see N::$b Magic getter `N::$b`
+     * @see N::_bin() Original runtime
+     * @return S
+     * @throws \RuntimeException If current number is not an integer.
+     */
     protected function _b()
     {
         return $this->_bin();
