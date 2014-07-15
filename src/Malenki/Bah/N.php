@@ -34,7 +34,6 @@ namespace Malenki\Bah;
  * @property-read $h Shorthand for $hex
  * @property-read $o Shorthand for $o
  * @property-read $b Shorthand for $b
- * @property-read $s Get number as S class
  * @property-read $n
  * @property-read $p
  * @property-read $incr Get increment number
@@ -1359,6 +1358,11 @@ class N extends O
      * Returns current integer number converted to hexadecimal as 
      * `\Malenki\Bah\S` object.
      *
+     * Example:
+     *
+     *     $n = new N(2001);
+     *     echo $n->hex; // '7d1'
+     *
      * This is runtime part of its associated magic getter.
      * 
      * @see N::$hex Magic getter `N::$hex`
@@ -1382,6 +1386,11 @@ class N extends O
      *
      * Returns current integer number converted to octal as `\Malenki\Bah\S` 
      * object.
+     *
+     * Example:
+     *
+     *     $n = new N(2001);
+     *     echo $n->oct; // '3721'
      *
      * This is runtime part of its associated magic getter.
      * 
@@ -1408,6 +1417,11 @@ class N extends O
      * Returns current integer number converted to binary as `\Malenki\Bah\S` 
      * object.
      *
+     * Example:
+     *
+     *     $n = new N(2001);
+     *     echo $n->bin; // '11111010001'
+     *
      * This is runtime part of its associated magic getter.
      * 
      * @see N::$bin Magic getter `N::$bin`
@@ -1431,6 +1445,13 @@ class N extends O
      *
      * This is runtime part of its associated magic getter.
      *
+     * Example:
+     *
+     *     $n = new N(2001);
+     *     echo $n->h; // '7d1'
+     *     echo $n->hex; // '7d1'
+     *
+     *
      * @see N::$h Magic getter `N::$h`
      * @see N::_hex() Original runtime
      * @return S
@@ -1447,6 +1468,13 @@ class N extends O
      *
      * This is runtime part of its associated magic getter.
      *
+     * Example:
+     *
+     *     $n = new N(2001);
+     *     echo $n->o; // '3721'
+     *     echo $n->oct; // '3721'
+     *
+     *
      * @see N::$o Magic getter `N::$o`
      * @see N::_oct() Original runtime
      * @return S
@@ -1462,6 +1490,13 @@ class N extends O
      * Converts to binary number (Alias)
      *
      * This is runtime part of its associated magic getter.
+     *
+     * Example:
+     *
+     *     $n = new N(2001);
+     *     echo $n->b; // '11111010001'
+     *     echo $n->bin; // '11111010001'
+     *
      *
      * @see N::$b Magic getter `N::$b`
      * @see N::_bin() Original runtime
