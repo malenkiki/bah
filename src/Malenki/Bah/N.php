@@ -473,6 +473,7 @@ class N extends O
      *     echo $n->mod(5); // '1';
      *     echo $n->mod(3); // '0'
      *
+     * @see N::modulo() Alias method
      * @param int|float|double|N $mod Divisor as an integer/float/double-like 
      * value
      * @return N
@@ -494,11 +495,28 @@ class N extends O
         return new N(fmod($this->value, $mod));
     }
 
+
+    /**
+     * Computes modulo of current number (Alias) 
+     * 
+     *
+     * @see N::mod() Original method
+     * @param int|float|double|N $mod Divisor as an integer/float/double-like 
+     * value
+     * @return N
+     * @throws \InvalidArgumentException If given number is not valid type
+     * @throws \InvalidArgumentException If given number is zero
+     */
     public function modulo($mod)
     {
         return $this->mod($mod);
     }
 
+    /**
+     * Checks whether current number is prime number
+     * 
+     * @return boolean
+     */
     protected function _prime()
     {
         if ($this->value < 2) {
@@ -509,7 +527,6 @@ class N extends O
             return false;
         }
 
-        $ok = true;
         $max = floor(sqrt($this->value));
 
         for ($i = 2; $i <= $max; $i++) {
