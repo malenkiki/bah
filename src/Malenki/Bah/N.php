@@ -706,6 +706,25 @@ class N extends O
         return new N(($this->value * ($this->value + 1)) / 2);
     }
 
+    /**
+     * Gets sign value.
+     *
+     * Sign is get using `-1` for negative number, `0` for null number and `+1` 
+     * for positive number.
+     * 
+     * Example:
+     *
+     *     $n = new N(3.14);
+     *     echo $n->sign; //'1'
+     *
+     *     $n = new N(-4);
+     *     echo $n->sign; //'-1'
+     *
+     *     $n = new N(0);
+     *     echo $n->sign; //'0'
+     *
+     * @return N
+     */
     protected function _sign()
     {
         if ($this->value == 0) {
@@ -720,8 +739,20 @@ class N extends O
     /**
      * Checks if current number is equal to given argument.
      *
+     * This tests current number with given argument, an object or primitive 
+     * numeric value.
+     *
+     * Example:
+     *
+     *     $n = new N(5);
+     *     var_dump($n->eq(5)); // true
+     *     var_dump($n->eq(5.0)); // true
+     *     var_dump($n->eq(new N(5))); // true
+     *     var_dump($n->eq(new N(5.0))); // true
+     *
+     * @see N::eq() An alias
      * @throw \InvalidArgumentException If argument is not numeric or N class
-     * @param  mixed   $num N or numeric value.
+     * @param  numeric|N   $num N or numeric value.
      * @return boolean
      */
     public function equal($num)
@@ -735,11 +766,28 @@ class N extends O
         }
     }
 
+
+    /**
+     * Checks if current number is not equal to given argument.
+     *
+     * @throw \InvalidArgumentException If argument is not numeric or N class
+     * @param  numeric|N   $num N or numeric value.
+     * @return boolean
+     */
     public function notEqual($num)
     {
         return !$this->equal($num);
     }
 
+
+    /**
+     * Checks if current number is equal to given argument (Alias).
+     *
+     * @see N::equal() Original method
+     * @throw \InvalidArgumentException If argument is not numeric or N class
+     * @param  numeric|N   $num N or numeric value.
+     * @return boolean
+     */
     public function eq($num)
     {
         return $this->equal($num);
@@ -805,6 +853,19 @@ class N extends O
         return $this->round($precision, PHP_ROUND_HALF_ODD);
     }
 
+    /**
+     * Gets decimal part.
+     *
+     * Gets decimal part of current number .
+     * 
+     * Example:
+     *
+     *     $n = new N(3.14);
+     *     echo $n->decimal; // '0.14'
+     *
+     * @see N::$decimal The magic getter version `N::$decimal`
+     * @return N
+     */
     protected function _decimal()
     {
         $sign = 1;
