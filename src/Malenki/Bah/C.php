@@ -585,6 +585,22 @@ class C extends O
     /**
      * Tests whether current character is in upper case.
      *
+     * If current characters can be in lower or uppercase, then this tests if 
+     * current character is upper case.
+     *
+     * Example:
+     *
+     *     $c = new C('À');
+     *     var_dump($c->is_upper_case); // true
+     *     var_dump($c->is_upper); // true
+     *
+     *     $c = new C('à');
+     *     var_dump($c->is_upper_case); // false
+     *     var_dump($c->is_upper); // false
+     *
+     * @see C::$is_upper_case Magic getter version `C::$is_upper_case`
+     * @see C::isUpper() An alias
+     *
      * @return boolean
      */
     protected function _isUpperCase()
@@ -593,6 +609,30 @@ class C extends O
     }
 
 
+    protected function _isUpper()
+    {
+        return $this->_isUpperCase();
+    }
+
+
+    /**
+     * Tests if current character is from ASCII set or not. 
+     * 
+     * UTF-8 characters are compatible with ASCII characters. ASCII characters 
+     * are defined into the range `[0x0, 0x7F]`.
+     *
+     * Example:
+     *
+     *     $c = new C('a');
+     *     var_dump($c->is_ascii); // true
+     *
+     *     $c = new C('œ');
+     *     var_dump($c->is_ascii); // false
+     *
+     *
+     * @see C::$is_ascii The magic getter version `C::$is_ascii`
+     * @return boolean
+     */
     protected function _isAscii()
     {
         return (boolean) preg_match('/^([\x00-\x7F])*$/', $this->value);
