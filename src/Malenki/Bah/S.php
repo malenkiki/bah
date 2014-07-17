@@ -145,7 +145,63 @@ namespace Malenki\Bah;
  *
  * ## Getting parts
  *
+ * ### Getting character(s)
+ *
+ * You can get one or more characters using a method to take one character 
+ * using its position or by calling magic getters to have a collection of 
+ * characters.
+ *
+ * So, to get one characters, you have the choice within 3 brother methods:
+ *
+ *     $s = new S('azerty');
+ *     echo $s->take(1); // 'z'
+ *     // or
+ *     echo $s->charAt(1);
+ *     // or
+ *     echo $s->at(1);
+ *
+ * To get a collection of characters as `\malenki\Bah\A` object, use following 
+ * magic getter:
+ *
+ *     $s = new S('azerty');
+ *     $s->chars; // collection of characters a, z, e, r, t, and  y
+ *
+ *
+ * ### Getting substring(s)
+ *
+ * You have many ways to get substrings, you can explode the string, take range 
+ * of characters, take some part matching some regexp…
+ *
+ * #### Explode everything!
+ *
+ * You have two different ways to explode your string into simple manner.
+ *
+ *  - By using a given regexp as separator
+ *  - By cutting each N characters.
+ *
+ * So, for each way, you get a `\Malenki\Bah\A` object having many 
+ * `\Malenki\Bah\S` objects.
+ *
+ * Using a regular expression is easy, you have 3 brother methods to do that, 
+ * so, look this examples (using `join()` method of `\Malenki\Bah\A` returned 
+ * object as guest star):
+ *
+ *     $s = new S('1940-06-18 20:00:00');
+ *     echo $s->explode('/[\s:-]/')->join(', '); // '1940, 06, 18, 20, 00, 00'
+ *     // or
+ *     echo $s->split('/[\s:-]/')->join(', ');
+ *     // or
+ *     echo $s->cut('/[\s:-]/')->join(', ');
+ *
+ * To split the string each N characters, use this:
+ *
+ *     $s = new S('abcdefghijklmnopqrstuvwxyz');
+ *     $s->chunk(2)->join(','); // 'ab,cd,ef,gh,ij,kl,mn,op,qr,st,uv,wx,yz'
+ *
+ * #### Classical substring way…
+ *
  * Soon…
+ *
  *
  * ## Adding content to it
  *
@@ -213,8 +269,10 @@ namespace Malenki\Bah;
  * static method `S::concat()`. This method takes any number of arguments and 
  * returns `\Malenki\Bah\S` object.
  *
- * echo S::concat('Ceci est', new S(' une '), ' chaîne'); // print 'Ceci est une chaîne'
- * echo S::concat('Ceci est', new S(' une '), ' chaîne')->upper; // print 'CECI EST UNE CHAÎNE'
+ *     echo S::concat('Ceci est', new S(' une '), ' chaîne');
+ *     // print 'Ceci est une chaîne'
+ *     echo S::concat('Ceci est', new S(' une '), ' chaîne')->upper;
+ *     // print 'CECI EST UNE CHAÎNE'
  *
  * ## Changing some parts
  *
@@ -292,7 +350,7 @@ namespace Malenki\Bah;
  *
  * ## Looping
  *
- * You can use to different ways to get characters into loop:
+ * You can use two different ways to get characters into loop:
  *  - the fake `\Iterator` way
  *  - the `\IteratorAggregate` way
  *
