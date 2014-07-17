@@ -149,7 +149,72 @@ namespace Malenki\Bah;
  *
  * ## Adding content to it
  *
- * Soon…
+ * ### Prepend, append
+ *
+ * Prepending or appending piece of string is as simple as this:
+ *
+ *     $s = new S('World');
+ *     echo $s->prepend('Hello ')->append('!');
+ *     // or
+ *     echo $s->prepend(new S('Hello '))->append(new S('!'));
+ *                  
+ * You must get `Hello World!` as resulting string.
+ *
+ * ### Inserting string
+ *
+ * You can insert inside the string other string.
+ *
+ * To insert string, you must have the string or object having `__toString()` 
+ * method, and the position as integer (object or primitive type).
+ *
+ *     $s = new S('Hello!');
+ *     echo $s->insert(' World', 5); // print 'Hello World!'
+ *     // or
+ *     echo $s->insert(new S(' World'), 5);
+ *     // or
+ *     echo $s->insert(' World', new N(5));
+ *     // or
+ *     echo $s->insert(new S(' World'), new N(5));
+ *
+ * ### Repeat again and again…
+ *
+ * You can repeat the string how many times you wish. You have just to call `S::times()` method:
+ *
+ *     $s = new S('Hi!');
+ *     echo $s->append(' ')->times(3)->strip;
+ * 
+ * You should get `Hi! Hi! Hi!`. Note I used some other features to add/remove spaces too.       
+ *
+ * ### Adding new line
+ *
+ * You could add LF (`"\n"`) or CR (`"\r"`) or CRLF (`"\r\n"`) quickly using magic getters… `S::$n` and `S::$r` and orthers…
+ *
+ *     $s = new S('Something');
+ *     echo $s->n; // print "Something\n"
+ *     echo $s->r; // print "Something\r"
+ *     echo $s->r->n; // print "Something\r\n"
+ *     echo $s->rn; // print "Something\r\n"
+ *     echo $s->eol; // print "Something\n" if PHP_EOL is '\n'
+ *
+ * This shorthand can be called as method taking one boolean argument to place 
+ * new line character after (default, `true`) or before the string (`false`):
+ *
+ *     $s = new S('Something');
+ *     echo $s->n(); // print "Something\n"
+ *     echo $s->n(true); // print "Something\n"
+ *     echo $s->n(false); // print "\nSomething"
+ *     echo $s->r(); // print "Something\r"
+ *     echo $s->r(true); // print "Something\r"
+ *     echo $s->r(false); // print "\rSomething"
+ *
+ * ### Join several strings together
+ *
+ * To concatenate strings and/or objects having `__toString()` method, then use 
+ * static method `S::concat()`. This method takes any number of arguments and 
+ * returns `\Malenki\Bah\S` object.
+ *
+ * echo S::concat('Ceci est', new S(' une '), ' chaîne'); // print 'Ceci est une chaîne'
+ * echo S::concat('Ceci est', new S(' une '), ' chaîne')->upper; // print 'CECI EST UNE CHAÎNE'
  *
  * ## Changing some parts
  *
