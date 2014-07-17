@@ -27,6 +27,122 @@ namespace Malenki\Bah;
 /**
  * Play with Strings!
  *
+ * ## Checking
+ *
+ * ### Starts or ends with…
+ *
+ * You can check whether string start or end by given another string. This is 
+ * as simple as that following example:
+ *
+ *     $s = new S('Hello!');
+ *     var_dump($s->startsWith('He')); // true
+ *     var_dump($s->endsWith('yo!')); // false
+ * 
+ * ### Checking whether the string is void
+ *
+ * You can use either `S::$void` or `S::$empty` magic getters to check whether 
+ * the string is void or not. This returns `boolean`:
+ *
+ *     $s = new S('');
+ *     var_dump($s->void); // true
+ *     var_dump($s->empty); // true
+ *
+ *     $s = new S('foo');
+ *     var_dump($s->void); // false
+ *     var_dump($s->empty); // false
+ *
+ *     $s = new S('   ');
+ *     var_dump($s->void); // false
+ *     var_dump($s->empty); // false
+ * 
+ * ### LTR, RTL or both?
+ *
+ * Some language use other direction while writting words. For example, in 
+ * english, we write words form left to right (or LTR), and in arabic 
+ * languages, or in hebrew, we write words from right to left (or RTL).
+ *
+ * Sometimes, you can have text mixing both directions. So, `\Malenki\Bah\S` 
+ * class allow you to test directionality of the string using some magic 
+ * getters and their aliases, returning `boolean`.
+ *
+ * Let’s check whether the given string is LTR:
+ *
+ *     $s = new S('Ceci est du français tout à fait banal.');
+ *     var_dump($s->ltr);
+ *     var_dump($s->is_ltr);
+ *     var_dump($s->is_left_to_right);
+ *     var_dump($s->left_to_right)
+ *
+ * All previous lines into code sample will return `true`.
+ *
+ * Now, let’s check whether the given string is RTL or not:
+ *
+ *     $s = new S('أبجد');
+ *     var_dump($s->rtl);
+ *     var_dump($s->is_rtl);
+ *     var_dump($s->is_right_to_left);
+ *     var_dump($s->right_to_left);
+ * 
+ * Again, all lines will produce `true`.
+ *
+ * Now, let’s see how to check whether string has both directions:
+ *
+ *     $s = new S('Ceci est du français contenant le mot arabe أبجد qui veut dire "abjad".');
+ *     var_dump($s->has_mixed_direction);
+ *     var_dump($s->mixed_direction); 
+ *     var_dump($s->is_ltr_and_rtl); 
+ *     var_dump($s->ltr_and_rtl); 
+ *     var_dump($s->is_rtl_and_ltr); 
+ *     var_dump($s->rtl_and_ltr);
+ *
+ * All should be `true`!
+ *
+ * ## Getting informations
+ *
+ * ### Counts
+ *
+ * You can get counts of chars or of bytes contained into the string using 3 ways:
+ *
+ *  - the `count()` function (`\Malenki\Bah\S` implements `\Countable` 
+ *  interface), returns __number of characters__ as __primitive integer__ value
+ *  - the `S::$length` magic getter, returns number of characters as 
+ *  `\Malenki\Bah\N` object
+ *  - the `S::$bytes` magic getter returns an `\Malenki\Bah\A` object, so you 
+ *  can get number of bytes using length magic getter call or this object or 
+ *  calling `count()` with this object as argument.
+ *
+ * Now, a little example:
+ *
+ *     $s = new S('Je suis écrit en français.');
+ *     // using count() function
+ *     var_dump(count($s->bytes));
+ *     var_dump(count($s));
+ *     //using objects
+ *     var_dump($s->bytes->length);
+ *     var_dump($s->length);
+ * 
+ * This previous code sample should produce following output:
+ *
+ *     int(28)
+ *     int(26)
+ *     class Malenki\Bah\N#35 (1) {
+ *       public $value =>
+ *         int(28)
+ *     }
+ *     class Malenki\Bah\N#114 (1) {
+ *       public $value =>
+ *         int(26)
+ *     }
+ *
+ * ### Finger prints
+ *
+ * Magic getters for `\Malenki\Bah\S::$md5` and `\Malenki\Bah\S::$sha1` are 
+ * available, and return another `\Malenki\Bah\S` object.
+ * 
+ *     $s = new S('Hello!');
+ *     print($s->md5); // '952d2c56d0485958336747bcdd98590d'
+ *     print($s->sha1); // '69342c5c39e5ae5f0077aecc32c0f81811fb8193' 
+ *
  * ## Getting parts
  *
  * Soon…
@@ -40,6 +156,33 @@ namespace Malenki\Bah;
  * Soon…
  *
  * ## Removing some parts
+ *
+ * ### Stripping
+ *
+ * You can strip left and right sides (`S::strip`), just left side 
+ * (`S::lstrip`) or just right side (`S::rstrip`).
+ *
+ * You can strip string either by using methods or by using magic getters.
+ *
+ * By using methods, you can change default character to strip. If you use 
+ * magic getter or methods without arguments, then stripping feature removes 
+ * only white space. To remove other characters, you must provide them using 
+ * array, string, `\Malenki\Bah\S` or `\MAlenki\Bah\A` objects:
+ *
+ *     $s = new S('   I have some white spaces   ');
+ *     $s->strip;
+ *     // or
+ *     $s->strip();
+ *     $s = new S('~~.~~~I have some custom chars to remove~~~...~~');
+ *     $s->strip('.~');
+ *     // or
+ *     $s->strip(new S('.~'));
+ *     // or
+ *     $s->strip(array('.', '~'));
+ *     // or
+ *     $s->strip(new A(array('.', '~')));
+ *
+ * ### Deleting using ranges
  *
  * Soon…
  *
