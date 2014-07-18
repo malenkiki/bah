@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="ApiGen 2.8.0">
+
+	<title>Class Malenki\Bah\C</title>
+
+	<script type="text/javascript" src="resources/combined.js?4020165034"></script>
+	<script type="text/javascript" src="elementlist.js?1631157681"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?260161822">
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2015443609">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Overview</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Malenki.Bah.html" title="Summary of Malenki\Bah"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-Malenki.html">Malenki<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-Malenki.Bah.html">Bah</a>
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Malenki.Bah.A.html">A</a></li>
+				<li class="active"><a href="class-Malenki.Bah.C.html">C</a></li>
+				<li><a href="class-Malenki.Bah.H.html">H</a></li>
+				<li><a href="class-Malenki.Bah.N.html">N</a></li>
+				<li><a href="class-Malenki.Bah.O.html">O</a></li>
+				<li><a href="class-Malenki.Bah.S.html">S</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class C</h1>
+
+
+	<div class="description">
+	
+<p>Define a single character.</p>
+
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+			<a href="class-Malenki.Bah.O.html"><span>Malenki\Bah\O</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Malenki\Bah\C</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Malenki.html">Malenki</a>\<a href="namespace-Malenki.Bah.html">Bah</a><br>
+		<b>Package:</b> Malenki\Bah<br>
+
+				<b>License:</b>
+				<a href="MIT">MIT</a><br>
+				<b>Todo:</b>
+				<a
+href="http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters">http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters</a><br>
+				<b>Todo:</b>
+				<a
+href="http://en.wikipedia.org/wiki/Basic_Multilingual_Plane#Basic_Multilingual_Plane">http://en.wikipedia.org/wiki/Basic_Multilingual_Plane#Basic_Multilingual_Plane</a><br>
+				<b>Todo:</b>
+				<a href="http://www.unicode.org/roadmaps/">http://www.unicode.org/roadmaps/</a><br>
+		<b>Located at</b> <a href="source-class-Malenki.Bah.C.html#27-847" title="Go to source code">Malenki/Bah/C.php</a><br>
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#266-332" title="Go to source code">__construct</a>( <span>mixed <var>$char</var> = <span class="php-quote">''</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Instanciates new character.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Instanciates new character.</p>
+
+<p>Creates new character object using 3 different ways.</p>
+
+<p>You can instanciate it using:<br />
+- a <code>\Malenki\Bah\N</code> object. In this case, given object is read to be
+the UTF-8 code point of the character. So, The Bah Number must be in
+<code>[0, 0x10FFFF]</code> range to be valid. - a string-like value having more
+than one characters must be an HTML entity - a single char string-like.</p>
+
+<p>Examples:<br />
+$n = new N(948); $c = new C($n); echo $c; //'δ'<br />
+$c = new C('é'); echo $c; // 'é'<br />
+$c = new C('z'); echo $c; // 'z'</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$char</var></dt>
+						<dd><code>mixed</code><br>$char A string-like or <code>\Malenki\Bah\N</code> object</dd>
+					</dl></div>
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code>InvalidArgumentException</code><br>If given Bah Number is not into the valid UTF-8 range.<br>
+						<code>InvalidArgumentException</code><br>If given HTML entity is not valid.<br>
+						<code>InvalidArgumentException</code><br>If given char is not valid UTF-8 char.<br>
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__get" id="___get">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___get">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#334-441" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Magic getters engine.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Magic getters engine.</p>
+
+<p>By default, return internal <code>O::$value</code> attribute.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd><code>string</code><br>$name Magic getter's name.</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>mixed</code><br>
+					</div>
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-Malenki.Bah.O.html#___get">Malenki\Bah\O::__get</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_string" id="__string">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__string">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#443-446" title="Go to source code">_string</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_str" id="__str">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__str">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#448-451" title="Go to source code">_str</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_integer" id="__integer">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__integer">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#453-462" title="Go to source code">_integer</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_int" id="__int">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__int">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#464-467" title="Go to source code">_int</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_trans" id="__trans">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__trans">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#469-492" title="Go to source code">_trans</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="encodings" id="_encodings">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_encodings">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#494-504" title="Go to source code">encodings</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_upper" id="__upper">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__upper">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#506-510" title="Go to source code">_upper</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_lower" id="__lower">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__lower">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#512-516" title="Go to source code">_lower</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isLetter" id="__isLetter">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isLetter">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#518-521" title="Go to source code">_isLetter</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isDigit" id="__isDigit">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isDigit">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#523-526" title="Go to source code">_isDigit</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isControl" id="__isControl">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isControl">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#528-531" title="Go to source code">_isControl</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isFormat" id="__isFormat">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isFormat">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#533-536" title="Go to source code">_isFormat</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isUnassigned" id="__isUnassigned">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isUnassigned">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#538-541" title="Go to source code">_isUnassigned</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isPrivateUse" id="__isPrivateUse">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isPrivateUse">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#543-546" title="Go to source code">_isPrivateUse</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isSurrogate" id="__isSurrogate">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isSurrogate">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#548-553" title="Go to source code">_isSurrogate</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isMark" id="__isMark">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isMark">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#555-558" title="Go to source code">_isMark</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isSeparator" id="__isSeparator">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isSeparator">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#560-563" title="Go to source code">_isSeparator</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isPunctuation" id="__isPunctuation">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isPunctuation">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#565-568" title="Go to source code">_isPunctuation</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isSymbol" id="__isSymbol">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isSymbol">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#570-573" title="Go to source code">_isSymbol</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isLowerCase" id="__isLowerCase">
+
+			<td class="attributes"><code>
+				 protected 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isLowerCase">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#575-583" title="Go to source code">_isLowerCase</a>( )</code>
+
+			<div class="description short">
+				
+<p>Tests whether current character is in lower case.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Tests whether current character is in lower case.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isUpperCase" id="__isUpperCase">
+
+			<td class="attributes"><code>
+				 protected 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isUpperCase">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#585-609" title="Go to source code">_isUpperCase</a>( )</code>
+
+			<div class="description short">
+				
+<p>Tests whether current character is in upper case.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Tests whether current character is in upper case.</p>
+
+<p>If current characters can be in lower or uppercase, then this tests if
+current character is upper case.</p>
+
+<p>Example:<br />
+$c = new C('À'); var_dump($c-&gt;is_upper_case); // true
+var_dump($c-&gt;is_upper); // true<br />
+$c = new C('à'); var_dump($c-&gt;is_upper_case); // false
+var_dump($c-&gt;is_upper); // false</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br>
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							C::$is_upper_case Magic getter version <code>C::$is_upper_case</code><br>
+							C::isUpper() An alias<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isUpper" id="__isUpper">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isUpper">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#612-615" title="Go to source code">_isUpper</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_isAscii" id="__isAscii">
+
+			<td class="attributes"><code>
+				 protected 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__isAscii">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#618-639" title="Go to source code">_isAscii</a>( )</code>
+
+			<div class="description short">
+				
+<p>Tests if current character is from ASCII set or not.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Tests if current character is from ASCII set or not.</p>
+
+<p>UTF-8 characters are compatible with ASCII characters. ASCII characters are
+defined into the range <code>[0x0, 0x7F]</code>.</p>
+
+<p>Example:<br />
+$c = new C('a'); var_dump($c-&gt;is_ascii); // true<br />
+$c = new C('œ'); var_dump($c-&gt;is_ascii); // false</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br>
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							C::$is_ascii The magic getter version <code>C::$is_ascii</code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_hasCase" id="__hasCase">
+
+			<td class="attributes"><code>
+				 protected 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__hasCase">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#642-650" title="Go to source code">_hasCase</a>( )</code>
+
+			<div class="description short">
+				
+<p>Tests whether the current character has other cases or not.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Tests whether the current character has other cases or not.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>boolean</code><br>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_block" id="__block">
+
+			<td class="attributes"><code>
+				 protected 
+				<code><a href="class-Malenki.Bah.S.html">Malenki\Bah\S</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__block">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#652-681" title="Go to source code">_block</a>( )</code>
+
+			<div class="description short">
+				
+<p>Gets unicode block’s name</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Gets unicode block’s name</p>
+
+<p>Returns unicode block’s name of current characters as a
+<code>\Malenki\Bah\S</code> object.</p>
+
+<p>Example:<br />
+$c = new C('a'); $c-&gt;block; // 'Basic Latin'</p>
+
+<p>This methods is the runtime part of magic getter
+<code>\Malenki\Bah\C::$block</code></p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-Malenki.Bah.S.html">Malenki\Bah\S</a></code></code><br>
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code>Exception</code><br>If current character is not into unicode block<br>
+					</div>
+
+					<h4>See</h4>
+					<div class="list">
+							C::$block The magic getter <code>C::$block</code><br>
+							C::$family To get all chars of current block<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_family" id="__family">
+
+			<td class="attributes"><code>
+				 protected 
+				<code><a href="class-Malenki.Bah.A.html">Malenki\Bah\A</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__family">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#684-727" title="Go to source code">_family</a>( )</code>
+
+			<div class="description short">
+				
+<p>For current character, gets all characters of its unicode block.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>For current character, gets all characters of its unicode block.</p>
+
+<p>All characters of the same block of current character are returned into an
+<code>\Malenki\Bah\A</code> collection of <code>\Malenki\Bah\C</code>
+objects.</p>
+
+<p>Example:<br />
+$c = new \Malenki\Bah\C(new N(0x2191)); echo $c-&gt;family-&gt;join(','); //
+print
+'←,↑,→,↓,↔,↕,↖,↗,↘,↙,↚,↛,↜,↝,↞,↟,↠,↡,↢,↣,↤,↥,↦,↧,↨,↩,↪,↫,
+//
+↬,↭,↮,↯,↰,↱,↲,↳,↴,↵,↶,↷,↸,↹,↺,↻,↼,↽,↾,↿,⇀,⇁,⇂,⇃,⇄,⇅,⇆,⇇,⇈,⇉,⇊,⇋,
+//⇌,⇍,⇎,⇏,⇐,⇑,⇒,⇓,⇔,⇕,⇖,⇗,⇘,⇙,⇚,⇛,⇜,⇝,⇞,⇟,⇠,⇡,⇢,⇣,⇤</p>
+
+<p>This methods is the runtime part of magic getter
+<code>\Malenki\Bah\C::$family</code></p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-Malenki.Bah.A.html">Malenki\Bah\A</a></code></code><br>
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code>Exception</code><br>If current character is not into unicode block<br>
+					</div>
+
+					<h4>See</h4>
+					<div class="list">
+							C::$family The magic getter <code>C::$family</code><br>
+							C::$block To get block’s name<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_unicode" id="__unicode">
+
+			<td class="attributes"><code>
+				 protected 
+				<code><a href="class-Malenki.Bah.N.html">Malenki\Bah\N</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__unicode">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#729-760" title="Go to source code">_unicode</a>( )</code>
+
+			<div class="description short">
+				
+<p>Get unicode code point for the current character.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Get unicode code point for the current character.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><code><a href="class-Malenki.Bah.N.html">Malenki\Bah\N</a></code></code><br>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_rtl" id="__rtl">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__rtl">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#763-836" title="Go to source code">_rtl</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_ltr" id="__ltr">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__ltr">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#838-841" title="Go to source code">_ltr</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__toString" id="___toString">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___toString">#</a>
+			<code><a href="source-class-Malenki.Bah.C.html#843-846" title="Go to source code">__toString</a>( )</code>
+
+			<div class="description short">
+				
+<p>Convert current object into string when this is in string context.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Convert current object into string when this is in string context.</p>
+
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br>
+					</div>
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-Malenki.Bah.O.html#___toString">Malenki\Bah\O::__toString</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+		<h3>Methods inherited from <a href="class-Malenki.Bah.O.html#methods">Malenki\Bah\O</a></h3>
+		<p class="elementList">
+			<code><a href="class-Malenki.Bah.O.html#_mustBeArray">mustBeArray()</a></code>, 
+			<code><a href="class-Malenki.Bah.O.html#_mustBeArrayOrHash">mustBeArrayOrHash()</a></code>, 
+			<code><a href="class-Malenki.Bah.O.html#_mustBeCallable">mustBeCallable()</a></code>, 
+			<code><a href="class-Malenki.Bah.O.html#_mustBeDouble">mustBeDouble()</a></code>, 
+			<code><a href="class-Malenki.Bah.O.html#_mustBeFloat">mustBeFloat()</a></code>, 
+			<code><a href="class-Malenki.Bah.O.html#_mustBeHash">mustBeHash()</a></code>, 
+			<code><a href="class-Malenki.Bah.O.html#_mustBeInteger">mustBeInteger()</a></code>, 
+			<code><a href="class-Malenki.Bah.O.html#_mustBeNumeric">mustBeNumeric()</a></code>, 
+			<code><a href="class-Malenki.Bah.O.html#_mustBeString">mustBeString()</a></code>, 
+			<code><a href="class-Malenki.Bah.O.html#_mustBeStringOrScalar">mustBeStringOrScalar()</a></code>
+		</p>
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+		<h2>Constants summary</h2>
+		<table class="summary table table-bordered table-striped" id="constants">
+		<tr data-order="ENCODING" id="ENCODING">
+
+			<td class="attributes"><code>string</code></td>
+			<td class="name"><code>
+					<a href="source-class-Malenki.Bah.C.html#40" title="Go to source code"><b>ENCODING</b></a>
+			</code></td>
+			<td class="value"><code><span class="php-quote">'UTF-8'</span></code></td>
+			<td class="description"><div>
+				<a href="#ENCODING" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped" id="properties">
+		<tr data-order="arr_blocks" id="$arr_blocks">
+			<td class="attributes"><code>
+				protected static 
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Malenki.Bah.C.html#42-252" title="Go to source code"><var>$arr_blocks</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$arr_blocks" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="bytes" id="$bytes">
+			<td class="attributes"><code>
+				protected  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Malenki.Bah.C.html#254" title="Go to source code"><var>$bytes</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$bytes" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="bool_is_surrogate" id="$bool_is_surrogate">
+			<td class="attributes"><code>
+				protected  
+				boolean
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Malenki.Bah.C.html#256-264" title="Go to source code"><var>$bool_is_surrogate</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$bool_is_surrogate" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>Store whether the current character is surrogate or not.</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>Store whether the current character is surrogate or not.</p>
+
+<p>This exists only to avoid PHP bug with <code>preg_match()</code> function and
+<code>\p{Cs}</code> pattern.</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+		<h3>Properties inherited from <a href="class-Malenki.Bah.O.html#properties">Malenki\Bah\O</a></h3>
+		<p class="elementList">
+			<code><a href="class-Malenki.Bah.O.html#$value"><var>$value</var></a></code>
+		</p>
+
+
+		<h3>Magic properties</h3>
+		<table class="summary table table-bordered table-striped" id="magicProperties">
+		<tr data-order="bytes" id="m$bytes">
+			<td class="attributes"><code>
+				public  read-only
+				<code><a href="class-Malenki.Bah.A.html">Malenki\Bah\A</a></code>
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Malenki.Bah.C.html#32" title="Go to source code"><var>$bytes</var></a>
+			</td>
+			<td class="value"><code></code></td>
+			<td class="description"><div>
+				<a href="#m$bytes" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>A collection of Malenki\Bah\N objects</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>A collection of Malenki\Bah\N objects</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</body>
+</html>

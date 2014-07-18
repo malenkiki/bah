@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Malenki.html">\Malenki</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                    <i class="icon-list-alt"></i>&#160;Errors
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                    <i class="icon-list-alt"></i>&#160;Markers
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-974589045"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-974589045" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-932591562"></a>
+                                <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
+            </div>
+            <div id="namespace-932591562" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-964938703"></a>
+                                <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
+            </div>
+            <div id="namespace-964938703" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Malenki.Bah.S.html">S</a></li>
+                                                    <li class="class"><a href="../classes/Malenki.Bah.O.html">O</a></li>
+                                                    <li class="class"><a href="../classes/Malenki.Bah.C.html">C</a></li>
+                                                    <li class="class"><a href="../classes/Malenki.Bah.N.html">N</a></li>
+                                                    <li class="class"><a href="../classes/Malenki.Bah.H.html">H</a></li>
+                                                    <li class="class"><a href="../classes/Malenki.Bah.A.html">A</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Malenki.Bah.html">\Malenki\Bah</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Malenki\Bah</small>C</h1>
+                    <p><em>Define a single character.</em></p>
+                    <p>It contains some validation processes, basic magic getter to get internal
+value and <code>__toString()</code> feature.</p>
+
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Malenki.Bah.C.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method___get" class="">__get()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method_encodings" class="">encodings()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method___toString" class="">__toString()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Malenki.Bah.C.html#property_bytes" class="">$bytes</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Malenki.Bah.C.html#constant_ENCODING" class="">ENCODING</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__string" class="">_string()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__str" class="">_str()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__integer" class="">_integer()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__int" class="">_int()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__trans" class="">_trans()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__upper" class="">_upper()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__lower" class="">_lower()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isLetter" class="">_isLetter()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isDigit" class="">_isDigit()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isControl" class="">_isControl()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isFormat" class="">_isFormat()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isUnassigned" class="">_isUnassigned()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isPrivateUse" class="">_isPrivateUse()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isSurrogate" class="">_isSurrogate()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isMark" class="">_isMark()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isSeparator" class="">_isSeparator()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isPunctuation" class="">_isPunctuation()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isSymbol" class="">_isSymbol()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isLowerCase" class="">_isLowerCase()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isUpperCase" class="">_isUpperCase()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isUpper" class="">_isUpper()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__isAscii" class="">_isAscii()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__hasCase" class="">_hasCase()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__block" class="">_block()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__family" class="">_family()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__unicode" class="">_unicode()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__rtl" class="">_rtl()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#method__ltr" class="">_ltr()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method_mustBeStringOrScalar" class="">mustBeStringOrScalar()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method_mustBeString" class="">mustBeString()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method_mustBeInteger" class="">mustBeInteger()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method_mustBeFloat" class="">mustBeFloat()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method_mustBeDouble" class="">mustBeDouble()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method_mustBeNumeric" class="">mustBeNumeric()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method_mustBeArray" class="">mustBeArray()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method_mustBeHash" class="">mustBeHash()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method_mustBeArrayOrHash" class="">mustBeArrayOrHash()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#method_mustBeCallable" class="">mustBeCallable()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Malenki.Bah.C.html#property_arr_blocks" class="">$arr_blocks</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#property_bytes" class="">$bytes</a><br />
+                                                                    <a href="../classes/Malenki.Bah.C.html#property_bool_is_surrogate" class="">$bool_is_surrogate</a><br />
+                                                                    <a href="../classes/Malenki.Bah.O.html#property_value" class="">$value</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/C.php.html"><div class="path-wrapper">C.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Malenki\Bah</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper"><a href="../classes/Malenki.Bah.O.html">\Malenki\Bah\O</a></div>
+                                                                                                    <div class="namespace-wrapper">\Malenki\Bah\C</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                license
+                            </th>
+                            <td>
+                                                                    <p>MIT</p>
+
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                todo
+                            </th>
+                            <td>
+                                                                    <p>http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters</p>
+
+                                                                    <p>http://en.wikipedia.org/wiki/Basic_Multilingual_Plane#Basic_Multilingual_Plane</p>
+
+                                                                    <p>http://www.unicode.org/roadmaps/</p>
+
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_ENCODING" name="constant_ENCODING" class="anchor"></a>
+            <article id="constant_ENCODING" class="constant">
+                <h3 class="">ENCODING</h3>
+                <pre class="signature">ENCODING</pre>
+                <p><em></em></p>
+                
+
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_bytes" name="property_bytes" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$bytes</h3>
+                <pre class="signature">$bytes : \Malenki\Bah\Malenki\Bah\A</pre>
+                <p><em></em></p>
+                <p>A collection of Malenki\Bah\N objects</p>
+
+
+                                <h4>Type</h4>
+                \Malenki\Bah\Malenki\Bah\A
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_arr_blocks" name="property_arr_blocks" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$arr_blocks</h3>
+                <pre class="signature">$arr_blocks</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_bytes" name="property_bytes" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$bytes</h3>
+                <pre class="signature">$bytes</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_bool_is_surrogate" name="property_bool_is_surrogate" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$bool_is_surrogate</h3>
+                <pre class="signature">$bool_is_surrogate : boolean</pre>
+                <p><em>Store whether the current character is surrogate or not.</em></p>
+                <p>This exists only to avoid PHP bug with <code>preg_match()</code> function and
+<code>\p{Cs}</code> pattern.</p>
+
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_value" name="property_value" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$value</h3>
+                <pre class="signature">$value : mixed</pre>
+                <p><em></em></p>
+                
+
+
+                                <h4>Type</h4>
+                mixed
+                &mdash; Primitive value                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(mixed <span class="argument">$char</span>)</pre>
+                <p><em>Instanciates new character.</em></p>
+                <p>Creates new character object using 3 different ways.</p>
+
+<p>You can instanciate it using:</p>
+
+<ul>
+<li>a <code>\Malenki\Bah\N</code> object. In this case, given object is read to be
+the UTF-8 code point of the character. So, The Bah Number must be in
+<code>[0, 0x10FFFF]</code> range to be valid.</li>
+<li>a string-like value having more than one characters must be an HTML entity</li>
+<li>a single char string-like.</li>
+</ul>
+
+<p>Examples:</p>
+
+<pre><code>$n = new N(948);
+$c = new C($n);
+echo $c; //'δ'
+
+$c = new C('&amp;eacute;');
+echo $c; // 'é'
+
+$c = new C('z');
+echo $c; // 'z'
+</code></pre>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$char</td>
+                                <td><p>A string-like or <code>\Malenki\Bah\N</code> object</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given Bah Number is not into the valid UTF-8 range.</p>
+</dd>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given HTML entity is not valid.</p>
+</dd>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given char is not valid UTF-8 char.</p>
+</dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___get" name="method___get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__get(string <span class="argument">$name</span>) : mixed</pre>
+                <p><em>Magic getters engine.</em></p>
+                <p>By default, return internal <code>O::$value</code> attribute.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td><p>Magic getter's name.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_encodings" name="method_encodings" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">encodings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">encodings()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___toString" name="method___toString" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__toString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__toString() : string</pre>
+                <p><em>Convert current object into string when this is in string context.</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__string" name="method__string" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_string()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_string()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__str" name="method__str" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_str()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_str()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__integer" name="method__integer" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_integer()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_integer()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__int" name="method__int" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_int()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_int()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__trans" name="method__trans" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_trans()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_trans()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__upper" name="method__upper" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_upper()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_upper()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__lower" name="method__lower" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_lower()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_lower()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isLetter" name="method__isLetter" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isLetter()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isLetter()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isDigit" name="method__isDigit" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isDigit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isDigit()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isControl" name="method__isControl" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isControl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isControl()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isFormat" name="method__isFormat" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isFormat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isFormat()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isUnassigned" name="method__isUnassigned" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isUnassigned()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isUnassigned()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isPrivateUse" name="method__isPrivateUse" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isPrivateUse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isPrivateUse()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isSurrogate" name="method__isSurrogate" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isSurrogate()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isSurrogate()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isMark" name="method__isMark" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isMark()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isMark()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isSeparator" name="method__isSeparator" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isSeparator()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isSeparator()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isPunctuation" name="method__isPunctuation" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isPunctuation()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isPunctuation()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isSymbol" name="method__isSymbol" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isSymbol()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isSymbol()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isLowerCase" name="method__isLowerCase" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isLowerCase()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isLowerCase() : boolean</pre>
+                <p><em>Tests whether current character is in lower case.</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isUpperCase" name="method__isUpperCase" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isUpperCase()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isUpperCase() : boolean</pre>
+                <p><em>Tests whether current character is in upper case.</em></p>
+                <p>If current characters can be in lower or uppercase, then this tests if
+current character is upper case.</p>
+
+<p>Example:</p>
+
+<pre><code>$c = new C('À');
+var_dump($c-&gt;is_upper_case); // true
+var_dump($c-&gt;is_upper); // true
+
+$c = new C('à');
+var_dump($c-&gt;is_upper_case); // false
+var_dump($c-&gt;is_upper); // false
+</code></pre>
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Magic getter version `C::$is_upper_case`</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">An alias</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isUpper" name="method__isUpper" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isUpper()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isUpper()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isAscii" name="method__isAscii" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_isAscii()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isAscii() : boolean</pre>
+                <p><em>Tests if current character is from ASCII set or not.</em></p>
+                <p>UTF-8 characters are compatible with ASCII characters. ASCII characters
+are defined into the range <code>[0x0, 0x7F]</code>.</p>
+
+<p>Example:</p>
+
+<pre><code>$c = new C('a');
+var_dump($c-&gt;is_ascii); // true
+
+$c = new C('œ');
+var_dump($c-&gt;is_ascii); // false
+</code></pre>
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">The magic getter version `C::$is_ascii`</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__hasCase" name="method__hasCase" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_hasCase()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_hasCase() : boolean</pre>
+                <p><em>Tests whether the current character has other cases or not.</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__block" name="method__block" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_block()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_block() : \Malenki\Bah\S</pre>
+                <p><em>Gets unicode block’s name</em></p>
+                <p>Returns unicode block’s name of current characters as a <code>\Malenki\Bah\S</code>
+object.</p>
+
+<p>Example:</p>
+
+<pre><code>$c = new C('a');
+$c-&gt;block; // 'Basic Latin'
+</code></pre>
+
+<p>This methods is the runtime part of magic getter <code>\Malenki\Bah\C::$block</code></p>
+
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd><p>If current character is not into unicode block</p>
+</dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.S.html">\Malenki\Bah\S</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">The magic getter `C::$block`</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">To get all chars of current block</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__family" name="method__family" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_family()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_family() : \Malenki\Bah\A</pre>
+                <p><em>For current character, gets all characters of its unicode block.</em></p>
+                <p>All characters of the same block of current character are returned into
+an <code>\Malenki\Bah\A</code> collection of <code>\Malenki\Bah\C</code> objects.</p>
+
+<p>Example:</p>
+
+<pre><code>$c = new \Malenki\Bah\C(new N(0x2191));
+echo $c-&gt;family-&gt;join(',');
+// print '←,↑,→,↓,↔,↕,↖,↗,↘,↙,↚,↛,↜,↝,↞,↟,↠,↡,↢,↣,↤,↥,↦,↧,↨,↩,↪,↫,
+// ↬,↭,↮,↯,↰,↱,↲,↳,↴,↵,↶,↷,↸,↹,↺,↻,↼,↽,↾,↿,⇀,⇁,⇂,⇃,⇄,⇅,⇆,⇇,⇈,⇉,⇊,⇋,
+//⇌,⇍,⇎,⇏,⇐,⇑,⇒,⇓,⇔,⇕,⇖,⇗,⇘,⇙,⇚,⇛,⇜,⇝,⇞,⇟,⇠,⇡,⇢,⇣,⇤
+</code></pre>
+
+<p>This methods is the runtime part of magic getter <code>\Malenki\Bah\C::$family</code></p>
+
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd><p>If current character is not into unicode block</p>
+</dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">The magic getter `C::$family`</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">To get block’s name</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__unicode" name="method__unicode" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_unicode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_unicode() : \Malenki\Bah\N</pre>
+                <p><em>Get unicode code point for the current character.</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__rtl" name="method__rtl" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_rtl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_rtl()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__ltr" name="method__ltr" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_ltr()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_ltr()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_mustBeStringOrScalar" name="method_mustBeStringOrScalar" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">mustBeStringOrScalar()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">mustBeStringOrScalar(mixed <span class="argument">$arg</span>, string <span class="argument">$arg_name</span>) : void</pre>
+                <p><em>Checks whether given value is string-like or scalar type.</em></p>
+                <p>Value must be of string-like type (string or object having
+<code>__toString()</code> method) or a basic scalar type.</p>
+
+<p>The aim of this method is only to raise <code>\InvalidArgumentException</code> if
+given value has not the good type.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arg</td>
+                                <td><p>The value to test.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$arg_name</td>
+                                <td><p>Optional name of the value, used into exception’s message.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If value’s type is not valid</p>
+</dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_mustBeString" name="method_mustBeString" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">mustBeString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">mustBeString(mixed <span class="argument">$arg</span>, string <span class="argument">$arg_name</span>) : void</pre>
+                <p><em>Checks whether given value is string-like type.</em></p>
+                <p>A string-like value is string or object having <code>__toString()</code> method.</p>
+
+<p>The aim of this method is only to raise <code>\InvalidArgumentException</code> if
+given value has not the good type.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arg</td>
+                                <td><p>The value to test.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$arg_name</td>
+                                <td><p>Optional name of the value, used into exception’s message.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If value’s type is not valid</p>
+</dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_mustBeInteger" name="method_mustBeInteger" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">mustBeInteger()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">mustBeInteger(mixed <span class="argument">$arg</span>, string <span class="argument">$arg_name</span>) : void</pre>
+                <p><em>Checks whether given value is integer-like type.</em></p>
+                <p>An integer-like value is integer or <code>\Malenki\Bah\N</code> object.</p>
+
+<p>The aim of this method is only to raise <code>\InvalidArgumentException</code> if
+given value has not the good type.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arg</td>
+                                <td><p>The value to test.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$arg_name</td>
+                                <td><p>Optional name of the value, used into exception’s message.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If value’s type is not valid</p>
+</dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_mustBeFloat" name="method_mustBeFloat" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">mustBeFloat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">mustBeFloat(mixed <span class="argument">$arg</span>, string <span class="argument">$arg_name</span>) : void</pre>
+                <p><em>Checks whether given value is float-like type.</em></p>
+                <p>A float-like value is float or <code>\Malenki\Bah\N</code> object.</p>
+
+<p>The aim of this method is only to raise <code>\InvalidArgumentException</code> if
+given value has not the good type.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arg</td>
+                                <td><p>The value to test.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$arg_name</td>
+                                <td><p>Optional name of the value, used into exception’s message.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If value’s type is not valid</p>
+</dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_mustBeDouble" name="method_mustBeDouble" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">mustBeDouble()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">mustBeDouble(mixed <span class="argument">$arg</span>, string <span class="argument">$arg_name</span>) : void</pre>
+                <p><em>Checks whether given value is double-like type.</em></p>
+                <p>A double-like value is string or <code>\Malenki\Bah\N</code> object.</p>
+
+<p>The aim of this method is only to raise <code>\InvalidArgumentException</code> if
+given value has not the good type.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arg</td>
+                                <td><p>The value to test.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$arg_name</td>
+                                <td><p>Optional name of the value, used into exception’s message.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If value’s type is not valid</p>
+</dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_mustBeNumeric" name="method_mustBeNumeric" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">mustBeNumeric()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">mustBeNumeric(mixed <span class="argument">$arg</span>, string <span class="argument">$arg_name</span>) : void</pre>
+                <p><em>Checks whether given value is numeric-like type.</em></p>
+                <p>A numeric-like value is numeric (integer, float or double) or
+<code>\Malenki\Bah\N</code> object.</p>
+
+<p>The aim of this method is only to raise <code>\InvalidArgumentException</code> if
+given value has not the good type.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arg</td>
+                                <td><p>The value to test.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$arg_name</td>
+                                <td><p>Optional name of the value, used into exception’s message.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If value’s type is not valid</p>
+</dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_mustBeArray" name="method_mustBeArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">mustBeArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">mustBeArray(mixed <span class="argument">$arg</span>, string <span class="argument">$arg_name</span>) : void</pre>
+                <p><em>Checks whether given value is an array-like type.</em></p>
+                <p>A array-like value is an array or <code>\Malenki\Bah\A</code> object.</p>
+
+<p>The aim of this method is only to raise <code>\InvalidArgumentException</code> if
+given value has not the good type.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arg</td>
+                                <td><p>The value to test.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$arg_name</td>
+                                <td><p>Optional name of the value, used into exception’s message.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If value’s type is not valid</p>
+</dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_mustBeHash" name="method_mustBeHash" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">mustBeHash()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">mustBeHash(mixed <span class="argument">$arg</span>, string <span class="argument">$arg_name</span>) : void</pre>
+                <p><em>Checks whether given value is a hash-like type.</em></p>
+                <p>A hash-like value is an array having named-index or <code>\Malenki\Bah\H</code> object.</p>
+
+<p>The aim of this method is only to raise <code>\InvalidArgumentException</code> if
+given value has not the good type.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arg</td>
+                                <td><p>The value to test.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$arg_name</td>
+                                <td><p>Optional name of the value, used into exception’s message.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If value’s type is not valid</p>
+</dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_mustBeArrayOrHash" name="method_mustBeArrayOrHash" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">mustBeArrayOrHash()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">mustBeArrayOrHash(mixed <span class="argument">$arg</span>, string <span class="argument">$arg_name</span>) : void</pre>
+                <p><em>Checks whether given value is an array-like or hash-like type.</em></p>
+                <p>The aim of this method is only to raise <code>\InvalidArgumentException</code> if
+given value has not the good type.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arg</td>
+                                <td><p>The value to test.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$arg_name</td>
+                                <td><p>Optional name of the value, used into
+exception’s message.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If value’s type is not valid</p>
+</dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_mustBeCallable" name="method_mustBeCallable" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">mustBeCallable()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">mustBeCallable(mixed <span class="argument">$arg</span>, mixed <span class="argument">$arg_name</span>) : void</pre>
+                <p><em>Checks whether the given argument is callable.</em></p>
+                <p>This is usefull to test is an argument can be call as a function. If
+this argument is not callable, then this raises an
+<code>\InvalidArgumentException</code>.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arg</td>
+                                <td><p>The value to test</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arg_name</td>
+                                <td><p>Optional name of the value, used into error message</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If arg is not callable</p>
+</dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">C.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/C.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Malenki.html">\Malenki</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Errors</a></li>
+                                    <li><a href="">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on July 18th, 2014 at 13:52.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
