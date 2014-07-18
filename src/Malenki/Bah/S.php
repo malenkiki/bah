@@ -284,6 +284,10 @@ namespace Malenki\Bah;
  *
  * ## Removing some parts
  *
+ * Some features are dédicated to removing part of the string, but more 
+ * advanced removal can be performed using Regexp features, so, read chapter 
+ * about Regexp too!
+ *
  * ### Stripping
  *
  * You can strip left and right sides (`S::strip`), just left side 
@@ -311,7 +315,16 @@ namespace Malenki\Bah;
  *
  * ### Deleting using ranges
  *
- * Soon…
+ * You can delete some parts using range like you do it while getting substring:
+ *
+ *     $s = new S('azerty');
+ *     echo $s->delete(1, 3); // 'aty'
+ *     // or
+ *     echo $s->del(1, 3); // 'aty'
+ *     // or
+ *     echo $s->remove(1, 3); // 'aty'
+ *     // or
+ *     echo $s->rm(1, 3); // 'aty'
  *
  * ## Casting
  *
