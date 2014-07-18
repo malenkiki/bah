@@ -326,6 +326,28 @@ namespace Malenki\Bah;
  *     // or
  *     echo $s->rm(1, 3); // 'aty'
  *
+ * ## Regular expression
+ *
+ * This class can use regex in different manners. For example, maching string 
+ * can be done using two ways: the current string can be the regexp or the 
+ * string to test.
+ *
+ * First, current string is tested:
+ *
+ *     $s = new S('azerty');
+ *     var_dump($s->match('/ty$/')); // true
+ *     // or
+ *     var_dump($s->match('/ty$/')); // true
+ *     // or
+ *     var_dump($s->match('/ty$/')); // true
+ *
+ * Second, current string is the pattern:
+ *
+ *     $s = new S('/ze/');
+ *     var_dump($s->test('azerty')); // true
+ *
+ *
+ *
  * ## Casting
  *
  * You can cast to two different types: objects of primitive PHP types.
