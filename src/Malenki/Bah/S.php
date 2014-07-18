@@ -200,7 +200,11 @@ namespace Malenki\Bah;
  *
  * #### Classical substring way…
  *
- * Soon…
+ * You can extract substring by given start position and the length of the 
+ * substring.
+ *
+ *     $s = new S('azerty');
+ *     echo $s->sub(1, 3); // 'zer'
  *
  *
  * ## Adding content to it
