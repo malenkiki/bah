@@ -1654,6 +1654,12 @@ class N extends O
      *     $n = new N(-2001);
      *     echo $n->base(2); // '-11111010001'
      * 
+     * @see S::$bin Shorthand for base 2
+     * @see S::$oct Shorthand for base 8
+     * @see S::$hex Shorthand for base 16
+     * @see S::$b Another shorthand for base 2
+     * @see S::$o Another shorthand for base 8
+     * @see S::$h Another shorthand for base 16
      * @param mixed $n Base as integer-like value.
      * @return S
      * @throws \RuntimeException If current number is not an integer.
