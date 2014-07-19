@@ -1483,9 +1483,20 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('4ij', $n->base(20));
         $n = new N(1979);
         $this->assertEquals('1iz', $n->base(36));
-        $n = new N(1979);
-        $this->assertEquals($n->bin, $n->base(2));
     }
+
+    public function TestGettingNumberIntoAnotherBaseUsingNegativeIntegerShouldSuccess()
+    {
+        $n = new N(-19);
+        $this->assertEquals('-j', $n->base(20));
+        $n = new N(-21);
+        $this->assertEquals('-11', $n->base(20));
+        $n = new N(-1979);
+        $this->assertEquals('-4ij', $n->base(20));
+        $n = new N(-1979);
+        $this->assertEquals('-1iz', $n->base(36));
+    }
+    
     
     public function TestGettingNumberIntoAnotherBaseUsingNObjectShouldSuccess()
     {
@@ -1501,8 +1512,6 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('4ij', $n->base($n20));
         $n = new N(1979);
         $this->assertEquals('1iz', $n->base($n36));
-        $n = new N(1979);
-        $this->assertEquals($n->bin, $n->base($n2));
     }
 
 
@@ -1576,6 +1585,30 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(new S('101010'), $n->bin);
     }
 
+
+    public function testGettingHexadecimalUsingNegativeNumberShouldSuccess()
+    {
+        $n = new N(-42);
+        $this->assertEquals('-2a', $n->hex);
+        $this->assertEquals(new S('-2a'), $n->hex);
+    }
+
+
+    public function testGettingOctalUsingNegativeNumberShouldSuccess()
+    {
+        $n = new N(-42);
+        $this->assertEquals('-52', $n->oct);
+        $this->assertEquals(new S('-52'), $n->oct);
+    }
+
+
+    public function testGettingBinaryUsingNegativeNumberShouldSuccess()
+    {
+        $n = new N(-42);
+        $this->assertEquals('-101010', $n->bin);
+        $this->assertEquals(new S('-101010'), $n->bin);
+    }
+
     public function testGettingHexadecimalNumberUsingAliasShouldHaveSameResultHasOriginal()
     {
         $n = new N(42);
@@ -1595,6 +1628,36 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(42);
         $this->assertEquals($n->bin, $n->b);
     }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingHexadecimalUsingNonIntegerValueShouldFail()
+    {
+        $n = new N(M_PI);
+        $n->hex;
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingOctalUsingNonIntegerValueShouldFail()
+    {
+        $n = new N(M_PI);
+        $n->oct;
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingBinaryUsingNonIntegerValueShouldFail()
+    {
+        $n = new N(M_PI);
+        $n->bin;
+    }
+
 
     public function testGettingHexadecimalShouldHaveSameResultAsBase()
     {
