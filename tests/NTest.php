@@ -1596,6 +1596,26 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($n->bin, $n->b);
     }
 
+    public function testGettingHexadecimalShouldHaveSameResultAsBase()
+    {
+        $n = new N(42);
+        $this->assertEquals($n->base(16), $n->hex);
+    }
+
+
+    public function testGettingOctalShouldHaveSameResultAsBase()
+    {
+        $n = new N(42);
+        $this->assertEquals($n->base(8), $n->oct);
+    }
+
+
+    public function testGettingBinaryShouldHaveSameResultAsBase()
+    {
+        $n = new N(42);
+        $this->assertEquals($n->base(2), $n->bin);
+    }
+
     public function testGettingFloorValueShouldSuccess()
     {
         $n = new N(7.8);
