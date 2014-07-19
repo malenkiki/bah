@@ -1533,6 +1533,69 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->base(37);
     }
 
+    public function testGettingHexadecimalShouldReturnsSObject()
+    {
+        $n = new N(42);
+        $this->assertInstanceOf('\Malenki\Bah\S', $n->hex);
+    }
+
+
+    public function testGettingOctalShouldReturnsSObject()
+    {
+        $n = new N(42);
+        $this->assertInstanceOf('\Malenki\Bah\S', $n->oct);
+    }
+
+
+    public function testGettingBinaryShouldReturnsSObject()
+    {
+        $n = new N(42);
+        $this->assertInstanceOf('\Malenki\Bah\S', $n->bin);
+    }
+
+    public function testGettingHexadecimalShouldSuccess()
+    {
+        $n = new N(42);
+        $this->assertEquals('2a', $n->hex);
+        $this->assertEquals(new S('2a'), $n->hex);
+    }
+
+
+    public function testGettingOctalShouldSuccess()
+    {
+        $n = new N(42);
+        $this->assertEquals('52', $n->oct);
+        $this->assertEquals(new S('52'), $n->oct);
+    }
+
+
+    public function testGettingBinaryShouldSuccess()
+    {
+        $n = new N(42);
+        $this->assertEquals('101010', $n->bin);
+        $this->assertEquals(new S('101010'), $n->bin);
+    }
+
+    public function testGettingHexadecimalNumberUsingAliasShouldHaveSameResultHasOriginal()
+    {
+        $n = new N(42);
+        $this->assertEquals($n->hex, $n->h);
+    }
+
+
+    public function testGettingOctalNumberUsingAliasShouldHaveSameResultHasOriginal()
+    {
+        $n = new N(42);
+        $this->assertEquals($n->oct, $n->o);
+    }
+
+
+    public function testGettingBinaryNumberUsingAliasShouldHaveSameResultHasOriginal()
+    {
+        $n = new N(42);
+        $this->assertEquals($n->bin, $n->b);
+    }
+
     public function testGettingFloorValueShouldSuccess()
     {
         $n = new N(7.8);
