@@ -18,7 +18,7 @@
 <path fill="none" stroke="gray" d="M64,-464C58,-464 52,-458 52,-452"/>
 <polyline fill="none" stroke="gray" points="52,-452 52,-110 "/>
 <path fill="none" stroke="gray" d="M52,-110C52,-104 58,-98 64,-98"/>
-<text text-anchor="middle" x="204" y="-450.1" font-family="Times Roman,serif" font-size="11.00" fill="gray">\</text>
+<text text-anchor="middle" x="204" y="-450.1" font-family="Times Roman,serif" font-size="11.00" fill="gray">Global</text>
 </g>
 <g id="graph3" class="cluster"><title>cluster_\Malenki</title>
 <polyline fill="none" stroke="gray" points="72,-106 336,-106 "/>
@@ -69,13 +69,13 @@
 </g>
 <!-- \\IteratorAggregate -->
 <g id="node14" class="node"><title>\\IteratorAggregate</title>
-<ellipse fill="none" stroke="black" cx="103" cy="-18" rx="103.238" ry="18.3848"/>
+<ellipse fill="none" stroke="black" cx="103" cy="-18" rx="102.03" ry="18.3848"/>
 <text text-anchor="middle" x="103" y="-14.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\IteratorAggregate</text>
 </g>
 <!-- \\Malenki\\Bah\\S&#45;&gt;\\IteratorAggregate -->
 <g id="edge9" class="edge"><title>\\Malenki\\Bah\\S&#45;&gt;\\IteratorAggregate</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M285.756,-175.984C283.029,-173.087 280.355,-170.039 278,-167 239.434,-117.234 256.236,-82.9526 206,-45 200.5,-40.8447 194.417,-37.3271 188.037,-34.3496"/>
-<polygon fill="none" stroke="black" points="189.087,-30.9949 178.511,-30.3622 186.384,-37.4521 189.087,-30.9949"/>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M285.756,-175.984C283.029,-173.087 280.355,-170.039 278,-167 239.434,-117.234 256.236,-82.9526 206,-45 200.45,-40.8073 194.307,-37.2638 187.865,-34.2692"/>
+<polygon fill="none" stroke="black" points="188.823,-30.8769 178.246,-30.2629 186.131,-37.3388 188.823,-30.8769"/>
 </g>
 <!-- \\Malenki\\Bah\\C -->
 <g id="node6" class="node"><title>\\Malenki\\Bah\\C</title>
@@ -114,8 +114,8 @@
 </g>
 <!-- \\Malenki\\Bah\\H&#45;&gt;\\IteratorAggregate -->
 <g id="edge19" class="edge"><title>\\Malenki\\Bah\\H&#45;&gt;\\IteratorAggregate</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M290.951,-121.74C273.395,-100.189 241.331,-64.7892 206,-45 198.755,-40.9419 190.881,-37.4765 182.822,-34.521"/>
-<polygon fill="none" stroke="black" points="183.897,-31.1899 173.303,-31.2806 181.641,-37.8164 183.897,-31.1899"/>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M290.951,-121.74C273.395,-100.189 241.331,-64.7892 206,-45 198.697,-40.9094 190.755,-37.4211 182.628,-34.4501"/>
+<polygon fill="none" stroke="black" points="183.625,-31.0925 173.031,-31.1949 181.377,-37.7216 183.625,-31.0925"/>
 </g>
 <!-- \\Malenki\\Bah\\A -->
 <g id="node9" class="node"><title>\\Malenki\\Bah\\A</title>

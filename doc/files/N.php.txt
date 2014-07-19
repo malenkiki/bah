@@ -1460,6 +1460,12 @@ class N extends O
      *     $n = new N(2001);
      *     echo $n->hex; // '7d1'
      *
+     * Negative numbers are allowed too:
+     *
+     *     $n = new N(-2001);
+     *     echo $n->hex; // '-7d1'
+     *
+     *
      * This is runtime part of its associated magic getter.
      * 
      * @see N::$hex Magic getter `N::$hex`
@@ -1475,7 +1481,11 @@ class N extends O
             );
         }
 
-        return new S(dechex($this->value));
+        if($this->value < 0){
+            return new S('-' . dechex(abs($this->value)));
+        } else {
+            return new S(dechex($this->value));
+        }
     }
 
     /**
@@ -1488,6 +1498,12 @@ class N extends O
      *
      *     $n = new N(2001);
      *     echo $n->oct; // '3721'
+     *
+     * Negative numbers are allowed too:
+     *
+     *     $n = new N(-2001);
+     *     echo $n->oct; // '-3721'
+     *
      *
      * This is runtime part of its associated magic getter.
      * 
@@ -1504,7 +1520,12 @@ class N extends O
             );
         }
 
-        return new S(decoct($this->value));
+        if($this->value < 0){
+            return new S('-' . decoct(abs($this->value)));
+        } else {
+            return new S(decoct($this->value));
+        }
+
     }
 
 
@@ -1518,6 +1539,12 @@ class N extends O
      *
      *     $n = new N(2001);
      *     echo $n->bin; // '11111010001'
+     *
+     * Negative numbers are allowed too:
+     *
+     *     $n = new N(-2001);
+     *     echo $n->bin; // '-11111010001'
+     *
      *
      * This is runtime part of its associated magic getter.
      * 
@@ -1534,7 +1561,12 @@ class N extends O
             );
         }
 
-        return new S(decbin($this->value));
+        if($this->value < 0){
+            return new S('-'.decbin(abs($this->value)));
+        } else {
+            return new S(decbin($this->value));
+        }
+
     }
 
     /**
@@ -1599,31 +1631,64 @@ class N extends O
      * @see N::_bin() Original runtime
      * @return S
      * @throws \RuntimeException If current number is not an integer.
+     * @throws \InvalidArgumentException If given base number is not an 
+     * Integer-like value.
      */
     protected function _b()
     {
         return $this->_bin();
     }
 
+    /**
+     * Converts current number into another base.
+     *
+     * This converts current number to another base. Alowed bases are into the 
+     * range `[2, 36]`.
+     *
+     *     $n = new N(2001);
+     *     echo $n->base(2); // '11111010001'
+     *
+     *
+     * You can have negative result too:
+     *
+     *     $n = new N(-2001);
+     *     echo $n->base(2); // '-11111010001'
+     * 
+     * @see S::$bin Shorthand for base 2
+     * @see S::$oct Shorthand for base 8
+     * @see S::$hex Shorthand for base 16
+     * @see S::$b Another shorthand for base 2
+     * @see S::$o Another shorthand for base 8
+     * @see S::$h Another shorthand for base 16
+     * @param mixed $n Base as integer-like value.
+     * @return S
+     * @throws \RuntimeException If current number is not an integer.
+     * @throws \InvalidArgumentException If given base number is not an 
+     * Integer-like value.
+     */
     public function base($n)
     {
+        self::mustBeInteger($n, 'Base');
+        
         if(!$this->_decimal()->zero) {
             throw new \RuntimeException(
-                'Cannot get decimal numbers into another base.'
+                'Cannot convert to another base from non integer value.'
             );
         }
 
-        self::mustBeInteger($n, 'Base');
 
         $n = is_object($n) ? $n->int : $n;
 
         if (!is_numeric($n) || $n < 2 || $n > 36) {
             throw new \InvalidArgumentException(
-                'Base must be a integer or N value from 2 to 36 inclusive.'
+                'Base must be an integer or \Malenki\Bah\N value from 2 '
+                .'to 36 inclusive.'
             );
         }
 
-        return new S(base_convert($this->value, 10, $n));
+        return new S(
+            ($this->value < 0 ? '-' : '') . base_convert($this->value, 10, $n)
+        );
     }
 
 
