@@ -207,7 +207,6 @@ class A extends O implements \Countable, \IteratorAggregate
      * Gets item having given index. Shorthand for `take` method.
      *
      * @param  mixed $idx N or integer
-     * @access public
      * @return mixed
      */
     public function take($idx)
@@ -231,7 +230,6 @@ class A extends O implements \Countable, \IteratorAggregate
      * Gets item having given index. Shorthand for `take` method.
      *
      * @param  mixed $idx N or integer
-     * @access public
      * @return mixed
      */
     public function get($idx)
@@ -245,7 +243,6 @@ class A extends O implements \Countable, \IteratorAggregate
      * Alias of take() method 
      * 
      * @param mixed $idx N or integer
-     * @access public
      * @return mixed
      */
     public function at($idx)
