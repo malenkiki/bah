@@ -503,23 +503,87 @@ class C extends O
         );
     }
 
+    /**
+     * Transforms to uppercase.
+     *
+     * Returns new character object translated to uppercase, if any. If no 
+     * uppercase exists, returns same character.
+     *
+     * Example:
+     *
+     *     $c = new C('œ');
+     *     echo $c->upper; // 'Œ'
+     *     $c = new C('9');
+     *     echo $c->upper; // '9'
+     * 
+     * @see C::$upper Magic getter form C::$upper
+     * @see C::$lower Its opposite: to lower case
+     * @return C
+     */
     protected function _upper()
     {
         return new self(mb_convert_case($this, MB_CASE_UPPER, C::ENCODING));
-        // return new self(mb_strtoupper($this, c::ENCODING));
     }
 
+
+    /**
+     * Transforms to lowercase.
+     *
+     * Returns new character object translated to lowercase, if any. If no 
+     * lowercase exists, returns same character.
+     *
+     * Example:
+     *
+     *     $c = new C('A');
+     *     echo $c->lower; // 'a'
+     *     $c = new C('9');
+     *     echo $c->lower; // '9'
+     * 
+     * @see C::$lower Magic getter form C::$lower
+     * @see C::$upper Its opposite: to upper case
+     * @return C
+     */
     protected function _lower()
     {
         return new self(mb_convert_case($this, MB_CASE_LOWER, C::ENCODING));
-        //return new self(mb_strtolower($this, c::ENCODING));
     }
 
+
+    /**
+     * Checks whether current character is a letter.
+     * 
+     * Checks if current character represents a letter, and only a letter.
+     *
+     * Example:
+     *
+     *     $c = new C('5');
+     *     var_dump($c->is_letter); // false
+     *     $c = new C('r');
+     *     var_dump($c->is_letter); // true
+     *
+     * @see C::$is_letter Magic getter C::$is_letter
+     * @return boolean
+     */
     protected function _isLetter()
     {
         return (boolean) preg_match("/^\p{L}+$/ui", $this->value);
     }
 
+    /**
+     * Checks whether current character is a digit.
+     * 
+     * Checks if current character represents a digit.
+     *
+     * Example:
+     *
+     *     $c = new C('5');
+     *     var_dump($c->is_digit); // true
+     *     $c = new C('r');
+     *     var_dump($c->is_digit); // false
+     *
+     * @see C::$is_digit Magic getter C::$is_digit
+     * @return boolean
+     */
     protected function _isDigit()
     {
         return is_numeric($this->value);
