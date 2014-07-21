@@ -316,7 +316,6 @@ class H extends O implements \Countable, \IteratorAggregate
      * If element is found, then S object is returned.
      *
      * @param  mixed $foo The element to find
-     * @access public
      * @return mixed
      */
     public function search($foo)
