@@ -78,6 +78,22 @@ namespace Malenki\Bah;
  */
 class N extends O
 {
+    /**
+     * Defines a lot of magic getters. 
+     * 
+     * @see N::_string()
+     * @see N::_str()
+     * @see N::_integer()
+     * @see N::_int()
+     * @see N::_float()
+     * @see N::_double()
+     * @see N::_incr()
+     * @see N::_decr()
+     * @see N::_n()
+     * @see N::_p()
+     * @param string $name 
+     * @return mixed
+     */
     public function __get($name)
     {
         if (
