@@ -137,6 +137,63 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $n->decr->int);
     }
 
+    public function testGettingNextNumberShouldReturnNObject()
+    {
+        $n = new N(1);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->n);
+    }
+
+
+    public function testGettingPreviousNumberShouldReturnNObject()
+    {
+        $n = new N(1);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->p);
+    }
+
+    public function testGettingNextNumberShouldSuccess()
+    {
+        $n = new N(1);
+        $this->assertEquals(new N(2), $n->n);
+    }
+
+
+    public function testGettingPreviousNumberShouldSuccess()
+    {
+        $n = new N(1);
+        $this->assertEquals(new N(0), $n->p);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingNextNumberUsingFloatShoouldFail()
+    {
+        $n = new N(M_PI);
+        $n->n;
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingPreviousNumberUsingFloatShoouldFail()
+    {
+        $n = new N(M_PI);
+        $n->p;
+    }
+
+
+    public function testGettingNextNumberUsingAliasShouldHaveSameResultAsOriginal()
+    {
+        $n = new N(1);
+        $this->assertEquals($n->n, $n->next);
+    }
+
+    public function testGettingPreviousNumberUsingAliasShouldHaveSameResultAsOriginal()
+    {
+        $n = new N(1);
+        $this->assertEquals($n->p, $n->previous);
+    }
+
 
     public function testDivisioniUsingPrimitivePHPTypeShouldReturnNObject()
     {

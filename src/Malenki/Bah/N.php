@@ -113,6 +113,10 @@ class N extends O
             ||
             $name === 'p' 
             ||
+            $name === 'next' 
+            ||
+            $name === 'previous' 
+            ||
             $name === 'incr' 
             ||
             $name === 'decr' 
@@ -323,12 +327,30 @@ class N extends O
 
     protected function _n()
     {
+        if(!$this->_decimal()->zero){
+            throw new \RuntimeException('Getting next number is only available for integer');
+        }
+
         return new self($this->value + 1);
     }
 
     protected function _p()
     {
+        if(!$this->_decimal()->zero){
+            throw new \RuntimeException('Getting previous number is only available for integer');
+        }
+
         return new self($this->value - 1);
+    }
+
+    protected function _next()
+    {
+        return $this->_n();
+    }
+
+    protected function _previous()
+    {
+        return $this->_p();
     }
 
     /**
