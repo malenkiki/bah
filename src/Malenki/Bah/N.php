@@ -325,6 +325,25 @@ class N extends O
         return $this;
     }
 
+    /**
+     * Gets next integer value. 
+     * 
+     * If current number is an integer, this method returns next one.
+     *
+     * Example:
+     *
+     *     $n = new N(1);
+     *     echo $n->n; // 2
+     *     echo $n->next; // 2 using alias
+     *
+     * It is the runtime part of magic getter.
+     *
+     * @see N::$n The magic getter N::$n
+     * @see N::_next() An alias
+     * @see N::_p() The opposite way (getting previous)
+     * @return N
+     * @throws \RuntimeException If current value is not an integer.
+     */
     protected function _n()
     {
         if(!$this->_decimal()->zero){
@@ -334,6 +353,27 @@ class N extends O
         return new self($this->value + 1);
     }
 
+
+
+    /**
+     * Gets previous integer value. 
+     * 
+     * If current number is an integer, this method returns previous one.
+     *
+     * Example:
+     *
+     *     $n = new N(1);
+     *     echo $n->p; // 0
+     *     echo $n->previous; // 0 using alias
+     *
+     * It is the runtime part of magic getter.
+     *
+     * @see N::$p The magic getter N::$p
+     * @see N::_previous() An alias
+     * @see N::_n() The opposite way (getting next)
+     * @return N
+     * @throws \RuntimeException If current value is not an integer.
+     */
     protected function _p()
     {
         if(!$this->_decimal()->zero){
@@ -343,11 +383,30 @@ class N extends O
         return new self($this->value - 1);
     }
 
+    /**
+     * Gets next value (Alias). 
+     * 
+     * @see N::_n() The original method
+     * @see N::$next An alias
+     * @see N::_previous() The opposite way (getting previous)
+     * @return N
+     * @throws \RuntimeException If current value is not an integer.
+     */
     protected function _next()
     {
         return $this->_n();
     }
 
+
+    /**
+     * Gets previous value (Alias). 
+     * 
+     * @see N::_p() The original method
+     * @see N::$previous An alias
+     * @see N::_next() The opposite way (getting next)
+     * @return N
+     * @throws \RuntimeException If current value is not an integer.
+     */
     protected function _previous()
     {
         return $this->_p();
