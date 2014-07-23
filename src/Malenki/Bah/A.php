@@ -250,6 +250,22 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this->take($idx);
     }
 
+    /**
+     * Tests whether given index exists. 
+     * 
+     * This checks if given index exists into the collection.
+     *
+     *     $a = new A();
+     *     $a->add('foo');
+     *     $a->add('bar');
+     *     $a->add('thing');
+     *     $a->exist(6); // false
+     *     $a->exist(2); // true
+     *
+     * @param mixed $idx Value of index, as integer-like
+     * @return boolean
+     * @throws \InvalidArgumentException If given index is not integer-like value.
+     */
     public function exist($idx)
     {
         self::mustBeInteger($idx);
