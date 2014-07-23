@@ -415,9 +415,16 @@ class N extends O
     /**
      * Checks whether current number is less than given one.
      *
-     * @throw \InvalidArgumentException If argument is not numeric or N class
+     * This is equivalent of `$n < 3`. So, for example:
+     *
+     *     $n = new N(M_PI);
+     *     $n->less(4); // true
+     *     $n->less(3); // false
+     *
+     * @see N::lt() An alias
      * @param  mixed   $num N or primitive numeric value
      * @return boolean
+     * @throws \InvalidArgumentException If argument is not numeric-like
      */
     public function less($num)
     {
@@ -433,9 +440,10 @@ class N extends O
     /**
      * Shorthand for less() method
      *
-     * @throw \InvalidArgumentException If argument is not numeric or N class
+     * @see N::less() Original method
      * @param  mixed   $num N or numeric value
      * @return boolean
+     * @throws \InvalidArgumentException If argument is not numeric or N class
      */
     public function lt($num)
     {
@@ -445,9 +453,17 @@ class N extends O
     /**
      * Tests whether current number is less than or equal to given one.
      *
-     * @throw \InvalidArgumentException If argument is not numeric or N class
+     * This is equivalent of `$n <= 3`. For example;
+     *
+     *     $n = new N(3);
+     *     $n->lte(3); // true
+     *     $n->lte(4); // true
+     *     $n->lte(1); // false
+     *
+     * @see N::le() An alias
      * @param  mixed   $num N or numeric value
      * @return boolean
+     * @throws \InvalidArgumentException If argument is not numeric-like value
      */
     public function lte($num)
     {
@@ -460,6 +476,15 @@ class N extends O
         }
     }
 
+
+    /**
+     * Tests whether current number is less than or equal to given one (Alias).
+     *
+     * @see N::lte() Original method
+     * @param  mixed   $num N or numeric value
+     * @return boolean
+     * @throws \InvalidArgumentException If argument is not numeric-like value
+     */
     public function le($num)
     {
         return $this->lte($num);
@@ -468,9 +493,16 @@ class N extends O
     /**
      * Tests whether current number is greater than given one.
      *
-     * @throw \InvalidArgumentException If argument is not numeric or N class
+     * This is equivalent of `$n > 3`. For example:
+     *
+     *     $n = new N(M_PI);
+     *     $n->greater(2); // true
+     *     $n->greater(4); // false
+     *
+     * @see N::gt() An alias
      * @param  mixed   $num N or numeric value.
      * @return boolean
+     * @throws \InvalidArgumentException If argument is not numeric-like value
      */
     public function greater($num)
     {
@@ -486,9 +518,10 @@ class N extends O
     /**
      * Shorthand of greater() method
      *
-     * @throw \InvalidArgumentException If argument is not numeric or N class
+     * @see N::greater() Original method
      * @param  mixed   $num N or numeric value
      * @return boolean
+     * @throws \InvalidArgumentException If argument is not numeric-like value
      */
     public function gt($num)
     {
@@ -497,6 +530,13 @@ class N extends O
 
     /**
      * Tests whether current number is greater than or equal to the given number.
+     *
+     * This is equivalent of `$n >= 3`. For example:
+     *
+     *     $n = new N(3);
+     *     $n->gte(3); // true
+     *     $n->gte(1); // true
+     *     $n->gte(5); // false
      *
      * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param  mixed   $num N or numeric value
