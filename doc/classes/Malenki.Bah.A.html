@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">238</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">234</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">253</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">265</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1764009017"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1777455401"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1764009017" class="accordion-body collapse in">
+            <div id="namespace-1777455401" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1456837377"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-324562519"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-1456837377" class="accordion-body collapse ">
+            <div id="namespace-324562519" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1387860152"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-670409823"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-1387860152" class="accordion-body collapse ">
+            <div id="namespace-670409823" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -1490,21 +1490,34 @@ has toString ethod or are primitive type.</p>
             <article class="method">
                 <h3 class="public ">exist()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">exist( <span class="argument">$idx</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">exist(mixed <span class="argument">$idx</span>) : boolean</pre>
+                <p><em>Tests whether given index exists.</em></p>
+                <p>This checks if given index exists into the collection.</p>
+<pre><code>$a = new A();
+$a-&gt;add('foo');
+$a-&gt;add('bar');
+$a-&gt;add('thing');
+$a-&gt;exist(6); // false
+$a-&gt;exist(2); // true</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$idx </td>
-                                <td></td>
+                                <td><p>Value of index, as integer-like</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given index is not integer-like value.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -3241,7 +3254,7 @@ this argument is not callable, then this raises an
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on July 22nd, 2014 at 18:12.
+                    on July 23rd, 2014 at 13:30.
                 </section>
             </section>
         </section>

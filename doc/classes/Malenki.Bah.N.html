@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">238</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">234</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">253</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">265</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-474901259"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1871285866"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-474901259" class="accordion-body collapse in">
+            <div id="namespace-1871285866" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1764106965"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-899160008"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-1764106965" class="accordion-body collapse ">
+            <div id="namespace-899160008" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-787572759"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-44381281"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-787572759" class="accordion-body collapse ">
+            <div id="namespace-44381281" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -1642,7 +1642,10 @@ value and <code>__toString()</code> feature.</p>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">less(mixed <span class="argument">$num</span>) : boolean</pre>
                 <p><em>Checks whether current number is less than given one.</em></p>
-                
+                <p>This is equivalent of <code>$n &lt; 3</code>. So, for example:</p>
+<pre><code>$n = new N(M_PI);
+$n-&gt;less(4); // true
+$n-&gt;less(3); // false</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -1655,9 +1658,9 @@ value and <code>__toString()</code> feature.</p>
                 
                                     <h4>Throws</h4>
                     <dl>
-                                                                            <dt>\InvalidArgumentException</dt>
-                            <dd><p>If argument is not numeric or N class</p></dd>
-                                            </dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If argument is not numeric-like</p></dd>
+                                                                    </dl>
                 
                                     <h4>Returns</h4>
                     boolean
@@ -1666,7 +1669,9 @@ value and <code>__toString()</code> feature.</p>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_lt"><span class="namespace-wrapper">An alias</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1695,9 +1700,9 @@ value and <code>__toString()</code> feature.</p>
                 
                                     <h4>Throws</h4>
                     <dl>
-                                                                            <dt>\InvalidArgumentException</dt>
+                                                    <dt>\InvalidArgumentException</dt>
                             <dd><p>If argument is not numeric or N class</p></dd>
-                                            </dl>
+                                                                    </dl>
                 
                                     <h4>Returns</h4>
                     boolean
@@ -1706,7 +1711,9 @@ value and <code>__toString()</code> feature.</p>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_less"><span class="namespace-wrapper">Original method</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1722,7 +1729,11 @@ value and <code>__toString()</code> feature.</p>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">lte(mixed <span class="argument">$num</span>) : boolean</pre>
                 <p><em>Tests whether current number is less than or equal to given one.</em></p>
-                
+                <p>This is equivalent of <code>$n &lt;= 3</code>. For example;</p>
+<pre><code>$n = new N(3);
+$n-&gt;lte(3); // true
+$n-&gt;lte(4); // true
+$n-&gt;lte(1); // false</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -1735,9 +1746,9 @@ value and <code>__toString()</code> feature.</p>
                 
                                     <h4>Throws</h4>
                     <dl>
-                                                                            <dt>\InvalidArgumentException</dt>
-                            <dd><p>If argument is not numeric or N class</p></dd>
-                                            </dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If argument is not numeric-like value</p></dd>
+                                                                    </dl>
                 
                                     <h4>Returns</h4>
                     boolean
@@ -1746,7 +1757,9 @@ value and <code>__toString()</code> feature.</p>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_le"><span class="namespace-wrapper">An alias</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1760,26 +1773,35 @@ value and <code>__toString()</code> feature.</p>
             <article class="method">
                 <h3 class="public ">le()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">le( <span class="argument">$num</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">le(mixed <span class="argument">$num</span>) : boolean</pre>
+                <p><em>Tests whether current number is less than or equal to given one (Alias).</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$num </td>
-                                <td></td>
+                                <td><p>N or numeric value</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If argument is not numeric-like value</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_lte"><span class="namespace-wrapper">Original method</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1795,7 +1817,10 @@ value and <code>__toString()</code> feature.</p>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">greater(mixed <span class="argument">$num</span>) : boolean</pre>
                 <p><em>Tests whether current number is greater than given one.</em></p>
-                
+                <p>This is equivalent of <code>$n &gt; 3</code>. For example:</p>
+<pre><code>$n = new N(M_PI);
+$n-&gt;greater(2); // true
+$n-&gt;greater(4); // false</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -1808,9 +1833,9 @@ value and <code>__toString()</code> feature.</p>
                 
                                     <h4>Throws</h4>
                     <dl>
-                                                                            <dt>\InvalidArgumentException</dt>
-                            <dd><p>If argument is not numeric or N class</p></dd>
-                                            </dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If argument is not numeric-like value</p></dd>
+                                                                    </dl>
                 
                                     <h4>Returns</h4>
                     boolean
@@ -1819,7 +1844,9 @@ value and <code>__toString()</code> feature.</p>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_gt"><span class="namespace-wrapper">An alias</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1848,9 +1875,9 @@ value and <code>__toString()</code> feature.</p>
                 
                                     <h4>Throws</h4>
                     <dl>
-                                                                            <dt>\InvalidArgumentException</dt>
-                            <dd><p>If argument is not numeric or N class</p></dd>
-                                            </dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If argument is not numeric-like value</p></dd>
+                                                                    </dl>
                 
                                     <h4>Returns</h4>
                     boolean
@@ -1859,7 +1886,9 @@ value and <code>__toString()</code> feature.</p>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_greater"><span class="namespace-wrapper">Original method</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1875,7 +1904,11 @@ value and <code>__toString()</code> feature.</p>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">gte(mixed <span class="argument">$num</span>) : boolean</pre>
                 <p><em>Tests whether current number is greater than or equal to the given number.</em></p>
-                
+                <p>This is equivalent of <code>$n &gt;= 3</code>. For example:</p>
+<pre><code>$n = new N(3);
+$n-&gt;gte(3); // true
+$n-&gt;gte(1); // true
+$n-&gt;gte(5); // false</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -5121,7 +5154,7 @@ Integer-like value.</p></dd>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on July 22nd, 2014 at 18:12.
+                    on July 23rd, 2014 at 13:30.
                 </section>
             </section>
         </section>
