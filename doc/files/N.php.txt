@@ -1290,26 +1290,36 @@ class N extends O
     }
 
     /**
-     * greek
+     * Converts current number as ancient greek numerals.
      *
+     * It converts current number if and only if it is an positive integer.
      * If digamma is false, use stigma instead.
      *
-     * Max number: 9999.
+     * Max number is 9999.
+     *
+     * Example:
+     *
+     *     $n = new N(269);
+     *     echo $n->greek; // 'σξθ'
+     *
      *
      * @todo add myriad to have more number after 9999.
-     * @param  boolean $digamma
-     * @return s       object
+     * @see N::$greek Magic getter using digamma
+     * @param  boolean $digamma True, use digamme, false, use stigma
+     * @return S
+     * @throws \RuntimeException If current number is not positive integer
+     * @throws \RuntimeException If current number is greater than 9999
      */
     public function greek($digamma = true)
     {
         if(!$this->_decimal()->zero || $this->value < 0){
-            throw new \InvalidArgumentException(
+            throw new \RuntimeException(
                 'Converting into greek uses only positive integers.'
             );
         }
 
         if ($this->value > 9999) {
-            throw new \InvalidArgumentException(
+            throw new \RuntimeException(
                 'Numbers over 9999 are not yet available for greek format.'
             );
         }
@@ -1373,6 +1383,22 @@ class N extends O
     }
 
 
+    /**
+     * Converts current number as hindi numerals.
+     *
+     * The current number is converted to hindi numerals.
+     *
+     * Example:
+     *
+     *     $n = new N(123456789);
+     *     echo $n->hindi; // '१२३४५६७८९'
+     *     $n = new N(123456789);
+     *     echo $n->hindi(true); // '१२,३४,५६,७८९'
+     * 
+     * @param bollean $use_sep If true, then output has separators
+     * @return S
+     * @todo what about decimal?
+     */
     public function hindi($use_sep = false)
     {
         $arr = array(
