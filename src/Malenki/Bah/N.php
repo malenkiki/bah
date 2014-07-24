@@ -1319,7 +1319,7 @@ class N extends O
         }
 
         if ($this->value > 9999) {
-            throw new \InvalidArgumentException(
+            throw new \RuntimeException(
                 'Numbers over 9999 are not yet available for greek format.'
             );
         }

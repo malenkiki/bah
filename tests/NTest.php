@@ -455,6 +455,25 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('σξθ', $number269->greek);
     }
 
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingGreekNumeralsUsingNegativeValueShouldFail()
+    {
+        $n = new N(-42);
+        $n->greek;
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingGreekNumeralsUsingValueGreaterThan9999ShouldFail()
+    {
+        $n = new N(10000);
+        $n->greek;
+    }
+
     public function testGettingGreekumeralsFromMagicGetterShouldHaveSameResultAsFromMethodWay()
     {
         // single digit
