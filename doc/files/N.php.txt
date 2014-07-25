@@ -1415,15 +1415,15 @@ class N extends O
         );
         $str = strtr((string) $this->value, $arr);
 
-        if($use_sep && mb_strlen($str, 'UTF-8') > 3){
+        if($use_sep && mb_strlen($str, C::ENCODING) > 3){
             $mb_strrev = function($str){
                 preg_match_all('/./us', $str, $ar);
                 return join('',array_reverse($ar[0]));
             };
 
             $str = $mb_strrev($str);
-            $str_first = mb_substr($str, 0, 3, 'UTF-8');
-            $str_last = mb_substr($str, 3, mb_strlen($str, 'UTF-8'), 'UTF-8');
+            $str_first = mb_substr($str, 0, 3, C::ENCODING);
+            $str_last = mb_substr($str, 3, mb_strlen($str, C::ENCODING), C::ENCODING);
 
             $str_last = implode(
                 ',',
@@ -1443,6 +1443,26 @@ class N extends O
         return new S($str);
     }
 
+    /**
+     * Converts current number as arabic digit.
+     *
+     * Arbic number can have their own shape, so many arab countries use arabic 
+     * number in place of occidental numerals.
+     *
+     * This converts current numbers into `\Malenki\Bah\S` object having arabic 
+     * digits.
+     *
+     * Example:
+     *
+     *     $n = new N(1979);
+     *     echo $n->arabic; // '١٩٧٩'
+     *
+     * @see S::$arabic Magic getter version
+     * @see S::$perso_arabic Magic getter version for perso arabic
+     * @see S::$persian Magic getter version for persian
+     * @param string $type Type of arabic digits: `arabic` (default), or `perso_arabic` or `persian`
+     * @return S
+     */
     protected function _arabic($type = 'arabic')
     {
         $arr = array(
