@@ -1415,15 +1415,15 @@ class N extends O
         );
         $str = strtr((string) $this->value, $arr);
 
-        if($use_sep && mb_strlen($str, 'UTF-8') > 3){
+        if($use_sep && mb_strlen($str, C::ENCODING) > 3){
             $mb_strrev = function($str){
                 preg_match_all('/./us', $str, $ar);
                 return join('',array_reverse($ar[0]));
             };
 
             $str = $mb_strrev($str);
-            $str_first = mb_substr($str, 0, 3, 'UTF-8');
-            $str_last = mb_substr($str, 3, mb_strlen($str, 'UTF-8'), 'UTF-8');
+            $str_first = mb_substr($str, 0, 3, C::ENCODING);
+            $str_last = mb_substr($str, 3, mb_strlen($str, C::ENCODING), C::ENCODING);
 
             $str_last = implode(
                 ',',
