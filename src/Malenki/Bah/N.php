@@ -1443,6 +1443,26 @@ class N extends O
         return new S($str);
     }
 
+    /**
+     * Converts current number as arabic digit.
+     *
+     * Arbic number can have their own shape, so many arab countries use arabic 
+     * number in place of occidental numerals.
+     *
+     * This converts current numbers into `\Malenki\Bah\S` object having arabic 
+     * digits.
+     *
+     * Example:
+     *
+     *     $n = new N(1979);
+     *     echo $n->arabic; // '١٩٧٩'
+     *
+     * @see S::$arabic Magic getter version
+     * @see S::$perso_arabic Magic getter version for perso arabic
+     * @see S::$persian Magic getter version for persian
+     * @param string $type Type of arabic digits: `arabic` (default), or `perso_arabic` or `persian`
+     * @return S
+     */
     protected function _arabic($type = 'arabic')
     {
         $arr = array(
