@@ -686,6 +686,20 @@ class NTest extends PHPUnit_Framework_TestCase
         $n = new N(123456789);
         $this->assertEquals('१२,३४,५६,७८९', $n->hindi(true));
     }
+
+    public function testGettingEasternArabicDigitsShouldReturnSObject()
+    {
+        $n = new N(1979);
+        $this->assertInstanceOf('\Malenki\Bah\S', $n->arabic);
+    }
+    
+
+    public function testGettingPersoArabicDigitsShouldReturnSObject()
+    {
+        $n = new N(1979);
+        $this->assertInstanceOf('\Malenki\Bah\S', $n->perso_arabic);
+        $this->assertInstanceOf('\Malenki\Bah\S', $n->persian);
+    }
     
     public function testGettingEasterArabicNumeralsShouldSuccess()
     {
