@@ -49,8 +49,13 @@ echo $greek->lcc->n;
 echo $greek->ucc->n;
 echo $greek->dash->n;
 echo $greek->underscore->n;
-echo $greek->trans->n;
-echo $greek->lcc->trans->n;
+echo $greek->lcc->n;
+try {
+    echo $greek->trans->n;
+    echo $greek->lcc->trans->n;
+} catch(\RuntimeException $e){
+    echo 'Intl is not installed, so `S::$trans` magic getter is not available.';
+}
 echo $greek->sub(4)->n;
 echo $greek->chars->length->to_s->n;
 echo $greek->bytes->length->to_s->n;
@@ -109,11 +114,14 @@ $s = new S('abcdef');
 echo $s->chunk->filter($filter_vowel)->join("\n")->n;
 echo $s->chunk->map($filter_upper_consons)->join("\n")->n;
 
-$s = new S('C’est rigolo d’écrire en français !');
-echo $s->trans->n;
-$s = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
-echo $s->trans->n;
-
+try {
+    $s = new S('C’est rigolo d’écrire en français !');
+    echo $s->trans->n;
+    $s = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
+    echo $s->trans->n;
+} catch(\RuntimeException $e){
+    echo 'Intl is not installed, so `S::$trans` magic getter is not available.';
+}
 $s = new S('a/zerty');
 var_dump($s->startsWith(new S('a/ze')));
 var_dump($s->endsWith('ty'));
@@ -153,28 +161,36 @@ $s = new S('Τα ελληνικά σου είναι καλύτερα απο τα
 
 while($s->chars->valid)
 {
-    printf(
-        "%s => %s\n",
-        $s->chars->current,
-        $s->chars->current->trans
-    );
+    try {
+        printf(
+            "%s => %s\n",
+            $s->chars->current,
+            $s->chars->current->trans
+        );
+    } catch(\RuntimeException $e){
+        echo 'Intl is not installed, so `C::$trans` magic getter is not available.';
+        echo $s->chars->current->to_s->n;
+    }
     $s->chars->next;
 }
 
 $s = new S('abcdefgh');
 var_dump($s->chars->has('c'));
 var_dump($s->chars->has('z'));
-$s = new S('ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΪΫάέήίΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώϐϑϒ');
-echo $s->trans->n;
-
-while($s->chars->valid)
-{
-    printf(
-        "%s => %s\n",
-        $s->chars->current,
-        $s->chars->current->is_upper_case ? $s->chars->current->trans->title : $s->chars->current->trans
-    );
-    $s->chars->next;
+try {
+    $s = new S('ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΪΫάέήίΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώϐϑϒ');
+    echo $s->trans->n;
+    while($s->chars->valid)
+    {
+        printf(
+            "%s => %s\n",
+            $s->chars->current,
+            $s->chars->current->is_upper_case ? $s->chars->current->trans->title : $s->chars->current->trans
+        );
+        $s->chars->next;
+    }
+} catch(\RuntimeException $e){
+    echo 'Intl is not installed, so transliterating feature is not available.';
 }
 
 
