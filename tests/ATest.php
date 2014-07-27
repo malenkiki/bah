@@ -451,12 +451,24 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('one', 2, 'something',null, null, null, null), $a->pad(7)->array);
     }
 
-    public function testRemoveDuplicateEntryShouldSuccess()
+    public function testRemovingDuplicateEntryShouldReturnAObject()
+    {
+        $a = new A(array('one', 'two', 'two', 'three', 'two', 12, 13, 12));
+        $this->assertInstanceOf('\Malenki\Bah\A', $a->unique);
+    }
+
+    public function testRemovingDuplicateEntryShouldSuccess()
     {
         $a = new A(array('one', 'two', 'two', 'three', 'two', 12, 13, 12));
         $this->assertEquals(array('one', 'two', 'three', 12, 13), $a->unique->array);
     }
 
+
+    public function testRemovingDuplicateEntryUsingAliasShouldHaveSameResultAsOriginal()
+    {
+        $a = new A(array('one', 'two', 'two', 'three', 'two', 12, 13, 12));
+        $this->assertEquals($a->unique, $a->uniq);
+    }
     public function testMakingChunkShouldSuccess()
     {
         $a = new A(array('one', 'two', 'three', 'four', 'five'));

@@ -110,6 +110,8 @@ class A extends O implements \Countable, \IteratorAggregate
             $name === 'sort'
             ||
             $name === 'unique'
+            ||
+            $name === 'uniq'
         ) {
             $str_method = '_' . $name;
 
@@ -335,9 +337,40 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this->add($thing);
     }
 
+    /**
+     * Removes any duplicate entries. 
+     * 
+     * This method removes all duplicate entries, so resulting collection has 
+     * only unique items.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('foo');
+     *     $a->add('bar');
+     *     $a->add('foo');
+     *     $a->add('thing');
+     *     var_dump($a->unique->array); // has: 'foo', 'bar', 'thing'
+     *
+     * @see A::_uniq() An alias
+     * @see A::$unique The magic getter way
+     * @return A
+     */
     protected function _unique()
     {
         return new self(array_unique($this->value, SORT_REGULAR));
+    }
+
+    /**
+     * Removes any duplicate entries (Alias). 
+     * 
+     * @see A::_unique() Original method
+     * @see A::$uniq The magic getter way
+     * @return A
+     */
+    protected function _uniq()
+    {
+        return $this->_unique();
     }
 
     public function delete($idx)
