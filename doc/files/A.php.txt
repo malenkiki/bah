@@ -112,6 +112,10 @@ class A extends O implements \Countable, \IteratorAggregate
             $name === 'unique'
             ||
             $name === 'uniq'
+            ||
+            $name === 'flatten'
+            ||
+            $name === 'flat'
         ) {
             $str_method = '_' . $name;
 
@@ -821,6 +825,58 @@ class A extends O implements \Countable, \IteratorAggregate
         }
 
         return false;
+    }
+
+    /**
+     * Flatten the current collection.
+     *
+     * If collection contains other arrays or A objects or H objects, then this 
+     * method will take all this content to create unqiue collection having one 
+     * dimension. 
+     *
+     * Example:
+     *
+     *     $a = new A(array('one', array('two', 'three', new A(array('four', 'five')))));
+     *     var_dump($a->flatten->array); // has: 'one', 'two', 'three', 'four', 'five'
+     * 
+     * @see A::$flatten Magic getter way
+     * @see A::_flat() Alias
+     * @return A
+     */
+    protected function _flatten()
+    {
+        $arr = array();
+
+        foreach ($this->value as $idx => $item) {
+            if(is_array($item)){
+                $item = new A($item);
+            } elseif($item instanceof H){
+                $item = $item->to_a;
+            }
+
+            if ($item instanceof A) {
+                $arr_prov = $item->flatten->array;
+                foreach($arr_prov as $v){
+                    $arr[] = $v;
+                }
+            } else {
+                $arr[] = $item;
+            }
+        }
+
+        return new self($arr);
+    }
+
+    /**
+     * Flatten the current collection (Alias).
+     * 
+     * @see A::_flatten() Original method
+     * @see A::$flat Alias
+     * @return A
+     */
+    protected function _flat()
+    {
+        return $this->_flatten();
     }
 
     public function __toString()
