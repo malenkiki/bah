@@ -827,6 +827,22 @@ class A extends O implements \Countable, \IteratorAggregate
         return false;
     }
 
+    /**
+     * Flatten the current collection.
+     *
+     * If collection contains other arrays or A objects or H objects, then this 
+     * method will take all this content to create unqiue collection having one 
+     * dimension. 
+     *
+     * Example:
+     *
+     *     $a = new A(array('one', array('two', 'three', new A(array('four', 'five')))));
+     *     var_dump($a->flatten->array); // has: 'one', 'two', 'three', 'four', 'five'
+     * 
+     * @see A::$flatten Magic getter way
+     * @see A::_flat() Alias
+     * @return A
+     */
     protected function _flatten()
     {
         $arr = array();
@@ -847,24 +863,17 @@ class A extends O implements \Countable, \IteratorAggregate
                 $arr[] = $item;
             }
         }
+
         return new self($arr);
-
-        /*
-        $rit = new \RecursiveIteratorIterator(
-            new \RecursiveArrayIterator($this->value)
-        );
-
-        $arr = array();
-
-        foreach($rit as $v){
-            //var_dump($v);
-            $arr[] = $v;
-        }
-
-    return new self($arr);
-         */
     }
 
+    /**
+     * Flatten the current collection (Alias).
+     * 
+     * @see A::_flatten() Original method
+     * @see A::$flat Alias
+     * @return A
+     */
     protected function _flat()
     {
         return $this->_flatten();
