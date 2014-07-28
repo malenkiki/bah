@@ -662,9 +662,20 @@ class ATest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testGettingFlattenVersionUsingObjectsShouldSuccess()
+    public function testGettingFlattenVersionUsingAObjectsShouldSuccess()
     {
         $a = new A(array('Foo', 'Bar', new A(array('Thing', 'Other', new A(array('One', 'Two', 'Three'))))));
+
+        $this->assertEquals(
+            new A(array('Foo', 'Bar', 'Thing', 'Other', 'One', 'Two', 'Three')),
+            $a->flatten
+        );
+    }
+
+
+    public function testGettingFlattenVersionUsingHObjectsShouldSuccess()
+    {
+        $a = new A(array('Foo', 'Bar', new H(array('a' => 'Thing', 'b' => 'Other', 'c' => new H(array('c' => 'One', 'd' => 'Two', 'e' => 'Three'))))));
 
         $this->assertEquals(
             new A(array('Foo', 'Bar', 'Thing', 'Other', 'One', 'Two', 'Three')),

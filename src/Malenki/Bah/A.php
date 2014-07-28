@@ -834,7 +834,10 @@ class A extends O implements \Countable, \IteratorAggregate
         foreach ($this->value as $idx => $item) {
             if(is_array($item)){
                 $item = new A($item);
+            } elseif($item instanceof H){
+                $item = $item->to_a;
             }
+
             if ($item instanceof A) {
                 $arr_prov = $item->flatten->array;
                 foreach($arr_prov as $v){
