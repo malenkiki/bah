@@ -112,6 +112,10 @@ class A extends O implements \Countable, \IteratorAggregate
             $name === 'unique'
             ||
             $name === 'uniq'
+            ||
+            $name === 'flatten'
+            ||
+            $name === 'flat'
         ) {
             $str_method = '_' . $name;
 
@@ -821,6 +825,46 @@ class A extends O implements \Countable, \IteratorAggregate
         }
 
         return false;
+    }
+
+    protected function _flatten()
+    {
+        $arr = array();
+
+        foreach ($this->value as $idx => $item) {
+            if(is_array($item)){
+                $item = new A($item);
+            }
+            if ($item instanceof A) {
+                $arr_prov = $item->flatten->array;
+                foreach($arr_prov as $v){
+                    $arr[] = $v;
+                }
+            } else {
+                $arr[] = $item;
+            }
+        }
+        return new self($arr);
+
+        /*
+        $rit = new \RecursiveIteratorIterator(
+            new \RecursiveArrayIterator($this->value)
+        );
+
+        $arr = array();
+
+        foreach($rit as $v){
+            //var_dump($v);
+            $arr[] = $v;
+        }
+
+    return new self($arr);
+         */
+    }
+
+    protected function _flat()
+    {
+        return $this->_flatten();
     }
 
     public function __toString()

@@ -644,4 +644,37 @@ class ATest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testGettingFlatVersionShouldReturnAObject()
+    {
+        $a = new A(array('foo', 'bar', array('thing', 'other')));
+
+        $this->assertInstanceOf('\Malenki\Bah\A', $a->flatten);
+    }
+
+    public function testGettingFlattenVersionUsingOnlyArrayShouldSuccess()
+    {
+        $a = new A(array('foo', 'bar', array('thing', 'other', array('one', 'two', 'three'))));
+
+        $this->assertEquals(
+            new A(array('foo', 'bar', 'thing', 'other', 'one', 'two', 'three')),
+            $a->flatten
+        );
+    }
+
+
+    public function testGettingFlattenVersionUsingObjectsShouldSuccess()
+    {
+        $a = new A(array('Foo', 'Bar', new A(array('Thing', 'Other', new A(array('One', 'Two', 'Three'))))));
+
+        $this->assertEquals(
+            new A(array('Foo', 'Bar', 'Thing', 'Other', 'One', 'Two', 'Three')),
+            $a->flatten
+        );
+    }
+
+    public function testGettingFlatVersionUsingAliasShouldHaveSameResultAsOriginal()
+    {
+        $a = new A(array('foo', 'bar', array('thing', 'other')));
+        $this->assertEquals($a->flatten, $a->flat);
+    }
 }
