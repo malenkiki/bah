@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">230</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">229</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">270</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">271</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2080767733"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-619947891"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-2080767733" class="accordion-body collapse in">
+            <div id="namespace-619947891" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-144554284"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1191601193"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-144554284" class="accordion-body collapse ">
+            <div id="namespace-1191601193" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1567971175"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1984036313"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-1567971175" class="accordion-body collapse ">
+            <div id="namespace-1984036313" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -318,6 +318,7 @@ value and <code>__toString()</code> feature.</p>
                                                                     <a href="../classes/Malenki.Bah.A.html#method__last" class="">_last()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method__first" class="">_first()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method__unique" class="">_unique()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.A.html#method__uniq" class="">_uniq()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method__shift" class="">_shift()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method__pop" class="">_pop()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method__maxOrMin" class="">_maxOrMin()</a><br />
@@ -2977,18 +2978,61 @@ this argument is not callable, then this raises an
             <article class="method">
                 <h3 class="protected ">_unique()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_unique()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_unique() : \Malenki\Bah\A</pre>
+                <p><em>Removes any duplicate entries.</em></p>
+                <p>This method removes all duplicate entries, so resulting collection has
+only unique items.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('foo');
+$a-&gt;add('bar');
+$a-&gt;add('foo');
+$a-&gt;add('thing');
+var_dump($a-&gt;unique-&gt;array); // has: 'foo', 'bar', 'thing'</code></pre>
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method__uniq"><span class="namespace-wrapper">An alias</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">The magic getter way</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__uniq" name="method__uniq" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_uniq()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_uniq() : \Malenki\Bah\A</pre>
+                <p><em>Removes any duplicate entries (Alias).</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method__unique"><span class="namespace-wrapper">Original method</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">The magic getter way</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -3254,7 +3298,7 @@ this argument is not callable, then this raises an
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on July 25th, 2014 at 13:54.
+                    on July 28th, 2014 at 09:45.
                 </section>
             </section>
         </section>
