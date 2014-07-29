@@ -510,6 +510,24 @@ class A extends O implements \Countable, \IteratorAggregate
         return new N($type($arr));
     }
 
+    /**
+     * Converts current collection as a simple array, recursively. 
+     * 
+     * This method converts all current collection as a simple array primitive 
+     * type, and all sub-collectionis included into current one are also 
+     * converted to array: this is recursive.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('foo')->add('bar');
+     *     $a->add(new A(array('other', 'thing'))) // works with H too
+     *     $a->array; // array('foo', 'bar', array('other', 'thing'))
+     *
+     * @see A::_arr() An alias
+     * @see A::$array Magic getter way
+     * @return array
+     */
     protected function _array()
     {
         $arr = array_values($this->value);
@@ -527,11 +545,31 @@ class A extends O implements \Countable, \IteratorAggregate
         return $arr;
     }
 
+    /**
+     * Converts current collection as a simple array, recursively (Alias). 
+     * 
+     * @see A::_array() Original method
+     * @see A::$arr Magic getter way
+     * @return array
+     */
     protected function _arr()
     {
         return $this->_array();
     }
 
+    /**
+     * Returns a shuffled copy of the current collection. 
+     * 
+     * This runtime part of magic getter `A::$shuffle` randomize collection’s 
+     * content to a new collection object.
+     *
+     * Example:
+     *
+     *     $a = new A(array('one', 'two', 'three'));
+     *     echo $a->shuffle->join(', '); // 'three, one, two' or other order…
+     * @see A::$shuffle Magic getter way.
+     * @return A
+     */
     protected function _shuffle()
     {
         $arr = $this->value;
@@ -541,6 +579,22 @@ class A extends O implements \Countable, \IteratorAggregate
         return new self($arr);
     }
 
+    /**
+     * Reverses items’ order as new collection.
+     *
+     * Returns new collection having current items’ order reversed.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add('two')->add('three');
+     *     var_dump($a->reverse->array); // 'three', 'two', 'one'
+     * 
+     * This is runtime par of magic getter.
+     *
+     * @see A::$reverse Magic getter way
+     * @return A
+     */
     protected function _reverse()
     {
         return new self(array_reverse($this->value));
