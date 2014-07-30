@@ -698,7 +698,34 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\A', $a->zip($b, $c));
     }
 
-    public function testGettingZippedAObjectsiHavingSameSizeShouldSuccess()
+    public function testGettingZippedArraysHavingSameSizeShouldSuccess()
+    {
+        $a = new A(array('un', 'deux', 'trois'));
+        $b = array('a', 'b', 'c');
+        $c = array(1, 2, 3);
+        $should = new A();
+        $should->add(new A(array('un', 'a', 1)));
+        $should->add(new A(array('deux', 'b', 2)));
+        $should->add(new A(array('trois', 'c', 3)));
+
+        $this->assertEquals($should, $a->zip($b, $c));
+    }
+
+    public function testGettingZippedArraysHavingDifferentSizesShouldSuccess()
+    {
+        $a = new A(array('un', 'deux', 'trois'));
+        $b = array('a', 'b');
+        $c = array(1, 2, 3);
+        $should = new A();
+        $should->add(new A(array('un', 'a', 1)));
+        $should->add(new A(array('deux', 'b', 2)));
+        $should->add(new A(array('trois', null, 3)));
+
+        $this->assertEquals($should, $a->zip($b, $c));
+    }
+
+
+    public function testGettingZippedAObjectsHavingSameSizeShouldSuccess()
     {
         $a = new A(array('un', 'deux', 'trois'));
         $b = new A(array('a', 'b', 'c'));

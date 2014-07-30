@@ -939,6 +939,8 @@ class A extends O implements \Countable, \IteratorAggregate
         $args = func_get_args();
         $int_max = 0;
 
+        array_unshift($args, $this->value);
+
         foreach($args as $item){
             self::mustBeArrayOrHash($item);
 
