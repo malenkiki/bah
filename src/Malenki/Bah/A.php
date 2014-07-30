@@ -934,6 +934,44 @@ class A extends O implements \Countable, \IteratorAggregate
     }
 
 
+    /**
+     * Combines provided collections with current one. 
+     *
+     * This works like `array_combine()` PHP function, but it can use many 
+     * collections or arrays.
+     *
+     * If some collection have less contents than others, then into combined 
+     * result, void value are replaced by `null`.
+     *
+     * Examples:
+     * 
+     *     $a = new A(array('un', 'deux', 'trois'));
+     *     $b = new A(array('a', 'b', 'c'));
+     *     $c = new A(array(1, 2, 3));
+     *
+     *     $a->zip($b, $c);
+     *
+     *     // will give this structured A objects:
+     *     // Row 1: 'un', 'a', 1
+     *     // Row 2: 'deux', 'b', 2
+     *     // Row 3: 'trois', 'c', 3
+     * 
+     *     $a = new A(array('un', 'deux', 'trois'));
+     *     $b = new A(array('a', 'b'));
+     *     $c = new A(array(1, 2, 3));
+     *
+     *     $a->zip($b, $c);
+     *
+     *     // will give this structured A objects:
+     *     // Row 1: 'un', 'a', 1
+     *     // Row 2: 'deux', 'b', 2
+     *     // Row 3: 'trois', null, 3
+     *
+     *
+     * @throws \InvalidArgumentException If at least one collection is not 
+     * array, or `\Malenki\BahA` object or `\Malenki\Bah\H` object
+     * @return A
+     */
     public function zip()
     {
         $args = func_get_args();
