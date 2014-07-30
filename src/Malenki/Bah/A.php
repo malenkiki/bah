@@ -933,6 +933,43 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this->_flatten();
     }
 
+
+    public function zip()
+    {
+        $args = func_get_args();
+        $int_max = 0;
+
+        foreach($args as $item){
+            self::mustBeArrayOrHash($item);
+
+            if(count($item) > $int_max){
+                $int_max = count($item);
+            }
+        }
+
+        $arr = array();
+
+        for($i = 0; $i < $int_max; $i++){
+            $arr_prov = array();
+
+            foreach($args as $item){
+                if(is_object($item)){
+                    $item = array_values($item->array);
+                }
+
+                if(array_key_exists($i, $item)){
+                    $arr_prov[] = $item[$i];
+                } else {
+                    $arr_prov[] = null;
+                }
+            }
+
+            $arr[] = new A($arr_prov);
+        }
+
+        return new A($arr);
+    }
+
     public function __toString()
     {
         return (string) $this->count;
