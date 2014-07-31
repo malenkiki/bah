@@ -807,12 +807,18 @@ class A extends O implements \Countable, \IteratorAggregate
     /**
      * Search index of the given element.
      *
-     * This will return the first index found for the given element if there 
-     * are several identical.
+     * This returns the first index found for the given element if there 
+     * are several identicals.
      *
      * If no element found, then returns null.
      *
      * If element is found, then N object is returned.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('zéro')->add('un')->add('deux');
+     *     echo $a->search('un'); // '1'
      *
      * @param  mixed $foo The element to find
      * @return mixed
@@ -828,6 +834,23 @@ class A extends O implements \Countable, \IteratorAggregate
     }
 
 
+    /**
+     * Checks whether current collection has given range inside.
+     *
+     * The given range range must be included into the collection without 
+     * change, into the same order, without break.
+     *
+     * Example:
+     *
+     *     $a = new A(array('un', 'deux', 'trois', 'quatre'));
+     *     $a->hasRange(array('deux', 'trois')); // true
+     *     $a->hasRange(array('deux', 'un')); // false
+     * 
+     * @param mixed $arr Array-like collection 
+     * @return boolean
+     * @throws \RuntimeException If given collectionis a void array (arrays are allowed, but not void)
+     * @throws \InvalidArgumentException If given argument is not an array-like value.
+     */
     public function hasRange($arr)
     {
         if(is_array($arr)){
@@ -1010,6 +1033,20 @@ class A extends O implements \Countable, \IteratorAggregate
         return new A($arr);
     }
 
+    /**
+     * Collection into string context.
+     *
+     * When used into string context, this method convert current number of 
+     * item into string. 
+     * 
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add(two);
+     *     echo $a; // '2'
+     *
+     * @return string
+     */
     public function __toString()
     {
         return (string) $this->count;
