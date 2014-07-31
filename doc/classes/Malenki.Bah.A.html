@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">225</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">222</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">284</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">288</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-233496557"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1322179131"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-233496557" class="accordion-body collapse in">
+            <div id="namespace-1322179131" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1745397761"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-922577681"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-1745397761" class="accordion-body collapse ">
+            <div id="namespace-922577681" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1277695046"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-494311642"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-1277695046" class="accordion-body collapse ">
+            <div id="namespace-494311642" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -1117,8 +1117,13 @@ has toString ethod or are primitive type.</p>
                 <h3 class="public ">__toString()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">__toString() : string</pre>
-                <p><em>Convert current object into string when this is in string context.</em></p>
-                
+                <p><em>Collection into string context.</em></p>
+                <p>When used into string context, this method convert current number of
+item into string.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('one')-&gt;add(two);
+echo $a; // '2'</code></pre>
 
                 
                 
@@ -2255,10 +2260,14 @@ $a-&gt;exist(2); // true</code></pre>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">search(mixed <span class="argument">$foo</span>) : mixed</pre>
                 <p><em>Search index of the given element.</em></p>
-                <p>This will return the first index found for the given element if there
-are several identical.</p>
+                <p>This returns the first index found for the given element if there
+are several identicals.</p>
 <p>If no element found, then returns null.</p>
 <p>If element is found, then N object is returned.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('zéro')-&gt;add('un')-&gt;add('deux');
+echo $a-&gt;search('un'); // '1'</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2291,21 +2300,35 @@ are several identical.</p>
             <article class="method">
                 <h3 class="public ">hasRange()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">hasRange( <span class="argument">$arr</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">hasRange(mixed <span class="argument">$arr</span>) : boolean</pre>
+                <p><em>Checks whether current collection has given range inside.</em></p>
+                <p>The given range range must be included into the collection without
+change, into the same order, without break.</p>
+<p>Example:</p>
+<pre><code>$a = new A(array('un', 'deux', 'trois', 'quatre'));
+$a-&gt;hasRange(array('deux', 'trois')); // true
+$a-&gt;hasRange(array('deux', 'un')); // false</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$arr </td>
-                                <td></td>
+                                <td><p>Array-like collection</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>If given collectionis a void array (arrays are allowed, but not void)</p></dd>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given argument is not an array-like value.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -3458,7 +3481,7 @@ var_dump($a-&gt;flatten-&gt;array); // has: 'one', 'two', 'three', 'four', 'five
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on July 30th, 2014 at 14:21.
+                    on July 31st, 2014 at 13:57.
                 </section>
             </section>
         </section>
