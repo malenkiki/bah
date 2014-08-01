@@ -770,4 +770,73 @@ class ATest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($should, $a->zip($b, $c));
     }
+
+
+    public function testGettingOnlyOneRandomElementsShouldReturnMixedValue()
+    {
+        $a = new A();
+        $a->add('foo')->add('bar')->add('thing');
+
+        $this->assertInternalType('string', $a->random(1));
+    }
+
+
+    public function testGettingMoreThanOneRandomElementsShouldReturnAObject()
+    {
+        $a = new A();
+        $a->add('foo')->add('bar')->add('thing');
+
+        $this->assertInstanceOf('\Malenki\Bah\A', $a->random(2));
+    }
+
+    public function testGettingRandomElementsShouldHaveRightNumberOfElements()
+    {
+        $a = new A();
+        $a->add('foo')->add('bar')->add('thing')->add('other');
+
+        $this->assertCount(2, $a->random(2)->array);
+        $this->assertCount(3, $a->random(3)->array);
+    }
+
+    public function testGettingRandomElementsUsingNObjectShouldHaveRightNumberOfElements()
+    {
+        $a = new A();
+        $a->add('foo')->add('bar')->add('thing')->add('other');
+
+        $this->assertCount(2, $a->random(new N(2))->array);
+        $this->assertCount(3, $a->random(new N(3))->array);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingMoreRandomElementsThanCollectionSizeShouldFail()
+    {
+        $a = new A();
+        $a->add('foo')->add('bar')->add('thing');
+
+        $a->random(4);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingRandomElementsUsingBadValueArgShouldFail()
+    {
+        $a = new A();
+        $a->add('foo')->add('bar')->add('thing');
+
+        $a->random('q');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingRandomElementUsingNumberLessThanOneShouldFail()
+    {
+        $a = new A();
+        $a->add('foo')->add('bar')->add('thing');
+
+        $a->random(0);
+    }
 }
