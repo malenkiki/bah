@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">222</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">220</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">288</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">289</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1322179131"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1842036338"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1322179131" class="accordion-body collapse in">
+            <div id="namespace-1842036338" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-922577681"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-758141631"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-922577681" class="accordion-body collapse ">
+            <div id="namespace-758141631" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-494311642"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-13912727"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-494311642" class="accordion-body collapse ">
+            <div id="namespace-13912727" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -263,6 +263,7 @@ value and <code>__toString()</code> feature.</p>
                                                                     <a href="../classes/Malenki.Bah.A.html#method_diff" class="">diff()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method_inter" class="">inter()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method_merge" class="">merge()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.A.html#method_concat" class="">concat()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method_chunk" class="">chunk()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method_slice" class="">slice()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method_search" class="">search()</a><br />
@@ -342,7 +343,7 @@ value and <code>__toString()</code> feature.</p>
                         </section>
                         <section class="row-fluid private">
                             <section class="span4">
-                                                                    <em>No private methods found</em>
+                                                                    <a href="../classes/Malenki.Bah.A.html#method_mergeEngine" class="">mergeEngine()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <em>No private properties found</em>
@@ -2154,26 +2155,73 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">merge()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">merge( <span class="argument">$arr</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">merge() : \Malenki\Bah\A</pre>
+                <p><em>Merge current collection with other(s) .</em></p>
+                <p>You can merge with current collection any number of array-like
+variables.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('one')-&gt;add('two');
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td></td>
-                                <td>$arr </td>
-                                <td></td>
-                            </tr>
-                                            </table>
+$b = new A();
+$b-&gt;add('three');
+
+$c = new A();
+$c-&gt;add('four')-&gt;add('five');
+
+$a-&gt;merge($b, $c); // has 'one', 'two', 'three', 'four', 'five'</code></pre>
+
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If at least one collection has bad type</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method_concat"><span class="namespace-wrapper">Merging collections together, alias</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_concat" name="method_concat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">concat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">concat() : \Malenki\Bah\A</pre>
+                <p><em>Merge current collection with other(s) (Alias).</em></p>
+                
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If at least one collection has bad type</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method_merge"><span class="namespace-wrapper">Merging collections together (other way)</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -3431,7 +3479,50 @@ var_dump($a-&gt;flatten-&gt;array); // has: 'one', 'two', 'three', 'four', 'five
         </aside>
     </div>
 
-                                                    </div>
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_mergeEngine" name="method_mergeEngine" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">mergeEngine()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">mergeEngine(array <span class="argument">$args</span>) : \Malenki\Bah\A</pre>
+                <p><em>Merge current collection with other(s) .</em></p>
+                <p>This is runtime part of <code>A::merge()</code> and <code>A::concat()</code>.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$args </td>
+                                <td><p>All collection to merge into array</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If at least one collection has bad type</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method_merge"><span class="namespace-wrapper">Merging collections together</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.A.html#method_concat"><span class="namespace-wrapper">Merging collections together, alias</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
     </section>
 
     <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
@@ -3481,7 +3572,7 @@ var_dump($a-&gt;flatten-&gt;array); // has: 'one', 'two', 'three', 'four', 'five
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on July 31st, 2014 at 13:57.
+                    on August 1st, 2014 at 14:06.
                 </section>
             </section>
         </section>
