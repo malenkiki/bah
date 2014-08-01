@@ -740,6 +740,17 @@ class A extends O implements \Countable, \IteratorAggregate
         return new self(array_values(array_intersect($this->value, $arr)));
     }
 
+    /**
+     * Merge current collection with other(s) .
+     *
+     * This is runtime part of `A::merge()` and `A::concat()`.
+     * 
+     * @see A::merge() Merging collections together
+     * @see A::concat() Merging collections together, alias
+     * @param array $args All collection to merge into array
+     * @return A
+     * @throws \InvalidArgumentException If at least one collection has bad type
+     */
     private function mergeEngine($args){
         $out = $this->value;
 
@@ -760,6 +771,29 @@ class A extends O implements \Countable, \IteratorAggregate
         return new self($out);
     }
 
+    /**
+     * Merge current collection with other(s) .
+     *
+     * You can merge with current collection any number of array-like 
+     * variables.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add('two');
+     *
+     *     $b = new A();
+     *     $b->add('three');
+     *
+     *     $c = new A();
+     *     $c->add('four')->add('five');
+     *
+     *     $a->merge($b, $c); // has 'one', 'two', 'three', 'four', 'five'
+     * 
+     * @see A::concat() Merging collections together, alias
+     * @return A
+     * @throws \InvalidArgumentException If at least one collection has bad type
+     */
     public function merge()
     {
         $args = func_get_args();
@@ -768,6 +802,13 @@ class A extends O implements \Countable, \IteratorAggregate
 
 
 
+    /**
+     * Merge current collection with other(s) (Alias).
+     *
+     * @see A::merge() Merging collections together (other way)
+     * @return A
+     * @throws \InvalidArgumentException If at least one collection has bad type
+     */
     public function concat()
     {
         $args = func_get_args();
