@@ -496,16 +496,36 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('two', 'three', 'four'), $a->slice(new N(1), new N(3))->array);
     }
 
-    public function testMergingShouldSuccess()
+    public function testMergingShouldReturnAObject()
     {
         $a = new A(array('un', 'deux', 'trois'));
         $b = new A(array('quatre', 'cinq'));
 
+        $this->assertInstanceOf('\Malenki\Bah\A', $a->merge($b));
+    }
+
+
+    public function testMergingUsingShouldSuccess()
+    {
+        $a = new A(array('un', 'deux', 'trois'));
+        $b = new A(array('quatre', 'cinq'));
+        $c = new A(array('six', 'sept', 'huit'));
+
         $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq'), $a->merge($b)->array);
+        $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit'), $a->merge($b, $c)->array);
 
         $b = new H(array('four' => 'quatre', 'five' => 'cinq'));
 
         $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq'), $a->merge($b)->array);
+        $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit'), $a->merge($b, $c)->array);
+    }
+
+    public function testMergingUsingAliasShouldHaveSameResultAsOriginal()
+    {
+        $a = new A(array('un', 'deux', 'trois'));
+        $b = new A(array('quatre', 'cinq'));
+
+        $this->assertEquals($a->merge($b), $a->concat($b));
     }
 
     public function testfindingKeysValuesUsingKeyTest()

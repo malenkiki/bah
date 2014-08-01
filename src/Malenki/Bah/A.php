@@ -740,19 +740,38 @@ class A extends O implements \Countable, \IteratorAggregate
         return new self(array_values(array_intersect($this->value, $arr)));
     }
 
-    public function merge($arr)
+    private function mergeEngine($args){
+        $out = $this->value;
+
+        foreach($args as $arr){
+            self::mustBeArrayOrHash($arr);
+
+            if ($arr instanceof A) {
+                $arr = $arr->array;
+            }
+
+            if ($arr instanceof H) {
+                $arr = $arr->array;
+            }
+
+            $out = array_merge($out, $arr);
+        }
+
+        return new self($out);
+    }
+
+    public function merge()
     {
-        self::mustBeArrayOrHash($arr);
+        $args = func_get_args();
+        return $this->mergeEngine($args);
+    }
 
-        if ($arr instanceof A) {
-            $arr = $arr->array;
-        }
 
-        if ($arr instanceof H) {
-            $arr = $arr->array;
-        }
 
-        return new self(array_values(array_merge($this->value, $arr)));
+    public function concat()
+    {
+        $args = func_get_args();
+        return $this->mergeEngine($args);
     }
 
     public function chunk($size)
