@@ -377,6 +377,25 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this->_unique();
     }
 
+    /**
+     * Deletes element at given position. 
+     * 
+     * This delete for current position an item at position `pos`. So, returned 
+     * object is same as current one.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add('two')->add('three');
+     *     echo $a->delete(1)->join(', '); // 'one, three'
+     * @see A::remove() Alias `A::remove()`
+     * @see A::rm() Alias `A::rm()`
+     * @see A::del() Alias `A::del()`
+     * @param mixed $idx  An integer-like value for position
+     * @return A
+     * @throws \InvalidArgumentException If given position is not an integer-like value.
+     * @throws \OutOfRangeException If given position does not exist.
+     */
     public function delete($idx)
     {
         self::mustBeInteger($idx);
@@ -397,21 +416,76 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this;
     }
 
+
+    /**
+     * Removes element at given position (Alias). 
+     * 
+     * @see A::delete() Original method `A::delete()`
+     * @see A::rm() Alias `A::rm()`
+     * @see A::del() Alias `A::del()`
+     * @param mixed $idx  An integer-like value for position
+     * @return A
+     * @throws \InvalidArgumentException If given position is not an integer-like value.
+     * @throws \OutOfRangeException If given position does not exist.
+     */
     public function remove($idx)
     {
         return $this->delete($idx);
     }
 
+
+
+    /**
+     * Deletes element at given position (Alias). 
+     * 
+     * @see A::delete() Original method `A::delete()`
+     * @see A::remove() Alias `A::remove()`
+     * @see A::del() Alias `A::del()`
+     * @param mixed $idx  An integer-like value for position
+     * @return A
+     * @throws \InvalidArgumentException If given position is not an integer-like value.
+     * @throws \OutOfRangeException If given position does not exist.
+     */
     public function rm($idx)
     {
         return $this->delete($idx);
     }
 
+
+    /**
+     * Deletes element at given position (Alias). 
+     * 
+     * @see A::delete() Original method `A::delete()`
+     * @see A::remove() Alias `A::remove()`
+     * @see A::rm() Alias `A::rm()`
+     * @param mixed $idx  An integer-like value for position
+     * @return A
+     * @throws \InvalidArgumentException If given position is not an integer-like value.
+     * @throws \OutOfRangeException If given position does not exist.
+     */
     public function del($idx)
     {
         return $this->delete($idx);
     }
 
+    /**
+     * Shift.
+     *
+     * Removes first element of the current collection and returns it.
+     *
+     * This is runtime part of magic getter `A::$shift`.
+     * 
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add('two')->add('three');
+     *     echo count($a); // 3
+     *     echo $a->shift; // 'one'
+     *     echo count($a); // 2
+     *
+     * @return mixed
+     * @throws \RuntimeException If current collection is void.
+     */
     protected function _shift()
     {
         if ($this->count() == 0) {
@@ -425,6 +499,25 @@ class A extends O implements \Countable, \IteratorAggregate
         return array_shift($this->value);
     }
 
+
+    /**
+     * Pop.
+     *
+     * Removes last element of the current collection and returns it.
+     *
+     * This is runtime part of magic getter `A::$pop`.
+     * 
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add('two')->add('three');
+     *     echo count($a); // 3
+     *     echo $a->pop; // 'three'
+     *     echo count($a); // 2
+     *
+     * @return mixed
+     * @throws \RuntimeException If current collection is void.
+     */
     protected function _pop()
     {
         if ($this->count() == 0) {
@@ -438,6 +531,23 @@ class A extends O implements \Countable, \IteratorAggregate
         return array_pop($this->value);
     }
 
+    /**
+     * Replaces element at given position.
+     * 
+     * Changes one element of the collection by a new one giving a position.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add('two')->add('three');
+     *     $a->replace(1, 'deux')->join(', '); // 'one, deux, three'
+     *
+     * @param mixed $idx An integer-like value for position
+     * @param mixed $thing The thing that replaces foo… :)
+     * @return A
+     * @throws \InvalidArgumentException If index is not an integer-like value
+     * @throws \OutOfRangeException If position does not exist
+     */
     public function replace($idx, $thing)
     {
         self::mustBeInteger($idx, 'Index');
