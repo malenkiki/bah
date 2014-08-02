@@ -567,23 +567,64 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this;
     }
 
+    /**
+     * Joins all elements into the collection together as a string object. 
+     * 
+     * All elements are converted to sstring, if possible, and joined side by 
+     * side with given separator.
+     *
+     * If some elements are array or A or H object, then they are convert using 
+     * same method and same séarators.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one');
+     *     $a->add(array('two', 'three'));
+     *     $a->add(new S('four'));
+     *     $a->add(new A(array('five', 'six')));
+     *     $a->add(new H(array('seven', 'eight')));
+     *     $a->add(new C('9'));
+     *     $a->add(new N(10));
+     *     $a->add(11);
+     *
+     *     echo $a->implode(', '); // 'one, two, three, four, five, six, seven, eight, 9, 10, 11'
+     * @see A::$implode Magic getter way, using void string.
+     * @see A::join() Alias
+     * @param mixed $sep String-like value as separator
+     * @return S
+     * @throws \InvalidArgumentException If separator is not string-like value
+     * @throws \RuntimeException If at least one item contains into collection 
+     * or sub-collection cannot be converted to a string.
+     */
     public function implode($sep = '')
     {
         self::mustBeString($sep, 'Separator');
 
+        $sep = "$sep";
         $arr = $this->value;
 
         foreach ($this->value as $idx => $item) {
             if(
                 is_scalar($item)
                 ||
+                is_array($item)
+                ||
                 $item instanceof A
+                ||
+                $item instanceof H
                 ||
                 (is_object($item) && method_exists($item, '__toString'))
             )
             {
+                if(is_array($item)){
+                    $item = new A($item);
+                }
+
                 if ($item instanceof A) {
-                    $arr[$idx] = $item->join($sep);
+                    $arr[$idx] = $item->implode($sep);
+                } elseif($item instanceof H){
+                    $arr[$idx] = $item->to_a->implode($sep);
                 } else {
                     continue;
                 }
@@ -597,6 +638,17 @@ class A extends O implements \Countable, \IteratorAggregate
         return new S(implode($sep, $arr));
     }
 
+    /**
+     * Joins all elements into the collection together as a string object (Alias) .
+     * 
+     * @see A::implode() Original method
+     * @see A::$join Magic getter alias, using void separator
+     * @param mixed $sep String-like value as separator
+     * @return S
+     * @throws \InvalidArgumentException If separator is not string-like value
+     * @throws \RuntimeException If at least one item contains into collection 
+     * or sub-collection cannot be converted to a string.
+     */
     public function join($sep = '')
     {
         return $this->implode($sep);

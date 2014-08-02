@@ -257,11 +257,79 @@ class ATest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testGettingCollectionJoinIntoString()
+    public function testGettingCollectionJoinIntoStringShouldReturnSObject()
+    {
+        $a = new A(array('one', 'two', new S('three'), 'four', 'five'));
+        $this->assertInstanceOf('\Malenki\Bah\S', $a->implode());
+    }
+
+
+    public function testGettingCollectionJoinIntoStringShouldSuccess()
     {
         $a = new A(array('one', 'two', new S('three'), 'four', 'five'));
         $this->assertEquals('onetwothreefourfive', $a->implode());
         $this->assertEquals('one, two, three, four, five', $a->implode(', '));
+
+        $a = new A(
+            array(
+                array('one', 'two'),
+                new A(array('three', 'four')),
+                'five'
+            )
+        );
+        $this->assertEquals('onetwothreefourfive', $a->implode());
+        $this->assertEquals('one, two, three, four, five', $a->implode(', '));
+        
+        $a = new A(
+            array(
+                array('one', 'two'),
+                new H(array('a' => 'three', 'b' => 'four')),
+                'five'
+            )
+        );
+        $this->assertEquals('onetwothreefourfive', $a->implode());
+        $this->assertEquals('one, two, three, four, five', $a->implode(', '));
+    }
+
+    public function testGettingCollectionJoinIntoStringUsingAliasShouldHaveSameResult()
+    {
+        $a = new A(array('one', 'two', new S('three'), 'four', 'five'));
+        $this->assertEquals($a->implode(), $a->join());
+        $this->assertEquals($a->implode(', '), $a->join(', '));
+        
+        $a = new A(
+            array(
+                array('one', 'two'),
+                new A(array('three', 'four')),
+                'five'
+            )
+        );
+        $this->assertEquals($a->implode(), $a->join());
+        $this->assertEquals($a->implode(', '), $a->join(', '));
+
+        $a = new A(
+            array(
+                array('one', 'two'),
+                new H(array('a' => 'three', 'b' => 'four')),
+                'five'
+            )
+        );
+        $this->assertEquals($a->implode(), $a->join());
+        $this->assertEquals($a->implode(', '), $a->join(', '));
+    }
+
+
+    public function testGettingCollectionJoinIntoStringUsingMagicGetterShouldSuccess()
+    {
+        $a = new A(array('one', 'two', new S('three'), 'four', 'five'));
+        $this->assertEquals('onetwothreefourfive', $a->implode);
+    }
+
+
+    public function testGettingCollectionJoinIntoStringUsingMagicGetterAliasShouldSuccess()
+    {
+        $a = new A(array('one', 'two', new S('three'), 'four', 'five'));
+        $this->assertEquals('onetwothreefourfive', $a->join);
     }
 
     public function testAvailabilityOfContentAndIndex()
