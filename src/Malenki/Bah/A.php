@@ -60,7 +60,19 @@ namespace Malenki\Bah;
  */
 class A extends O implements \Countable, \IteratorAggregate
 {
+
+    /**
+     * Contains number of items 
+     * 
+     * @var integer
+     */
     protected $count = 0;
+
+    /**
+     * Contains current position/ 
+     * 
+     * @var integer
+     */
     protected $position = 0;
 
     public function __get($name)
@@ -323,11 +335,41 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this->value[0];
     }
 
+    /**
+     * Checks whether collection has given thing or not.
+     * 
+     * Checks whether given thing is available into the collection.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('foo')->add('bar')->add('thing');
+     *     $a->has('bar'); // true
+     *     $a->has('other'); // false
+     *
+     * @param mixed $thing The element to find.
+     * @return boolean
+     */
     public function has($thing)
     {
         return in_array($thing, $this->value);
     }
 
+    /**
+     * Adds new element into the current collection.
+     * 
+     * Adds new element at the end of the collection.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('foo')->add('bar')->add('thing');
+     *     var_dump($a->array); // 'foo', 'bar', 'thing'
+     *
+     * @see A::push() Alias
+     * @param mixed $thing The foo element to add…
+     * @return A
+     */
     public function add($thing)
     {
         $this->value[] = $thing;
@@ -336,6 +378,14 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this;
     }
 
+
+    /**
+     * Adds new element into the current collection (Alias).
+     *
+     * @see A::add() Original method
+     * @param mixed $thing The foo element to add…
+     * @return A
+     */
     public function push($thing)
     {
         return $this->add($thing);
@@ -388,6 +438,7 @@ class A extends O implements \Countable, \IteratorAggregate
      *     $a = new A();
      *     $a->add('one')->add('two')->add('three');
      *     echo $a->delete(1)->join(', '); // 'one, three'
+     *
      * @see A::remove() Alias `A::remove()`
      * @see A::rm() Alias `A::rm()`
      * @see A::del() Alias `A::del()`
