@@ -861,6 +861,26 @@ class A extends O implements \Countable, \IteratorAggregate
         return $a;
     }
 
+    /**
+     * Applys given function arg on every item of the collection.
+     *
+     * Given argument must be a callable function. This function accept as 
+     * argument item of collection.
+     *
+     * The result is returned into new `\Malenki\Bah\A` instance.
+     *
+     * Example:
+     *     $cube = function ($n) {
+     *         return $n * $n * $n;
+     *     };
+     *
+     *     $a = new A(range(1, 5));
+     *     $a->map($cube)->array; // array(1, 8, 27, 64, 125)
+     * 
+     * @param callable $func 
+     * @return A
+     * @throws \InvalidArgumentException If param is not callable
+     */
     public function map($func)
     {
         self::mustBeCallable($func);
