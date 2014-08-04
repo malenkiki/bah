@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">220</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">193</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">289</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">302</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1842036338"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1983071478"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1842036338" class="accordion-body collapse in">
+            <div id="namespace-1983071478" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-758141631"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-195865900"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-758141631" class="accordion-body collapse ">
+            <div id="namespace-195865900" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-13912727"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-675006953"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-13912727" class="accordion-body collapse ">
+            <div id="namespace-675006953" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -1026,12 +1026,12 @@ has toString ethod or are primitive type.</p>
             <a id="property_count" name="property_count" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$count</h3>
-                <pre class="signature">$count : </pre>
-                <p><em></em></p>
+                <pre class="signature">$count : integer</pre>
+                <p><em>Contains number of items</em></p>
                 
 
                                 <h4>Type</h4>
-                
+                integer
                                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1050,12 +1050,12 @@ has toString ethod or are primitive type.</p>
             <a id="property_position" name="property_position" class="anchor"></a>
             <article class="property">
                 <h3 class="protected ">$position</h3>
-                <pre class="signature">$position : </pre>
-                <p><em></em></p>
+                <pre class="signature">$position : integer</pre>
+                <p><em>Contains current position/</em></p>
                 
 
                                 <h4>Type</h4>
-                
+                integer
                                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1546,21 +1546,28 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">has()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">has( <span class="argument">$thing</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">has(mixed <span class="argument">$thing</span>) : boolean</pre>
+                <p><em>Checks whether collection has given thing or not.</em></p>
+                <p>Checks whether given thing is available into the collection.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('foo')-&gt;add('bar')-&gt;add('thing');
+$a-&gt;has('bar'); // true
+$a-&gt;has('other'); // false</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$thing </td>
-                                <td></td>
+                                <td><p>The element to find.</p></td>
                             </tr>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -1579,26 +1586,34 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">add()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">add( <span class="argument">$thing</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">add(mixed <span class="argument">$thing</span>) : \Malenki\Bah\A</pre>
+                <p><em>Adds new element into the current collection.</em></p>
+                <p>Adds new element at the end of the collection.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('foo')-&gt;add('bar')-&gt;add('thing');
+var_dump($a-&gt;array); // 'foo', 'bar', 'thing'</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$thing </td>
-                                <td></td>
+                                <td><p>The foo element to add…</p></td>
                             </tr>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method_push"><span class="namespace-wrapper">Alias</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1612,26 +1627,30 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">push()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">push( <span class="argument">$thing</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">push(mixed <span class="argument">$thing</span>) : \Malenki\Bah\A</pre>
+                <p><em>Adds new element into the current collection (Alias).</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$thing </td>
-                                <td></td>
+                                <td><p>The foo element to add…</p></td>
                             </tr>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method_add"><span class="namespace-wrapper">Original method</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1645,26 +1664,44 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">delete()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">delete( <span class="argument">$idx</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">delete(mixed <span class="argument">$idx</span>) : \Malenki\Bah\A</pre>
+                <p><em>Deletes element at given position.</em></p>
+                <p>This delete for current position an item at position <code>pos</code>. So, returned
+object is same as current one.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('one')-&gt;add('two')-&gt;add('three');
+echo $a-&gt;delete(1)-&gt;join(', '); // 'one, three'</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$idx </td>
-                                <td></td>
+                                <td><p>An integer-like value for position</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given position is not an integer-like value.</p></dd>
+                                                    <dt>\OutOfRangeException</dt>
+                            <dd><p>If given position does not exist.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method_remove"><span class="namespace-wrapper">Alias `A::remove()`</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.A.html#method_rm"><span class="namespace-wrapper">Alias `A::rm()`</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.A.html#method_del"><span class="namespace-wrapper">Alias `A::del()`</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1678,26 +1715,39 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">remove()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">remove( <span class="argument">$idx</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">remove(mixed <span class="argument">$idx</span>) : \Malenki\Bah\A</pre>
+                <p><em>Removes element at given position (Alias).</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$idx </td>
-                                <td></td>
+                                <td><p>An integer-like value for position</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given position is not an integer-like value.</p></dd>
+                                                    <dt>\OutOfRangeException</dt>
+                            <dd><p>If given position does not exist.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method_delete"><span class="namespace-wrapper">Original method `A::delete()`</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.A.html#method_rm"><span class="namespace-wrapper">Alias `A::rm()`</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.A.html#method_del"><span class="namespace-wrapper">Alias `A::del()`</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1711,26 +1761,39 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">rm()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">rm( <span class="argument">$idx</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">rm(mixed <span class="argument">$idx</span>) : \Malenki\Bah\A</pre>
+                <p><em>Deletes element at given position (Alias).</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$idx </td>
-                                <td></td>
+                                <td><p>An integer-like value for position</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given position is not an integer-like value.</p></dd>
+                                                    <dt>\OutOfRangeException</dt>
+                            <dd><p>If given position does not exist.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method_delete"><span class="namespace-wrapper">Original method `A::delete()`</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.A.html#method_remove"><span class="namespace-wrapper">Alias `A::remove()`</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.A.html#method_del"><span class="namespace-wrapper">Alias `A::del()`</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1744,26 +1807,39 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">del()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">del( <span class="argument">$idx</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">del(mixed <span class="argument">$idx</span>) : \Malenki\Bah\A</pre>
+                <p><em>Deletes element at given position (Alias).</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$idx </td>
-                                <td></td>
+                                <td><p>An integer-like value for position</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given position is not an integer-like value.</p></dd>
+                                                    <dt>\OutOfRangeException</dt>
+                            <dd><p>If given position does not exist.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method_delete"><span class="namespace-wrapper">Original method `A::delete()`</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.A.html#method_remove"><span class="namespace-wrapper">Alias `A::remove()`</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.A.html#method_rm"><span class="namespace-wrapper">Alias `A::rm()`</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1777,26 +1853,39 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">replace()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">replace( <span class="argument">$idx</span>,  <span class="argument">$thing</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">replace(mixed <span class="argument">$idx</span>, mixed <span class="argument">$thing</span>) : \Malenki\Bah\A</pre>
+                <p><em>Replaces element at given position.</em></p>
+                <p>Changes one element of the collection by a new one giving a position.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('one')-&gt;add('two')-&gt;add('three');
+$a-&gt;replace(1, 'deux')-&gt;join(', '); // 'one, deux, three'</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$idx </td>
-                                <td></td>
+                                <td><p>An integer-like value for position</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$thing </td>
-                                <td></td>
+                                <td><p>The thing that replaces foo… :)</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If index is not an integer-like value</p></dd>
+                                                    <dt>\OutOfRangeException</dt>
+                            <dd><p>If position does not exist</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -1815,26 +1904,54 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">implode()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">implode( <span class="argument">$sep</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">implode(mixed <span class="argument">$sep</span>) : \Malenki\Bah\S</pre>
+                <p><em>Joins all elements into the collection together as a string object.</em></p>
+                <p>All elements are converted to sstring, if possible, and joined side by
+side with given separator.</p>
+<p>If some elements are array or A or H object, then they are convert using
+same method and same séarators.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('one');
+$a-&gt;add(array('two', 'three'));
+$a-&gt;add(new S('four'));
+$a-&gt;add(new A(array('five', 'six')));
+$a-&gt;add(new H(array('seven', 'eight')));
+$a-&gt;add(new C('9'));
+$a-&gt;add(new N(10));
+$a-&gt;add(11);
+
+echo $a-&gt;implode(', '); // 'one, two, three, four, five, six, seven, eight, 9, 10, 11'</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$sep </td>
-                                <td></td>
+                                <td><p>String-like value as separator</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If separator is not string-like value</p></dd>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>If at least one item contains into collection
+or sub-collection cannot be converted to a string.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.S.html">\Malenki\Bah\S</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Magic getter way, using void string.</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.A.html#method_join"><span class="namespace-wrapper">Alias</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1848,26 +1965,39 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">join()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">join( <span class="argument">$sep</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">join(mixed <span class="argument">$sep</span>) : \Malenki\Bah\S</pre>
+                <p><em>Joins all elements into the collection together as a string object (Alias) .</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$sep </td>
-                                <td></td>
+                                <td><p>String-like value as separator</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If separator is not string-like value</p></dd>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>If at least one item contains into collection
+or sub-collection cannot be converted to a string.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.S.html">\Malenki\Bah\S</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.A.html#method_implode"><span class="namespace-wrapper">Original method</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">Magic getter alias, using void separator</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -1952,21 +2082,37 @@ $a-&gt;exist(2); // true</code></pre>
             <article class="method">
                 <h3 class="public ">map()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">map( <span class="argument">$func</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">map(callable <span class="argument">$func</span>) : \Malenki\Bah\A</pre>
+                <p><em>Applys given function arg on every item of the collection.</em></p>
+                <p>Given argument must be a callable function. This function accept as
+argument item of collection.</p>
+<p>The result is returned into new <code>\Malenki\Bah\A</code> instance.</p>
+<p>Example:</p>
+<pre><code>$cube = function ($n) {
+    return $n * $n * $n;
+};
+
+$a = new A(range(1, 5));
+$a-&gt;map($cube)-&gt;array; // array(1, 8, 27, 64, 125)</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>callable</td>
                                 <td>$func </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If param is not callable</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -3178,13 +3324,27 @@ var_dump($a-&gt;unique-&gt;array); // has: 'foo', 'bar', 'thing'</code></pre>
             <article class="method">
                 <h3 class="protected ">_shift()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_shift()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_shift() : mixed</pre>
+                <p><em>Shift.</em></p>
+                <p>Removes first element of the current collection and returns it.</p>
+<p>This is runtime part of magic getter <code>A::$shift</code>.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('one')-&gt;add('two')-&gt;add('three');
+echo count($a); // 3
+echo $a-&gt;shift; // 'one'
+echo count($a); // 2</code></pre>
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>If current collection is void.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    mixed
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -3203,13 +3363,27 @@ var_dump($a-&gt;unique-&gt;array); // has: 'foo', 'bar', 'thing'</code></pre>
             <article class="method">
                 <h3 class="protected ">_pop()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_pop()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_pop() : mixed</pre>
+                <p><em>Pop.</em></p>
+                <p>Removes last element of the current collection and returns it.</p>
+<p>This is runtime part of magic getter <code>A::$pop</code>.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('one')-&gt;add('two')-&gt;add('three');
+echo count($a); // 3
+echo $a-&gt;pop; // 'three'
+echo count($a); // 2</code></pre>
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>If current collection is void.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    mixed
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -3572,7 +3746,7 @@ var_dump($a-&gt;flatten-&gt;array); // has: 'one', 'two', 'three', 'four', 'five
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 1st, 2014 at 14:06.
+                    on August 4th, 2014 at 13:58.
                 </section>
             </section>
         </section>

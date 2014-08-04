@@ -60,7 +60,19 @@ namespace Malenki\Bah;
  */
 class A extends O implements \Countable, \IteratorAggregate
 {
+
+    /**
+     * Contains number of items 
+     * 
+     * @var integer
+     */
     protected $count = 0;
+
+    /**
+     * Contains current position/ 
+     * 
+     * @var integer
+     */
     protected $position = 0;
 
     public function __get($name)
@@ -323,11 +335,41 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this->value[0];
     }
 
+    /**
+     * Checks whether collection has given thing or not.
+     * 
+     * Checks whether given thing is available into the collection.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('foo')->add('bar')->add('thing');
+     *     $a->has('bar'); // true
+     *     $a->has('other'); // false
+     *
+     * @param mixed $thing The element to find.
+     * @return boolean
+     */
     public function has($thing)
     {
         return in_array($thing, $this->value);
     }
 
+    /**
+     * Adds new element into the current collection.
+     * 
+     * Adds new element at the end of the collection.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('foo')->add('bar')->add('thing');
+     *     var_dump($a->array); // 'foo', 'bar', 'thing'
+     *
+     * @see A::push() Alias
+     * @param mixed $thing The foo element to add…
+     * @return A
+     */
     public function add($thing)
     {
         $this->value[] = $thing;
@@ -336,6 +378,14 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this;
     }
 
+
+    /**
+     * Adds new element into the current collection (Alias).
+     *
+     * @see A::add() Original method
+     * @param mixed $thing The foo element to add…
+     * @return A
+     */
     public function push($thing)
     {
         return $this->add($thing);
@@ -377,6 +427,26 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this->_unique();
     }
 
+    /**
+     * Deletes element at given position. 
+     * 
+     * This delete for current position an item at position `pos`. So, returned 
+     * object is same as current one.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add('two')->add('three');
+     *     echo $a->delete(1)->join(', '); // 'one, three'
+     *
+     * @see A::remove() Alias `A::remove()`
+     * @see A::rm() Alias `A::rm()`
+     * @see A::del() Alias `A::del()`
+     * @param mixed $idx  An integer-like value for position
+     * @return A
+     * @throws \InvalidArgumentException If given position is not an integer-like value.
+     * @throws \OutOfRangeException If given position does not exist.
+     */
     public function delete($idx)
     {
         self::mustBeInteger($idx);
@@ -397,21 +467,76 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this;
     }
 
+
+    /**
+     * Removes element at given position (Alias). 
+     * 
+     * @see A::delete() Original method `A::delete()`
+     * @see A::rm() Alias `A::rm()`
+     * @see A::del() Alias `A::del()`
+     * @param mixed $idx  An integer-like value for position
+     * @return A
+     * @throws \InvalidArgumentException If given position is not an integer-like value.
+     * @throws \OutOfRangeException If given position does not exist.
+     */
     public function remove($idx)
     {
         return $this->delete($idx);
     }
 
+
+
+    /**
+     * Deletes element at given position (Alias). 
+     * 
+     * @see A::delete() Original method `A::delete()`
+     * @see A::remove() Alias `A::remove()`
+     * @see A::del() Alias `A::del()`
+     * @param mixed $idx  An integer-like value for position
+     * @return A
+     * @throws \InvalidArgumentException If given position is not an integer-like value.
+     * @throws \OutOfRangeException If given position does not exist.
+     */
     public function rm($idx)
     {
         return $this->delete($idx);
     }
 
+
+    /**
+     * Deletes element at given position (Alias). 
+     * 
+     * @see A::delete() Original method `A::delete()`
+     * @see A::remove() Alias `A::remove()`
+     * @see A::rm() Alias `A::rm()`
+     * @param mixed $idx  An integer-like value for position
+     * @return A
+     * @throws \InvalidArgumentException If given position is not an integer-like value.
+     * @throws \OutOfRangeException If given position does not exist.
+     */
     public function del($idx)
     {
         return $this->delete($idx);
     }
 
+    /**
+     * Shift.
+     *
+     * Removes first element of the current collection and returns it.
+     *
+     * This is runtime part of magic getter `A::$shift`.
+     * 
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add('two')->add('three');
+     *     echo count($a); // 3
+     *     echo $a->shift; // 'one'
+     *     echo count($a); // 2
+     *
+     * @return mixed
+     * @throws \RuntimeException If current collection is void.
+     */
     protected function _shift()
     {
         if ($this->count() == 0) {
@@ -425,6 +550,25 @@ class A extends O implements \Countable, \IteratorAggregate
         return array_shift($this->value);
     }
 
+
+    /**
+     * Pop.
+     *
+     * Removes last element of the current collection and returns it.
+     *
+     * This is runtime part of magic getter `A::$pop`.
+     * 
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add('two')->add('three');
+     *     echo count($a); // 3
+     *     echo $a->pop; // 'three'
+     *     echo count($a); // 2
+     *
+     * @return mixed
+     * @throws \RuntimeException If current collection is void.
+     */
     protected function _pop()
     {
         if ($this->count() == 0) {
@@ -438,6 +582,23 @@ class A extends O implements \Countable, \IteratorAggregate
         return array_pop($this->value);
     }
 
+    /**
+     * Replaces element at given position.
+     * 
+     * Changes one element of the collection by a new one giving a position.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add('two')->add('three');
+     *     $a->replace(1, 'deux')->join(', '); // 'one, deux, three'
+     *
+     * @param mixed $idx An integer-like value for position
+     * @param mixed $thing The thing that replaces foo… :)
+     * @return A
+     * @throws \InvalidArgumentException If index is not an integer-like value
+     * @throws \OutOfRangeException If position does not exist
+     */
     public function replace($idx, $thing)
     {
         self::mustBeInteger($idx, 'Index');
@@ -457,23 +618,64 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this;
     }
 
+    /**
+     * Joins all elements into the collection together as a string object. 
+     * 
+     * All elements are converted to sstring, if possible, and joined side by 
+     * side with given separator.
+     *
+     * If some elements are array or A or H object, then they are convert using 
+     * same method and same séarators.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one');
+     *     $a->add(array('two', 'three'));
+     *     $a->add(new S('four'));
+     *     $a->add(new A(array('five', 'six')));
+     *     $a->add(new H(array('seven', 'eight')));
+     *     $a->add(new C('9'));
+     *     $a->add(new N(10));
+     *     $a->add(11);
+     *
+     *     echo $a->implode(', '); // 'one, two, three, four, five, six, seven, eight, 9, 10, 11'
+     * @see A::$implode Magic getter way, using void string.
+     * @see A::join() Alias
+     * @param mixed $sep String-like value as separator
+     * @return S
+     * @throws \InvalidArgumentException If separator is not string-like value
+     * @throws \RuntimeException If at least one item contains into collection 
+     * or sub-collection cannot be converted to a string.
+     */
     public function implode($sep = '')
     {
         self::mustBeString($sep, 'Separator');
 
+        $sep = "$sep";
         $arr = $this->value;
 
         foreach ($this->value as $idx => $item) {
             if(
                 is_scalar($item)
                 ||
+                is_array($item)
+                ||
                 $item instanceof A
+                ||
+                $item instanceof H
                 ||
                 (is_object($item) && method_exists($item, '__toString'))
             )
             {
+                if(is_array($item)){
+                    $item = new A($item);
+                }
+
                 if ($item instanceof A) {
-                    $arr[$idx] = $item->join($sep);
+                    $arr[$idx] = $item->implode($sep);
+                } elseif($item instanceof H){
+                    $arr[$idx] = $item->to_a->implode($sep);
                 } else {
                     continue;
                 }
@@ -487,6 +689,17 @@ class A extends O implements \Countable, \IteratorAggregate
         return new S(implode($sep, $arr));
     }
 
+    /**
+     * Joins all elements into the collection together as a string object (Alias) .
+     * 
+     * @see A::implode() Original method
+     * @see A::$join Magic getter alias, using void separator
+     * @param mixed $sep String-like value as separator
+     * @return S
+     * @throws \InvalidArgumentException If separator is not string-like value
+     * @throws \RuntimeException If at least one item contains into collection 
+     * or sub-collection cannot be converted to a string.
+     */
     public function join($sep = '')
     {
         return $this->implode($sep);
@@ -648,6 +861,26 @@ class A extends O implements \Countable, \IteratorAggregate
         return $a;
     }
 
+    /**
+     * Applys given function arg on every item of the collection.
+     *
+     * Given argument must be a callable function. This function accept as 
+     * argument item of collection.
+     *
+     * The result is returned into new `\Malenki\Bah\A` instance.
+     *
+     * Example:
+     *     $cube = function ($n) {
+     *         return $n * $n * $n;
+     *     };
+     *
+     *     $a = new A(range(1, 5));
+     *     $a->map($cube)->array; // array(1, 8, 27, 64, 125)
+     * 
+     * @param callable $func 
+     * @return A
+     * @throws \InvalidArgumentException If param is not callable
+     */
     public function map($func)
     {
         self::mustBeCallable($func);
