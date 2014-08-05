@@ -451,23 +451,40 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('green'), $it->diff($fr)->array);
         $this->assertEquals(array('blue'), $fr->diff($it)->array);
     }
+    
+    public function testIntersectWithArrayshouldReturnAObject()
+    {
+        $a1 = array('blue', 'white', 'red');
+        $a2 = array('green', 'white', 'red');
+        $a = new A($a2);
+        $this->assertInstanceOf('\Malenki\Bah\A', $a->inter($a1));
+    }
+
 
     public function testIntersectWithArrayshouldSuccess()
     {
-        $fr = array('blue', 'white', 'red');
-        $it = array('green', 'white', 'red');
-        $a = new A($it);
-        $this->assertEquals(array('white', 'red'), $a->inter($fr)->array);
-        $a = new A($fr);
-        $this->assertEquals(array('white', 'red'), $a->inter($it)->array);
+        $a1 = array('blue', 'white', 'red');
+        $a2 = array('green', 'white', 'red');
+        $a = new A($a2);
+        $this->assertEquals(array('white', 'red'), $a->inter($a1)->array);
+        $a = new A($a1);
+        $this->assertEquals(array('white', 'red'), $a->inter($a2)->array);
     }
 
     public function testIntersectWithAClassShouldSuccess()
     {
-        $fr = new A(array('blue', 'white', 'red'));
-        $it = new A(array('green', 'white', 'red'));
-        $this->assertEquals(array('white', 'red'), $it->inter($fr)->array);
-        $this->assertEquals(array('white', 'red'), $fr->inter($it)->array);
+        $a1 = new A(array('blue', 'white', 'red'));
+        $a2 = new A(array('green', 'white', 'red'));
+        $this->assertEquals(array('white', 'red'), $a2->inter($a1)->array);
+        $this->assertEquals(array('white', 'red'), $a1->inter($a2)->array);
+    }
+
+
+    public function testIntersectWithHClassShouldSuccess()
+    {
+        $a = new A(array('blue', 'white', 'red'));
+        $h = new H(array('a' => 'green', 'b' => 'white', 'c' => 'red'));
+        $this->assertEquals(array('white', 'red'), $a->inter($h)->array);
     }
 
     public function testSortingShouldSuccess()
