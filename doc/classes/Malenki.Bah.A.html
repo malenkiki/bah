@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">193</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">190</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">302</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">304</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1983071478"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1638668967"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1983071478" class="accordion-body collapse in">
+            <div id="namespace-1638668967" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-195865900"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-694356521"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-195865900" class="accordion-body collapse ">
+            <div id="namespace-694356521" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-675006953"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-622761417"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-675006953" class="accordion-body collapse ">
+            <div id="namespace-622761417" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -2268,21 +2268,37 @@ $a-&gt;map($cube)-&gt;array; // array(1, 8, 27, 64, 125)</code></pre>
             <article class="method">
                 <h3 class="public ">inter()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">inter( <span class="argument">$arr</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">inter(mixed <span class="argument">$arr</span>) : \Malenki\Bah\A</pre>
+                <p><em>Gets commons elements into currrent collection and given collection.</em></p>
+                <p>Same elements found into current collection and given collection are
+returned into new <code>\Malenki\Bah\A</code> instance.</p>
+<p>Given collection can be simple array, <code>\Malenki\Bah\A</code> object or
+<code>\Malenki\Bah\H</code> object.</p>
+<p>$a1 = new A();
+$a1->add('blue')->add('white')->add('red');
+$a2 = new A();
+$a2->add('green')->add('white')->add('red');</p>
+<p>var_dump($a1->inter($a2)->array); // array('white', 'red')
+var_dump($a2->inter($a1)->array); // array('white', 'red')</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$arr </td>
-                                <td></td>
+                                <td><p>Collection (array or object)</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If argument is not array-like value</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -3569,18 +3585,27 @@ var_dump($a-&gt;reverse-&gt;array); // 'three', 'two', 'one'</code></pre>
             <article class="method">
                 <h3 class="protected ">_sort()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_sort()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_sort() : \Malenki\Bah\A</pre>
+                <p><em>Sort elements of the collection.</em></p>
+                <p>Sort all elements of the collection by returning new <code>\Malenki\Bah\A</code>
+object.</p>
+<p>Example:</p>
+<pre><code>$a = new A(array('blue', 'white', 'red'));
+echo $a-&gt;sort-&gt;join(', '); 'blue, red, white'</code></pre>
+<p>This is runtime part of magic getter.</p>
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">The magic getter way</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -3746,7 +3771,7 @@ var_dump($a-&gt;flatten-&gt;array); // has: 'one', 'two', 'three', 'four', 'five
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 4th, 2014 at 13:58.
+                    on August 5th, 2014 at 13:38.
                 </section>
             </section>
         </section>
