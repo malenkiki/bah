@@ -487,11 +487,17 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('white', 'red'), $a->inter($h)->array);
     }
 
+    public function testSortingShouldReturnAObject()
+    {
+        $a = new A(array('blue', 'white', 'red'));
+        $this->assertInstanceOf('\Malenki\Bah\A', $a->sort);
+    }
+
     public function testSortingShouldSuccess()
     {
-        $fr = new A(array('blue', 'white', 'red'));
-        $this->assertEquals(array('blue', 'red', 'white'), $fr->sort->array);
-        $this->assertEquals(array('blue', 'white', 'red'), $fr->array);
+        $a = new A(array('blue', 'white', 'red'));
+        $this->assertEquals(array('blue', 'red', 'white'), $a->sort->array);
+        $this->assertEquals(array('blue', 'white', 'red'), $a->array);
     }
 
     /**

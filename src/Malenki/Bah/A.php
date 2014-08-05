@@ -813,6 +813,22 @@ class A extends O implements \Countable, \IteratorAggregate
         return new self(array_reverse($this->value));
     }
 
+    /**
+     * Sort elements of the collection. 
+     * 
+     * Sort all elements of the collection by returning new `\Malenki\Bah\A` 
+     * object.
+     *
+     * Example:
+     *
+     *     $a = new A(array('blue', 'white', 'red'));
+     *     echo $a->sort->join(', '); 'blue, red, white'
+     *
+     * This is runtime part of magic getter.
+     *
+     * @see A::$sort The magic getter way
+     * @return A
+     */
     protected function _sort()
     {
         $arr = $this->value;
