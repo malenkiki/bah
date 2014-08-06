@@ -599,7 +599,7 @@ class C extends O
         if(defined('HHVM_VERSION')){
             $int_code = $this->_unicode()->value;
 
-            if($int_code == 0x40){
+            if($int_code == 0xAD){
                 return true;
             } elseif(in_array($int_code, range(0x600, 0x604))){
                 return true;
