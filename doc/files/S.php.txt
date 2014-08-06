@@ -337,9 +337,9 @@ namespace Malenki\Bah;
  *     $s = new S('azerty');
  *     var_dump($s->match('/ty$/')); // true
  *     // or
- *     var_dump($s->match('/ty$/')); // true
+ *     var_dump($s->regexp('/ty$/')); // true
  *     // or
- *     var_dump($s->match('/ty$/')); // true
+ *     var_dump($s->re('/ty$/')); // true
  *
  * Second, current string is the pattern:
  *

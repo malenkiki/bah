@@ -983,13 +983,13 @@ class A extends O implements \Countable, \IteratorAggregate
      * Given collection can be simple array, `\Malenki\Bah\A` object or 
      * `\Malenki\Bah\H` object.
      *
-     * $a1 = new A();
-     * $a1->add('blue')->add('white')->add('red');
-     * $a2 = new A();
-     * $a2->add('green')->add('white')->add('red');
+     *     $a1 = new A();
+     *     $a1->add('blue')->add('white')->add('red');
+     *     $a2 = new A();
+     *     $a2->add('green')->add('white')->add('red');
      *
-     * var_dump($a1->inter($a2)->array); // array('white', 'red')
-     * var_dump($a2->inter($a1)->array); // array('white', 'red')
+     *     var_dump($a1->inter($a2)->array); // array('white', 'red')
+     *     var_dump($a2->inter($a1)->array); // array('white', 'red')
      * 
      * @param mixed $arr Collection (array or object)
      * @return A

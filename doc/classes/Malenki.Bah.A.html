@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1638668967"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2084303451"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1638668967" class="accordion-body collapse in">
+            <div id="namespace-2084303451" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-694356521"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2098714032"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-694356521" class="accordion-body collapse ">
+            <div id="namespace-2098714032" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-622761417"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1390173955"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-622761417" class="accordion-body collapse ">
+            <div id="namespace-1390173955" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -2274,12 +2274,13 @@ $a-&gt;map($cube)-&gt;array; // array(1, 8, 27, 64, 125)</code></pre>
 returned into new <code>\Malenki\Bah\A</code> instance.</p>
 <p>Given collection can be simple array, <code>\Malenki\Bah\A</code> object or
 <code>\Malenki\Bah\H</code> object.</p>
-<p>$a1 = new A();
-$a1->add('blue')->add('white')->add('red');
+<pre><code>$a1 = new A();
+$a1-&gt;add('blue')-&gt;add('white')-&gt;add('red');
 $a2 = new A();
-$a2->add('green')->add('white')->add('red');</p>
-<p>var_dump($a1->inter($a2)->array); // array('white', 'red')
-var_dump($a2->inter($a1)->array); // array('white', 'red')</p>
+$a2-&gt;add('green')-&gt;add('white')-&gt;add('red');
+
+var_dump($a1-&gt;inter($a2)-&gt;array); // array('white', 'red')
+var_dump($a2-&gt;inter($a1)-&gt;array); // array('white', 'red')</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -3771,7 +3772,7 @@ var_dump($a-&gt;flatten-&gt;array); // has: 'one', 'two', 'three', 'four', 'five
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 5th, 2014 at 13:38.
+                    on August 6th, 2014 at 13:45.
                 </section>
             </section>
         </section>
