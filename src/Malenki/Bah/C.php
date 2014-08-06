@@ -596,6 +596,26 @@ class C extends O
 
     protected function _isFormat()
     {
+        if(defined('HHVM_VERSION')){
+            $int_code = $this->_unicode()->value;
+
+            if($int_code == 0x40){
+                return true;
+            } elseif(in_array($int_code, range(0x600, 0x604))){
+                return true;
+            } elseif(in_array($int_code, range(0x200B, 0x200F))){
+                return true;
+            } elseif(in_array($int_code, range(0x202A, 0x202E))){
+                return true;
+            } elseif(in_array($int_code, range(0x2060, 0x2064))){
+                return true;
+            } elseif(in_array($int_code, range(0x206A, 0x206F))){
+                return true;
+            }
+
+            return false;
+        }
+
         return (boolean) preg_match("/^\p{Cf}+$/ui", $this->value);
     }
 
