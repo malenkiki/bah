@@ -55,6 +55,20 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\A', $a);
     }
 
+
+    public function testGettingLengthShouldReturnNObject()
+    {
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
+        $this->assertInstanceOf('\Malenki\Bah\N', $a->length);
+    }
+
+
+    public function testGettingCountShouldReturnBasicInteger()
+    {
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
+        $this->assertInternalType('integer', count($a));
+    }
+
     public function testGettingNumberOfItem()
     {
         $a = new A();
@@ -119,7 +133,8 @@ class ATest extends PHPUnit_Framework_TestCase
         $a->delete(6);
     }
 
-    public function testShiftingValueWithSuccess()
+
+    public function testShiftingValueShouldSuccess()
     {
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $value = $a->shift;
@@ -427,11 +442,26 @@ class ATest extends PHPUnit_Framework_TestCase
         $a->walk(array());
     }
 
+    public function testReversiongOrderShouldReturnAObject()
+    {
+        $a = new A(array('one', 'two', 'three', 'four', 'five'));
+        $this->assertInstanceOf('\Malenki\Bah\A', $a->reverse);
+    }
+
     public function testReversingOrderShouldSuccess()
     {
         $a = new A(array('one', 'two', 'three', 'four', 'five'));
         $this->assertEquals(array('five', 'four', 'three', 'two', 'one'), $a->reverse->array);
         $this->assertEquals($a->array, $a->reverse->reverse->array);
+    }
+
+    public function testDiffShouldReturnAObject()
+    {
+        $a = new A(array('green', 'white', 'red'));
+        $this->assertInstanceOf(
+            '\Malenki\Bah\A',
+            $a->diff(array('blue', 'white', 'red'))
+        );
     }
 
     public function testDiffWithArrayShouldSuccess()
