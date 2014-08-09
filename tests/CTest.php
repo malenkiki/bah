@@ -150,6 +150,7 @@ class CTest extends PHPUnit_Framework_TestCase
 
     /**
      * @requires PHP 5.4
+     * @requires extension intl
      */
     public function testTransFeatureShouldReturnSObject()
     {
@@ -160,6 +161,7 @@ class CTest extends PHPUnit_Framework_TestCase
 
     /**
      * @requires PHP 5.4
+     * @requires extension intl
      */
     public function testTransFeatureShouldSuccess()
     {

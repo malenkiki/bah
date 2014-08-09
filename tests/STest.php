@@ -1281,6 +1281,7 @@ class STest extends PHPUnit_Framework_TestCase
 
     /**
      * @requires PHP 5.4
+     * @requires extension intl
      */
     public function testTransFeatureShouldReturnSObject()
     {
@@ -1291,6 +1292,7 @@ class STest extends PHPUnit_Framework_TestCase
 
     /**
      * @requires PHP 5.4
+     * @requires extension intl
      */
     public function testTransFeatureShouldSuccess()
     {
@@ -2381,5 +2383,15 @@ class STest extends PHPUnit_Framework_TestCase
             $this->assertEquals($s->charAt($s->key), $s->current);
             $s->next;
         }
+    }
+
+    /**
+     * @requires PHP 5.4
+     * @requires extension intl
+     */
+    public function testGettingSlugShouldReturnSObject()
+    {
+        $s = new S('Je suis écrit en français !');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->slug);
     }
 }
