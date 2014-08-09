@@ -2394,4 +2394,21 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S('Je suis écrit en français !');
         $this->assertInstanceOf('\Malenki\Bah\S', $s->slug);
     }
+
+    /**
+     * @requires PHP 5.4
+     * @requires extension intl
+     */
+    public function testGettingSlugShouldSuccess()
+    {
+        $s = new S('Je suis écrit en français !');
+        $this->assertEquals('je-suis-ecrit-en-francais', $s->slug);
+        $s = new S('azerty');
+        $this->assertEquals('azerty', $s->slug);
+        $s = new S('Τα ελληνικά σου είναι καλύτερα απο τα Γαλλικά μου!');
+        $this->assertEquals(
+            'ta-ellenika-sou-einai-kalytera-apo-ta-gallika-mou', 
+            $s->slug
+        );
+    }
 }

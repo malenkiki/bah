@@ -678,6 +678,8 @@ class S extends O implements \Countable, \IteratorAggregate
             ||
             $name === 'bytes'
             ||
+            $name === 'slug'
+            ||
             $name === 'dash'
             ||
             $name === 'underscore'
@@ -1244,6 +1246,11 @@ class S extends O implements \Countable, \IteratorAggregate
         );
 
         return new self($str);
+    }
+
+    protected function _slug()
+    {
+        return $this->_lower()->trans->dash;
     }
 
     /**
