@@ -1248,6 +1248,30 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self($str);
     }
 
+
+    /**
+     * Creates slug for current string.
+     *
+     * This transliterate characters into latin characters without any 
+     * diacritic, converts to lower cases and uses dashes to separate each 
+     * words. 
+     * 
+     * Example:
+     *
+     *     $s = new S('Je suis écrit en français !');
+     *     echo $s->slug; // 'je-suis-ecrit-en-francais'
+     *
+     * This method is the running part of magic getter having same name.
+     *
+     * This method is in fact a shorthand for `$s->lower->trans->dash;` call.
+     *
+     * @see S::$slug Magic getter way
+     * @return S
+     * @throws \RuntimeException If this is called and intl extension is not 
+     * installed.
+     * @throws \RuntimeException If intl extension is installed but that uses 
+     * PHP version prior to 5.4.0.
+     */
     protected function _slug()
     {
         return $this->_lower()->trans->dash;
