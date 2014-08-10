@@ -976,6 +976,27 @@ class A extends O implements \Countable, \IteratorAggregate
         return $out;
     }
 
+    /**
+     * Returns elements not in common into current collection and given one. 
+     * 
+     * This method takes one argument: an array-like collection to compare with 
+     * current one and find elements not in common into second.
+     *
+     * Given argument can be `\Malenki\Bah\A` object, `\Malenki\Bah\H` object 
+     * or simple arry.
+     *
+     * Example:
+     *
+     *     $a = new A();
+     *     $a->add('one')->add('two');
+     *     $b = new A();
+     *     $b->add('three', 'one');
+     *     $a->diff($b); // 'two'
+     *
+     * @param mixed $arr An array-like collection (array, A or H object) 
+     * @return A
+     * @throws \InvalidArgumentException If given argument is not an array-like value
+     */
     public function diff($arr)
     {
         self::mustBeArrayOrHash($arr);
