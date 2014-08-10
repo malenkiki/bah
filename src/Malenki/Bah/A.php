@@ -780,6 +780,7 @@ class A extends O implements \Countable, \IteratorAggregate
      *
      *     $a = new A(array('one', 'two', 'three'));
      *     echo $a->shuffle->join(', '); // 'three, one, two' or other order…
+     *
      * @see A::$shuffle Magic getter way.
      * @return A
      */
@@ -837,6 +838,22 @@ class A extends O implements \Countable, \IteratorAggregate
         return new self($arr);
     }
 
+    /**
+     * Fill the collection with given element on given size. 
+     * 
+     * If current collection already has values, then they are kept.
+     *
+     * Example:
+     *
+     *     $a = new A(array('foo','bar'));
+     *     $a->pad(5); // 'foo', 'bar', null, null, null
+     *     $a->pad(5, 'thing'); // 'foo', 'bar', 'thing', 'thing', 'thing'
+     *
+     * @param mixed $size An integer-like value for the size
+     * @param mixed $value A value. If not given, null is used.
+     * @access public
+     * @return A
+     */
     public function pad($size, $value = null)
     {
         self::mustBeInteger($size, 'Size');
