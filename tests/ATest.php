@@ -482,6 +482,28 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('blue'), $fr->diff($it)->array);
     }
     
+
+    public function testDiffWithArrayIteratorShouldSuccess()
+    {
+        $ai1 = new \ArrayIterator(array('blue', 'white', 'red'));
+        $ai2 = new \ArrayIterator(array('green', 'white', 'red'));
+        $a1 = new A($ai1);
+        $a2 = new A($ai2);
+        $this->assertEquals(array('green'), $a2->diff($ai1)->array);
+        $this->assertEquals(array('blue'), $a1->diff($ai2)->array);
+    }
+    
+
+    public function testDiffWithSplFixedArrayShouldSuccess()
+    {
+        $sfa1 = \SplFixedArray::fromArray(array('blue', 'white', 'red'));
+        $sfa2 = \SplFixedArray::fromArray(array('green', 'white', 'red'));
+        $a1 = new A($sfa1);
+        $a2 = new A($sfa2);
+        $this->assertEquals(array('green'), $a2->diff($sfa1)->array);
+        $this->assertEquals(array('blue'), $a1->diff($sfa2)->array);
+    }
+    
     public function testIntersectWithArrayshouldReturnAObject()
     {
         $a1 = array('blue', 'white', 'red');

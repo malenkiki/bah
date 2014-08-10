@@ -316,12 +316,23 @@ class O
     {
         $msg = sprintf(
             '%s must be a primitive named indexed array PHP type or '
-            .'object \Malenki\Bah\A or \Malenki\Bah\H',
+            .'\Malenki\Bah\A or \Malenki\Bah\H or \SplFixedArray '
+            .' or \ArrayIterator',
             is_null($arg_name) ? 'Argument' : $arg_name
         );
 
 
-        if(!is_array($arg) && !($arg instanceof H) && !($arg instanceof A)){
+        if(
+            !is_array($arg)
+            &&
+            !($arg instanceof H)
+            &&
+            !($arg instanceof A)
+            &&
+            !($arg instanceof \SplFixedArray)
+            &&
+            !($arg instanceof \ArrayIterator)
+        ){
             throw new \InvalidArgumentException($msg);
         }
     }

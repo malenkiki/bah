@@ -75,6 +75,28 @@ class A extends O implements \Countable, \IteratorAggregate
      */
     protected $position = 0;
 
+    protected function toSimpleArray($arr)
+    {
+        if ($arr instanceof A) {
+            $arr = $arr->array;
+        }
+
+        if ($arr instanceof H) {
+            $arr = $arr->array;
+        }
+
+        if ($arr instanceof \SplFixedArray) {
+            $arr = $arr->toArray();
+        }
+
+        if ($arr instanceof \ArrayIterator) {
+            $arr = $arr->getArrayCopy();
+        }
+
+
+        return $arr;
+    }
+
     public function __get($name)
     {
 
@@ -166,15 +188,8 @@ class A extends O implements \Countable, \IteratorAggregate
 
     public function __construct($arr = array())
     {
-        if (!is_array($arr)) {
-            if ($arr instanceof A || $arr instanceof H) {
-                $arr = $arr->array;
-            } else {
-                throw new \InvalidArgumentException(
-                    'Constructor must have array, Class A or Class H instance.'
-                );
-            }
-        }
+        self::mustBeArrayOrHash($arr);
+        $arr = self::toSimpleArray($arr);
 
         $this->value = $arr;
         $this->count = count($arr);
@@ -1000,14 +1015,7 @@ class A extends O implements \Countable, \IteratorAggregate
     public function diff($arr)
     {
         self::mustBeArrayOrHash($arr);
-
-        if ($arr instanceof A) {
-            $arr = $arr->array;
-        }
-
-        if ($arr instanceof H) {
-            $arr = $arr->array;
-        }
+        $arr = self::toSimpleArray($arr);
 
         return new self(array_values(array_diff($this->value, $arr)));
     }
