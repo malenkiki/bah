@@ -513,7 +513,7 @@ class ATest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testIntersectWithArrayshouldSuccess()
+    public function testIntersectWithArrayShouldSuccess()
     {
         $a1 = array('blue', 'white', 'red');
         $a2 = array('green', 'white', 'red');
@@ -522,6 +522,30 @@ class ATest extends PHPUnit_Framework_TestCase
         $a = new A($a1);
         $this->assertEquals(array('white', 'red'), $a->inter($a2)->array);
     }
+
+    public function testIntersectWithArrayIteratorShouldSuccess()
+    {
+        $ai1 = new \ArrayIterator(array('blue', 'white', 'red'));
+        $ai2 = new \ArrayIterator(array('green', 'white', 'red'));
+        $a1 = new A($ai1);
+        $a2 = new A($ai2);
+        $a2 = new A($a2);
+        $this->assertEquals(array('white', 'red'), $a2->inter($ai1)->array);
+        $a1 = new A($a1);
+        $this->assertEquals(array('white', 'red'), $a1->inter($ai2)->array);
+    }
+
+
+    public function testIntersectWithSplFixedArrayShouldSuccess()
+    {
+        $sfa1 = \SplFixedArray::fromArray(array('blue', 'white', 'red'));
+        $sfa2 = \SplFixedArray::fromArray(array('green', 'white', 'red'));
+        $a1 = new A($sfa1);
+        $a2 = new A($sfa2);
+        $this->assertEquals(array('white', 'red'), $a2->inter($sfa1)->array);
+        $this->assertEquals(array('white', 'red'), $a1->inter($sfa2)->array);
+    }
+    
 
     public function testIntersectWithAClassShouldSuccess()
     {

@@ -1044,14 +1044,7 @@ class A extends O implements \Countable, \IteratorAggregate
     public function inter($arr)
     {
         self::mustBeArrayOrHash($arr);
-
-        if ($arr instanceof A) {
-            $arr = $arr->array;
-        }
-
-        if ($arr instanceof H) {
-            $arr = $arr->array;
-        }
+        $arr = self::toSimpleArray($arr);
 
         return new self(array_values(array_intersect($this->value, $arr)));
     }
