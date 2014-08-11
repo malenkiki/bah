@@ -1374,9 +1374,11 @@ class A extends O implements \Countable, \IteratorAggregate
 
         foreach($args as $item){
             self::mustBeArrayOrHash($item);
+            $item = self::toSimpleArray($item);
+            $int_count = count($item);
 
-            if(count($item) > $int_max){
-                $int_max = count($item);
+            if($int_count > $int_max){
+                $int_max = $int_count;
             }
         }
 
@@ -1386,9 +1388,7 @@ class A extends O implements \Countable, \IteratorAggregate
             $arr_prov = array();
 
             foreach($args as $item){
-                if(is_object($item)){
-                    $item = array_values($item->array);
-                }
+                $item = self::toSimpleArray($item);
 
                 if(array_key_exists($i, $item)){
                     $arr_prov[] = $item[$i];

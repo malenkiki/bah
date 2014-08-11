@@ -980,6 +980,60 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals($should, $a->zip($b, $c));
     }
 
+    public function testGettingZippedArrayIteratorsHavingSameSizeShouldSuccess()
+    {
+        $a = new A(array('un', 'deux', 'trois'));
+        $b = new \ArrayIterator(array('a', 'b', 'c'));
+        $c = new \ArrayIterator(array(1, 2, 3));
+        $should = new A();
+        $should->add(new A(array('un', 'a', 1)));
+        $should->add(new A(array('deux', 'b', 2)));
+        $should->add(new A(array('trois', 'c', 3)));
+
+        $this->assertEquals($should, $a->zip($b, $c));
+    }
+
+    public function testGettingZippedArrayIteratorsHavingDifferentSizesShouldSuccess()
+    {
+        $a = new A(array('un', 'deux', 'trois'));
+        $b = new \ArrayIterator(array('a', 'b'));
+        $c = new \ArrayIterator(array(1, 2, 3));
+        $should = new A();
+        $should->add(new A(array('un', 'a', 1)));
+        $should->add(new A(array('deux', 'b', 2)));
+        $should->add(new A(array('trois', null, 3)));
+
+        $this->assertEquals($should, $a->zip($b, $c));
+    }
+
+
+    public function testGettingZippedSplFixedArraysHavingSameSizeShouldSuccess()
+    {
+        $a = new A(array('un', 'deux', 'trois'));
+        $b = \SplFixedArray::fromArray(array('a', 'b', 'c'));
+        $c = \SplFixedArray::fromArray(array(1, 2, 3));
+        $should = new A();
+        $should->add(new A(array('un', 'a', 1)));
+        $should->add(new A(array('deux', 'b', 2)));
+        $should->add(new A(array('trois', 'c', 3)));
+
+        $this->assertEquals($should, $a->zip($b, $c));
+    }
+
+    public function testGettingZippedSplFixedArraysHavingDifferentSizesShouldSuccess()
+    {
+        $a = new A(array('un', 'deux', 'trois'));
+        $b = \SplFixedArray::fromArray(array('a', 'b'));
+        $c = \SplFixedArray::fromArray(array(1, 2, 3));
+        $should = new A();
+        $should->add(new A(array('un', 'a', 1)));
+        $should->add(new A(array('deux', 'b', 2)));
+        $should->add(new A(array('trois', null, 3)));
+
+        $this->assertEquals($should, $a->zip($b, $c));
+    }
+
+
 
     public function testGettingOnlyOneRandomElementsShouldReturnMixedValue()
     {
