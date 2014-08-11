@@ -672,7 +672,7 @@ class ATest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testMergingUsingShouldSuccess()
+    public function testMergingShouldSuccess()
     {
         $a = new A(array('un', 'deux', 'trois'));
         $b = new A(array('quatre', 'cinq'));
@@ -687,6 +687,48 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit'), $a->merge($b, $c)->array);
     }
 
+
+    public function testMergingUsingArrayShouldSuccess()
+    {
+        $arr_a = array('un', 'deux', 'trois');
+        $arr_b = array('quatre', 'cinq');
+        $arr_c = array('six', 'sept', 'huit');
+        $a = new A($arr_a);
+        $b = new A($arr_b);
+        $c = new A($arr_c);
+
+        $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq'), $a->merge($arr_b)->array);
+        $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit'), $a->merge($arr_b, $arr_c)->array);
+    }
+
+
+    public function testMergingUsingArrayIteratorShouldSuccess()
+    {
+        $arr_a = new \ArrayIterator(array('un', 'deux', 'trois'));
+        $arr_b = new \ArrayIterator(array('quatre', 'cinq'));
+        $arr_c = new \ArrayIterator(array('six', 'sept', 'huit'));
+        $a = new A($arr_a);
+        $b = new A($arr_b);
+        $c = new A($arr_c);
+
+        $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq'), $a->merge($arr_b)->array);
+        $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit'), $a->merge($arr_b, $arr_c)->array);
+    }
+
+
+    public function testMergingUsingSplFixedArrayShouldSuccess()
+    {
+        $arr_a = \SplFixedArray::fromArray(array('un', 'deux', 'trois'));
+        $arr_b = \SplFixedArray::fromArray(array('quatre', 'cinq'));
+        $arr_c = \SplFixedArray::fromArray(array('six', 'sept', 'huit'));
+        $a = new A($arr_a);
+        $b = new A($arr_b);
+        $c = new A($arr_c);
+
+        $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq'), $a->merge($arr_b)->array);
+        $this->assertEquals(array('un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit'), $a->merge($arr_b, $arr_c)->array);
+    }
+
     public function testMergingUsingAliasShouldHaveSameResultAsOriginal()
     {
         $a = new A(array('un', 'deux', 'trois'));
@@ -695,7 +737,7 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertEquals($a->merge($b), $a->concat($b));
     }
 
-    public function testfindingKeysValuesUsingKeyTest()
+    public function testFindingKeysValuesUsingKeyTest()
     {
         $a = new A(array('foo', 'bar', 'thing', 'other'));
         $this->assertEquals(array('bar', 'other'), $a->find('odd')->array);

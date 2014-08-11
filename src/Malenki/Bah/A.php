@@ -1015,9 +1015,14 @@ class A extends O implements \Countable, \IteratorAggregate
     public function diff($arr)
     {
         self::mustBeArrayOrHash($arr);
-        $arr = self::toSimpleArray($arr);
-
-        return new self(array_values(array_diff($this->value, $arr)));
+        return new self(
+            array_values(
+                array_diff(
+                    $this->value,
+                    self::toSimpleArray($arr)
+                )
+            )
+        );
     }
 
     /**
@@ -1044,9 +1049,14 @@ class A extends O implements \Countable, \IteratorAggregate
     public function inter($arr)
     {
         self::mustBeArrayOrHash($arr);
-        $arr = self::toSimpleArray($arr);
-
-        return new self(array_values(array_intersect($this->value, $arr)));
+        return new self(
+            array_values(
+                array_intersect(
+                    $this->value,
+                    self::toSimpleArray($arr)
+                )
+            )
+        );
     }
 
     /**
@@ -1065,16 +1075,7 @@ class A extends O implements \Countable, \IteratorAggregate
 
         foreach($args as $arr){
             self::mustBeArrayOrHash($arr);
-
-            if ($arr instanceof A) {
-                $arr = $arr->array;
-            }
-
-            if ($arr instanceof H) {
-                $arr = $arr->array;
-            }
-
-            $out = array_merge($out, $arr);
+            $out = array_merge($out, self::toSimpleArray($arr));
         }
 
         return new self($out);
