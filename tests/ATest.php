@@ -845,6 +845,24 @@ class ATest extends PHPUnit_Framework_TestCase
         $this->assertFalse($a->hasRange(new A(array($obj, 'bar'))));
     }
 
+    public function testDetectingWhetherGivenHRangeExistOrNotShouldSuccess()
+    {
+        $a = new A(array('foo', 'bar', 'thing', 'other'));
+
+        $this->assertTrue($a->hasRange(new H(array('a' => 'bar', 'b' => 'thing'))));
+        $this->assertFalse($a->hasRange(new H(array('a' => 'thing', 'b' => 'bar'))));
+        
+        $obj = new \stdClass();
+        $obj->truc_un = 'thing';
+        $obj->truc_deux = 'thing again';
+
+        $a = new A(array('foo', 'bar', $obj, 'other', 'bar', 'again'));
+
+        $this->assertTrue($a->hasRange(new H(array('a' => 'bar', 'b' => $obj))));
+        $this->assertFalse($a->hasRange(new H(array('a' => $obj, 'b' => 'bar'))));
+    }
+
+
     public function testDetectingWhetherGivenTooBigArrayRangeExistOrNotShouldReturnFalse()
     {
         $a = new A(array('foo', 'bar'));

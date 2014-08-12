@@ -82,7 +82,7 @@ class A extends O implements \Countable, \IteratorAggregate
         }
 
         if ($arr instanceof H) {
-            $arr = $arr->array;
+            $arr = array_values($arr->array);
         }
 
         if ($arr instanceof \SplFixedArray) {
@@ -1218,25 +1218,20 @@ class A extends O implements \Countable, \IteratorAggregate
      * 
      * @param mixed $arr Array-like collection 
      * @return boolean
-     * @throws \RuntimeException If given collectionis a void array (arrays are allowed, but not void)
+     * @throws \RuntimeException If given collection is a void array (arrays are allowed, but not void)
      * @throws \InvalidArgumentException If given argument is not an array-like value.
      */
     public function hasRange($arr)
     {
-        if(is_array($arr)){
-            if(empty($arr)){
-                throw new \RuntimeException(
-                    'Cannot used empty range to detect it into collection!'
-                );
-            }
-        } elseif ($arr instanceof A) {
-            $arr = $arr->array;
-        } else {
-            throw new \InvalidArgumentException(
-                'Range to detected must be array or A object!'
+        self::mustBeArrayOrHash($arr);
+        $arr = self::toSimpleArray($arr);
+        
+        if(empty($arr)){
+            throw new \RuntimeException(
+                'Cannot used empty range to detect it into collection!'
             );
         }
-
+            
         if(count($arr) > count($this->value)){
             return false;
         }
