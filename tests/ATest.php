@@ -863,6 +863,43 @@ class ATest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testDetectingWhetherGivenArrayIteratorExistOrNotShouldSuccess()
+    {
+        $a = new A(array('foo', 'bar', 'thing', 'other'));
+
+        $this->assertTrue($a->hasRange(new \ArrayIterator(array('bar', 'thing'))));
+        $this->assertFalse($a->hasRange(new \ArrayIterator(array('thing', 'bar'))));
+        
+        $obj = new \stdClass();
+        $obj->truc_un = 'thing';
+        $obj->truc_deux = 'thing again';
+
+        $a = new A(array('foo', 'bar', $obj, 'other', 'bar', 'again'));
+
+        $this->assertTrue($a->hasRange(new \ArrayIterator(array('bar', $obj))));
+        $this->assertFalse($a->hasRange(new \ArrayIterator(array($obj, 'bar'))));
+    }
+
+
+
+    public function testDetectingWhetherGivenSplFixedArrayExistOrNotShouldSuccess()
+    {
+        $a = new A(array('foo', 'bar', 'thing', 'other'));
+
+        $this->assertTrue($a->hasRange(\SplFixedArray::fromArray(array('bar', 'thing'))));
+        $this->assertFalse($a->hasRange(\SplFixedArray::fromArray(array('thing', 'bar'))));
+        
+        $obj = new \stdClass();
+        $obj->truc_un = 'thing';
+        $obj->truc_deux = 'thing again';
+
+        $a = new A(array('foo', 'bar', $obj, 'other', 'bar', 'again'));
+
+        $this->assertTrue($a->hasRange(\SplFixedArray::fromArray(array('bar', $obj))));
+        $this->assertFalse($a->hasRange(\SplFixedArray::fromArray(array($obj, 'bar'))));
+    }
+
+
     public function testDetectingWhetherGivenTooBigArrayRangeExistOrNotShouldReturnFalse()
     {
         $a = new A(array('foo', 'bar'));
