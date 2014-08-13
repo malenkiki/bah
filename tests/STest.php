@@ -2424,6 +2424,18 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('                This is a       string having   tabulations', $s->detab(8));
         $this->assertEquals('        This is a   string having   tabulations', $s->detab(4));
         $this->assertEquals('    This is a string having tabulations', $s->detab(2));
+
+
+        $s = new S("\t\tThis is a\tstring\nhaving\ttabulations");
+        $this->assertEquals("                This is a       string\nhaving  tabulations", $s->detab(8));
+        $this->assertEquals("        This is a   string\nhaving  tabulations", $s->detab(4));
+        $this->assertEquals("    This is a string\nhaving  tabulations", $s->detab(2));
+
+
+        $s = new S("\t\tThis is a\tstring\r\nhaving\ttabulations");
+        $this->assertEquals("                This is a       string\r\nhaving  tabulations", $s->detab(8, "\r\n"));
+        $this->assertEquals("        This is a   string\r\nhaving  tabulations", $s->detab(4, "\r\n"));
+        $this->assertEquals("    This is a string\r\nhaving  tabulations", $s->detab(2, "\r\n"));
     }
     
 

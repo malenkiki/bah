@@ -3694,15 +3694,15 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
-    public function detab($n)
+    public function detab($n, $eol = "\n")
     {
-        self::mustBeInteger($n, 'Tabulation’s  size');
+        self::mustBeInteger($n, 'Tabulation’s size');
 
         if(is_object($n)) $n = $n->int;
 
         if($n <= 0){
             throw new \InvalidArgumentException(
-                'Tabulations’s size cannot be equal to or inferioir to zero.'
+                'Tabulations’s size cannot be equal to or inferior to zero.'
             );
         }
 
@@ -3711,7 +3711,32 @@ class S extends O implements \Countable, \IteratorAggregate
         }
 
 
-        return false;
+        $arr = preg_split('//ui', $this->value);
+
+        $out = '';
+
+        $k_new = 0;
+
+        foreach($arr as $k => $v){
+            if($v !== "\t"){
+                if($v !== ''){
+                    $out .= $v;
+
+                    if($v === $eol){
+                        $k_new = 0;
+                    } else {
+                        $k_new++;
+                    }
+                }
+            } else {
+                $new_part_length = $n - ($k_new % $n);
+                $out .= str_repeat(' ', $new_part_length);
+                $k_new = $k_new + $new_part_length;
+            }
+        }
+
+
+        return new self($out);
     }
 
     /**
