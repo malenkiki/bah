@@ -3692,6 +3692,28 @@ class S extends O implements \Countable, \IteratorAggregate
         return !$this->_rtl() && !$this->_ltr();
     }
 
+
+
+    public function detab($n)
+    {
+        self::mustBeInteger($n, 'Tabulation’s  size');
+
+        if(is_object($n)) $n = $n->int;
+
+        if($n <= 0){
+            throw new \InvalidArgumentException(
+                'Tabulations’s size cannot be equal to or inferioir to zero.'
+            );
+        }
+
+        if(strpos($this->value, "\t") === false){
+            return $this;
+        }
+
+
+        return false;
+    }
+
     /**
      * Compute the MD5 sum of the string.
      *

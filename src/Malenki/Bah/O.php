@@ -136,6 +136,15 @@ class O
                 )
             );
         }
+
+        if(is_object($arg) && !$arg->decimal->zero){
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '%s must be an object \Malenki\Bah\N containing integer value',
+                    is_null($arg_name) ? 'Argument' : $arg_name
+                )
+            );
+        }
     }
 
 

@@ -2411,4 +2411,75 @@ class STest extends PHPUnit_Framework_TestCase
             $s->slug
         );
     }
+
+    public function testGettingDetabShouldReturnSObject()
+    {
+        $s = new S("\t\tThis is a\tstring having\ttabulations");
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->detab(4));
+    }
+
+    public function testGettingDetabUsingIntegerShouldSuccess()
+    {
+        $s = new S("\t\tThis is a\tstring having\ttabulations");
+        $this->assertEquals('                This is a       string having   tabulations', $s->detab(8));
+        $this->assertEquals('        This is a   string having   tabulations', $s->detab(4));
+        $this->assertEquals('    This is a string having tabulations', $s->detab(2));
+    }
+    
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingDetabUsingNonIntegerShouldFail()
+    {
+        $s = new S("\t\tThis is a\tstring having\ttabulations");
+        $s->detab(8.5);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingDetabUsingNegativeIntegerShouldFail()
+    {
+        $s = new S("\t\tThis is a\tstring having\ttabulations");
+        $s->detab(-8);
+    }
+
+
+    public function testGettingDetabUsingNObjectShouldSuccess()
+    {
+        $s = new S("\t\tThis is a\tstring having\ttabulations");
+        $this->assertEquals('                This is a       string having   tabulations', $s->detab(new N(8)));
+        $this->assertEquals('        This is a   string having   tabulations', $s->detab(new N(4)));
+        $this->assertEquals('    This is a string having tabulations', $s->detab(new N(2)));
+    }
+    
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingDetabUsingNonIntegerNObjectShouldFail()
+    {
+        $s = new S("\t\tThis is a\tstring having\ttabulations");
+        $s->detab(new N(8.5));
+    }
+
+    
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingDetabUsingNegativeIntegerNObjectShouldFail()
+    {
+        $s = new S("\t\tThis is a\tstring having\ttabulations");
+        $s->detab(new N(-8));
+    }
+
+    
+    
+    public function testGettingDetabWithoutChangeShouldSuccess()
+    {
+        $s = new S("This is a string without tabulation");
+        $this->assertEquals('This is a string without tabulation', $s->detab(4));
+    }
 }
