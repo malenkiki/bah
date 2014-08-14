@@ -3694,6 +3694,22 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
+    /**
+     * Replaces tabulations into a string by spaces.
+     *
+     * Replaces tabulations into a string by spaces, given size and into all 
+     * the lines. If EOL into string is not LF, then you must give yours into 
+     * second parameters.
+     * 
+     *     $s = new S("\t\tThis is a\tstring having\ttabulations");
+     *     echo $s->detab(4); // '        This is a   string having   tabulations'
+     * 
+     * @param mixed $n An integer-like value for tab size.
+     * @param string $eol Optionnal parameter to set default EOL to use.
+     * @return S
+     * @throws \InvalidArgumentException If tab's size is no integer-like value
+     * @throws \InvalidArgumentException If tab's size is equal to or inférior to zero
+     */
     public function detab($n, $eol = "\n")
     {
         self::mustBeInteger($n, 'Tabulation’s size');
