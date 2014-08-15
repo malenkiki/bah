@@ -651,6 +651,8 @@ class S extends O implements \Countable, \IteratorAggregate
             $name === 'right'
             ||
             $name === 'justify'
+            ||
+            $name === 'untag'
         ) {
             return $this->$name();
         } elseif ($name == '_') {
@@ -3756,13 +3758,73 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
 
-    public function untag()
+    public function untag($tag = null)
     {
-        return false;
+        if(!is_null($tag)){
+            $allowed = '';
+
+            $tagify = function($tag){
+
+                $output = function($str){
+                    $str = preg_replace('@[</>]+@', '', $str);
+                    return '<'.$str.'>';
+                };
+
+
+                if($tag instanceof \DOMNode){
+                    return $output($tag->nodeName);
+                } elseif(
+                    (is_object($tag) && method_exists($tag, '__toString'))
+                    ||
+                    is_string($tag)
+                ){
+                    $prov_str = "$tag";
+
+                    $prov_str = preg_replace('@[</>\s]+@', ' ', $prov_str);
+                    $arr = preg_split('/[ ,;|]/ui', $prov_str);
+                    $str = '';
+
+                    foreach($arr as $a){
+                        $str .= $output($a);
+                    }
+
+                    return $str;
+                } else {
+                    //TODO
+                }
+
+            };
+
+            if($tag instanceof A || $tag instanceof H || is_array($tag)){
+                if(is_object($tag)){
+                    $tag = array_values($tag->array);
+                }
+                
+                foreach($tag as $t){
+                    $allowed .= $tagify($t);
+                }
+            } elseif(
+                $tag instanceof \DOMNode
+                ||
+                (is_object($tag) && method_exists($tag, '__toString'))
+                ||
+                is_string($tag)
+            ){
+                $allowed .= $tagify($tag);
+            } else {
+                //TODO
+            }
+
+            return new self(strip_tags($this->value, $allowed));
+        }
+        
+        return new self(strip_tags($this->value));
     }
 
+    
+    
     /**
-     * Compute the MD5 sum of the string.
+     * Computes the MD5 sum of the string.
      *
      * This method compute the MD5 sum of its internal value and returns the 
      * result as a `\Malenki\Bah\S` object.

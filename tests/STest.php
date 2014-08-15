@@ -2772,7 +2772,6 @@ class STest extends PHPUnit_Framework_TestCase
         $strong = $dom->createElement('strong');
         $em = $dom->createElement('em');
 
-        //echo $strong->nodeName;
 
         $this->assertEquals(
             'I have some <strong>tags</strong>',
