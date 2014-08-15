@@ -2494,4 +2494,270 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S("This is a string without tabulation");
         $this->assertEquals('This is a string without tabulation', $s->detab(4));
     }
+
+    public function testUnTagShouldReturnSObject()
+    {
+        $s = new S('<p>I have some <strong>tags</strong></p>');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->untag());
+    }
+
+    public function testUnTagUsingMagicGetterShouldReturnSObject()
+    {
+        $s = new S('<p>I have some <strong>tags</strong></p>');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->untag);
+    }
+
+    public function testUnTagShouldSuccess()
+    {
+        $s = new S('<p>I have <em>some</em> <strong>tags</strong></p>');
+        $this->assertEquals('I have some tags', $s->untag());
+    }
+
+    public function testUnTagAllowingSomeTagsUsingStringShouldSuccess()
+    {
+        $s = new S('<p>I have <em>some</em> <strong>tags</strong></p>');
+        $this->assertEquals(
+            'I have some <strong>tags</strong>', 
+            $s->untag('strong')
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>', 
+            $s->untag(new S('strong'))
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>',
+            $s->untag('<strong>')
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>',
+            $s->untag(new S('<strong>'))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag('strong em')
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>', 
+            $s->untag(new S('strong em'))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag('<strong><em>')
+        );
+        
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new S('<strong><em>'))
+        );
+    }
+
+
+    public function testUnTagAllowingSomeTagsUsingArrayShouldSuccess()
+    {
+        $s = new S('<p>I have <em>some</em> <strong>tags</strong></p>');
+
+        $this->assertEquals(
+            'I have some <strong>tags</strong>', 
+            $s->untag(array('strong'))
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>', 
+            $s->untag(array(new S('strong')))
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>',
+            $s->untag(array('<strong>'))
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>',
+            $s->untag(array(new S('<strong>')))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(array('strong', 'em'))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>', 
+            $s->untag(array(new S('strong'), new S('em')))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(array('strong em'))
+        );
+
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(array(new S('strong em')))
+        );
+
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(array('<strong>', '<em>'))
+        );
+        
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(array(new S('<strong>'), new S('<em>')))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(array('<strong><em>'))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(array(new S('<strong><em>')))
+        );
+    }
+
+
+    public function testUnTagAllowingSomeTagsUsingAObjectShouldSuccess()
+    {
+        $s = new S('<p>I have <em>some</em> <strong>tags</strong></p>');
+
+        $this->assertEquals(
+            'I have some <strong>tags</strong>', 
+            $s->untag(new A(array('strong')))
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>', 
+            $s->untag(new A(array(new S('strong'))))
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>',
+            $s->untag(new A(array('<strong>')))
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>',
+            $s->untag(new A(array(new S('<strong>'))))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new A(array('strong', 'em')))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>', 
+            $s->untag(new A(array(new S('strong'), new S('em'))))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new A(array('strong em')))
+        );
+
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new A(array(new S('strong em'))))
+        );
+
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new A(array('<strong>', '<em>')))
+        );
+        
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new A(array(new S('<strong>'), new S('<em>'))))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new A(array('<strong><em>')))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new A(array(new S('<strong><em>'))))
+        );
+    }
+
+
+    public function testUnTagAllowingSomeTagsUsingHObjectShouldSuccess()
+    {
+        $s = new S('<p>I have <em>some</em> <strong>tags</strong></p>');
+
+        $this->assertEquals(
+            'I have some <strong>tags</strong>', 
+            $s->untag(new H(array('a' => 'strong')))
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>', 
+            $s->untag(new H(array('a' => new S('strong'))))
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>',
+            $s->untag(new H(array('a' => '<strong>')))
+        );
+        
+        $this->assertEquals(
+            'I have some <strong>tags</strong>',
+            $s->untag(new H(array('a' => new S('<strong>'))))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new H(array('a' => 'strong', 'b' => 'em')))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>', 
+            $s->untag(new H(array('a' => new S('strong'), 'b' => new S('em'))))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new H(array('a' => 'strong em')))
+        );
+
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new H(array('a' => new S('strong em'))))
+        );
+
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new H(array('a' => '<strong>', 'b' => '<em>')))
+        );
+        
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new H(array('a' => new S('<strong>'), 'b' => new S('<em>'))))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new H(array('a' => '<strong><em>')))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new H(array('a' => new S('<strong><em>'))))
+        );
+    }
 }
