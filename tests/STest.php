@@ -2760,4 +2760,43 @@ class STest extends PHPUnit_Framework_TestCase
             $s->untag(new H(array('a' => new S('<strong><em>'))))
         );
     }
+
+    /**
+     * @requires extension dom
+     */
+    public function testUntagUsingDomNodeShouldSuccess()
+    {
+        $s = new S('<p>I have <em>some</em> <strong>tags</strong></p>');
+
+        $dom = new \DOMDocument('1.0');
+        $strong = $dom->createElement('strong');
+        $em = $dom->createElement('em');
+
+        //echo $strong->nodeName;
+
+        $this->assertEquals(
+            'I have some <strong>tags</strong>',
+            $s->untag($strong)
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> tags',
+            $s->untag($em)
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(array($strong, $em))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new A(array($strong, $em)))
+        );
+
+        $this->assertEquals(
+            'I have <em>some</em> <strong>tags</strong>',
+            $s->untag(new H(array('a' => $strong, 'b' => $em)))
+        );
+    }
 }

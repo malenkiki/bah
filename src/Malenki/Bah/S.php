@@ -3755,6 +3755,12 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self($out);
     }
 
+
+    public function untag()
+    {
+        return false;
+    }
+
     /**
      * Compute the MD5 sum of the string.
      *
