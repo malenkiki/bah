@@ -2507,6 +2507,14 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Malenki\Bah\S', $s->untag);
     }
 
+    public function testUntagAlisShouldHaveSameResultAsOriginal()
+    {
+        $s = new S('<p>I have some <strong>tags</strong></p>');
+        $this->assertEquals($s->untag(), $s->untag);
+        $this->assertEquals($s->untag(), $s->stripTags());
+        $this->assertEquals($s->untag(), $s->strip_tags);
+    }
+
     public function testUnTagShouldSuccess()
     {
         $s = new S('<p>I have <em>some</em> <strong>tags</strong></p>');

@@ -657,6 +657,8 @@ class S extends O implements \Countable, \IteratorAggregate
             return $this->$name();
         } elseif ($name == '_') {
             return $this->_underscore();
+        } elseif($name === 'strip_tags'){
+            return $this->stripTags();
         } elseif (
             $name === 'ucw'
             ||
@@ -3825,6 +3827,10 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self(strip_tags($this->value));
     }
 
+    public function stripTags($tag = null)
+    {
+        return $this->untag($tag);
+    }
     
     
     /**
