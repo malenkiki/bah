@@ -3790,7 +3790,9 @@ class S extends O implements \Countable, \IteratorAggregate
 
                     return $str;
                 } else {
-                    //TODO
+                    throw new \InvalidArgumentException(
+                        'Allowed tags not recognized. Bad type?'
+                    );
                 }
 
             };
@@ -3812,7 +3814,9 @@ class S extends O implements \Countable, \IteratorAggregate
             ){
                 $allowed .= $tagify($tag);
             } else {
-                //TODO
+                throw new \InvalidArgumentException(
+                    'Allowed tags not recognized. Bad type?'
+                );
             }
 
             return new self(strip_tags($this->value, $allowed));

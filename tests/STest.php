@@ -2798,4 +2798,13 @@ class STest extends PHPUnit_Framework_TestCase
             $s->untag(new H(array('a' => $strong, 'b' => $em)))
         );
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingUntaggedStringUsingBadTypeShouldFail()
+    {
+        $s = new S('<p>I have <em>some</em> <strong>tags</strong></p>');
+        $s->untag(array('em', 3));
+    }
 }
