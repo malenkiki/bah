@@ -3760,6 +3760,42 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
 
+    /**
+     * Removes HTML and XML tags.
+     *
+     * Current string is returned without any tags. You can preserves some of 
+     * them using string-like values or collection and/or DOMNode/DOMElement.
+     *
+     * Example:
+     *
+     *     $s = new S('<p>I have <em>some</em> <strong>tags</strong></p>');
+     *     echo $s->untag; // 'I have some tags'
+     *     echo $s->untag('em'); // 'I have <em>some</em> tags'
+     *     echo $s->untag('<em>'); // 'I have <em>some</em> tags'
+     *     echo $s->untag('em strong'); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag('em,strong'); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag('em;strong'); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag('em|strong'); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag('<em><strong>'); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag(array('em', 'strong')); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag(array('<em>', '<strong>')); // 'I have <em>some</em> <strong>tags</strong>'
+     *
+     *     $a = new A();
+     *     $a->add('em')->add('strong');
+     *     echo $s->untag($a); // 'I have <em>some</em> <strong>tags</strong>'
+     *
+     *     $dom = new \DOMDocument('1.0');
+     *     $strong = $dom->createElement('strong');
+     *     $em = $dom->createElement('em');
+     *     echo $s->untag($strong); // 'I have some <strong>tags</strong>'
+     *     echo $s->untag(array($strong, $em)); // 'I have <em>some</em> <strong>tags</strong>'
+     * 
+     * @see S::$untag Magic getter way
+     * @see S::stripTags() Alias
+     * @param mixed $tag Tag(s) to keep 
+     * @return S
+     * @throws \InvalidArgumentException If invalid type is used.
+     */
     public function untag($tag = null)
     {
         if(!is_null($tag)){
@@ -3827,6 +3863,17 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self(strip_tags($this->value));
     }
 
+
+    /**
+     * Removes HTML and XML tags (Alias).
+     *
+     * 
+     * @see S::$strip_tags Magic getter way
+     * @see S::untag() Original method
+     * @param mixed $tag Tag(s) to keep 
+     * @return S
+     * @throws \InvalidArgumentException If invalid type is used.
+     */
     public function stripTags($tag = null)
     {
         return $this->untag($tag);
