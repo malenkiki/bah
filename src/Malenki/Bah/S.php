@@ -3763,7 +3763,7 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Removes HTML and XML tags.
      *
-     * Current string is returned without any tags. You can preserves some of 
+     * Returns current string without any tags. You can preserves some of 
      * them using string-like values or collection and/or DOMNode/DOMElement.
      *
      * Example:
