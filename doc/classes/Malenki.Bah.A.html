@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">190</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">187</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">304</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">323</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1800483274"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1729314243"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1800483274" class="accordion-body collapse in">
+            <div id="namespace-1729314243" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-713279095"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1627481866"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-713279095" class="accordion-body collapse ">
+            <div id="namespace-1627481866" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1700845570"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-365097255"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-1700845570" class="accordion-body collapse ">
+            <div id="namespace-365097255" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -312,6 +312,7 @@ value and <code>__toString()</code> feature.</p>
                                                                     <a href="../classes/Malenki.Bah.O.html#method_mustBeHash" class="">mustBeHash()</a><br />
                                                                     <a href="../classes/Malenki.Bah.O.html#method_mustBeArrayOrHash" class="">mustBeArrayOrHash()</a><br />
                                                                     <a href="../classes/Malenki.Bah.O.html#method_mustBeCallable" class="">mustBeCallable()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.A.html#method_toSimpleArray" class="">toSimpleArray()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method__length" class="">_length()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method__isLastButOne" class="">_isLastButOne()</a><br />
                                                                     <a href="../classes/Malenki.Bah.A.html#method__isLast" class="">_isLast()</a><br />
@@ -2011,26 +2012,32 @@ or sub-collection cannot be converted to a string.</p></dd>
             <article class="method">
                 <h3 class="public ">pad()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">pad( <span class="argument">$size</span>,  <span class="argument">$value</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">pad(mixed <span class="argument">$size</span>, mixed <span class="argument">$value</span>) : \Malenki\Bah\A</pre>
+                <p><em>Fill the collection with given element on given size.</em></p>
+                <p>If current collection already has values, then they are kept.</p>
+<p>Example:</p>
+<pre><code>$a = new A(array('foo','bar'));
+$a-&gt;pad(5); // 'foo', 'bar', null, null, null
+$a-&gt;pad(5, 'thing'); // 'foo', 'bar', 'thing', 'thing', 'thing'</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$size </td>
-                                <td></td>
+                                <td><p>An integer-like value for the size</p></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$value </td>
-                                <td></td>
+                                <td><p>A value. If not given, null is used.</p></td>
                             </tr>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -2235,21 +2242,37 @@ $a-&gt;map($cube)-&gt;array; // array(1, 8, 27, 64, 125)</code></pre>
             <article class="method">
                 <h3 class="public ">diff()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">diff( <span class="argument">$arr</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">diff(mixed <span class="argument">$arr</span>) : \Malenki\Bah\A</pre>
+                <p><em>Returns elements not in common into current collection and given one.</em></p>
+                <p>This method takes one argument: an array-like collection to compare with
+current one and find elements not in common into second.</p>
+<p>Given argument can be <code>\Malenki\Bah\A</code> object, <code>\Malenki\Bah\H</code> object
+or simple arry.</p>
+<p>Example:</p>
+<pre><code>$a = new A();
+$a-&gt;add('one')-&gt;add('two');
+$b = new A();
+$b-&gt;add('three', 'one');
+$a-&gt;diff($b); // 'two'</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$arr </td>
-                                <td></td>
+                                <td><p>An array-like collection (array, A or H object)</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given argument is not an array-like value</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -2532,7 +2555,7 @@ $a-&gt;hasRange(array('deux', 'un')); // false</code></pre>
                                     <h4>Throws</h4>
                     <dl>
                                                     <dt>\RuntimeException</dt>
-                            <dd><p>If given collectionis a void array (arrays are allowed, but not void)</p></dd>
+                            <dd><p>If given collection is a void array (arrays are allowed, but not void)</p></dd>
                                                     <dt>\InvalidArgumentException</dt>
                             <dd><p>If given argument is not an array-like value.</p></dd>
                                                                     </dl>
@@ -3085,6 +3108,39 @@ this argument is not callable, then this raises an
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/Malenki.Bah.O.html"><div class="path-wrapper">\Malenki\Bah\O</div></a></dd>
                                                             </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_toSimpleArray" name="method_toSimpleArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">toSimpleArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">toSimpleArray( <span class="argument">$arr</span>)</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$arr </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -3772,7 +3828,7 @@ var_dump($a-&gt;flatten-&gt;array); // has: 'one', 'two', 'three', 'four', 'five
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 7th, 2014 at 13:58.
+                    on August 18th, 2014 at 12:34.
                 </section>
             </section>
         </section>

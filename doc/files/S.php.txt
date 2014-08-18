@@ -651,10 +651,14 @@ class S extends O implements \Countable, \IteratorAggregate
             $name === 'right'
             ||
             $name === 'justify'
+            ||
+            $name === 'untag'
         ) {
             return $this->$name();
         } elseif ($name == '_') {
             return $this->_underscore();
+        } elseif($name === 'strip_tags'){
+            return $this->stripTags();
         } elseif (
             $name === 'ucw'
             ||
@@ -677,6 +681,8 @@ class S extends O implements \Countable, \IteratorAggregate
             $name === 'chars'
             ||
             $name === 'bytes'
+            ||
+            $name === 'slug'
             ||
             $name === 'dash'
             ||
@@ -1244,6 +1250,35 @@ class S extends O implements \Countable, \IteratorAggregate
         );
 
         return new self($str);
+    }
+
+
+    /**
+     * Creates slug for current string.
+     *
+     * This transliterate characters into latin characters without any 
+     * diacritic, converts to lower cases and uses dashes to separate each 
+     * words. 
+     * 
+     * Example:
+     *
+     *     $s = new S('Je suis écrit en français !');
+     *     echo $s->slug; // 'je-suis-ecrit-en-francais'
+     *
+     * This method is the running part of magic getter having same name.
+     *
+     * This method is in fact a shorthand for `$s->lower->trans->dash;` call.
+     *
+     * @see S::$slug Magic getter way
+     * @return S
+     * @throws \RuntimeException If this is called and intl extension is not 
+     * installed.
+     * @throws \RuntimeException If intl extension is installed but that uses 
+     * PHP version prior to 5.4.0.
+     */
+    protected function _slug()
+    {
+        return $this->_lower()->trans->dash;
     }
 
     /**
@@ -3661,8 +3696,192 @@ class S extends O implements \Countable, \IteratorAggregate
         return !$this->_rtl() && !$this->_ltr();
     }
 
+
+
     /**
-     * Compute the MD5 sum of the string.
+     * Replaces tabulations into a string by spaces.
+     *
+     * Replaces tabulations into a string by spaces, given size and into all 
+     * the lines. If EOL into string is not LF, then you must give yours into 
+     * second parameters.
+     * 
+     *     $s = new S("\t\tThis is a\tstring having\ttabulations");
+     *     echo $s->detab(4); // '        This is a   string having   tabulations'
+     * 
+     * @param mixed $n An integer-like value for tab size.
+     * @param string $eol Optionnal parameter to set default EOL to use.
+     * @return S
+     * @throws \InvalidArgumentException If tab's size is no integer-like value
+     * @throws \InvalidArgumentException If tab's size is equal to or inférior to zero
+     */
+    public function detab($n, $eol = "\n")
+    {
+        self::mustBeInteger($n, 'Tabulation’s size');
+
+        if(is_object($n)) $n = $n->int;
+
+        if($n <= 0){
+            throw new \InvalidArgumentException(
+                'Tabulations’s size cannot be equal to or inferior to zero.'
+            );
+        }
+
+        if(strpos($this->value, "\t") === false){
+            return $this;
+        }
+
+
+        $arr = preg_split('//ui', $this->value);
+
+        $out = '';
+
+        $k_new = 0;
+
+        foreach($arr as $k => $v){
+            if($v !== "\t"){
+                if($v !== ''){
+                    $out .= $v;
+
+                    if($v === $eol){
+                        $k_new = 0;
+                    } else {
+                        $k_new++;
+                    }
+                }
+            } else {
+                $new_part_length = $n - ($k_new % $n);
+                $out .= str_repeat(' ', $new_part_length);
+                $k_new = $k_new + $new_part_length;
+            }
+        }
+
+
+        return new self($out);
+    }
+
+
+    /**
+     * Removes HTML and XML tags.
+     *
+     * Returns current string without any tags. You can preserves some of 
+     * them using string-like values or collection and/or DOMNode/DOMElement.
+     *
+     * Example:
+     *
+     *     $s = new S('<p>I have <em>some</em> <strong>tags</strong></p>');
+     *     echo $s->untag; // 'I have some tags'
+     *     echo $s->untag('em'); // 'I have <em>some</em> tags'
+     *     echo $s->untag('<em>'); // 'I have <em>some</em> tags'
+     *     echo $s->untag('em strong'); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag('em,strong'); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag('em;strong'); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag('em|strong'); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag('<em><strong>'); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag(array('em', 'strong')); // 'I have <em>some</em> <strong>tags</strong>'
+     *     echo $s->untag(array('<em>', '<strong>')); // 'I have <em>some</em> <strong>tags</strong>'
+     *
+     *     $a = new A();
+     *     $a->add('em')->add('strong');
+     *     echo $s->untag($a); // 'I have <em>some</em> <strong>tags</strong>'
+     *
+     *     $dom = new \DOMDocument('1.0');
+     *     $strong = $dom->createElement('strong');
+     *     $em = $dom->createElement('em');
+     *     echo $s->untag($strong); // 'I have some <strong>tags</strong>'
+     *     echo $s->untag(array($strong, $em)); // 'I have <em>some</em> <strong>tags</strong>'
+     * 
+     * @see S::$untag Magic getter way
+     * @see S::stripTags() Alias
+     * @param mixed $tag Tag(s) to keep 
+     * @return S
+     * @throws \InvalidArgumentException If invalid type is used.
+     */
+    public function untag($tag = null)
+    {
+        if(!is_null($tag)){
+            $allowed = '';
+
+            $tagify = function($tag){
+
+                $output = function($str){
+                    $str = preg_replace('@[</>]+@', '', $str);
+                    return '<'.$str.'>';
+                };
+
+
+                if($tag instanceof \DOMNode){
+                    return $output($tag->nodeName);
+                } elseif(
+                    (is_object($tag) && method_exists($tag, '__toString'))
+                    ||
+                    is_string($tag)
+                ){
+                    $prov_str = "$tag";
+
+                    $prov_str = preg_replace('@[</>\s]+@', ' ', $prov_str);
+                    $arr = preg_split('/[ ,;|]/ui', $prov_str);
+                    $str = '';
+
+                    foreach($arr as $a){
+                        $str .= $output($a);
+                    }
+
+                    return $str;
+                } else {
+                    throw new \InvalidArgumentException(
+                        'Allowed tags not recognized. Bad type?'
+                    );
+                }
+
+            };
+
+            if($tag instanceof A || $tag instanceof H || is_array($tag)){
+                if(is_object($tag)){
+                    $tag = array_values($tag->array);
+                }
+                
+                foreach($tag as $t){
+                    $allowed .= $tagify($t);
+                }
+            } elseif(
+                $tag instanceof \DOMNode
+                ||
+                (is_object($tag) && method_exists($tag, '__toString'))
+                ||
+                is_string($tag)
+            ){
+                $allowed .= $tagify($tag);
+            } else {
+                throw new \InvalidArgumentException(
+                    'Allowed tags not recognized. Bad type?'
+                );
+            }
+
+            return new self(strip_tags($this->value, $allowed));
+        }
+        
+        return new self(strip_tags($this->value));
+    }
+
+
+    /**
+     * Removes HTML and XML tags (Alias).
+     *
+     * 
+     * @see S::$strip_tags Magic getter way
+     * @see S::untag() Original method
+     * @param mixed $tag Tag(s) to keep 
+     * @return S
+     * @throws \InvalidArgumentException If invalid type is used.
+     */
+    public function stripTags($tag = null)
+    {
+        return $this->untag($tag);
+    }
+    
+    
+    /**
+     * Computes the MD5 sum of the string.
      *
      * This method compute the MD5 sum of its internal value and returns the 
      * result as a `\Malenki\Bah\S` object.
