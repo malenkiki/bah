@@ -1,6 +1,6 @@
 # BAH!
 
-[![Build Status](https://travis-ci.org/malenkiki/bah.svg?branch=master)](https://travis-ci.org/malenkiki/bah) [![Latest Stable Version](https://poser.pugx.org/malenki/bah/v/stable.svg)](https://packagist.org/packages/malenki/bah) [![Total Downloads](https://poser.pugx.org/malenki/bah/downloads.svg)](https://packagist.org/packages/malenki/bah) [![Latest Unstable Version](https://poser.pugx.org/malenki/bah/v/unstable.svg)](https://packagist.org/packages/malenki/bah) [![License](https://poser.pugx.org/malenki/bah/license.svg)](https://packagist.org/packages/malenki/bah)
+[![Build Status](https://travis-ci.org/malenkiki/bah.svg?branch=master)](https://travis-ci.org/malenkiki/bah) [![Latest Stable Version](https://poser.pugx.org/malenki/bah/v/stable.svg)](https://packagist.org/packages/malenki/bah) [![Total Downloads](https://poser.pugx.org/malenki/bah/downloads.svg)](https://packagist.org/packages/malenki/bah) [![Latest Unstable Version](https://poser.pugx.org/malenki/bah/v/unstable.svg)](https://packagist.org/packages/malenki/bah) [![License](https://poser.pugx.org/malenki/bah/license.svg)](https://packagist.org/packages/malenki/bah) [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=malenki&url=https://github.com/malenkiki/bah&title=bah&language=&tags=github&category=software) 
 
 Bah! It is just a little set of simple PHP classes to play with **strings**, **numbers**, **characters**, **arrays** and **hashes**.
 
