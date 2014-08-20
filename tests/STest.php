@@ -1169,6 +1169,16 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo bar', $s->append(new C(' '))->append(new S('bar')));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testAppendingUsingNoStringLikeValueShouldFail()
+    {
+        $s = new S('bar');
+        $s->append(null);
+    }
+
+
     public function testPrependingStringShouldReturnSObject()
     {
         $s = new S('foo');
@@ -1189,6 +1199,15 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo bar', $s->prepend(new S('foo ')));
         $this->assertEquals('foo bar', $s->prepend(new S(' '))->prepend(new S('foo')));
         $this->assertEquals('foo bar', $s->prepend(new C(' '))->prepend(new S('foo')));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testPrependingUsingNoStringLikeValueShouldFail()
+    {
+        $s = new S('bar');
+        $s->prepend(null);
     }
 
     public function testPutContentBeforeShouldReturnSObject()

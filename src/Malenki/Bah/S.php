@@ -1619,7 +1619,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::after() An alias
      * @param  mixed $str String-like content
      * @return S
-     * @throws \Exception If given string is not… a string-like value.
+     * @throws \InvalidArgumentException If given string is not… a string-like value.
      */
     public function append($str)
     {
@@ -1632,7 +1632,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::append() Original method of this alias.
      * @param  mixed $str A string-like value to add
      * @return S
-     * @throws \Exception If given string is not… a string-like value.
+     * @throws \InvalidArgumentException If given string is not… a string-like value.
      */
     public function after($str)
     {
@@ -1650,7 +1650,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::before() An alias
      * @param  mixed $str String-like content
      * @return S
-     * @throws \Exception If given string is not… a string-like value.
+     * @throws \InvalidArgumentException If given string is not… a string-like value.
      */
     public function prepend($str)
     {
@@ -1663,7 +1663,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * @see S::prepend() Original method of this alias.
      * @param  mixed $str String-like content
      * @return S
-     * @throws \Exception If given string is not… a string-like value.
+     * @throws \InvalidArgumentException If given string is not… a string-like value.
      */
     public function before($str)
     {
