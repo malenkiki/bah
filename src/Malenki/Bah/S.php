@@ -1672,6 +1672,30 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
 
+    /**
+     * Surrounds current string using starting string and ending string.
+     * 
+     * This is a short version of `$s->append('foo')->prepend('bar');`.
+     *
+     * Example:
+     *
+     *     $s = new S('foo');
+     *     echo $s->surround('(', ')'); // '(foo)'
+     *
+     *
+     * @param mixed $before String-like starting string
+     * @param mixed $after String-like ending string
+     * @return S
+     * @throws \InvalidArgumentException If starting or ending string is not string-like value.
+     */
+    public function surround($before, $after)
+    {
+        self::mustBeString($before, 'Starting string');
+        self::mustBeString($after, 'Ending string');
+
+        return static::concat($before, $this, $after);
+    }
+
 
     /**
      * Inserts new content at given position.
