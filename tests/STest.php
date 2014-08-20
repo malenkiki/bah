@@ -2815,4 +2815,28 @@ class STest extends PHPUnit_Framework_TestCase
         $s = new S('<p>I have <em>some</em> <strong>tags</strong></p>');
         $s->untag(array('em', 3));
     }
+
+    public function testGettingSurroundedStringShouldReturnSObject()
+    {
+        $s = new S('foo');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->surround('(', ')'));
+    }
+
+    public function testGettingSurroundedStringShouldSuccess()
+    {
+        $s = new S('foo');
+        $this->assertEquals('(foo)', $s->surround('(', ')'));
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingSurroundedStringUsingBadArgumentTypeShouldFail()
+    {
+        $s = new S('foo');
+        $this->assertEquals('(foo)', $s->surround(array(), null));
+    }
+
+    
 }
