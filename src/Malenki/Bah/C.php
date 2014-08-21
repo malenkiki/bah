@@ -666,6 +666,11 @@ class C extends O
         return mb_strtolower($this->value, C::ENCODING) === $this->value;
     }
 
+    protected function _isLower()
+    {
+        return $this->_isLowerCase();
+    }
+
     /**
      * Tests whether current character is in upper case.
      *
@@ -693,6 +698,14 @@ class C extends O
     }
 
 
+    /**
+     * Tests whether current character is in upper case (Alias).
+     *
+     * @see C::_isUpperCase() Original method
+     * @see C::$is_upper An alias
+     *
+     * @return boolean
+     */
     protected function _isUpper()
     {
         return $this->_isUpperCase();
