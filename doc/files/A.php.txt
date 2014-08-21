@@ -27,6 +27,30 @@ namespace Malenki\Bah;
 /**
  * Enhanced array.
  *
+ * ## Adding contents
+ *
+ * Add content to a collection is easy, and can be done using different ways…
+ * 
+ * ### Add element by element
+ *
+ * Just use `A::add()` method, to append element to the collection:
+ *
+ *     $a = new A();
+ *     $a->add('foo')->add('bar');
+ *     // or
+ *     $a->push('foo')->push('bar');
+ *
+ * ## Checking
+ *
+ * You can test whether one given element is included into the collection or not.
+ *
+ * ## Looping
+ *
+ * ## Getting parts
+ *
+ * ## Setting
+ *
+ *
  * @property-read $key_X Gets content at key X
  * @property-read $index_X Gets content at key X
  * @property-read $array Gets content as primitive array
