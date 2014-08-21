@@ -174,42 +174,58 @@ class CTest extends PHPUnit_Framework_TestCase
         $c = new C('a');
         $this->assertTrue($c->has_Case);
         $this->assertTrue($c->is_lower_case);
+        $this->assertTrue($c->is_lower);
         $this->assertFalse($c->is_upper_case);
+        $this->assertFalse($c->is_upper);
 
         $c = new C('A');
         $this->assertTrue($c->has_Case);
         $this->assertFalse($c->is_lower_case);
+        $this->assertFalse($c->is_lower);
         $this->assertTrue($c->is_upper_case);
+        $this->assertTrue($c->is_upper);
 
         $c = new C('à');
         $this->assertTrue($c->has_Case);
         $this->assertTrue($c->is_lower_case);
         $this->assertFalse($c->is_upper_case);
+        $this->assertTrue($c->is_lower);
+        $this->assertFalse($c->is_upper);
 
         $c = new C('À');
         $this->assertTrue($c->has_Case);
         $this->assertFalse($c->is_lower_case);
         $this->assertTrue($c->is_upper_case);
+        $this->assertFalse($c->is_lower);
+        $this->assertTrue($c->is_upper);
 
         $c = new C('=');
         $this->assertFalse($c->has_Case);
         $this->assertTrue($c->is_lower_case);
         $this->assertTrue($c->is_upper_case);
+        $this->assertTrue($c->is_lower);
+        $this->assertTrue($c->is_upper);
 
         $c = new C('ب');
         $this->assertFalse($c->has_Case);
         $this->assertTrue($c->is_lower_case);
         $this->assertTrue($c->is_upper_case);
+        $this->assertTrue($c->is_lower);
+        $this->assertTrue($c->is_upper);
 
         $c = new C('5');
         $this->assertFalse($c->has_Case);
         $this->assertTrue($c->is_lower_case);
         $this->assertTrue($c->is_upper_case);
+        $this->assertTrue($c->is_lower);
+        $this->assertTrue($c->is_upper);
 
         $c = new C('');
         $this->assertFalse($c->has_Case);
         $this->assertTrue($c->is_lower_case);
         $this->assertTrue($c->is_upper_case);
+        $this->assertTrue($c->is_lower);
+        $this->assertTrue($c->is_upper);
     }
 
     public function testLetterDetection()
