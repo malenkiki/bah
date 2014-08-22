@@ -440,16 +440,54 @@ class C extends O
         return parent::__get($name);
     }
 
+    /**
+     * Casts current character to primitive string type.
+     * 
+     * Casts current character as simple string PHP primitive type.
+     *
+     * Example:
+     *
+     *     $c = new C('f');
+     *     var_dump($c->string); // string(1)
+     *
+     * @see C::$string Magic getter way
+     * @see C::_str() Alias
+     * @return string
+     */
     protected function _string()
     {
         return (string) $this->value;
     }
 
+
+    /**
+     * Casts current character to primitive string type (Alias).
+     *
+     * @see C::$str Magic getter way
+     * @see C::_string() Original method
+     * @return string
+     */
     protected function _str()
     {
         return $this->_string();
     }
 
+    /**
+     * Casts current character to integer primitive type.
+     *
+     * If current character is digit form 0 to 9, then it can be casted to 
+     * integer php primitive type.
+     *
+     * Example:
+     *
+     *     $c = new C('5');
+     *     var_dump($c->integer); // int(5)
+     * 
+     * @see C::$integer Magic getter way
+     * @see C::_int() Alias
+     * @return integer
+     * @throws \RuntimeException If current character is not numeric.
+     */
     protected function _integer()
     {
         if(!is_numeric($this->value)){
@@ -461,11 +499,40 @@ class C extends O
         return (integer) $this->value;
     }
 
+
+    /**
+     * Casts current character to integer primitive type (Alias).
+     *
+     * @see C::$int Magic getter way
+     * @see C::_integer() Original method
+     * @return integer
+     * @throws \RuntimeException If current character is not numeric.
+     */
     protected function _int()
     {
         return $this->_integer();
     }
 
+    /**
+     * Transliterate current character.
+     *
+     * Current character is transliterated to `\Malenki\Bah\S` object.
+     *
+     * Example:
+     *
+     *     $c = new C('ç');
+     *     echo $c->trans; // 'c'
+     * 
+     * Note: Returned object is not `\Malenki\Bah\C` object, but 
+     * `\Malenki\Bah\S` object, because translierated character can give more 
+     * than one new characters.
+     *
+     * @see C::$trans Magic getter way
+     * @return S
+     * @throws \RuntimeException If Intl PHP extension is not available
+     * @throws \RuntimeException If Intl is available, but PHP version is less 
+     * than 5.4.0. Transliterating feature is available since PHP 5.4.0.
+     */
     protected function _trans()
     {
         if (!extension_loaded('intl')) {
