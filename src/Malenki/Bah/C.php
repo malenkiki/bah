@@ -28,12 +28,15 @@ namespace Malenki\Bah;
  * Define a single character.
  *
  * @package Malenki\Bah
- * @license MIT
  * @property-read Malenki\Bah\A $bytes A collection of Malenki\Bah\N objects
+ * @property-read Malenki\Bah\S $to_s Converted version of character as Malenki\Bah\S object.
+ * @property-read Malenki\Bah\N $to_n Converted version of character as Malenki\Bah\N object. Be careful: if it is not a digit, then this raises an exception.
  *
  * @todo http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters
  * @todo http://en.wikipedia.org/wiki/Basic_Multilingual_Plane#Basic_Multilingual_Plane
  * @todo http://www.unicode.org/roadmaps/
+ * @license MIT
+ * @author Michel Petit aka "Malenki" <petit.michel@gmail.com>
  */
 class C extends O
 {
@@ -639,7 +642,7 @@ class C extends O
     /**
      * Checks whether current character is a digit.
      * 
-     * Checks if current character represents a digit.
+     * Checks if current character represents a digit, so, a value form 0 to 9.
      *
      * Example:
      *
@@ -718,6 +721,22 @@ class C extends O
         return (boolean) preg_match("/^\p{P}+$/ui", $this->value);
     }
 
+    /**
+     * Tests if character is a symbol.
+     *
+     * Tests whether current character stands for a symbol.
+     *
+     * Example:
+     *
+     *     $euro = new C('€');
+     *     $a = new C('a');
+     *     var_dump($euro->is_symbol); // true
+     *     var_dump($a->is_symbol); // false
+     * 
+     * @see C::$is_symbol Magic getter way.
+     *
+     * @return boolean
+     */
     protected function _isSymbol()
     {
         return (boolean) preg_match("/^\p{S}+$/ui", $this->value);
@@ -725,6 +744,25 @@ class C extends O
 
     /**
      * Tests whether current character is in lower case.
+     *
+     * This is runtime part of some magic getters to test whether current 
+     * character is in lower case or not.
+     *
+     * Example:
+     *
+     *     $c = new C('a');
+     *     var_dump($c->is_lower_case); // true
+     *     var_dump($c->is_lower); // true
+     *
+     *     $c = new C('A');
+     *     var_dump($c->is_lower_case); // false
+     *     var_dump($c->is_lower); // false
+     *
+     * _Note_: Not to be confused with `C::lower`! This convert current 
+     * character to another character into lower case.
+     *
+     * @see C::$is_lower_case Magic getter way
+     * @see C::$is_lower Shorter magic getter way
      *
      * @return boolean
      */
@@ -893,6 +931,26 @@ class C extends O
     /**
      * Get unicode code point for the current character.
      *
+     * Returns unicode code point of current character as `\Malenki\Bah\N` 
+     * object, so you can deal with different numeric systems.
+     *
+     * This is runtime part of magic getter having same name.
+     *
+     * Example:
+     *
+     *     $c = new C('€');
+     *     echo $c->unicode; // '8364'
+     *     echo $c->unicode->bin; // '10000010101100'
+     *     echo $c->unicode->oct; // '20254'
+     *     echo $c->unicode->hex; // '20ac'
+     *
+     * _Note_: To get UTF8 bytes, use `C::$bytes` instead.
+     *
+     *     $c = new C('€');
+     *     echo $c->bytes->join(', '); // 226, 130, 172
+     *
+     * @see C::$bytes To get bytes' values
+     *
      * @return N
      */
     protected function _unicode()
@@ -924,6 +982,35 @@ class C extends O
     }
 
     
+    /**
+     * Checks if current character is RTL.
+     *
+     * Checks whether current character is RTL, understand _Right To Left_, 
+     * like you can see into Arabic or Hebrew language for examples (but other 
+     * langauges exist too).
+     * 
+     * Example:
+     *
+     *     $c = new C('ش');
+     *     var_dump($c->rtl); // true
+     *     var_dump($c->is_rtl); // true
+     *     var_dump($c->is_right_to_left); // true
+     *     var_dump($c->right_to_left); // true
+     *
+     *     $c = new C('a');
+     *     var_dump($c->rtl); // false
+     *     var_dump($c->is_rtl); // false
+     *     var_dump($c->is_right_to_left); // false
+     *     var_dump($c->right_to_left); // false
+     *
+     * @see C::_ltr() Its opposite test
+     * @see C::$rtl Main magic getter way to call it
+     * @see C::$is_rtl Another magic getter way
+     * @see C::$right_to_left Another magic getter way
+     * @see C::$is_right_to_left Another magic getter way
+     *
+     * @return boolean
+     */
     protected function _rtl()
     {
         $cp = $this->_unicode()->value;
@@ -999,10 +1086,46 @@ class C extends O
         return false;
     }
 
+    /**
+     * Checks if current character is LTR.
+     *
+     * Checks whether current character is LTR, understand _Left To Right_, 
+     * like you can see into English, French, Dutch and many others.
+     *
+     * This is the opposite of `\Malenki\Bah\C::_rtl()` method.
+     *
+     * This method is runtime par of some magic getters, these have the same 
+     * name as RTL version, but with left in place of right and vice versa ;-)
+     * 
+     * Example:
+     *
+     *     $c = new C('ش');
+     *     var_dump($c->ltr); // false
+     *     var_dump($c->is_ltr); // false
+     *     var_dump($c->left_to_right); // false
+     *     var_dump($c->is_left_to_right); // false
+     *
+     *     $c = new C('a');
+     *     var_dump($c->ltr); // true
+     *     var_dump($c->is_ltr); // true
+     *     var_dump($c->left_to_right); // true
+     *     var_dump($c->is_left_to_right); // true
+     * 
+     * @see C::_rtl() Its opposite test
+     * @see C::$ltr Main magic getter way to call it
+     * @see C::$is_ltr Another magic getter way
+     * @see C::$left_to_right Another magic getter way
+     * @see C::$is_left_to_right Another magic getter way
+     *
+     * @return boolean
+     */
     protected function _ltr()
     {
         return !$this->_rtl();
     }
+
+
+
 
     public function __toString()
     {
