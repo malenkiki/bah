@@ -281,13 +281,16 @@ class C extends O
      * 
      * Examples:
      *
+     *     // Unicode code point way
      *     $n = new N(948);
      *     $c = new C($n);
      *     echo $c; //'δ'
      *
+     *     // XML entity way
      *     $c = new C('&eacute;');
      *     echo $c; // 'é'
      *
+     *     // direct way
      *     $c = new C('z');
      *     echo $c; // 'z'
      *

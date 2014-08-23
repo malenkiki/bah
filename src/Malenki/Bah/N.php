@@ -749,6 +749,21 @@ class N extends O
         return $this->log();
     }
 
+    /**
+     * Gets nth root of current number. 
+     * 
+     * Gets Nth root of given number.
+     *
+     * Example:
+     *
+     *     $n = new N(8);
+     *     echo $n->root(3); // '2'
+     *     echo $n->root(1); // '8'
+     *
+     * @see N::_sqrt() A shorthand for magic getter to get square roots.
+     * @param numeric|N $num Root
+     * @return N
+     */
     public function root($num)
     {
         self::mustBeNumeric($num, 'Root');
@@ -762,6 +777,15 @@ class N extends O
         return new N(pow($this->value, 1 / $n));
     }
 
+    /**
+     * Gets square roots of current number.
+     *
+     * Gets the square root number of current number.
+     * 
+     * This is runtime part of some magic getter ways
+     * 
+     * @return N
+     */
     protected function _sqrt()
     {
         return $this->root(2);
@@ -887,6 +911,7 @@ class N extends O
      *     var_dump($n->eq(new N(5))); // true
      *     var_dump($n->eq(new N(5.0))); // true
      *
+     * @see N::notEqual() The opposite test.
      * @see N::eq() An alias
      * @throw \InvalidArgumentException If argument is not numeric or N class
      * @param  numeric|N   $num N or numeric value.
@@ -907,9 +932,23 @@ class N extends O
     /**
      * Checks if current number is not equal to given argument.
      *
-     * @throw \InvalidArgumentException If argument is not numeric or N class
+     * This tests given argument, a numeric primitive PHP value type or 
+     * `\Malenki\Bah\N` object with current one to see whether they are not 
+     * equals.
+     *
+     * Example:
+     *
+     *     $n = new N(5);
+     *     var_dump($n->neq(6)); // true
+     *     var_dump($n->neq(4)); // true
+     *     var_dump($n->neq(new N(5.1))); // true
+     *     var_dump($n->neq(new N(-5.0))); // true
+     *
+     * @see N::equal() Opposite test
+     * @see N::neq() An alias
      * @param  numeric|N   $num N or numeric value.
      * @return boolean
+     * @throws \InvalidArgumentException If argument is not numeric or N class
      */
     public function notEqual($num)
     {
@@ -930,6 +969,15 @@ class N extends O
         return $this->equal($num);
     }
 
+
+    /**
+     * Checks if current number is not equal to given argument (Alias).
+     *
+     * @see N::notEqual() Original method
+     * @throw \InvalidArgumentException If argument is not numeric or N class
+     * @param  numeric|N   $num N or numeric value.
+     * @return boolean
+     */
     public function neq($num)
     {
         return $this->notEqual($num);
