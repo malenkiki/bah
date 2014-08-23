@@ -1423,6 +1423,67 @@ class NTest extends PHPUnit_Framework_TestCase
         $n->root(0);
     }
 
+    public function testGettingSquareRootShouldReturnNObject()
+    {
+        $n = new N(9);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->sqrt);
+    }
+
+    
+
+    public function testGettingSquareRootShouldSuccess()
+    {
+        $n = new N(9);
+        $this->assertEquals(new N(3), $n->sqrt);
+        
+        $n = new N(4);
+        $this->assertEquals(new N(2), $n->sqrt);
+        
+        $n = new N(1);
+        $this->assertEquals(new N(1), $n->sqrt);
+
+        $n = new N(-3);
+        $this->assertTrue($n->sqrt->is_nan);
+    }
+    
+    public function testGettingSquareRootUsingAliasShouldHaveSameResultAsOriginal()
+    {
+        $n = new N(9);
+        $this->assertEquals($n->sqrt, $n->square_root);
+        
+        $n = new N(4);
+        $this->assertEquals($n->sqrt, $n->square_root);
+        
+        $n = new N(1);
+        $this->assertEquals($n->sqrt, $n->square_root);
+
+        $n = new N(-3);
+        $this->assertTrue($n->square_root->is_nan);
+    }
+
+
+    public function testGettingCubeRootShouldReturnNObject()
+    {
+        $n = new N(8);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->cube_root);
+    }
+
+    
+
+    public function testGettingCubeRootShouldSuccess()
+    {
+        $n = new N(8);
+        $this->assertEquals(new N(2), $n->cube_root);
+        
+        $n = new N(27);
+        $this->assertEquals(new N(3), $n->cube_root);
+        
+        $n = new N(-3);
+        $this->assertTrue($n->cube_root->is_nan);
+    }
+    
+
+
     public function testGettingSignShouldSuccess()
     {
         $n = new N(0);
