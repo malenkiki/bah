@@ -250,6 +250,8 @@ class N extends O
             return $this->$name();
         } elseif($name === 'square_root'){
             return $this->_sqrt();
+        } elseif($name === 'cube_root'){
+            return $this->_cubeRoot();
         } elseif ($name === 'mandarin' || $name === 'putonghua'){
             return $this->chinese();
         } elseif (
@@ -763,6 +765,7 @@ class N extends O
      *     echo $n->root(1); // '8'
      *
      * @see N::_sqrt() A shorthand for magic getter to get square roots.
+     * @see N::_cubeRoot() A shorthand for magic getter to get cube roots.
      * @param numeric|N $num Root
      * @return N
      * @throws \InvalidArgumentException If root level is 0.
@@ -786,13 +789,58 @@ class N extends O
      * Gets the square root number of current number.
      * 
      * This is runtime part of some magic getter ways
+     *
+     * Example:
+     *
+     *     $n = new N(9);
+     *     echo $n->sqrt; // '3'
+     *     echo $n->square_root; // '3'
      * 
+     * _Note_: If you try to get square root of negative number, you will get NaN.
+     *
+     *     $n = new N(-9);
+     *     var_dump($n->sqrt->is_nan); // true
+     *
+     * @see N::$sqrt Magic getter way
+     * @see N::$square_root Other magic getter way
+     * @see N::root() Get N roots
+     * @see N::$cube_root Get cube root
+     *
      * @return N
      */
     protected function _sqrt()
     {
         return $this->root(2);
     }
+
+    /**
+     * Gets cube roots of current number.
+     *
+     * Gets the cube root number of current number.
+     * 
+     * This is runtime part of a magic getter.
+     *
+     * Example:
+     *
+     *     $n = new N(8);
+     *     echo $n->cube_root; // '2'
+     * 
+     * _Note_: If you try to get cube root of negative number, you will get NaN.
+     *
+     *     $n = new N(-8);
+     *     var_dump($n->cube_root->is_nan); // true
+     *
+     * @see N::$cube_root Magic getter way
+     * @see N::root() Get N roots
+     * @see N::$sqrt Get square root
+     *
+     * @return N
+     */
+    protected function _cubeRoot()
+    {
+        return $this->root(3);
+    }
+
 
     /**
      * Computes the factorial of current number.

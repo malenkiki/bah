@@ -1462,6 +1462,28 @@ class NTest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function testGettingCubeRootShouldReturnNObject()
+    {
+        $n = new N(8);
+        $this->assertInstanceOf('\Malenki\Bah\N', $n->cube_root);
+    }
+
+    
+
+    public function testGettingCubeRootShouldSuccess()
+    {
+        $n = new N(8);
+        $this->assertEquals(new N(2), $n->cube_root);
+        
+        $n = new N(27);
+        $this->assertEquals(new N(3), $n->cube_root);
+        
+        $n = new N(-3);
+        $this->assertTrue($n->cube_root->is_nan);
+    }
+    
+
+
     public function testGettingSignShouldSuccess()
     {
         $n = new N(0);
