@@ -248,6 +248,8 @@ class N extends O
             $name === 'chinese'
         ){
             return $this->$name();
+        } elseif($name === 'square_root'){
+            return $this->_sqrt();
         } elseif ($name === 'mandarin' || $name === 'putonghua'){
             return $this->chinese();
         } elseif (
@@ -763,6 +765,7 @@ class N extends O
      * @see N::_sqrt() A shorthand for magic getter to get square roots.
      * @param numeric|N $num Root
      * @return N
+     * @throws \InvalidArgumentException If root level is 0.
      */
     public function root($num)
     {
