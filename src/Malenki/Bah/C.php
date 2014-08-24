@@ -31,6 +31,22 @@ namespace Malenki\Bah;
  * @property-read Malenki\Bah\A $bytes A collection of Malenki\Bah\N objects
  * @property-read Malenki\Bah\S $to_s Converted version of character as Malenki\Bah\S object.
  * @property-read Malenki\Bah\N $to_n Converted version of character as Malenki\Bah\N object. Be careful: if it is not a digit, then this raises an exception.
+ * @property-read string $string Cast to primitive string
+ * @property-read string $str Cast to primitive string
+ * @property-read integer $integer Cast to primitive integer, if possible
+ * @property-read integer $int Cast to primitive integer, if possible
+ * @property-read C $upper Convert current character to uppercase
+ * @property-read C $lower Convert current character to lowercase
+ * @property-read N $unicode Gets unicode code point
+ * @property-read boolean $rtl True if it is a right to left character
+ * @property-read boolean $is_rtl True if it is a right to left character
+ * @property-read boolean $right_to_left True if it is a right to left character
+ * @property-read boolean $is_right_to_left True if it is a right to left character
+ * @property-read boolean $ltr True if it is a left to right character
+ * @property-read boolean $is_ltr True if it is a left to right character
+ * @property-read boolean $left_to_right True if it is a left to right character
+ * @property-read boolean $is_left_to_right True if it is a left to right character
+ * @property-read A Collection of all characters of the same unicode block of current character.
  *
  * @todo http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters
  * @todo http://en.wikipedia.org/wiki/Basic_Multilingual_Plane#Basic_Multilingual_Plane
@@ -564,6 +580,13 @@ class C extends O
         return new S($str);
     }
 
+    /**
+     * Lists all available encodings.
+     * 
+     * List all available encodings, as collection of `\Malenki\Bah\S` objects.
+     *
+     * @return A
+     */
     public static function encodings()
     {
         return new A(
