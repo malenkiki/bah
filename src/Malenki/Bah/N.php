@@ -562,16 +562,76 @@ class N extends O
         return $this->gte($num);
     }
 
+    /**
+     * Tests if number is negative.
+     *
+     * This tests whether current number is less than zero. Use only as magic 
+     * getter.
+     *
+     * Example:
+     *
+     *     $n = new N(0);
+     *     var_dump($n->negative); // false 
+     *
+     *     $n = new N(5);
+     *     var_dump($n->negative); // false 
+     *
+     *     $n = new N(-6);
+     *     var_dump($n->negative); // true 
+     * 
+     * @see N::$negative Magic getter way
+     * @see N::_positive() Tests if positive
+     * @see N::_zero() Tests if it is equl to zero
+     * @return boolean
+     */
     protected function _negative()
     {
         return $this->value < 0;
     }
 
+    /**
+     * Tests if number is equal to zero.
+     *
+     * This tests if current number is equals to zero.
+     *
+     * Example:
+     *
+     *     $n = new N(0);
+     *     var_dump($n->zero); // true
+     * 
+     * @see N::$zero Magic getter way
+     * @see N::_negative() Tests if negative
+     * @see N::_positive() Tests if positive
+     * @return boolean
+     */
     protected function _zero()
     {
         return $this->value == 0;
     }
 
+
+    /**
+     * Tests if number is positive.
+     *
+     * This tests whether current number is greater than zero. Use only as magic 
+     * getter.
+     *
+     * Example:
+     *
+     *     $n = new N(0);
+     *     var_dump($n->positive); // false 
+     *
+     *     $n = new N(5);
+     *     var_dump($n->positive); // true 
+     *
+     *     $n = new N(-6);
+     *     var_dump($n->positive); // false 
+     * 
+     * @see N::$positive Magic getter way
+     * @see N::_negative() Tests if negative
+     * @see N::_zero() Tests if it is equl to zero
+     * @return boolean
+     */
     protected function _positive()
     {
         return $this->value > 0;
@@ -592,6 +652,21 @@ class N extends O
         return new N(-1 * $this->value);
     }
 
+    /**
+     * Gets the inverse of current number.
+     *
+     * Gets the inverse, the number 1 divided by current number. But this is 
+     * only possible with number different of zero.
+     * 
+     * Example:
+     *
+     *     $n = new N(2);
+     *     echo $n->inverse; // '0.5'
+     *
+     * @see N::$inverse Magic getter way
+     * @return N
+     * @throws \RuntimeException If current number is zero
+     */
     protected function _inverse()
     {
         if ($this->_zero()) {
