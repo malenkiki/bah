@@ -781,6 +781,25 @@ class N extends O
         return $a;
     }
 
+    /**
+     * Computes current number at given power.
+     *
+     * Takes current number to raise it at given power.
+     *
+     * Example:
+     *
+     *     $n = new N(3);
+     *     echo $n->pow(2); // '9'
+     *     echo $n->pow(3); // '27'
+     * 
+     * @see N::power() Alias
+     * @see N::_square() Alias for sqaure
+     * @see N::_cube() Alias for cube
+     * @param numeric|N $num Power
+     * @return N
+     * @throws \InvalidArgumentException If given power is not numeric-like 
+     * value.
+     */
     public function pow($num)
     {
         self::mustBeNumeric($num, 'Power calculus');
@@ -793,16 +812,57 @@ class N extends O
         );
     }
 
+
+    /**
+     * Computes current number at given power (Alias).
+     *
+     * @see N::pow() Original method
+     * @see N::_square() Alias for sqaure
+     * @see N::_cube() Alias for cube
+     * @param numeric|N $num Power
+     * @return N
+     * @throws \InvalidArgumentException If given power is not numeric-like 
+     * value.
+     */
     public function power($num)
     {
         return $this->pow($num);
     }
 
+    /**
+     * Computes the square of current number 
+     * 
+     * Example:
+     *
+     *     $n = new N(4);
+     *     echo $n->square; // '16'
+     *
+     * @see N::$square Magic getter way
+     * @see N::_cube() Computes the cube
+     * @return N
+     * @throws \InvalidArgumentException If given power is not numeric-like 
+     * value.
+     */
     protected function _square()
     {
         return $this->pow(2);
     }
 
+
+    /**
+     * Computes the cube of current number 
+     * 
+     * Examples:
+     *
+     *     $n = new N(2);
+     *     echo $n->cube; // '8'
+     *
+     * @see N::_square() Computes the square number.
+     * @see N::$cube Magic getter way
+     * @return N
+     * @throws \InvalidArgumentException If given power is not numeric-like 
+     * value.
+     */
     protected function _cube()
     {
         return $this->pow(3);
@@ -976,6 +1036,25 @@ class N extends O
     }
 
 
+    /**
+     * Gets triangular number using current number as one of triangle’s edge.
+     *
+     * A triangular number is well defined by [wikipedia’s 
+     * article](http://en.wikipedia.org/wiki/Triangular_number).
+     * 
+     * This method take current number as one side, and then computer the 
+     * triangular number.
+     *
+     * Example:
+     *
+     *     $n = new N(4);
+     *     echo $n->triangular; // '10'
+     *
+     * @see N::$triangular Magic getter way.
+     * @return N
+     * @throws \RuntimeException If current number is negative
+     * @throws \RuntimeException If current number is not an integer
+     */
     protected function _triangular()
     {
         if ($this->value < 0) {
