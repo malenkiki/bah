@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">182</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">162</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">328</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">383</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2059040860"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1656785539"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-2059040860" class="accordion-body collapse in">
+            <div id="namespace-1656785539" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-879368842"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-913151946"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-879368842" class="accordion-body collapse ">
+            <div id="namespace-913151946" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-610300211"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1682055703"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-610300211" class="accordion-body collapse ">
+            <div id="namespace-1682055703" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -354,6 +354,7 @@ value and <code>__toString()</code> feature.</p>
                                                                     <a href="../classes/Malenki.Bah.N.html#method__cube" class="">_cube()</a><br />
                                                                     <a href="../classes/Malenki.Bah.N.html#method__ln" class="">_ln()</a><br />
                                                                     <a href="../classes/Malenki.Bah.N.html#method__sqrt" class="">_sqrt()</a><br />
+                                                                    <a href="../classes/Malenki.Bah.N.html#method__cubeRoot" class="">_cubeRoot()</a><br />
                                                                     <a href="../classes/Malenki.Bah.N.html#method__factorial" class="">_factorial()</a><br />
                                                                     <a href="../classes/Malenki.Bah.N.html#method__fact" class="">_fact()</a><br />
                                                                     <a href="../classes/Malenki.Bah.N.html#method__triangular" class="">_triangular()</a><br />
@@ -2075,26 +2076,42 @@ value</p></td>
             <article class="method">
                 <h3 class="public ">pow()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">pow( <span class="argument">$num</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">pow(\Malenki\Bah\numeric|\Malenki\Bah\N <span class="argument">$num</span>) : \Malenki\Bah\N</pre>
+                <p><em>Computes current number at given power.</em></p>
+                <p>Takes current number to raise it at given power.</p>
+<p>Example:</p>
+<pre><code>$n = new N(3);
+echo $n-&gt;pow(2); // '9'
+echo $n-&gt;pow(3); // '27'</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>\Malenki\Bah\numeric|<a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a></td>
                                 <td>$num </td>
-                                <td></td>
+                                <td><p>Power</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given power is not numeric-like
+value.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_power"><span class="namespace-wrapper">Alias</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__square"><span class="namespace-wrapper">Alias for sqaure</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__cube"><span class="namespace-wrapper">Alias for cube</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -2108,26 +2125,38 @@ value</p></td>
             <article class="method">
                 <h3 class="public ">power()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">power( <span class="argument">$num</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">power(\Malenki\Bah\numeric|\Malenki\Bah\N <span class="argument">$num</span>) : \Malenki\Bah\N</pre>
+                <p><em>Computes current number at given power (Alias).</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>\Malenki\Bah\numeric|<a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a></td>
                                 <td>$num </td>
-                                <td></td>
+                                <td><p>Power</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given power is not numeric-like
+value.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_pow"><span class="namespace-wrapper">Original method</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__square"><span class="namespace-wrapper">Alias for sqaure</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__cube"><span class="namespace-wrapper">Alias for cube</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -2174,26 +2203,40 @@ value</p></td>
             <article class="method">
                 <h3 class="public ">root()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">root( <span class="argument">$num</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">root(\Malenki\Bah\numeric|\Malenki\Bah\N <span class="argument">$num</span>) : \Malenki\Bah\N</pre>
+                <p><em>Gets nth root of current number.</em></p>
+                <p>Gets Nth root of given number.</p>
+<p>Example:</p>
+<pre><code>$n = new N(8);
+echo $n-&gt;root(3); // '2'
+echo $n-&gt;root(1); // '8'</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>\Malenki\Bah\numeric|<a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a></td>
                                 <td>$num </td>
-                                <td></td>
+                                <td><p>Root</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If root level is 0.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method__sqrt"><span class="namespace-wrapper">A shorthand for magic getter to get square roots.</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__cubeRoot"><span class="namespace-wrapper">A shorthand for magic getter to get cube roots.</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -2241,7 +2284,8 @@ var_dump($n-&gt;eq(new N(5.0))); // true</code></pre>
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
                                                                                             <dt>See also</dt>
-                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_eq"><span class="namespace-wrapper">An alias</span></a></dd>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_notEqual"><span class="namespace-wrapper">The opposite test.</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method_eq"><span class="namespace-wrapper">An alias</span></a></dd>
                                                                 </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -2258,7 +2302,15 @@ var_dump($n-&gt;eq(new N(5.0))); // true</code></pre>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">notEqual(\Malenki\Bah\numeric|\Malenki\Bah\N <span class="argument">$num</span>) : boolean</pre>
                 <p><em>Checks if current number is not equal to given argument.</em></p>
-                
+                <p>This tests given argument, a numeric primitive PHP value type or
+<code>\Malenki\Bah\N</code> object with current one to see whether they are not
+equals.</p>
+<p>Example:</p>
+<pre><code>$n = new N(5);
+var_dump($n-&gt;neq(6)); // true
+var_dump($n-&gt;neq(4)); // true
+var_dump($n-&gt;neq(new N(5.1))); // true
+var_dump($n-&gt;neq(new N(-5.0))); // true</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2271,9 +2323,9 @@ var_dump($n-&gt;eq(new N(5.0))); // true</code></pre>
                 
                                     <h4>Throws</h4>
                     <dl>
-                                                                            <dt>\InvalidArgumentException</dt>
+                                                    <dt>\InvalidArgumentException</dt>
                             <dd><p>If argument is not numeric or N class</p></dd>
-                                            </dl>
+                                                                    </dl>
                 
                                     <h4>Returns</h4>
                     boolean
@@ -2282,7 +2334,10 @@ var_dump($n-&gt;eq(new N(5.0))); // true</code></pre>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_equal"><span class="namespace-wrapper">Opposite test</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method_neq"><span class="namespace-wrapper">An alias</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -2338,26 +2393,35 @@ var_dump($n-&gt;eq(new N(5.0))); // true</code></pre>
             <article class="method">
                 <h3 class="public ">neq()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">neq( <span class="argument">$num</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">neq(\Malenki\Bah\numeric|\Malenki\Bah\N <span class="argument">$num</span>) : boolean</pre>
+                <p><em>Checks if current number is not equal to given argument (Alias).</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>\Malenki\Bah\numeric|<a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a></td>
                                 <td>$num </td>
-                                <td></td>
+                                <td><p>N or numeric value.</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                                            <dt>\InvalidArgumentException</dt>
+                            <dd><p>If argument is not numeric or N class</p></dd>
+                                            </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method_notEqual"><span class="namespace-wrapper">Original method</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -3867,18 +3931,34 @@ echo $n-&gt;previous; // 0 using alias</code></pre>
             <article class="method">
                 <h3 class="protected ">_negative()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_negative()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_negative() : boolean</pre>
+                <p><em>Tests if number is negative.</em></p>
+                <p>This tests whether current number is less than zero. Use only as magic
+getter.</p>
+<p>Example:</p>
+<pre><code>$n = new N(0);
+var_dump($n-&gt;negative); // false
+
+$n = new N(5);
+var_dump($n-&gt;negative); // false
+
+$n = new N(-6);
+var_dump($n-&gt;negative); // true</code></pre>
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Magic getter way</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__positive"><span class="namespace-wrapper">Tests if positive</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__zero"><span class="namespace-wrapper">Tests if it is equl to zero</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -3892,18 +3972,27 @@ echo $n-&gt;previous; // 0 using alias</code></pre>
             <article class="method">
                 <h3 class="protected ">_zero()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_zero()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_zero() : boolean</pre>
+                <p><em>Tests if number is equal to zero.</em></p>
+                <p>This tests if current number is equals to zero.</p>
+<p>Example:</p>
+<pre><code>$n = new N(0);
+var_dump($n-&gt;zero); // true</code></pre>
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Magic getter way</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__negative"><span class="namespace-wrapper">Tests if negative</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__positive"><span class="namespace-wrapper">Tests if positive</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -3917,18 +4006,34 @@ echo $n-&gt;previous; // 0 using alias</code></pre>
             <article class="method">
                 <h3 class="protected ">_positive()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_positive()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_positive() : boolean</pre>
+                <p><em>Tests if number is positive.</em></p>
+                <p>This tests whether current number is greater than zero. Use only as magic
+getter.</p>
+<p>Example:</p>
+<pre><code>$n = new N(0);
+var_dump($n-&gt;positive); // false
+
+$n = new N(5);
+var_dump($n-&gt;positive); // true
+
+$n = new N(-6);
+var_dump($n-&gt;positive); // false</code></pre>
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Magic getter way</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__negative"><span class="namespace-wrapper">Tests if negative</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__zero"><span class="namespace-wrapper">Tests if it is equl to zero</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -4017,18 +4122,31 @@ echo $n-&gt;previous; // 0 using alias</code></pre>
             <article class="method">
                 <h3 class="protected ">_inverse()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_inverse()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_inverse() : \Malenki\Bah\N</pre>
+                <p><em>Gets the inverse of current number.</em></p>
+                <p>Gets the inverse, the number 1 divided by current number. But this is
+only possible with number different of zero.</p>
+<p>Example:</p>
+<pre><code>$n = new N(2);
+echo $n-&gt;inverse; // '0.5'</code></pre>
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>If current number is zero</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Magic getter way</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -4103,18 +4221,31 @@ version.</p>
             <article class="method">
                 <h3 class="protected ">_square()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_square()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_square() : \Malenki\Bah\N</pre>
+                <p><em>Computes the square of current number</em></p>
+                <p>Example:</p>
+<pre><code>$n = new N(4);
+echo $n-&gt;square; // '16'</code></pre>
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given power is not numeric-like
+value.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Magic getter way</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method__cube"><span class="namespace-wrapper">Computes the cube</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -4128,18 +4259,31 @@ version.</p>
             <article class="method">
                 <h3 class="protected ">_cube()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_cube()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_cube() : \Malenki\Bah\N</pre>
+                <p><em>Computes the cube of current number</em></p>
+                <p>Examples:</p>
+<pre><code>$n = new N(2);
+echo $n-&gt;cube; // '8'</code></pre>
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given power is not numeric-like
+value.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Malenki.Bah.N.html#method__square"><span class="namespace-wrapper">Computes the square number.</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">Magic getter way</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -4178,18 +4322,71 @@ version.</p>
             <article class="method">
                 <h3 class="protected ">_sqrt()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_sqrt()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_sqrt() : \Malenki\Bah\N</pre>
+                <p><em>Gets square roots of current number.</em></p>
+                <p>Gets the square root number of current number.</p>
+<p>This is runtime part of some magic getter ways</p>
+<p>Example:</p>
+<pre><code>$n = new N(9);
+echo $n-&gt;sqrt; // '3'
+echo $n-&gt;square_root; // '3'</code></pre>
+<p><em>Note</em>: If you try to get square root of negative number, you will get NaN.</p>
+<pre><code>$n = new N(-9);
+var_dump($n-&gt;sqrt-&gt;is_nan); // true</code></pre>
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Magic getter way</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">Other magic getter way</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method_root"><span class="namespace-wrapper">Get N roots</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">Get cube root</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__cubeRoot" name="method__cubeRoot" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_cubeRoot()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_cubeRoot() : \Malenki\Bah\N</pre>
+                <p><em>Gets cube roots of current number.</em></p>
+                <p>Gets the cube root number of current number.</p>
+<p>This is runtime part of a magic getter.</p>
+<p>Example:</p>
+<pre><code>$n = new N(8);
+echo $n-&gt;cube_root; // '2'</code></pre>
+<p><em>Note</em>: If you try to get cube root of negative number, you will get NaN.</p>
+<pre><code>$n = new N(-8);
+var_dump($n-&gt;cube_root-&gt;is_nan); // true</code></pre>
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Magic getter way</span></a></dd>
+                                            <dd><a href="../classes/Malenki.Bah.N.html#method_root"><span class="namespace-wrapper">Get N roots</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">Get square root</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -4285,18 +4482,35 @@ integer.</p></dd>
             <article class="method">
                 <h3 class="protected ">_triangular()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_triangular()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_triangular() : \Malenki\Bah\N</pre>
+                <p><em>Gets triangular number using current number as one of triangle’s edge.</em></p>
+                <p>A triangular number is well defined by <a href="http://en.wikipedia.org/wiki/Triangular_number">wikipedia’s
+article</a>.</p>
+<p>This method take current number as one side, and then computer the
+triangular number.</p>
+<p>Example:</p>
+<pre><code>$n = new N(4);
+echo $n-&gt;triangular; // '10'</code></pre>
 
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>If current number is negative</p></dd>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>If current number is not an integer</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Magic getter way.</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -5192,7 +5406,7 @@ Integer-like value.</p></dd>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 22nd, 2014 at 13:59.
+                    on August 25th, 2014 at 13:37.
                 </section>
             </section>
         </section>
