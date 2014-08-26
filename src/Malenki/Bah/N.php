@@ -637,16 +637,62 @@ class N extends O
         return $this->value > 0;
     }
 
+    /**
+     * Returns absolute value.
+     *
+     * Gets absolute value of the current number. 
+     *
+     * Example:
+     *
+     *     $n = new N(-7);
+     *     echo $n->abs; // '7'
+     *     $n = new N(7);
+     *     echo $n->abs; // '7'
+     *     $n = new N(0);
+     *     echo $n->abs; // '0'
+     * 
+     * @see N::$abs Magic getter way
+     * @see N::_absolute() Alias
+     * @return N
+     */
     protected function _abs()
     {
         return new N(abs($this->value));
     }
 
+
+
+
+    /**
+     * Returns absolute valuei (Alias).
+     * 
+     * @see N::$absolute Magic getter way
+     * @see N::_abs() Original method
+     * @return N
+     */
     protected function _absolute()
     {
         return $this->_abs();
     }
 
+    /**
+     * Gets the opposite number.
+     *
+     * Get the opposite number of current number.
+     *
+     * Example:
+     *
+     *     $n = new N(7);
+     *     echo $n->opposite; // '-7'
+     *     echo $n->opposite->opposite; // '7'
+     *     $n = new N(-7);
+     *     echo $n->opposite; // '7'
+     *     $n = new N(0);
+     *     echo $n->opposite; // '0'
+     *
+     * @see N::$opposite Magic getter way
+     * @return N
+     */
     protected function _opposite()
     {
         return new N(-1 * $this->value);
@@ -729,9 +775,21 @@ class N extends O
     }
 
     /**
-     * Checks whether current number is prime number
+     * Checks if current number is prime number
+     *
+     * Checks whether current number is prime number. Prime number can only by 
+     * divided by itself and by one.
+     *
+     * Example:
+     *
+     *     $n = new N(5);
+     *     var_dump($n->prime); // true
+     *     $n = new N(6);
+     *     var_dump($n->prime); // false
      * 
+     * @see N::$prime Magic getter way
      * @return boolean
+     * @throws \RuntimeException If current number is not an integer.
      */
     protected function _prime()
     {
@@ -740,7 +798,9 @@ class N extends O
         }
 
         if (!$this->_decimal()->zero) {
-            return false;
+            throw new \RuntimeException(
+                'You cannot test if number is prime numer if it is not an integer'
+            );
         }
 
         $max = floor(sqrt($this->value));
