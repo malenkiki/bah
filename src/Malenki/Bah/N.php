@@ -637,16 +637,62 @@ class N extends O
         return $this->value > 0;
     }
 
+    /**
+     * Returns absolute value.
+     *
+     * Gets absolute value of the current number. 
+     *
+     * Example:
+     *
+     *     $n = new N(-7);
+     *     echo $n->abs; // '7'
+     *     $n = new N(7);
+     *     echo $n->abs; // '7'
+     *     $n = new N(0);
+     *     echo $n->abs; // '0'
+     * 
+     * @see N::$abs Magic getter way
+     * @see N::_absolute() Alias
+     * @return N
+     */
     protected function _abs()
     {
         return new N(abs($this->value));
     }
 
+
+
+
+    /**
+     * Returns absolute valuei (Alias).
+     * 
+     * @see N::$absolute Magic getter way
+     * @see N::_abs() Original method
+     * @return N
+     */
     protected function _absolute()
     {
         return $this->_abs();
     }
 
+    /**
+     * Gets the opposite number.
+     *
+     * Get the opposite number of current number.
+     *
+     * Example:
+     *
+     *     $n = new N(7);
+     *     echo $n->opposite; // '-7'
+     *     echo $n->opposite->opposite; // '7'
+     *     $n = new N(-7);
+     *     echo $n->opposite; // '7'
+     *     $n = new N(0);
+     *     echo $n->opposite; // '0'
+     *
+     * @see N::$opposite Magic getter way
+     * @return N
+     */
     protected function _opposite()
     {
         return new N(-1 * $this->value);
