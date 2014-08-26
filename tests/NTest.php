@@ -1016,6 +1016,12 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(-0.9, $n->decimal->float);
     }
 
+    public function testIfNumberIsPrimeNumberShouldReturnBoolean()
+    {
+        $n = new N(3);
+        $this->assertInternalType('boolean', $n->prime);
+    }
+
     public function testIfNumberIsPrimeOrNotShouldSuccess()
     {
         $n = new N(2);
@@ -1049,6 +1055,15 @@ class NTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($n->prime);
         $n = new N(30);
         $this->assertFalse($n->prime);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testIfNumberIsPrimeNumberUsingNonIntegerValueShouldFail()
+    {
+        $n = new N(5.4);
+        $n->prime;
     }
 
     public function testGettingDivisorsShouldReturnAObject()

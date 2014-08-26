@@ -729,9 +729,21 @@ class N extends O
     }
 
     /**
-     * Checks whether current number is prime number
+     * Checks if current number is prime number
+     *
+     * Checks whether current number is prime number. Prime number can only by 
+     * divided by itself and by one.
+     *
+     * Example:
+     *
+     *     $n = new N(5);
+     *     var_dump($n->prime); // true
+     *     $n = new N(6);
+     *     var_dump($n->prime); // false
      * 
+     * @see N::$prime Magic getter way
      * @return boolean
+     * @throws \RuntimeException If current number is not an integer.
      */
     protected function _prime()
     {
@@ -740,7 +752,9 @@ class N extends O
         }
 
         if (!$this->_decimal()->zero) {
-            return false;
+            throw new \RuntimeException(
+                'You cannot test if number is prime numer if it is not an integer'
+            );
         }
 
         $max = floor(sqrt($this->value));
