@@ -2188,6 +2188,39 @@ class N extends O
     }
 
 
+    /**
+     * Repeats given callable param.
+     *
+     * Runs N times given callable param. N is current number. 
+     * 
+     * As argument, callable params as current index of iteration as 
+     * `\Malenki\Bah\N` object.
+     *
+     * If callable param returns content, then each returned result is stored 
+     * into an `\Malenki\Bah\A` object.
+     *
+     * Example:
+     *
+     *     $n = new N(7);
+     *
+     *     $func = function($i){
+     *         if($i->odd){
+     *             return true;
+     *         }
+     *
+     *         return false;
+     *     };
+     *
+     *     var_dump($n->times($func)->array); // array(false, true, false, true, false, true, false)
+     *
+     * __Note:__ Current number can be negative, but cannot be zero
+     *
+     * @param mixed $callback A callable action
+     * @return N
+     * @throws \InvalidArgumentException If param is not callable
+     * @throws \RuntimeException If number is not an integer
+     * @throws \RuntimeException If number is zero
+     */
     public function times($callback)
     {
         self::mustBeCallable($callback);
