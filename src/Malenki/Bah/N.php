@@ -285,36 +285,123 @@ class N extends O
 
         $this->value = $num;
     }
+    
+    
+    /**
+     * Casts current number to string primitive type 
+     *
+     * Export current number value to primitive string PHP type value.
+     *
+     * Example;
+     *
+     *     $n = new N(M_PI);
+     *     var_dump($n->string); // string('3.1415926535898')
+     * 
+     * @see N::_str() Alias
+     * @see N::$string Magic getter way
+     * @return string
+     */
     protected function _string()
     {
         return (string) $this->value;
     }
 
+    /**
+     * Casts current number to string primitive type (Alias) 
+     * 
+     * @see N::_string() Original method
+     * @see N::$str Magic getter way
+     * @return string
+     */
     protected function _str()
     {
         return $this->_string();
     }
 
+
+    /**
+     * Casts current number to integer primitive type 
+     *
+     * Export current number value to primitive integer PHP type value.
+     *
+     * Example;
+     *
+     *     $n = new N(M_PI);
+     *     var_dump($n->integer); // int(3)
+     * 
+     * @see N::_int() Alias
+     * @see N::$integer Magic getter way
+     * @return int
+     */
     protected function _integer()
     {
         return (integer) $this->value;
     }
 
+
+    /**
+     * Casts current number to integer primitive type (Alias) 
+     * 
+     * @see N::_integer() Original method
+     * @see N::$int Magic getter way
+     * @return int
+     */
     protected function _int()
     {
         return $this->_integer();
     }
 
+
+    /**
+     * Casts current number to float primitive type 
+     *
+     * Export current number value to primitive float PHP type value.
+     *
+     * Example;
+     *
+     *     $n = new N(M_PI);
+     *     var_dump($n->float); // float
+     * 
+     * @return float
+     */
     protected function _float()
     {
         return (float) $this->value;
     }
 
+    /**
+     * Casts current number to double primitive type 
+     *
+     * Export current number value to primitive double PHP type value.
+     *
+     * Example;
+     *
+     *     $n = new N(M_PI);
+     *     var_dump($n->double); // double
+     * 
+     * @return double
+     */
     protected function _double()
     {
         return (double) $this->value;
     }
 
+    /**
+     * Increments current number.
+     *
+     * This increments current number itself, this returns the same changed 
+     * object, unlike other a lot of method in Bah lib.
+     * 
+     * Example:
+     *
+     *     $n = new N(1);
+     *     echo $n->incr;// '2'
+     *     echo $n; // '2'
+     *
+     * @see N::$incr Magic getter way
+     * @see N::_decr() Decrementing number
+     * @return N
+     */
     protected function _incr()
     {
         $this->value++;
@@ -322,6 +409,23 @@ class N extends O
         return $this;
     }
 
+
+    /**
+     * Decrements current number.
+     *
+     * This decrements current number itself, this returns the same changed 
+     * object, unlike other a lot of method in Bah lib.
+     * 
+     * Example:
+     *
+     *     $n = new N(2);
+     *     echo $n->decr;// '1'
+     *     echo $n; // '1'
+     *
+     * @see N::$decr Magic getter way
+     * @see N::_incr() Incrementing number
+     * @return N
+     */
     protected function _decr()
     {
         $this->value--;
