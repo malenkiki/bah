@@ -28,6 +28,16 @@ namespace Malenki\Bah;
 /**
  * Defines numbers.
  *
+ * This class play with numbers, float, integer or double, add can use some 
+ * mathematical stuffs.
+ *
+ * You can play with number properties (odd/even, is zero, has decimal part, 
+ * opposite number, inverse numbers, get its divisors, test its sign…)
+ *
+ * You can translate number to another numerals, like hindi, chinese, roman…
+ *
+ * So many feature to discover!
+ *
  * @property-read $hex Get hexadecimal form as S class
  * @property-read $oct Get octogonal form as S class
  * @property-read $bin Get binary form as S class
