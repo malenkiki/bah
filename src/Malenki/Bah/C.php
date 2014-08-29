@@ -27,6 +27,16 @@ namespace Malenki\Bah;
 /**
  * Define a single character.
  *
+ * Unlike other classes of Bah library, this class is not equivalent of a PHP 
+ * primitive type, but it can be very useful to deal with characters and their 
+ * UTF-8 properties.
+ *
+ * So, you can tests some characters properties, such as "is ti punctuation?"; 
+ * "is it lowercase?"; "is it right to left character?" and many others…
+ *
+ * You can get all characters from family of given one (from same unicode 
+ * block), you can get unicode code point and block name for each character.
+ *
  * @package Malenki\Bah
  * @property-read Malenki\Bah\A $bytes A collection of Malenki\Bah\N objects
  * @property-read Malenki\Bah\S $to_s Converted version of character as Malenki\Bah\S object.
