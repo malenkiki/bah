@@ -702,7 +702,7 @@ class C extends O
 
     protected function _isFormat()
     {
-        if(defined('HHVM_VERSION')){
+        if(defined('HHVM_VERSION') || PHP_OS === 'Darwin'){
             $int_code = $this->_unicode()->value;
 
             if($int_code == 0xAD){
