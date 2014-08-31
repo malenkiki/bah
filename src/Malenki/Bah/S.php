@@ -496,23 +496,23 @@ class S extends O implements \Countable, \IteratorAggregate
     /**
      * Stocks characters when a call is done for that.
      *
-     * @var Malenki\Bah\A
+     * @var A
      */
     protected $col_chars = null;
 
     /**
      * Stocks string's bytes.
      *
-     * @var Malenki\Bah\A
+     * @var A
      */
-    protected $bytes = null;
+    protected $col_bytes = null;
 
     /**
      * Stocks string's length.
      *
-     * @var Malenki\Bah\N
+     * @var N
      */
-    protected $length = null;
+    protected $n_length = null;
 
     /**
      * Quicker access to count 
@@ -866,25 +866,25 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     protected function _bytes()
     {
-        if (is_null($this->bytes)) {
+        if (is_null($this->col_bytes)) {
             $a = new A();
 
             $this->_chars();
 
-            while ($this->chars->valid()) {
+            while ($this->col_chars->valid()) {
 
-                while ($this->chars->current()->bytes->valid()) {
-                    $a->add($this->chars->current()->bytes->current());
-                    $this->chars->current()->bytes->next();
+                while ($this->col_chars->current()->bytes->valid()) {
+                    $a->add($this->col_chars->current()->bytes->current());
+                    $this->col_chars->current()->bytes->next();
                 }
 
-                $this->chars->next();
+                $this->col_chars->next();
             }
-            $this->bytes = $a;
+            $this->col_bytes = $a;
             unset($a);
         }
 
-        return $this->bytes;
+        return $this->col_bytes;
     }
 
     /**
@@ -904,11 +904,11 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     protected function _length()
     {
-        if (is_null($this->length)) {
-            $this->length = new N(mb_strlen($this, C::ENCODING));
+        if (is_null($this->n_length)) {
+            $this->n_length = new N(mb_strlen($this, C::ENCODING));
         }
 
-        return $this->length;
+        return $this->n_length;
     }
 
     /**
