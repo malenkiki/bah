@@ -280,7 +280,7 @@ class C extends O
         array('start' => 0x100000, 'end' => 0x10FFFF, 'name' => 'Supplementary Private Use Area-B')
     );
 
-    protected $bytes = null;
+    protected $col_bytes = null;
 
     /**
      * Store whether the current character is surrogate or not.
@@ -366,7 +366,7 @@ class C extends O
     public function __get($name)
     {
         if ($name === 'bytes') {
-            if (is_null($this->bytes)) {
+            if (is_null($this->col_bytes)) {
                 $i = 0;
                 $a = array();
 
@@ -375,10 +375,10 @@ class C extends O
                     $i++;
                 }
 
-                $this->bytes = new A($a);
+                $this->col_bytes = new A($a);
             }
 
-            return $this->bytes;
+            return $this->col_bytes;
         }
 
         if($name === 'to_s'){
@@ -994,8 +994,10 @@ class C extends O
         $str_unicode = '';
 
         $this->__get('bytes');
-        $this->bytes->rewind();
-        foreach ($this->bytes as $k => $src) {
+        $this->col_bytes->rewind();
+        $int_nb_bytes = count($this->col_bytes);
+
+        foreach ($this->col_bytes as $k => $src) {
 
             if (is_string($src)) {
                 $str_bin = (string) decbin(hexdec($src));
@@ -1003,9 +1005,9 @@ class C extends O
                 $str_bin = (string) decbin($src->value);
             }
 
-            if (count($this->bytes) > 1) {
+            if ($int_nb_bytes > 1) {
                 if ($k == 0) {
-                    $str_unicode .= substr($str_bin, count($this->bytes) + 1);
+                    $str_unicode .= substr($str_bin, $int_nb_bytes + 1);
                 } else {
                     $str_unicode .= substr($str_bin, 2);
                 }
