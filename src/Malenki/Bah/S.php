@@ -498,7 +498,7 @@ class S extends O implements \Countable, \IteratorAggregate
      *
      * @var Malenki\Bah\A
      */
-    protected $chars = null;
+    protected $col_chars = null;
 
     /**
      * Stocks string's bytes.
@@ -721,6 +721,8 @@ class S extends O implements \Countable, \IteratorAggregate
             $name === 'md5'
             ||
             $name === 'sha1'
+            ||
+            $name === 'zorg'
         ) {
             $str_method = '_' . $name;
 
@@ -834,7 +836,7 @@ class S extends O implements \Countable, \IteratorAggregate
      */
     protected function _chars()
     {
-        if (is_null($this->chars)) {
+        if (is_null($this->col_chars)) {
             $a = new A();
             $i = new N(0);
 
@@ -843,12 +845,12 @@ class S extends O implements \Countable, \IteratorAggregate
                 $i->incr;
             }
 
-            $this->chars = $a;
+            $this->col_chars = $a;
             unset($a);
             unset($i);
         }
 
-        return $this->chars;
+        return $this->col_chars;
     }
 
     /**
@@ -3885,6 +3887,80 @@ class S extends O implements \Countable, \IteratorAggregate
         }
         
         return new self(strip_tags($this->value));
+    }
+
+
+    protected function _zorg()
+    {
+        $o = array(
+            'cap'  => new A(),
+            'sep'  => new A(),
+            'word' => new A()
+        );
+        
+        $chars = $this->_chars()->array;
+
+        $nb = count($chars);
+
+        $first_type = null;
+        $last_type = null;
+        $current = '';
+
+        foreach($chars as $idx => $c){
+            if($c->is_letter || $c->is_digit){
+                $type = 'word';
+
+                if($c->is_upper){
+                    $o['cap']->add($idx);
+                    $c = $c->lower;
+                }
+
+            } else {
+                $type = 'sep';
+            }
+
+            if($last_type !== $type){
+                if(!is_null($last_type)){
+                    $o[$last_type]->add(new S($current));
+                }
+                $current = "$c";
+                $last_type = $type;
+            } else {
+                $current = $current . "$c";
+            }
+
+            if(is_null($first_type)){
+                $first_type = $type;
+            }
+
+            if($idx === ($nb - 1)){
+                $o[$last_type]->add(new S($current));
+            }
+        }
+
+        $second_type = $first_type === 'word' ? 'sep' : 'word';
+
+        $out = '';
+
+        foreach($o[$first_type] as $k => $str){
+            $str2 = $o[$second_type]->get($k);
+
+            if($first_type === 'word'){
+                $out .= $str->chars->reverse->join->str;
+                $out .= $str2;
+            } else {
+                $out .= $str2 . $str;
+            }
+        }
+
+        $out = new S($out);
+
+        foreach($o['cap'] as $idx){
+            $out = $out->set($idx, $out->at($idx)->upper);
+        }
+
+        return $out;
+
     }
 
 

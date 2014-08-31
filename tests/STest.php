@@ -2857,5 +2857,19 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('(foo)', $s->surround(array(), null));
     }
 
+    public function testGettingZorgShouldReturnSObject()
+    {
+        $s = new S('Je suis Fantasio ! C‘est bien connu bon sang !');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->zorg);
+    }
+
+    public function testGettingZorgLanguageShouldSuccess()
+    {
+        $s = new S('Je suis Fantasio ! C‘est bien connu bon sang !');
+        $this->assertEquals(
+            'Ej sius Oisatnaf ! C‘tse neib unnoc nob gnas !',
+            $s->zorg
+        );
+    }
     
 }
