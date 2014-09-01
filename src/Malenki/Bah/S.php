@@ -3890,6 +3890,19 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
 
+    /**
+     * Converts string into Zorglub’s language.
+     *
+     * Yes, this is an Easter Egg:)
+     * 
+     * Example:
+     *
+     *     $s = new S('Je suis Fantasio ! C‘est bien connu bon sang !');
+     *     echo $s->zorg; // 'Ej sius Oisatnaf ! C‘tse neib unnoc nob gnas !'
+     *
+     * @see S::$zorg Magic getter way
+     * @return S
+     */
     protected function _zorg()
     {
         $o = array(
