@@ -1502,6 +1502,29 @@ class N extends O
         return !$this->_odd();
     }
 
+    /**
+     * Tests current number against other value using string expression. 
+     * 
+     * Using this method, you can test current number using string expression.
+     *
+     * Example:
+     *
+     *     $n = new N(3);
+     *     var_dump($n->test('>= 1')); // true
+     *     var_dump($n->test('gt 1')); // true
+     *
+     * Available tests are: `<`, `>`, `<=`, `>=`, `=`, `==`, `eq`, `!=`, `<>`, 
+     * `no`, `neq`, `le`, `ge`, `lt`, `gt` followed or not by one or many space 
+     * and number to test with.
+     *
+     * @param mixed $what String-like test expression
+     * @access public
+     * @return boolean
+     * @throws \InvalidArgumentException If test expression is not string-like value.
+     * @throws \RuntimeException If test expression is not valid.
+     * @todo for futur release, allow more complex test using `or`, `and`, 
+     * `xor`, code to use in place of number…
+     */
     public function test($what)
     {
         self::mustBeString($what, 'Test argument');

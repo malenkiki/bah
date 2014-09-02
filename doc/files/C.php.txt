@@ -747,6 +747,23 @@ class C extends O
         return (boolean) preg_match("/^\p{M}+$/ui", $this->value);
     }
 
+    /**
+     * Tests if character is separator. 
+     * 
+     * Tests whether current character is a separator, like no-break-space, 
+     * space, ideographic space and so on.
+     *
+     * Example:
+     *
+     *     $c = new C(' ');
+     *     var_dump($c->is_separator); // true
+     
+     *     $c = new C("\t");
+     *     var_dump($c->is_separator); // false
+     *
+     * @see C::$is_separator Magic getter way
+     * @return boolean
+     */
     protected function _isSeparator()
     {
         return (boolean) preg_match("/^\p{Z}+$/ui", $this->value);

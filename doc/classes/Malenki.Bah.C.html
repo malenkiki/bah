@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">149</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">146</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">402</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">407</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1072229597"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-798656032"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1072229597" class="accordion-body collapse in">
+            <div id="namespace-798656032" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1829026278"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1111312861"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-1829026278" class="accordion-body collapse ">
+            <div id="namespace-1111312861" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2095674364"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1733678358"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-2095674364" class="accordion-body collapse ">
+            <div id="namespace-1733678358" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -2092,18 +2092,29 @@ var_dump($c-&gt;is_digit); // false</code></pre>
             <article class="method">
                 <h3 class="protected ">_isSeparator()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_isSeparator()</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">_isSeparator() : boolean</pre>
+                <p><em>Tests if character is separator.</em></p>
+                <p>Tests whether current character is a separator, like no-break-space,
+space, ideographic space and so on.</p>
+<p>Example:</p>
+<pre><code>$c = new C(' ');
+var_dump($c-&gt;is_separator); // true
+
+$c = new C("\t");
+var_dump($c-&gt;is_separator); // false</code></pre>
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    boolean
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Magic getter way</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -2637,7 +2648,7 @@ var_dump($c-&gt;is_left_to_right); // true</code></pre>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on September 1st, 2014 at 13:35.
+                    on September 2nd, 2014 at 13:53.
                 </section>
             </section>
         </section>
