@@ -769,6 +769,36 @@ class C extends O
         return (boolean) preg_match("/^\p{Z}+$/ui", $this->value);
     }
 
+    /**
+     * Tests if character is a punctuation.
+     * 
+     * Tests whether current character is punctuation or not, like comma, dot, 
+     * parentethis and so on…
+     *
+     * Examples:
+     *     
+     *     $c = new C('.');
+     *     var_dump($c->is_punctuation); // true
+     *
+     *     $c = new C(',');
+     *     var_dump($c->is_punctuation); // true
+     *
+     *     $c = new C('…');
+     *     var_dump($c->is_punctuation); // true
+     *
+     *     $c = new C('–');
+     *     var_dump($c->is_punctuation); // true
+     *
+     *     $c = new C('。');
+     *     var_dump($c->is_punctuation); // true
+     *
+     *     $c = new C('【');
+     *     var_dump($c->is_punctuation); // true
+     *
+     *
+     * @see C::$is_punctuation Magic getter way
+     * @return boolean
+     */
     protected function _isPunctuation()
     {
         return (boolean) preg_match("/^\p{P}+$/ui", $this->value);
