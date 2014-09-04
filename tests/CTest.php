@@ -257,6 +257,27 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($c->is_digit);
     }
 
+    public function testHasCaseShouldReturnBoolean()
+    {
+        $c= new C('a');
+
+        $this->assertInternalType('boolean', $c->has_case);
+    }
+
+    public function testHasCaseShouldSuccess()
+    {
+        $c= new C('a');
+        $this->assertTrue($c->has_case);
+        $c= new C('A');
+        $this->assertTrue($c->has_case);
+        $c= new C('œ');
+        $this->assertTrue($c->has_case);
+        $c= new C('É');
+        $this->assertTrue($c->has_case);
+        $c= new C('!');
+        $this->assertFalse($c->has_case);
+    }
+
     public function testPunctuationDetection()
     {
         $c = new C('.');

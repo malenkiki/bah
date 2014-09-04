@@ -925,8 +925,18 @@ class C extends O
 
 
     /**
+     * Tests if character has other cases or not.
+     *
      * Tests whether the current character has other cases or not.
      *
+     * Example:
+     *
+     *     $c = new C('a');
+     *     var_dump($c->has_case); //  true
+     *     $c = new C('!');
+     *     var_dump($c->has_case); //  false
+     *
+     * @see C::$has_case magic getter way
      * @return boolean
      */
     protected function _hasCase()
