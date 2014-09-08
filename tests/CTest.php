@@ -390,6 +390,8 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($c->is_private_use);
         $c = new C('􀁕');
         $this->assertTrue($c->is_private_use);
+        $c = new C(new N(0xe62e));
+        $this->assertTrue($c->is_private_use);
     }
 
     public function testSurrogateDetection()
