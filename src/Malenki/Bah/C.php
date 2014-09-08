@@ -730,6 +730,23 @@ class C extends O
         return (boolean) preg_match("/^\p{Cn}+$/ui", $this->value);
     }
 
+    /**
+     * Checks if character is for private use only.
+     * 
+     * Checks whether current character must be use only for private uses or 
+     * not.
+     *
+     * Some UTF-8 characters can be used as you want, for example to have 
+     * custom identicon. An example of private use is FontAwesome.
+     *
+     * Example:
+     *
+     *     $c = new C(new N(0xe62e));
+     *     var_dump($c->is_private_use); // true
+     *
+     * @see C::$is_private_use Magic getter way
+     * @return boolean
+     */
     protected function _isPrivateUse()
     {
         return (boolean) preg_match("/^\p{Co}+$/ui", $this->value);
