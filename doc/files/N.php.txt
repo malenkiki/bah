@@ -1946,6 +1946,40 @@ class N extends O
         return new S(strtr((string) $this->value, $arr));
     }
 
+    /**
+     * Converts current number into chinese numerals 
+     *
+     * The current number is converted into simplified chinese ideograms.
+     *
+     * As argument, you can use a boolean to use alternative zero numeral. By 
+     * default it does not use simple zero.
+     *
+     * Example:
+     *
+     *     $n = new N(1234);
+     *     echo $n->chinese; // '一千二百三十四'
+     *     echo $n->mandarin; // '一千二百三十四'
+     *     echo $n->putonghua; // '一千二百三十四'
+     *     $n = new N(208);
+     *     echo $n->chinese(false); // '二百零八'
+     *     echo $n->chinese; // '二百零八'
+     *     echo $n->mandarin; // '二百零八'
+     *     echo $n->putonghua; // '二百零八'
+     *     echo $n->chinese(true); // '二百〇八'
+     *     echo $n->chinese_other_zero; // '二百〇八'
+     *     echo $n->mandarin_other_zero; // '二百〇八'
+     *     echo $n->putonghua_other_zero; // '二百〇八'
+     * 
+     * __Note:__ Several magic getters are available, for each " alternatives, 
+     * you can add `_other_zero` to have same result as `N::chinese(true)`.
+     *
+     * @see N::$chinse Magic getter way
+     * @see N::$mandarin Other magic getter way
+     * @see N::$putonghua Last magic getter way
+     * @param boolean $use_simple_zero use or not simple zero.
+     * @return S
+     * @throws \RuntimeException If at least one myriad does not exist for current number.
+     */
     public function chinese($use_simple_zero = false)
     {
         // n myriads, so indexed using that.
