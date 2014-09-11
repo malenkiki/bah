@@ -904,6 +904,14 @@ class A extends O implements \Countable, \IteratorAggregate
         return new self(array_pad($this->value, $size, $value));
     }
 
+    /**
+     * find 
+     * 
+     * @param mixed $what Expression as a string-like value 
+     * @return A
+     * @throws \InvalidArgumentException If expression is not string-like value.
+     * @throws \InvalidArgumentException If test use negative number, they are not negative number as index into collection.
+     */
     public function find($what)
     {
         self::mustBeString($what, 'Find expression');
@@ -922,7 +930,7 @@ class A extends O implements \Countable, \IteratorAggregate
             } elseif ($k->test($what)) {
                 if (preg_match('/-[0-9]+$/', $what)) {
                     throw new \InvalidArgumentException(
-                        'Cannot test against negative integer, because their'
+                        'Cannot test against negative integer, because they'
                         .' are not negative index.'
                     );
                 }
@@ -978,6 +986,15 @@ class A extends O implements \Countable, \IteratorAggregate
         return new self(array_filter($this->value, $func));
     }
 
+    /**
+     * Gets random items from the collection. 
+     * 
+     * @param int $n Number of item to take.
+     * @return A
+     * @throws \InvalidArgumentException If number of items is not an integer-like value.
+     * @throws \InvalidArgumentException If number of items is less than one.
+     * @throws \RuntimeException If number of items to take is greater than total available items.
+     */
     public function random($n = 1)
     {
         self::mustBeInteger($n, 'Number of random items');

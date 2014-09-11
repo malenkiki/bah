@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">142</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">138</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-212923168"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1328373217"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-212923168" class="accordion-body collapse in">
+            <div id="namespace-1328373217" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1757384168"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1529202039"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-1757384168" class="accordion-body collapse ">
+            <div id="namespace-1529202039" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1890287888"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1435745694"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-1890287888" class="accordion-body collapse ">
+            <div id="namespace-1435745694" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -2067,21 +2067,30 @@ $a-&gt;pad(5, 'thing'); // 'foo', 'bar', 'thing', 'thing', 'thing'</code></pre>
             <article class="method">
                 <h3 class="public ">find()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">find( <span class="argument">$what</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">find(mixed <span class="argument">$what</span>) : \Malenki\Bah\A</pre>
+                <p><em>find</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$what </td>
-                                <td></td>
+                                <td><p>Expression as a string-like value</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If expression is not string-like value.</p></dd>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If test use negative number, they are not negative number as index into collection.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -2220,21 +2229,32 @@ $a-&gt;map($cube)-&gt;array; // array(1, 8, 27, 64, 125)</code></pre>
             <article class="method">
                 <h3 class="public ">random()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">random( <span class="argument">$n</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">random(integer <span class="argument">$n</span>) : \Malenki\Bah\A</pre>
+                <p><em>Gets random items from the collection.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$n </td>
-                                <td></td>
+                                <td><p>Number of item to take.</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If number of items is not an integer-like value.</p></dd>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If number of items is less than one.</p></dd>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>If number of items to take is greater than total available items.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -3839,7 +3859,7 @@ var_dump($a-&gt;flatten-&gt;array); // has: 'one', 'two', 'three', 'four', 'five
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on September 9th, 2014 at 13:55.
+                    on September 11th, 2014 at 13:33.
                 </section>
             </section>
         </section>
