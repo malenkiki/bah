@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">138</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">136</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">427</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">429</span>
                                 </a>
                             </li>
                             <li>
@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1328373217"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2047219077"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1328373217" class="accordion-body collapse in">
+            <div id="namespace-2047219077" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1529202039"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1785104514"></a>
                                 <a href="../namespaces/Malenki.html" style="margin-left: 30px; padding-left: 0">Malenki</a>
             </div>
-            <div id="namespace-1529202039" class="accordion-body collapse ">
+            <div id="namespace-1785104514" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1435745694"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-102603718"></a>
                                 <a href="../namespaces/Malenki.Bah.html" style="margin-left: 30px; padding-left: 0">Bah</a>
             </div>
-            <div id="namespace-1435745694" class="accordion-body collapse ">
+            <div id="namespace-102603718" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -2452,21 +2452,35 @@ $a-&gt;merge($b, $c); // has 'one', 'two', 'three', 'four', 'five'</code></pre>
             <article class="method">
                 <h3 class="public ">chunk()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">chunk( <span class="argument">$size</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">chunk(\Malenki\Bah\N|integer <span class="argument">$size</span>) : \Malenki\Bah\A</pre>
+                <p><em>Divides current collection into subcollection having given size.</em></p>
+                <p>Collection is splitted into several parts, each of them has size given
+in argument, the last can have small size.</p>
+<p>Example:</p>
+<pre><code>$a = new A(array(1, 2, 3, 4, 5, 6, 7, 8, 9));
+$a-&gt;chunk(3); // [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+$a-&gt;chunk(4); // [[1, 2, 3, 4], [5, 6, 7, 8], [9]]</code></pre>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td><a href="../classes/Malenki.Bah.N.html">\Malenki\Bah\N</a>|integer</td>
                                 <td>$size </td>
-                                <td></td>
+                                <td><p>Chunk’s size, as an integer-like value.</p></td>
                             </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If argument is not integer-like value.</p></dd>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If given size is less than one.</p></dd>
+                                                                    </dl>
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    <a href="../classes/Malenki.Bah.A.html">\Malenki\Bah\A</a>
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -3859,7 +3873,7 @@ var_dump($a-&gt;flatten-&gt;array); // has: 'one', 'two', 'three', 'four', 'five
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on September 11th, 2014 at 13:33.
+                    on September 12th, 2014 at 13:47.
                 </section>
             </section>
         </section>

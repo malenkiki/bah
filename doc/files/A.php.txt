@@ -1166,6 +1166,23 @@ class A extends O implements \Countable, \IteratorAggregate
         return $this->mergeEngine($args);
     }
 
+    /**
+     * Divides current collection into subcollection having given size.
+     *
+     * Collection is splitted into several parts, each of them has size given 
+     * in argument, the last can have small size.
+     *
+     * Example:
+     *
+     *     $a = new A(array(1, 2, 3, 4, 5, 6, 7, 8, 9));
+     *     $a->chunk(3); // [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+     *     $a->chunk(4); // [[1, 2, 3, 4], [5, 6, 7, 8], [9]]
+     * 
+     * @param N|integer $size Chunk’s size, as an integer-like value.
+     * @return A
+     * @throws \InvalidArgumentException If argument is not integer-like value.
+     * @throws \InvalidArgumentException If given size is less than one.
+     */
     public function chunk($size)
     {
         self::mustBeInteger($size, 'Size');
