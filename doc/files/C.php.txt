@@ -759,6 +759,9 @@ class C extends O
         return $this->bool_is_surrogate;
     }
 
+    /**
+     * @todo doc and unit test!
+     */
     protected function _isMark()
     {
         return (boolean) preg_match("/^\p{M}+$/ui", $this->value);
@@ -871,6 +874,12 @@ class C extends O
         return mb_strtolower($this->value, C::ENCODING) === $this->value;
     }
 
+    /**
+     * Tests whether current character is in lower case (Alias).
+     *
+     * @see C::_isLowerCase() Original method
+     * @return boolean
+     */
     protected function _isLower()
     {
         return $this->_isLowerCase();
@@ -1239,6 +1248,19 @@ class C extends O
 
 
 
+    /**
+     * Converts character as string into string context. 
+     * 
+     * This return internal value of the character, as a string, while it is 
+     * used into  string context.
+     *
+     * Example:
+     *
+     *     $c = new C('a');
+     *     echo $c; // 'a'
+     *
+     * @return string
+     */
     public function __toString()
     {
         return (string) $this->value;
