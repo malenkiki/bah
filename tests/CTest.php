@@ -228,6 +228,17 @@ class CTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($c->is_upper);
     }
 
+    public function testIsMarkShouldReturnBoolean()
+    {
+        $c = new C('s');
+        $this->assertInternalType('boolean', $c->is_mark);
+    }
+    
+    public function testIsMarkShouldSuccess()
+    {
+        $this->markTestIncomplete();
+    }
+
     public function testLetterDetection()
     {
         $c = new C('œ');
