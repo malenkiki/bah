@@ -3792,6 +3792,7 @@ class S extends O implements \Countable, \IteratorAggregate
      * @return S
      * @todo allow more attributes, using `tag_name[attr=value]`
      * @throw \RuntimeException if more than one ID is set for one tag.
+     * @throw \RuntimeException if tagname start with class or id (no tagname so).
      */
     public function tag($tag_expr)
     {
@@ -3822,6 +3823,10 @@ class S extends O implements \Countable, \IteratorAggregate
 
 
         foreach($tags as $t){
+            if(preg_match('/^[#\.]+/ui', $t)){
+                throw new \RuntimeException('Empty class name are not allowed!');
+            }
+
             $tag = new \stdClass();
             $tag->classes = array();
             $tag->id = null;

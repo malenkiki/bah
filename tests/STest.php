@@ -2903,4 +2903,23 @@ class STest extends PHPUnit_Framework_TestCase
             $s->tag('p.bar#first span#two')
         );
     }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingTagyfiedVersionUsingMoreThanOneIdPerTagShouldFail()
+    {
+        $s = new S('foo');
+        $s->tag('p#foo#bar');
+    }
+
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGettingTagVersionUsingVoidTagNameShouldFail()
+    {
+        $s = new S('foo');
+        $s->tag('p span .foo');
+    }
 }
