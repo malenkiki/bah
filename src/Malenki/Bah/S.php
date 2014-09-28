@@ -3785,6 +3785,96 @@ class S extends O implements \Countable, \IteratorAggregate
         return new self($out);
     }
 
+    /**
+     * tag 
+     * 
+     * @param mixed $tag_expr 
+     * @return S
+     * @todo allow more attributes, using `tag_name[attr=value]`
+     * @throw \RuntimeException if more than one ID is set for one tag.
+     * @throw \RuntimeException if tagname start with class or id (no tagname so).
+     */
+    public function tag($tag_expr)
+    {
+        $arr = array();
+
+        $tags = preg_split('/\s+/ui', $tag_expr);
+
+        // returns not-id part, set id into tag if found
+        $detectId = function($str, &$tag){
+            if(preg_match('/#/ui', $str)){
+                $id = preg_split('/#/ui', $str);
+
+                $out = array_shift($id);
+
+                if(count($id) > 1 || !empty($tag->id)){
+                    throw new \RuntimeException(
+                        'XML tag cannot have more than one ID attribute!'
+                    );
+                }
+
+                $tag->id = array_pop($id);
+
+                return $out;
+            }
+
+            return $str;
+        };
+
+
+        foreach($tags as $t){
+            if(preg_match('/^[#\.]+/ui', $t)){
+                throw new \RuntimeException('Empty class name are not allowed!');
+            }
+
+            $tag = new \stdClass();
+            $tag->classes = array();
+            $tag->id = null;
+
+            // has class?
+            $classes = preg_split('/\./ui', $t);
+            $tag->name = $detectId(array_shift($classes), $tag);
+
+            // has attributes?
+            if(!empty($classes)){
+                foreach($classes as $c){
+                    // has id?
+                    $tag->classes[] = $detectId($c, $tag);
+                }
+            }
+
+            $arr[] = $tag;
+        }
+
+        if(!empty($arr)){
+            $str = $this->value;
+
+            $arr = array_reverse($arr);
+
+            foreach($arr as $t){
+                $start = $t->name;
+                $end = $t->name;
+
+                if(!empty($t->classes)){
+                    $start .= sprintf(' class="%s"', implode(' ', $t->classes));
+                }
+
+                if(!empty($t->id)){
+                    $start .= sprintf(' id="%s"', $t->id);
+                }
+
+                $str = sprintf('<%s>%s</%s>', $start, $str, $end);
+            }
+
+            return new self($str);
+        }
+       
+        return $this;
+    }
+
+
+
+
 
     /**
      * Removes HTML and XML tags.

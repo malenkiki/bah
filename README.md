@@ -270,7 +270,7 @@ var_dump($a->sort->reverse); // sort and then reverse it
 
 Get new collection following some criterias for its indexes, using the same way as used into `test()` method of N class (excepted `odd` and `even` added here):
 ```php
-$a = new A('foo', 'bar', 'thing', 'other');
+$a = new A(array('foo', 'bar', 'thing', 'other'));
 $a->find('>= 2'); // has 'thing' and 'other'
 $a->find('odd'); // has 'bar' and 'other'
 ```
