@@ -2872,4 +2872,35 @@ class STest extends PHPUnit_Framework_TestCase
         );
     }
     
+
+
+    public function testGettingTagifiedVersionShouldReturnSObject()
+    {
+        $s = new S('foo');
+        $this->assertInstanceOf('\Malenki\Bah\S', $s->tag('p'));
+    }
+
+
+    public function testGettingTagifiedVersionUsingOnlyTagsShouldSuccess()
+    {
+        $s = new S('foo');
+        
+        $this->assertEquals('<p>foo</p>', $s->tag('p'));
+        $this->assertEquals('<p><span>foo</span></p>', $s->tag('p span'));
+    }
+
+    public function testGettingTagifiedVersionUsingAttributesShouldSuccess()
+    {
+        $s = new S('foo');
+
+        $this->assertEquals('<p class="bar"><span>foo</span></p>', $s->tag('p.bar span'));
+        $this->assertEquals(
+            '<p class="bar"><span class="thing">foo</span></p>', 
+            $s->tag('p.bar span.thing')
+        );
+        $this->assertEquals(
+            '<p class="bar" id="first"><span id="two">foo</span></p>', 
+            $s->tag('p.bar#first span#two')
+        );
+    }
 }
