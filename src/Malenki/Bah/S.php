@@ -3786,7 +3786,19 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * tag 
+     * Embeds current string into one or more tags.
+     *
+     * Required parameter is a string-like value to describe tag to use. 
+     * Expression is like CSS or jQuery expression. 
+     *
+     * You can define id and class attribute for a tag.
+     *
+     * Example:
+     *
+     *     $s = new S('foo');
+     *     echo $s->tag('p'); // <p>foo</p>
+     *     echo $s->tag('p.bar'); // <p class="bar">foo</p>
+     *     echo $s->tag('p.bar span#thing'); // <p class="bar"><span id="thing">foo</span></p>
      * 
      * @param mixed $tag_expr 
      * @return S
