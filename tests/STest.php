@@ -2889,6 +2889,15 @@ class STest extends PHPUnit_Framework_TestCase
         $this->assertEquals('<p><span>foo</span></p>', $s->tag('p span'));
     }
 
+    public function testGettingTagifiedVersionUsingOnlyTagsIntoSobjectShouldSuccess()
+    {
+        $s = new S('foo');
+        
+        $this->assertEquals('<p>foo</p>', $s->tag(new S('p')));
+        $this->assertEquals('<p><span>foo</span></p>', $s->tag(new S('p span')));
+    }
+
+
     public function testGettingTagifiedVersionUsingAttributesShouldSuccess()
     {
         $s = new S('foo');
@@ -2902,6 +2911,15 @@ class STest extends PHPUnit_Framework_TestCase
             '<p class="bar" id="first"><span id="two">foo</span></p>', 
             $s->tag('p.bar#first span#two')
         );
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGettingTaggedVersionUsingNonStringLikeValueShouldFail()
+    {
+        $s = new S('foo');
+        $s->tag(null);
     }
 
     /**
