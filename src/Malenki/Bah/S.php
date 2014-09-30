@@ -3786,16 +3786,31 @@ class S extends O implements \Countable, \IteratorAggregate
     }
 
     /**
-     * tag 
+     * Embeds current string into one or more tags.
+     *
+     * Required parameter is a string-like value to describe tag to use. 
+     * Expression is like CSS or jQuery expression. 
+     *
+     * You can define id and class attribute for a tag.
+     *
+     * Example:
+     *
+     *     $s = new S('foo');
+     *     echo $s->tag('p'); // <p>foo</p>
+     *     echo $s->tag('p.bar'); // <p class="bar">foo</p>
+     *     echo $s->tag('p.bar span#thing'); // <p class="bar"><span id="thing">foo</span></p>
      * 
-     * @param mixed $tag_expr 
+     * @param mixed $tag_expr Tag definition 
      * @return S
      * @todo allow more attributes, using `tag_name[attr=value]`
-     * @throw \RuntimeException if more than one ID is set for one tag.
-     * @throw \RuntimeException if tagname start with class or id (no tagname so).
+     * @throw \InvalidArgumentException If argument is not string-like value.
+     * @throw \RuntimeException If more than one ID is set for one tag.
+     * @throw \RuntimeException If tagname start with class or id (no tagname so).
      */
     public function tag($tag_expr)
     {
+        self::mustBeString($tag_expr, 'Tag expression');
+
         $arr = array();
 
         $tags = preg_split('/\s+/ui', $tag_expr);
