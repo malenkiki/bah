@@ -179,6 +179,13 @@ var_dump($s->is_rtl_and_ltr); // true
 var_dump($s->rtl_and_ltr); // true
 ```
 
+You can quickly create text surrounded by XML tag using notation ala jQuery:
+
+```php
+$s = new S('Foo');
+echo $s->tag('p strong.bar'); // '<p><strong class="bar">Foo</strong></p>'
+```
+
 ## Play with characters
 
 You can play with characters too:
