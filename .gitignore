@@ -1,5 +1,6 @@
-doc/
 vendor/
 *.swp
 composer.lock
 build
+.DS_Store
+env
