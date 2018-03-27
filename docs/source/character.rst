@@ -17,6 +17,12 @@ Characters are composed of bytes, you can get them as `\\Malenki\\Bah\\N`
      echo $c->bytes->current()->b . PHP_EOL;
      $c->bytes->next();
    }
+   
+   /*
+   11100010
+   10000010
+   10101100
+   */
 
 
 Family
