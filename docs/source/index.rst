@@ -18,11 +18,7 @@ When it is possible, **chaining methods** (and then **magic getters** too) are a
    :caption: Contents:
 
    string
+   character
    number
 
-Indices and tables
-==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

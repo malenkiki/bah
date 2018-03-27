@@ -15,6 +15,16 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+# loading PhpLexer
+from sphinx.highlighting import lexers
+from pygments.lexers.web import PhpLexer
+
+
+highlight_language = 'php'
+
+# enable highlighting for PHP code not between ``<?php ... ?>`` by default
+lexers['php'] = PhpLexer(startinline=True)
+lexers['php-annotations'] = PhpLexer(startinline=True)
 
 
 # -- Project information -----------------------------------------------------
@@ -110,7 +120,7 @@ htmlhelp_basename = 'BahNomoreprimitivetypesdoc'
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
-    # 'papersize': 'letterpaper',
+    'papersize': 'a4paper',
 
     # The font size ('10pt', '11pt' or '12pt').
     #
